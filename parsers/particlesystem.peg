@@ -1,0 +1,56 @@
+{
+  const attributes = {};
+  const params = {};
+  let code = null;
+}
+
+Program
+  = Declaration* Code {
+  	return {
+      attributes,
+      params,
+      code
+  	}
+  }
+
+Declaration
+  = (DeclAttribute / DeclParam) _ End
+
+DeclAttribute "attribute"
+  = Attribute __ id:Identifier _ ":" _ offset:Offset { attributes[id] = offset; }
+
+DeclParam "param"
+  = Param __ id:Identifier param:(_ "=" _ Value)? { params[id] = param && param[3]; }
+
+Attribute
+  = "attribute"
+
+Param
+  = "param"
+
+Value "value"
+  = Float
+
+Identifier "identifier"
+  = _ [_a-zA-Z][_a-zA-Z0-9]* { return text(); }
+
+Float "float"
+  = _ "-"?[0-9]+("."[0-9]+)? { return parseFloat(text()); }
+
+Offset "offset"
+  = _ [0-9]+ { return parseInt(text()); }
+
+Code "code"
+  = _ "program" _ ":" _ contents:Contents { code = contents.trim(); }
+
+Contents
+  = .* { return text(); }
+
+End "semicolon"
+  = _ (";"_)+
+
+__ "whitespace"
+  = [ \t\n\r]+
+
+_ "whitespace_any"
+  = [ \t\n\r]*

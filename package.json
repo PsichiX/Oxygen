@@ -1,0 +1,42 @@
+{
+  "name": "oxygen-core",
+  "version": "1.2.5",
+  "description": "Oxygen game engine (Xenon Core for browsers)",
+  "main": "bin/index.js",
+  "scripts": {
+    "clean": "rm -rf bin bin-tools",
+    "build": "./node_modules/.bin/babel src -d bin",
+    "build-tools": "./node_modules/.bin/babel tools -d bin-tools",
+    "postinstall": "npm run build && npm run build-tools",
+    "oxygen-pack": "node ./bin-tools/pack-cli.js"
+  },
+  "bin": {
+    "oxygen-pack": "./cli/pack.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PsichiX/Oxygen.git"
+  },
+  "keywords": [
+    "game",
+    "engine",
+    "browser",
+    "es6"
+  ],
+  "author": "Patryk 'PsichiX' Budzynski <psichix@gmail.com> (http://psichix.io)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PsichiX/Oxygen/issues"
+  },
+  "homepage": "https://github.com/PsichiX/Oxygen#readme",
+  "dependencies": {
+    "babel-cli": "latest",
+    "babel-plugin-transform-object-rest-spread": "latest",
+    "babel-polyfill": "latest",
+    "babel-preset-env": "latest",
+    "box2dweb-commonjs": "latest",
+    "leapjs": "latest",
+    "stream-buffers": "latest",
+    "waver-js": "latest"
+  }
+}
