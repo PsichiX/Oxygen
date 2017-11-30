@@ -217,17 +217,31 @@ export default class AssetSystem extends System {
       throw new Error('`path` is not type of String!');
     }
 
-    const found = path.indexOf('|');
+    const found = path.lastIndexOf('|');
     if (found < 0) {
       return this._loadPart(path);
     } else {
-      return Promise.reject('Loading sub assets is not supported yet!');
+      const prefix = path.substr(0, found).trim();
+      const container = this._assets.get(prefix);
+      if (!container) {
+        throw new Error(`There is no loaded subassets container: ${prefix}`);
+      }
+
+      const oldEngine = this.fetchEngine;
+      const postfix = path.substr(found + 1).trim();
+      this.fetchEngine = container.makeFetchEngine(oldEngine);
+      return this._loadPart(postfix, path).finally(() => {
+        this.fetchEngine = oldEngine;
+      });
     }
   }
 
-  _loadPart(path) {
+  _loadPart(path, key = null) {
     if (typeof path !== 'string') {
       throw new Error('`path` is not type of String!');
+    }
+    if (!key) {
+      key = path;
     }
 
     const result = _pathRegex.exec(path);
@@ -254,7 +268,7 @@ export default class AssetSystem extends System {
     }
 
     return asset.load().then(data => {
-      this._assets.set(path, asset);
+      this._assets.set(key, asset);
       this._events.trigger('load', asset);
       return data;
     });

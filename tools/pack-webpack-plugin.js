@@ -14,9 +14,9 @@ module.exports = class PackWebpackPlugin {
 
   apply(compiler) {
     const { _patterns, _options } = this;
+    const inputPrefix = compiler.context;
 
     compiler.plugin('emit', (compilation, callback) => {
-      const inputPrefix = compiler.context;
       for (const item of _patterns) {
         let { input, output } = item;
         if (!input) {
@@ -34,6 +34,26 @@ module.exports = class PackWebpackPlugin {
           source: () => result,
           size: () => result.byteLength
         };
+      }
+
+      callback();
+    });
+
+    compiler.plugin('after-emit', (compilation, callback) => {
+      const deps = new Set(compilation.contextDependencies);
+
+      for (const item of _patterns) {
+        let { input, output } = item;
+        if (!input) {
+          throw new Error(
+            'PackWebpackPlugin: pattern `input` field cannot be null!'
+          );
+        }
+
+        const ipath = fp.join(inputPrefix, input);
+        if (!deps.has(ipath)) {
+          compilation.contextDependencies.push(ipath);
+        }
       }
 
       callback();

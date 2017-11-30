@@ -1,6 +1,6 @@
 {
   "name": "oxygen-core",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "Oxygen game engine (Xenon Core for browsers)",
   "main": "bin/index.js",
   "scripts": {
@@ -21,6 +21,7 @@
     "game",
     "engine",
     "browser",
+    "webgl",
     "es6"
   ],
   "author": "Patryk 'PsichiX' Budzynski <psichix@gmail.com> (http://psichix.io)",

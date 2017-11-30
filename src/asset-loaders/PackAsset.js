@@ -77,6 +77,10 @@ export default class PackAsset extends Asset {
     }
   }
 
+  makeFetchEngine(fallbackEngine = AssetSystem.fetch) {
+    return (path, options) => this.fetchSubAsset(path, options, fallbackEngine);
+  }
+
   hasEntry(path) {
     return !!this._findEntry(path, this._descriptor);
   }
@@ -108,10 +112,6 @@ export default class PackAsset extends Asset {
   entryText(path, noThrow = false) {
     const view = this.entryView(path, noThrow);
     return String.fromCharCode.apply(null, view);
-  }
-
-  makeFetchEngine(fallbackEngine = AssetSystem.fetch) {
-    return (path, options) => this.fetchSubAsset(path, options, fallbackEngine);
   }
 
   _findEntry(path, list) {
