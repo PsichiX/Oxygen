@@ -52,7 +52,7 @@ export default class Asset {
   }
 
   makeFetchEngine(fallbackEngine = AssetSystem.fetch) {
-    throw new Error('Cannot make fetch engine! Asset is not a container!');
+    return (path, options) => this.fetchSubAsset(path, options, fallbackEngine);
   }
 
   onReady() {}

@@ -61,24 +61,10 @@ export default class PackAsset extends Asset {
   fetchSubAsset(path, options, fallbackEngine) {
     try {
       const view = this.entryView(path, true);
-      if (!view) {
-        if (!!fallbackEngine) {
-          return fallbackEngine(path, options);
-        } else {
-          return Promise.resolve(new Response(new Blob(), { status: 404 }));
-        }
-      } else {
-        return Promise.resolve(
-          new Response(new Blob([ view ]), { status: 200 })
-        );
-      }
+      return AssetSystem.fetchArrayView(view, path, options, fallbackEngine);
     } catch(error) {
       return Promise.reject(error);
     }
-  }
-
-  makeFetchEngine(fallbackEngine = AssetSystem.fetch) {
-    return (path, options) => this.fetchSubAsset(path, options, fallbackEngine);
   }
 
   hasEntry(path) {

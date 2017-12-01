@@ -12,6 +12,34 @@ export default class AssetSystem extends System {
     return fetch(...args);
   }
 
+  static fetchArrayView(view, path, options = {}, fallbackEngine = null) {
+    if (!!view && !ArrayBuffer.isView(view)) {
+      throw new Error('`view` is not type of ArrayView!');
+    }
+    if (typeof path !== 'string') {
+      throw new Error('`path` is not type of String!');
+    }
+    if (!!fallbackEngine && !(fallbackEngine instanceof Function)) {
+      throw new Error('`fallbackEngine` is not type of Function!');
+    }
+
+    try {
+      if (!view) {
+        if (!!fallbackEngine) {
+          return fallbackEngine(path, options);
+        } else {
+          return Promise.resolve(new Response(new Blob(), { status: 404 }));
+        }
+      } else {
+        return Promise.resolve(
+          new Response(new Blob([ view ]), { status: 200 })
+        );
+      }
+    } catch(error) {
+      return Promise.reject(error);
+    }
+  }
+
   get pathPrefix() {
     return this._pathPrefix;
   }
