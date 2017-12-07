@@ -742,6 +742,7 @@ export default class PhysicsBody extends Script {
     body.SetUserData(this);
     const fixture = this._fixture = body.CreateFixture(_fixtureDef);
     fixture.SetUserData(this);
+    this._world = world;
   }
 
   _destroyBody() {
