@@ -1,6 +1,6 @@
 {
   "name": "oxygen-core",
-  "version": "1.2.10",
+  "version": "1.2.11",
   "description": "Oxygen game engine (Xenon Core for browsers)",
   "main": "bin/index.js",
   "scripts": {
@@ -48,6 +48,7 @@
     "browserify": "latest",
     "leapjs": "latest",
     "stream-buffers": "latest",
+    "uglify-js": "latest",
     "waver-js": "latest"
   }
 }
