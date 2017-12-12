@@ -2,5 +2,15 @@
   "presets" : [ "env" ],
   "plugins": [
     "transform-object-rest-spread"
-  ]
+  ],
+  "env": {
+    "release": {
+      "presets": [
+        ["minify", { "mangle": false }]
+      ],
+      "plugins": [
+        ["conditional-compile", { "define": { "RELEASE": true } }]
+      ]
+    }
+  }
 }

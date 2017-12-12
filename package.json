@@ -1,18 +1,24 @@
 {
   "name": "oxygen-core",
-  "version": "1.2.8",
+  "version": "1.2.9",
   "description": "Oxygen game engine (Xenon Core for browsers)",
   "main": "bin/index.js",
   "scripts": {
     "clean": "rm -rf bin bin-tools",
     "build": "./node_modules/.bin/babel src -d bin",
     "build-tools": "./node_modules/.bin/babel tools -d bin-tools",
-    "postinstall": "npm run build && npm run build-tools",
+    "browserify": "./node_modules/.bin/browserify bin/index.js -o bin/oxygen-core.js -s Oxygen",
+    "browserify-min": "npm run browserify && uglifyjs -nm -o bin/oxygen-core.min.js bin/oxygen-core.js",
+    "postinstall": "npm run build && npm run build-tools && npm run browserify-min",
     "oxygen-pack": "node ./bin-tools/pack-cli.js"
   },
   "bin": {
     "oxygen-pack": "./cli/pack.js"
   },
+  "files": [
+    "bin/oxygen-core.js",
+    "bin/oxygen-core.min.js"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/PsichiX/Oxygen.git"
@@ -32,10 +38,13 @@
   "homepage": "https://github.com/PsichiX/Oxygen#readme",
   "dependencies": {
     "babel-cli": "latest",
+    "babel-plugin-conditional-compile": "latest",
     "babel-plugin-transform-object-rest-spread": "latest",
     "babel-polyfill": "latest",
     "babel-preset-env": "latest",
+    "babel-preset-minify": "latest",
     "box2dweb-commonjs": "latest",
+    "browserify": "latest",
     "leapjs": "latest",
     "stream-buffers": "latest",
     "waver-js": "latest"
