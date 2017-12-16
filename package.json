@@ -1,6 +1,6 @@
 {
   "name": "oxygen-core",
-  "version": "1.2.16",
+  "version": "1.2.17",
   "description": "Oxygen game engine (Xenon Core for browsers)",
   "main": "bin/index.js",
   "scripts": {
@@ -22,7 +22,7 @@
     "parsers/",
     "src/",
     "tools/",
-    ".babelrc/",
+    ".babelrc",
     "bin/oxygen-core.js",
     "bin/oxygen-core.min.js"
   ],
