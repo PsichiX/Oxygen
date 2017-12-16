@@ -1,6 +1,6 @@
 {
   "name": "oxygen-core",
-  "version": "1.2.12",
+  "version": "1.2.14",
   "description": "Oxygen game engine (Xenon Core for browsers)",
   "main": "bin/index.js",
   "scripts": {
@@ -18,6 +18,11 @@
     "oxy-spine": "./cli/spine.js"
   },
   "files": [
+    "cli/",
+    "parsers/",
+    "src/",
+    "tools/",
+    ".babelrc/",
     "bin/oxygen-core.js",
     "bin/oxygen-core.min.js"
   ],
