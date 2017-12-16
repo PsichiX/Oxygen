@@ -1,6 +1,6 @@
 {
   "name": "oxygen-core",
-  "version": "1.2.13",
+  "version": "1.2.12",
   "description": "Oxygen game engine (Xenon Core for browsers)",
   "main": "bin/index.js",
   "scripts": {
@@ -11,8 +11,11 @@
     "browserify-uglify": "./node_modules/.bin/uglifyjs -nm -o bin/oxygen-core.min.js bin/oxygen-core.js",
     "browserify-min": "npm run browserify && npm run browserify-uglify",
     "postinstall": "npm run build && npm run build-tools && npm run browserify-min",
-    "pack": "node ./bin-tools/pack-cli.js",
-    "pack": "node ./bin-tools/spine-cli.js"
+    "oxygen-pack": "node ./bin-tools/pack-cli.js"
+  },
+  "bin": {
+    "oxy-pack": "./cli/pack.js",
+    "oxy-spine": "./cli/spine.js"
   },
   "files": [
     "bin/oxygen-core.js",
