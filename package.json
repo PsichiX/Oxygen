@@ -1,6 +1,6 @@
 {
   "name": "oxygen-core",
-  "version": "1.2.14",
+  "version": "1.2.15",
   "description": "Oxygen game engine (Xenon Core for browsers)",
   "main": "bin/index.js",
   "scripts": {
@@ -17,15 +17,6 @@
     "oxy-pack": "./cli/pack.js",
     "oxy-spine": "./cli/spine.js"
   },
-  "files": [
-    "cli/",
-    "parsers/",
-    "src/",
-    "tools/",
-    ".babelrc/",
-    "bin/oxygen-core.js",
-    "bin/oxygen-core.min.js"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/PsichiX/Oxygen.git"
