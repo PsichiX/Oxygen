@@ -13,7 +13,16 @@ let verbose = false;
 for (let i = 1, c = args.length; i < c; ++i) {
   const arg = args[i];
   if (!argmode) {
-    if (arg === '-i' || arg === '--input') {
+    if (arg === '-h' || arg === '--help') {
+      console.log(
+        'Usage: oxy-pack -i source/directory/path -o packed.pack\n' +
+        '  -i | --input   - Source files directory.\n' +
+        '  -o | --output  - Result packed file.\n' +
+        '  -s | --silent  - Absolutely no log.\n' +
+        '  -v | --verbose - Absolutely every information logged.'
+      );
+      process.exit(1);
+    } else if (arg === '-i' || arg === '--input') {
       argmode = 'input';
     } else if (arg === '-o' || arg === '--output') {
       argmode = 'output';

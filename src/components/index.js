@@ -1,3 +1,4 @@
+import Camera from './Camera';
 import Camera2D from './Camera2D';
 import CameraDirector from './CameraDirector';
 import InputHandler from './InputHandler';
@@ -14,8 +15,10 @@ import TextRenderer from './TextRenderer';
 import VerticesRenderer from './VerticesRenderer';
 import UiSprite from './UiSprite';
 import UiLayout from './UiLayout';
+import Skeleton from './Skeleton';
 
 export default {
+  Camera,
   Camera2D,
   CameraDirector,
   InputHandler,
@@ -31,10 +34,12 @@ export default {
   TextRenderer,
   VerticesRenderer,
   UiSprite,
-  UiLayout
+  UiLayout,
+  Skeleton
 };
 
 export {
+  Camera,
   Camera2D,
   CameraDirector,
   InputHandler,
@@ -50,5 +55,6 @@ export {
   TextRenderer,
   VerticesRenderer,
   UiSprite,
-  UiLayout
+  UiLayout,
+  Skeleton
 };

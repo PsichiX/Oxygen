@@ -14,7 +14,16 @@ let optionProp = null;
 for (let i = 1, c = args.length; i < c; ++i) {
   const arg = args[i];
   if (!argmode) {
-    if (arg === '-j' || arg === '--json') {
+    if (arg === '-h' || arg === '--help') {
+      console.log(
+        'Usage: oxy-spine -j spine.json -a spine.atlas -o destination/path/\n' +
+        '  -j  | --json   - Spine skeleton json file.\n' +
+        '  -a  | --atlas  - Spine skeleton atlas file.\n' +
+        '  -o  | --output - Destination directory for converted files.\n' +
+        '  -op | --option - Key-value pairs of options.'
+      );
+      process.exit(1);
+    } else if (arg === '-j' || arg === '--json') {
       argmode = 'json';
     } else if (arg === '-a' || arg === '--atlas') {
       argmode = 'atlas';

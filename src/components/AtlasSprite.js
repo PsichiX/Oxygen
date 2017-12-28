@@ -16,6 +16,8 @@ export default class AtlasSprite extends Sprite {
       layers: Sprite.propsTypes.layers,
       xOffset: Sprite.propsTypes.xOffset,
       yOffset: Sprite.propsTypes.yOffset,
+      xOrigin: Sprite.propsTypes.xOrigin,
+      yOrigin: Sprite.propsTypes.yOrigin,
       color: Sprite.propsTypes.color,
       overrideBaseFiltering: Sprite.propsTypes.overrideBaseFiltering,
       atlas: 'asset(atlas?:.*$)',

@@ -25,6 +25,11 @@ export default class PrefabInstance extends Component {
   }
 
   set asset(value) {
+    if (!value) {
+      this._asset = null;
+      return;
+    }
+
     if (typeof value !== 'string') {
       throw new Error('`value` is not type of String!');
     }

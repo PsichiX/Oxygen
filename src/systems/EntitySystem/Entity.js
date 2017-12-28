@@ -119,6 +119,23 @@ export default class Entity {
     return this._components.keys();
   }
 
+  get childrenSorting() {
+    return this._childrenSorting;
+  }
+
+  set childrenSorting(value) {
+    if (!value) {
+      this._childrenSorting = null;
+      return;
+    }
+    if (!(value instanceof Function)) {
+      throw new Error('`value` is not type of Function!');
+    }
+
+    this._childrenSorting = value;
+    this.sortChildren();
+  }
+
   constructor() {
     this._owner = null;
     this._name = '';
@@ -133,6 +150,7 @@ export default class Entity {
     this._position = vec3.create();
     this._rotation = quat.create();
     this._scale = vec3.fromValues(1, 1, 1);
+    this._childrenSorting = null;
     this._dirty = true;
   }
 
@@ -148,6 +166,20 @@ export default class Entity {
     for (const component of _components.values()) {
       component.dispose();
     }
+
+    this._owner = null;
+    this._name = null;
+    this._tag = null;
+    this._children = null;
+    this._parent = null;
+    this._components = null;
+    this._transformLocal = null;
+    this._transform = null;
+    this._inverseTransform = null;
+    this._position = null;
+    this._rotation = null;
+    this._scale = null;
+    this._childrenSorting = null;
   }
 
   serialize() {
@@ -316,6 +348,7 @@ export default class Entity {
         this._setOwner(null);
         _children.splice(found, 1);
       }
+      _parent.sortChildren();
     }
 
     if (!!entity) {
@@ -325,6 +358,7 @@ export default class Entity {
         entity._children.splice(insertAt, 0, this);
       }
       this._setOwner(entity.owner);
+      entity.sortChildren();
     }
   }
 
@@ -514,6 +548,15 @@ export default class Entity {
     for (let i = 0, c = _children.length; i < c; ++i) {
       _children[i].updateTransforms(_transform, forced);
     }
+  }
+
+  sortChildren() {
+    const { _childrenSorting, _children } = this;
+    if (!_childrenSorting) {
+      return;
+    }
+
+    _children.sort(_childrenSorting);
   }
 
   _setOwner(owner) {

@@ -19,6 +19,8 @@ export default class RectangleRenderer extends VerticesRenderer {
       height: 'number',
       xOffset: 'number',
       yOffset: 'number',
+      xOrigin: 'number',
+      yOrigin: 'number',
       color: 'rgba'
     };
   }
@@ -75,6 +77,32 @@ export default class RectangleRenderer extends VerticesRenderer {
     this._rebuild = true;
   }
 
+  get xOrigin() {
+    return this._xOrigin;
+  }
+
+  set xOrigin(value) {
+    if (typeof value !== 'number') {
+      throw new Error('`value` is not type of Number!');
+    }
+
+    this._xOrigin = value;
+    this._rebuild = true;
+  }
+
+  get yOrigin() {
+    return this._yOrigin;
+  }
+
+  set yOrigin(value) {
+    if (typeof value !== 'number') {
+      throw new Error('`value` is not type of Number!');
+    }
+
+    this._yOrigin = value;
+    this._rebuild = true;
+  }
+
   get color() {
     return this._color;
   }
@@ -103,6 +131,8 @@ export default class RectangleRenderer extends VerticesRenderer {
     this._height = 1;
     this._xOffset = 0;
     this._yOffset = 0;
+    this._xOrigin = 0;
+    this._yOrigin = 0;
     this._color = vec4.fromValues(1, 1, 1, 1);
     this._rebuild = true;
   }
@@ -140,13 +170,15 @@ export default class RectangleRenderer extends VerticesRenderer {
       return;
     }
 
-    const { _width, _height, _xOffset, _yOffset } = this;
+    const { _width, _height, _xOffset, _yOffset, _xOrigin, _yOrigin } = this;
+    const xo = -_xOffset - (_xOrigin * _width);
+    const yo = -_yOffset - (_yOrigin * _height);
 
     this.vertices = [
-      -_xOffset,          -_yOffset,
-      _width - _xOffset,  -_yOffset,
-      _width - _xOffset,  _height - _yOffset,
-      -_xOffset,          _height - _yOffset
+      xo,           yo,
+      _width + xo,  yo,
+      _width + xo,  _height + yo,
+      xo,           _height + yo
     ];
     this.indices = [ 0, 1, 2, 2, 3, 0 ];
     this._rebuild = false;

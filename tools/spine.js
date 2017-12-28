@@ -163,6 +163,23 @@ function mapFindSomething(data, cb) {
   return null;
 }
 
+function findNodePath(name, root, path = '.') {
+  if (root.name === name) {
+    return `${path}/${name}`;
+  }
+
+  if (!!root.children) {
+    for (const child of root.children) {
+      const found = findNodePath(name, child, `${path}/${root.name}`);
+      if (!!found) {
+        return found;
+      }
+    }
+  }
+
+  return null;
+}
+
 function spineAtlas(input, output) {
   const content = fs.readFileSync(input);
   if (!content) {
@@ -190,63 +207,218 @@ function spinePrefab(input, output, atlasData, options = {}) {
     throw new Error(`Cannot read file: ${input}`);
   }
 
-  options.shader = options.shader || 'sprite-transparent.json';
+  options.shader = options.shader || 'shaders/sprite-transparent.json';
+  options.invertX = options.invertX === 'true';
+  options.invertY = options.invertY !== 'false';
+  options.invertRotation = options.invertRotation !== 'false';
+  options.defaultSkin = options.defaultSkin || 'default';
 
-  const { bones, slots } = JSON.parse(content.toString());
+  const fx = options.invertX ? -1 : 1;
+  const fy = options.invertY ? -1 : 1;
+  const fr = options.invertRotation ? -1 : 1;
+  const data = JSON.parse(content.toString());
+  const { bones, slots, skins, animations } = data;
   const nodes = [];
+  const defaultSkin = skins[options.defaultSkin];
+  const skeleton = {
+    fps: data.skeleton.fps || 30,
+    slots: {},
+    bones: {},
+    attachments: {},
+    skins,
+    pose: {},
+    animations
+  };
+  if (!defaultSkin) {
+    throw new Error(`There is no default skin: ${options.defaultSkin}`);
+  }
+  for (const key in skins) {
+    const skin = skins[key];
+    for (const key in skin) {
+      const slot = skin[key];
+      for (const key in slot) {
+        const attachment = slot[key];
+
+        if ('x' in attachment) {
+          attachment.x *= fx;
+        }
+        if ('y' in attachment) {
+          attachment.y *= fy;
+        }
+        if ('rotation' in attachment) {
+          attachment.rotation *= fr;
+        }
+      }
+    }
+  }
+  for (const animationKey in animations) {
+    const animation = animations[animationKey];
+    for (const typeKey in animation) {
+      const type = animation[typeKey];
+      if (typeKey === 'events') {
+        type.sort((a, b) => a.time - b.time);
+        for (const eventKey in type) {
+          const event = type[eventKey];
+          if ('time' in event) {
+            animation.duration = Math.max(animation.duration || 0, event.time);
+          }
+        }
+      } else {
+        for (const itemKey in type) {
+          const item = type[itemKey];
+          for (const timelineKey in item) {
+            const timeline = item[timelineKey];
+            for (const frame of timeline) {
+              if ('time' in frame) {
+                animation.duration = Math.max(animation.duration || 0, frame.time);
+              }
+            }
+            timeline.sort((a, b) => a.time - b.time);
+            if (typeKey === 'bones') {
+              if (timelineKey === 'translate') {
+                for (const frame of timeline) {
+                  if ('x' in frame) {
+                    frame.x *= fx;
+                  }
+                  if ('y' in frame) {
+                    frame.y *= fy;
+                  }
+                }
+              } else if (timelineKey === 'rotate') {
+                for (const frame of timeline) {
+                  if ('angle' in frame) {
+                    frame.angle *= fr;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 
   for (const bone of bones) {
+    const x = fx * bone.x || 0;
+    const y = fy * bone.y || 0;
+    const rotation = fr * bone.rotation || 0;
+    const scaleX = bone.scaleX || 1;
+    const scaleY = bone.scaleY || 1;
     nodes.push({
-      name: bone.name,
+      name: `bone:${bone.name}`,
       transform: {
-        position: [
-          bone.x || 0,
-          bone.y || 0
-        ],
-        rotation: bone.rotation,
-        scale: [
-          bone.scaleX || 1,
-          bone.scaleY || 1
-        ]
+        position: [x, y],
+        rotation,
+        scale: [scaleX, scaleY]
       },
       components: {},
       children: []
     });
+    skeleton.pose[bone.name] = { x, y, rotation, scaleX, scaleY };
   }
 
-  const prefab = mapFind(nodes, (k, v) => !v.parent);
-  if (!prefab) {
+  const rootBone = mapFind(nodes, (k, v) => !v.parent);
+  if (!rootBone) {
     throw new Error('There is no root bone!');
   }
 
-  prefab.components.Animator = {};
+  const prefab = {
+    name: fp.basename(input, fp.extname(input)),
+    components: {
+      Skeleton: {
+        asset: `${fp.basename(input, fp.extname(input))}.skeleton.json`
+      }
+    },
+    children: [ rootBone ]
+  };
+
+  for (const slot of slots) {
+    if (!!slot.attachment) {
+      const skinSlot = defaultSkin[slot.name];
+      if (!skinSlot) {
+        throw new Error(`Slot not found in default skin: ${slot.name}`);
+      }
+
+      const attachment = skinSlot[slot.attachment];
+      if (!attachment || (!!attachment.type && attachment.type !== 'region')) {
+        throw new Error(
+          `Attachment not found in default skin slot: ${slot.attachment}`
+        );
+      }
+
+      const node = nodes.find(n => n.name === `bone:${slot.bone}`);
+      const atlas = mapFindSomething(
+        atlasData,
+        (k, v) => slot.attachment in v.regions ? k : undefined
+      );
+
+      node.children.push({
+        name: `slot:${slot.name}`,
+        transform: {
+          position: [
+            attachment.x || 0,
+            attachment.y || 0
+          ],
+          rotation: attachment.rotation || 0,
+          scale: [
+            attachment.scaleX || 1,
+            attachment.scaleY || 1
+          ]
+        },
+        components: {
+          AtlasSprite: {
+            shader: options.shader,
+            atlas: `${fp.basename(atlas, fp.extname(atlas))}.atlas.json:${slot.attachment}`,
+            width: attachment.width || undefined,
+            height: attachment.height || undefined,
+            xOrigin: 0.5,
+            yOrigin: 0.5
+          }
+        }
+      });
+    }
+  }
 
   for (const bone of bones) {
-    const node = nodes.find(n => n.name === bone.name);
-    const parent = nodes.find(n => n.name === bone.parent);
+    const node = nodes.find(n => n.name === `bone:${bone.name}`);
+    const parent = nodes.find(n => n.name === `bone:${bone.parent}`);
     if (!!parent) {
       parent.children.push(node);
     }
   }
 
   for (const slot of slots) {
-    if (!!slot.attachment) {
-      const node = nodes.find(n => n.name === slot.bone);
-      const atlas = mapFindSomething(
-        atlasData,
-        (k, v) => slot.attachment in v.regions ? k : undefined
-      );
+    skeleton.slots[slot.name] = findNodePath(`slot:${slot.name}`, rootBone);
+  }
+  for (const bone of bones) {
+    skeleton.bones[bone.name] = findNodePath(`bone:${bone.name}`, rootBone);
+  }
+  for (const skinKey in skins) {
+    const skin = skins[skinKey];
 
-      node.components.AtlasSprite = {
-        shader: options.shader,
-        atlas: `${fp.basename(atlas, fp.extname(atlas))}.atlas.json:${slot.attachment}`
-      };
+    for (const slotKey in skin) {
+      const slot = skin[slotKey];
+
+      for (const attachmentKey in slot) {
+        const attachment = slot[attachmentKey];
+        const atlas = mapFindSomething(
+          atlasData,
+          (k, v) => attachmentKey in v.regions ? k : undefined
+        );
+
+        skeleton.attachments[attachmentKey] =
+          `${fp.basename(atlas, fp.extname(atlas))}.atlas.json:${attachmentKey}`;
+      }
     }
   }
 
   fs.writeFileSync(
     fp.join(output, `${fp.basename(input, fp.extname(input))}.prefab.json`),
     JSON.stringify(prefab, null, '  ')
+  );
+  fs.writeFileSync(
+    fp.join(output, `${fp.basename(input, fp.extname(input))}.skeleton.json`),
+    JSON.stringify(skeleton, null, '  ')
   );
 }
 

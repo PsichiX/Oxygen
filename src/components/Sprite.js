@@ -18,6 +18,8 @@ export default class Sprite extends RectangleRenderer {
       height: RectangleRenderer.propsTypes.height,
       xOffset: RectangleRenderer.propsTypes.xOffset,
       yOffset: RectangleRenderer.propsTypes.yOffset,
+      xOrigin: RectangleRenderer.propsTypes.xOrigin,
+      yOrigin: RectangleRenderer.propsTypes.yOrigin,
       color: RectangleRenderer.propsTypes.color,
       overrideBaseTexture: 'string_null',
       overrideBaseFiltering: 'enum(nearest, linear)',
@@ -156,15 +158,19 @@ export default class Sprite extends RectangleRenderer {
       _height,
       _xOffset,
       _yOffset,
+      _xOrigin,
+      _yOrigin,
       _frameTopLeft,
       _frameBottomRight
     } = this;
+    const xo = -_xOffset - (_xOrigin * _width);
+    const yo = -_yOffset - (_yOrigin * _height);
 
     this.vertices = [
-      -_xOffset,          -_yOffset,           _frameTopLeft[0],      _frameTopLeft[1],
-      _width - _xOffset,  -_yOffset,           _frameBottomRight[0],  _frameTopLeft[1],
-      _width - _xOffset,  _height - _yOffset,  _frameBottomRight[0],  _frameBottomRight[1],
-      -_xOffset,          _height - _yOffset,  _frameTopLeft[0],      _frameBottomRight[1]
+      xo,           yo,           _frameTopLeft[0],     _frameTopLeft[1],
+      _width + xo,  yo,           _frameBottomRight[0], _frameTopLeft[1],
+      _width + xo,  _height + yo, _frameBottomRight[0], _frameBottomRight[1],
+      xo,           _height + yo, _frameTopLeft[0],     _frameBottomRight[1]
     ];
     this.indices = [ 0, 1, 2, 2, 3, 0 ];
     this._rebuild = false;
