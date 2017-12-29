@@ -94,6 +94,14 @@ export default class Camera2D extends Camera {
     this._dirty = true;
   }
 
+  get cachedWorldWidth() {
+    return this._cachedWorldWidth;
+  }
+
+  get cachedWorldHeight() {
+    return this._cachedWorldHeight;
+  }
+
   constructor() {
     super();
 
@@ -101,6 +109,8 @@ export default class Camera2D extends Camera {
     this._near = -1;
     this._far = 1;
     this._zoomMode = ZoomMode.PIXEL_PERFECT;
+    this._cachedWorldWidth = 0;
+    this._cachedWorldHeight = 0;
   }
 
   buildCameraMatrix(target, width, height) {
@@ -117,8 +127,10 @@ export default class Camera2D extends Camera {
       }
     }
 
-    const halfWidth = width * 0.5 * scale;
-    const halfHeight = height * 0.5 * scale;
+    const ww = this._cachedWorldWidth = width * scale;
+    const wh = this._cachedWorldHeight = height * scale;
+    const halfWidth = ww * 0.5;
+    const halfHeight = wh * 0.5;
 
     mat4.ortho(
       target,

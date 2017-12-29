@@ -1,6 +1,7 @@
 import fs from 'fs';
 import fp from 'path';
 import { WritableStreamBuffer } from 'stream-buffers';
+import { mkdirp } from './utils';
 
 function toUnixPath(path, input) {
   path = fp.relative(input, path);
@@ -103,7 +104,7 @@ export function packToBuffer(input, options = {}) {
   stream.write(descriptorBinary);
   writeFiles(stream, files);
   stream.end();
-  
+
   return stream.getContents();
 }
 
@@ -118,6 +119,7 @@ export function pack(input, output, options = {}) {
   const { silent } = options;
   !silent && console.log(`Packing "${input}" into "${output}"...`);
   const result = packToBuffer(input);
+  mkdirp(fp.dirname(output));
   fs.writeFileSync(output, result, { encoding: 'binary' });
   !silent && console.log('Done!');
 }

@@ -1,5 +1,6 @@
 import fs from 'fs';
 import fp from 'path';
+import { mkdirp } from './utils';
 
 function parseAtlas(content) {
   const lines = content.trim().split(/[\n\r]/);
@@ -186,6 +187,7 @@ function spineAtlas(input, output) {
     throw new Error(`Cannot read file: ${input}`);
   }
 
+  mkdirp(output);
   const atlas = parseAtlas(content.toString());
   for (const key in atlas) {
     const buffer = fs.readFileSync(fp.join(fp.dirname(input), key));
@@ -420,6 +422,7 @@ function spinePrefab(input, output, atlasData, options = {}) {
     }
   }
 
+  mkdirp(output);
   fs.writeFileSync(
     fp.join(output, `${fp.basename(input, fp.extname(input))}.prefab.json`),
     JSON.stringify(prefab, null, '  ')
