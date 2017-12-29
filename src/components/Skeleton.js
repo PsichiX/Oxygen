@@ -58,7 +58,8 @@ export default class Skeleton extends Script {
       animation: 'string_null',
       loop: 'boolean',
       speed: 'number',
-      time: 'number'
+      time: 'number',
+      paused: 'boolean'
     };
   }
 
@@ -170,6 +171,18 @@ export default class Skeleton extends Script {
     this._time = value;
   }
 
+  get paused() {
+    return this._paused;
+  }
+
+  set paused(value) {
+    if (typeof value !== 'boolean') {
+      throw new Error('`value` is not type of Boolean!');
+    }
+
+    this._paused = value;
+  }
+
   get events() {
     return this._events;
   }
@@ -184,6 +197,7 @@ export default class Skeleton extends Script {
     this._speed = 1;
     this._loop = true;
     this._time = 0;
+    this._paused = false;
     this._data = null;
     this._slots = null;
     this._bones = null;
@@ -389,6 +403,17 @@ export default class Skeleton extends Script {
     }
   }
 
+  playAnimation(id, looped = false) {
+    this.time = 0;
+    this.loop = looped;
+    this.animation = id;
+  }
+
+  stopAnimation() {
+    this.time = 0;
+    this.animation = null;
+  }
+
   onAttach() {
     super.onAttach();
     this.rebind();
@@ -403,7 +428,7 @@ export default class Skeleton extends Script {
       this.applySkin(_skin);
     }
 
-    if (!!_animation) {
+    if (!!_animation && !this._paused) {
       this.applyAnimationFrame(_animation, _time, _loop);
       this._time += deltaTime * this._speed;
       this._performAnimationEvents(_animation, _time, this._time, _loop);
