@@ -1,10 +1,11 @@
 import Script from './Script';
 import System from '../systems/System';
 import Events from '../utils/Events';
+import { angleDifference } from '../utils';
 
 function findFrame(time, frames) {
   for (let i = 0, c = frames.length; i < c; ++i) {
-    const f = frames[i - 1];
+    const f = frames[i];
     if (time >= f.time) {
       return f;
     }
@@ -35,8 +36,12 @@ function findFrames(time, frames) {
 }
 
 function lerp(from, to, timeFrom, timeTo, time) {
-  const f = (time - timeFrom) / (timeTo - timeFrom);
-  return (to - from) * f + from;
+  const dt = timeTo - timeFrom;
+  if (Math.abs(dt) > 0) {
+    const f = (time - timeFrom) / dt;
+    return (to - from) * f + from;
+  }
+  return to;
 }
 
 export default class Skeleton extends Script {
@@ -52,7 +57,8 @@ export default class Skeleton extends Script {
       skin: 'string_null',
       animation: 'string_null',
       loop: 'boolean',
-      speed: 'number'
+      speed: 'number',
+      time: 'number'
     };
   }
 
@@ -126,7 +132,6 @@ export default class Skeleton extends Script {
     }
 
     this._animation = value;
-    this._time = 0;
   }
 
   get loop() {
@@ -146,7 +151,7 @@ export default class Skeleton extends Script {
   }
 
   set speed(value) {
-    if (typeof value !== 'Number') {
+    if (typeof value !== 'number') {
       throw new Error('`value` is not type of Number!');
     }
 
@@ -155,6 +160,14 @@ export default class Skeleton extends Script {
 
   get time() {
     return this._time;
+  }
+
+  set time(value) {
+    if (typeof value !== 'number') {
+      throw new Error('`value` is not type of Number!');
+    }
+
+    this._time = value;
   }
 
   get events() {
@@ -170,8 +183,8 @@ export default class Skeleton extends Script {
     this._animation = null;
     this._speed = 1;
     this._loop = true;
-    this._data = null;
     this._time = 0;
+    this._data = null;
     this._slots = null;
     this._bones = null;
     this._rebuildSkin = false;
@@ -304,7 +317,7 @@ export default class Skeleton extends Script {
                 p.y + lerp(a.y, b.y, a.time, b.time, time)
               );
             } else if (curve === 'stepped') {
-              bone.setPosition(p.x + (a.x || 0), p.y + (a.y || 0));
+              bone.setPosition(p.x + a.x, p.y + a.y);
             } else {
               console.warn(`Not supported translate curve mode: ${curve}`);
             }
@@ -319,14 +332,14 @@ export default class Skeleton extends Script {
               bone.setRotation(
                 (p.rotation + lerp(
                   a.angle,
-                  b.angle,
+                  a.angle + angleDifference(b.angle, a.angle),
                   a.time,
                   b.time,
                   time
                 )) * Math.PI / 180
               );
             } else if (curve === 'stepped') {
-              bone.setRotation((p.rotation + (a.rotation || 0)) * Math.PI / 180);
+              bone.setRotation((p.rotation + a.angle) * Math.PI / 180);
             } else {
               console.warn(`Not supported rotate curve mode: ${curve}`);
             }
@@ -343,7 +356,7 @@ export default class Skeleton extends Script {
                 p.scaleY * lerp(a.y, b.y, a.time, b.time, time)
               );
             } else if (curve === 'stepped') {
-              bone.setScale(p.scaleX * (a.x || 1), p.scaleY * (a.y || 1));
+              bone.setScale(p.scaleX * a.x, p.scaleY * a.y);
             } else {
               console.warn(`Not supported scale curve mode: ${curve}`);
             }

@@ -30,6 +30,7 @@ import VerticesRenderer from './components/VerticesRenderer';
 import UiSprite from './components/UiSprite';
 import UiLayout from './components/UiLayout';
 import Skeleton from './components/Skeleton';
+import SortedActions from './components/SortedActions';
 import System from './systems/System';
 import EntitySystem from './systems/EntitySystem';
 import Component from './systems/EntitySystem/Component';
@@ -95,6 +96,7 @@ export default {
   UiSprite,
   UiLayout,
   Skeleton,
+  SortedActions,
   System,
   EntitySystem,
   Component,
@@ -155,6 +157,7 @@ export {
   UiSprite,
   UiLayout,
   Skeleton,
+  SortedActions,
   System,
   EntitySystem,
   Component,
@@ -224,6 +227,7 @@ export function lazyInitialization({ entity, asset, render, input, store, events
   entities.registerComponent('UiSprite', UiSprite.factory);
   entities.registerComponent('UiLayout', UiLayout.factory);
   entities.registerComponent('Skeleton', Skeleton.factory);
+  entities.registerComponent('SortedActions', SortedActions.factory);
 
   assets.registerProtocol('json', JSONAsset.factory);
   assets.registerProtocol('text', TextAsset.factory);

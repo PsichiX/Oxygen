@@ -327,11 +327,16 @@ function spinePrefab(input, output, atlasData, options = {}) {
     components: {
       Skeleton: {
         asset: `${fp.basename(input, fp.extname(input))}.skeleton.json`
+      },
+      SortedActions: {
+        actions: [ 'render', 'render-layer', 'preview' ],
+        metaPropOrder: 'drawOrder'
       }
     },
     children: [ rootBone ]
   };
 
+  let drawOrder = 0;
   for (const slot of slots) {
     if (!!slot.attachment) {
       const skinSlot = defaultSkin[slot.name];
@@ -354,6 +359,9 @@ function spinePrefab(input, output, atlasData, options = {}) {
 
       node.children.push({
         name: `slot:${slot.name}`,
+        meta: {
+          drawOrder: drawOrder++
+        },
         transform: {
           position: [
             attachment.x || 0,

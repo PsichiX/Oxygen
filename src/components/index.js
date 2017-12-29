@@ -16,6 +16,7 @@ import VerticesRenderer from './VerticesRenderer';
 import UiSprite from './UiSprite';
 import UiLayout from './UiLayout';
 import Skeleton from './Skeleton';
+import SortedActions from './SortedActions';
 
 export default {
   Camera,
@@ -35,7 +36,8 @@ export default {
   VerticesRenderer,
   UiSprite,
   UiLayout,
-  Skeleton
+  Skeleton,
+  SortedActions
 };
 
 export {
@@ -56,5 +58,6 @@ export {
   VerticesRenderer,
   UiSprite,
   UiLayout,
-  Skeleton
+  Skeleton,
+  SortedActions
 };

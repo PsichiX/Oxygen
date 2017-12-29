@@ -86,3 +86,7 @@ export function propsEnumStringify(values) {
     }
   }).join(',')
 }
+
+export function angleDifference(a, b) {
+  return ((((a - b) % 360) + 540) % 360) - 180;
+}

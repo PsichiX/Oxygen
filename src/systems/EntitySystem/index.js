@@ -125,6 +125,9 @@ export default class EntitySystem extends System {
     if ('active' in data) {
       options.active = data.active;
     }
+    if ('meta' in data) {
+      options.meta = data.meta;
+    }
     if ('transform' in data) {
       options.transform = data.transform;
     }

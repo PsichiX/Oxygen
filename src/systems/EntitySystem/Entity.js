@@ -136,6 +136,10 @@ export default class Entity {
     this.sortChildren();
   }
 
+  get meta() {
+    return this._meta;
+  }
+
   constructor() {
     this._owner = null;
     this._name = '';
@@ -151,6 +155,7 @@ export default class Entity {
     this._rotation = quat.create();
     this._scale = vec3.fromValues(1, 1, 1);
     this._childrenSorting = null;
+    this._meta = {};
     this._dirty = true;
   }
 
@@ -180,6 +185,7 @@ export default class Entity {
     this._rotation = null;
     this._scale = null;
     this._childrenSorting = null;
+    this._meta = null;
   }
 
   serialize() {
@@ -193,6 +199,7 @@ export default class Entity {
       name,
       tag,
       active,
+      meta: {},
       transform: {
         position,
         rotation,
@@ -201,6 +208,10 @@ export default class Entity {
       components: {},
       children: []
     };
+
+    for (const key in this._meta) {
+      result.meta[key] = this._meta[key];
+    }
 
     for (const [key, value] of this._components) {
       result.components[key] = value.serialize();
@@ -218,19 +229,27 @@ export default class Entity {
       return;
     }
 
-    if(typeof json.name !== 'undefined') {
+    if (typeof json.name !== 'undefined') {
       this.name = json.name;
     }
 
-    if(typeof json.tag !== 'undefined') {
+    if (typeof json.tag !== 'undefined') {
       this.tag = json.tag;
     }
 
-    if(typeof json.active !== 'undefined') {
+    if (typeof json.active !== 'undefined') {
       this.active = json.active;
     }
 
-    const { transform, components } = json;
+    const { meta, transform, components } = json;
+
+    if (!!meta) {
+      const { _meta } = this;
+
+      for (const name in meta) {
+        _meta[name] = meta[name];
+      }
+    }
 
     if (!!transform) {
       const { position, rotation, scale } = transform;
@@ -496,8 +515,25 @@ export default class Entity {
     }
   }
 
-  performOnComponents(id, action) {
+  performActionOnComponents(name, ...args) {
     if (typeof name !== 'string') {
+      throw new Error('`name` is not type of String!');
+    }
+    if (!this._active) {
+      return;
+    }
+
+    const { _components } = this;
+    let a = args;
+
+    for (const component of _components.values()) {
+      !!component.onAction(name, ...a);
+      a = component.onAlterActionArguments(name, a) || a;
+    }
+  }
+
+  performOnComponents(id, action) {
+    if (typeof id !== 'string') {
       throw new Error('`id` is not type of String!');
     }
     if (!(action instanceof Function)) {
@@ -512,6 +548,22 @@ export default class Entity {
     const { _children } = this;
     for (let i = 0, c = _children.length; i < c; ++i) {
       _children[i].performOnComponents(id, action);
+    }
+  }
+
+  performOnChildren(action, deep = false) {
+    if (!(action instanceof Function)) {
+      throw new Error('`action` is not type of Function!');
+    }
+
+    const { _children } = this;
+    for (let i = 0, c = _children.length; i < c; ++i) {
+      const child = _children[i];
+
+      action(child);
+      if (!!deep) {
+        child.performOnChildren(action, deep);
+      }
     }
   }
 
