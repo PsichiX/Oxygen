@@ -23,7 +23,16 @@ export default {
   vec2,
   vec3,
   vec4,
-  box2d
+  box2d,
+  findMapKeyOfValue,
+  waitForSeconds,
+  stringToRGBA,
+  propsEnumStringify,
+  angleDifference,
+  convertGlobalPointToLocalPoint,
+  convertLocalPointToGlobalPoint,
+  isGlobalPointInGlobalBoundingBox,
+  isLocalPointInLocalBoundingBox
 };
 
 export {
@@ -37,12 +46,23 @@ export {
   vec2,
   vec3,
   vec4,
-  box2d
+  box2d,
+  findMapKeyOfValue,
+  waitForSeconds,
+  stringToRGBA,
+  propsEnumStringify,
+  angleDifference,
+  convertGlobalPointToLocalPoint,
+  convertLocalPointToGlobalPoint,
+  isGlobalPointInGlobalBoundingBox,
+  isLocalPointInLocalBoundingBox
 };
 
 const regexRGBA = /([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})/;
+const cachedLocalVec = vec2.create();
+const cachedInverseMatrix = mat4.create();
 
-export function findMapKeyOfValue(map, value) {
+function findMapKeyOfValue(map, value) {
   for (const [ k, v ] of map.entries()) {
     if (v === value) {
       return k;
@@ -52,11 +72,11 @@ export function findMapKeyOfValue(map, value) {
   return null;
 }
 
-export function waitForSeconds(seconds) {
+function waitForSeconds(seconds) {
   return new Promise((resolve, reject) => setInterval(resolve, seconds * 1000));
 }
 
-export function stringToRGBA(value) {
+function stringToRGBA(value) {
   const matches = regexRGBA.exec(value);
   if (!matches) {
     throw new Error(`Cannot convert string to RGBA: ${value}`);
@@ -71,7 +91,7 @@ export function stringToRGBA(value) {
   return result;
 }
 
-export function propsEnumStringify(values) {
+function propsEnumStringify(values) {
   if (!values) {
     return '';
   }
@@ -87,6 +107,38 @@ export function propsEnumStringify(values) {
   }).join(',')
 }
 
-export function angleDifference(a, b) {
+function angleDifference(a, b) {
   return ((((a - b) % 360) + 540) % 360) - 180;
+}
+
+function convertGlobalPointToLocalPoint(target, globalVec, globalTransform) {
+  mat4.invert(cachedInverseMatrix, globalTransform);
+  vec2.transformMat4(target, globalVec, cachedInverseMatrix);
+}
+
+function convertLocalPointToGlobalPoint(target, localVec, globalTransform) {
+  vec2.transformMat4(target, localVec, globalTransform);
+}
+
+function isGlobalPointInGlobalBoundingBox(
+  globalVec,
+  w,
+  h,
+  ox,
+  oy,
+  globalTransform
+) {
+  convertGlobalPointToLocalPoint(cachedLocalVec, globalVec, globalTransform);
+  return isLocalPointInLocalBoundingBox(cachedLocalVec, w, h, ox, oy);
+}
+
+function isLocalPointInLocalBoundingBox(localVec, w, h, ox, oy) {
+  const x = localVec[0];
+  const y = localVec[1];
+  const left = -ox;
+  const right = w - ox;
+  const top = -oy;
+  const bottom = h - oy;
+
+  return x >= left && x <= right && y >= top && y <= bottom;
 }

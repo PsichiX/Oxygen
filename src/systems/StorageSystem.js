@@ -29,7 +29,14 @@ export default class StorageSystem extends System {
   }
 
   dispose() {
-    this._events.dispose();
+    super.dispose();
+
+    const { _events } = this;
+    if (!!_events) {
+      _events.dispose();
+    }
+
+    this._events = null;
     this._id = null;
     this._storageSession = null;
     this._storage = null;

@@ -1,6 +1,7 @@
 import Script from './Script';
 import Camera2D from './Camera2D';
 import { vec2, mat4 } from '../utils/gl-matrix';
+import { isLocalPointInLocalBoundingBox } from '../utils';
 
 const cachedLocalVec = vec2.create();
 const cachedInverseMatrix = mat4.create();
@@ -156,14 +157,14 @@ export default class InputListener extends Script {
 
   _isPointInBoundingBox(localVec) {
     const { _width, _height, _xOffset, _yOffset } = this;
-    const x = localVec[0];
-    const y = localVec[1];
-    const left = -_xOffset;
-    const right = _width - _xOffset;
-    const top = -_yOffset;
-    const bottom = _height - _yOffset;
 
-    return x >= left && x <= right && y >= top && y <= bottom;
+    return isLocalPointInLocalBoundingBox(
+      localVec,
+      _width,
+      _height,
+      _xOffset,
+      _yOffset
+    );
   }
 
   _convertUnitToLocalCoords(out, unitVec) {
