@@ -1,6 +1,6 @@
 {
   "name": "oxygen-core",
-  "version": "1.2.23",
+  "version": "1.2.24",
   "description": "Oxygen game engine (Xenon Core for browsers)",
   "main": "bin/index.js",
   "scripts": {

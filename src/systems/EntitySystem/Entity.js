@@ -188,6 +188,24 @@ export default class Entity {
     this._meta = null;
   }
 
+  activate() {
+    this.active = true;
+
+    const { _children } = this;
+    for (let i = 0, c = _children.length; i < c; ++i) {
+      _children[i].activate();
+    }
+  }
+
+  deactivate() {
+    this.active = false;
+
+    const { _children } = this;
+    for (let i = 0, c = _children.length; i < c; ++i) {
+      _children[i].deactivate();
+    }
+  }
+
   serialize() {
     const name = this._name || '';
     const tag = this._tag || '';
