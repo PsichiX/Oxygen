@@ -2,6 +2,8 @@ import Component from '../systems/EntitySystem/Component';
 import System from '../systems/System';
 import Events from '../utils/Events';
 
+let instancing = 0;
+
 export default class PrefabInstance extends Component {
 
   static factory() {
@@ -14,6 +16,10 @@ export default class PrefabInstance extends Component {
       count: 'number',
       components: 'any'
     };
+  }
+
+  static get instancing() {
+    return instancing;
   }
 
   get events() {
@@ -92,6 +98,7 @@ export default class PrefabInstance extends Component {
     for (let i = 0; i < this._count; ++i) {
       const instance = entity.owner.buildEntity(asset.data);
 
+      ++instancing;
       instance.deserialize({
         name: name || undefined,
         tag: tag || undefined,
@@ -107,6 +114,7 @@ export default class PrefabInstance extends Component {
       setTimeout(() => {
         const index = entity.indexInParent;
         instance.reparent(parent, index);
+        --instancing;
       }, 0);
     }
 

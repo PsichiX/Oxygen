@@ -551,16 +551,23 @@ export default class Entity {
   }
 
   performOnComponents(id, action) {
-    if (typeof id !== 'string') {
+    if (!!id && typeof id !== 'string') {
       throw new Error('`id` is not type of String!');
     }
     if (!(action instanceof Function)) {
       throw new Error('`action` is not type of Function!');
     }
 
-    const component = this.getComponent(id);
-    if (!!component) {
-      action(component);
+    if (!!id) {
+      const component = this.getComponent(id);
+      if (!!component) {
+        action(component);
+      }
+    } else {
+      const { _components } = this;
+      for (const component of _components.values()) {
+        action(component);
+      }
     }
 
     const { _children } = this;
