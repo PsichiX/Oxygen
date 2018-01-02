@@ -5,9 +5,16 @@ import { angleDifference } from '../utils';
 
 function findFrame(time, frames) {
   for (let i = 0, c = frames.length; i < c; ++i) {
-    const f = frames[i];
-    if (time >= f.time) {
-      return f;
+    const a = frames[i];
+    const b = frames[i + 1];
+    if (!!b) {
+      if (time >= a.time && time < b.time) {
+        return a;
+      }
+    } else {
+      if (time >= a.time) {
+        return a;
+      }
     }
   }
 
@@ -384,7 +391,7 @@ export default class Skeleton extends Script {
             this._applyAttachment(
               slot,
               skin[slotKey] || skins.default[slotKey],
-              attachment.name
+              frame.name
             );
           }
         }
