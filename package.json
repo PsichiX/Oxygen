@@ -1,6 +1,6 @@
 {
   "name": "oxygen-core",
-  "version": "1.2.25",
+  "version": "1.2.26",
   "description": "Oxygen game engine (Xenon Core for browsers)",
   "main": "bin/index.js",
   "scripts": {
@@ -50,6 +50,7 @@
     "babel-polyfill": "latest",
     "babel-preset-env": "latest",
     "babel-preset-minify": "latest",
+    "bezier-easing": "latest",
     "box2dweb-commonjs": "latest",
     "browserify": "latest",
     "leapjs": "latest",

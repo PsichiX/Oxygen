@@ -32,7 +32,8 @@ export default {
   convertGlobalPointToLocalPoint,
   convertLocalPointToGlobalPoint,
   isGlobalPointInGlobalBoundingBox,
-  isLocalPointInLocalBoundingBox
+  isLocalPointInLocalBoundingBox,
+  bezierCubic
 };
 
 export {
@@ -55,7 +56,8 @@ export {
   convertGlobalPointToLocalPoint,
   convertLocalPointToGlobalPoint,
   isGlobalPointInGlobalBoundingBox,
-  isLocalPointInLocalBoundingBox
+  isLocalPointInLocalBoundingBox,
+  bezierCubic
 };
 
 const regexRGBA = /([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})/;
@@ -141,4 +143,10 @@ function isLocalPointInLocalBoundingBox(localVec, w, h, ox, oy) {
   const bottom = h - oy;
 
   return x >= left && x <= right && y >= top && y <= bottom;
+}
+
+function bezierCubic(t, a, b, c, d) {
+  t = Math.max(0, Math.min(1, t));
+  const r = 1 - t;
+  return a * r * r * r + 3 * b * t * r * r + 3 * c * t * t * r + d * t * t * t;
 }

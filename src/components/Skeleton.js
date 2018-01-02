@@ -35,11 +35,11 @@ function findFrames(time, frames) {
   return null;
 }
 
-function lerp(from, to, timeFrom, timeTo, time) {
+function sampleValue(sampler, from, to, timeFrom, timeTo, time) {
   const dt = timeTo - timeFrom;
   if (Math.abs(dt) > 0) {
-    const f = (time - timeFrom) / dt;
-    return (to - from) * f + from;
+    time = Math.max(timeFrom, Math.min(timeTo, time));
+    return (to - from) * sampler((time - timeFrom) / dt) + from;
   }
   return to;
 }
@@ -324,16 +324,12 @@ export default class Skeleton extends Script {
           const frame = findFrames(time, translate);
           if (!!frame) {
             const { a, b } = frame;
-            const { curve } = a;
-            if (!curve || curve === 'linear') {
+            const { sample } = a;
+            if (!!sample) {
               bone.setPosition(
-                p.x + lerp(a.x, b.x, a.time, b.time, time),
-                p.y + lerp(a.y, b.y, a.time, b.time, time)
+                p.x + sampleValue(sample, a.x, b.x, a.time, b.time, time),
+                p.y + sampleValue(sample, a.y, b.y, a.time, b.time, time)
               );
-            } else if (curve === 'stepped') {
-              bone.setPosition(p.x + a.x, p.y + a.y);
-            } else {
-              console.warn(`Not supported translate curve mode: ${curve}`);
             }
           }
         }
@@ -341,10 +337,11 @@ export default class Skeleton extends Script {
           const frame = findFrames(time, rotate);
           if (!!frame) {
             const { a, b } = frame;
-            const { curve } = a;
-            if (!curve || curve === 'linear') {
+            const { sample } = a;
+            if (!!sample) {
               bone.setRotation(
-                (p.rotation + lerp(
+                (p.rotation + sampleValue(
+                  sample,
                   a.angle,
                   a.angle + angleDifference(b.angle, a.angle),
                   a.time,
@@ -352,10 +349,6 @@ export default class Skeleton extends Script {
                   time
                 )) * Math.PI / 180
               );
-            } else if (curve === 'stepped') {
-              bone.setRotation((p.rotation + a.angle) * Math.PI / 180);
-            } else {
-              console.warn(`Not supported rotate curve mode: ${curve}`);
             }
           }
         }
@@ -363,16 +356,12 @@ export default class Skeleton extends Script {
           const frame = findFrames(time, scale);
           if (!!frame) {
             const { a, b } = frame;
-            const { curve } = a;
-            if (!curve || curve === 'linear') {
+            const { sample } = a;
+            if (!!sample) {
               bone.setScale(
-                p.scaleX * lerp(a.x, b.x, a.time, b.time, time),
-                p.scaleY * lerp(a.y, b.y, a.time, b.time, time)
+                p.scaleX + sampleValue(sample, a.x, b.x, a.time, b.time, time),
+                p.scaleY + sampleValue(sample, a.y, b.y, a.time, b.time, time)
               );
-            } else if (curve === 'stepped') {
-              bone.setScale(p.scaleX * a.x, p.scaleY * a.y);
-            } else {
-              console.warn(`Not supported scale curve mode: ${curve}`);
             }
           }
         }
