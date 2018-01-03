@@ -1,0 +1,30 @@
+{
+  "source": "./src",
+  "destination": "./docs",
+  "excludes": [ "gl-matrix" ],
+  "plugins": [
+    {
+      "name": "esdoc-standard-plugin",
+      "option": {
+        "accessor": {
+          "access": [ "public" ],
+          "autoPrivate": true
+        }
+      }
+    },
+    {
+      "name": "esdoc-ecmascript-proposal-plugin",
+      "option": { "all": true }
+    },
+    {
+      "name": "esdoc-importpath-plugin",
+      "option": {
+        "replaces": [
+          { "from": "^src/", "to": "" },
+          { "from": "^index.js$", "to": "" },
+          { "from": "/index.js$", "to": "" }
+        ]
+      }
+    }
+  ]
+}

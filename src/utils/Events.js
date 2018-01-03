@@ -1,5 +1,18 @@
+/**
+ * Events emitter.
+ *
+ * @example
+ * const events = new Events();
+ * events.on('hello', wat => console.log(wat));
+ * events.trigger('hello', 'world');
+ * events.off('hello');
+ * events.dispose();
+ */
 export default class Events {
 
+  /**
+   * Constructor.
+   */
   constructor() {
     this._events = new Map();
     this._onQueue = [];
@@ -7,6 +20,13 @@ export default class Events {
     this._triggerDepth = 0;
   }
 
+  /**
+   * Destructor (disposes internal resources).
+   *
+   * @example
+   * events.dispose();
+   * events = null;
+   */
   dispose() {
     this._events.clear();
     this._onQueue = [];
@@ -14,6 +34,16 @@ export default class Events {
     this._triggerDepth = 0;
   }
 
+  /**
+   * Listen for given event.
+   *
+   * @param {string}	name - Event name.
+   * @param {Function}	callback - Event callback. Arguments are passed here from trigger methods.
+   *
+   * @example
+   * events.on('hello', wat => console.log(wat));
+   * events.trigger('hello', 'world');
+   */
   on(name, callback) {
     if (typeof name !== 'string') {
       throw new Error('`name` is not type of String!');
@@ -36,6 +66,19 @@ export default class Events {
     _events.get(name).push(callback);
   }
 
+  /**
+   * Remove given callback from listeners of given event.
+   * If callback is omitted, then all callbacks of given event are removed.
+   *
+   * @param {string}	name - Event name.
+   * @param {Function}	callback - Event callback.
+   *
+   * @example
+   * const cb = wat => console.log(wat);
+   * events.on('hello', cb);
+   * events.off('hello', cb); // remove callback.
+   * events.off('hello'); // remove all callbacks.
+   */
   off(name, callback) {
     if (typeof name !== 'string') {
       throw new Error('`name` is not type of String!');
@@ -74,10 +117,30 @@ export default class Events {
     }
   }
 
+  /**
+   * Triggers given event with given callback parameters.
+   *
+   * @param {string}	name - Event name.
+   * @param {...*}	args - Event parameters.
+   *
+   * @example
+   * events.on('hello', wat => console.log(wat));
+   * events.trigger('hello', 'world');
+   */
   trigger(name, ...args) {
     this._trigger(name, false, ...args);
   }
 
+  /**
+   * Triggers given event with given callback parameters on next execution frame (delayed).
+   *
+   * @param {string}	name - Event name.
+   * @param {...*}	args - Event parameters.
+   *
+   * @example
+   * events.on('hello', wat => console.log(wat));
+   * events.triggerLater('hello', 'world');
+   */
   triggerLater(name, ...args) {
     this._trigger(name, true, ...args);
   }

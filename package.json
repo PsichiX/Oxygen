@@ -4,13 +4,14 @@
   "description": "Oxygen game engine (Xenon Core for browsers)",
   "main": "bin/index.js",
   "scripts": {
-    "clean": "rm -rf bin bin-tools",
+    "clean": "rm -rf bin bin-tools docs",
     "build": "./node_modules/.bin/babel src -d bin",
     "build-tools": "./node_modules/.bin/babel tools -d bin-tools",
     "browserify": "./node_modules/.bin/browserify bin/index.js -o bin/oxygen-core.js -s Oxygen",
     "browserify-uglify": "./node_modules/.bin/uglifyjs -nm -o bin/oxygen-core.min.js bin/oxygen-core.js",
     "browserify-min": "npm run browserify && npm run browserify-uglify",
-    "postinstall": "npm run build && npm run build-tools && npm run browserify-min",
+    "docs": "esdoc -c esdoc.json",
+    "postinstall": "npm run build && npm run build-tools && npm run browserify-min && npm run docs",
     "oxygen-pack": "node ./bin-tools/pack-cli.js"
   },
   "bin": {
@@ -31,11 +32,11 @@
     "url": "git+https://github.com/PsichiX/Oxygen.git"
   },
   "keywords": [
+    "webgl",
+    "browser",
     "game",
     "engine",
-    "browser",
-    "webgl",
-    "es6"
+    "es7"
   ],
   "author": "Patryk 'PsichiX' Budzynski <psichix@gmail.com> (http://psichix.io)",
   "license": "MIT",
@@ -53,6 +54,10 @@
     "bezier-easing": "latest",
     "box2dweb-commonjs": "latest",
     "browserify": "latest",
+    "esdoc": "latest",
+    "esdoc-ecmascript-proposal-plugin": "latest",
+    "esdoc-importpath-plugin": "latest",
+    "esdoc-standard-plugin": "latest",
     "leapjs": "latest",
     "stream-buffers": "latest",
     "uglify-js": "latest",

@@ -4,8 +4,13 @@ import { findMapKeyOfValue } from '../utils';
 const _systems = new Map();
 const _events = new Events();
 
+/**
+ * System base class.
+ * Every Oxygen Core system extends this class.
+ */
 export default class System {
 
+  /** @type {{string, System}} */
   static get systems() {
     const result = {};
 
@@ -16,10 +21,24 @@ export default class System {
     return result;
   }
 
+  /** @type {Events} */
   static get events() {
     return _events;
   }
 
+  /**
+   * Register new system instance under given name.
+   *
+   * @param {string}	typename - System type name.
+   * @param {System}	system - System instance.
+   *
+   * @return {System} Registered system instance.
+   *
+   * @example
+   * class MySystem extends System {}
+   * System.register('MySystem', new MySystem());
+   * const { MySystem } = System.systems;
+   */
   static register(typename, system) {
     if (typeof typename !== 'string') {
       throw new Error('`typename` is not type of String!');
@@ -37,6 +56,14 @@ export default class System {
     return system;
   }
 
+  /**
+   * Unregister given system.
+   *
+   * @param {string}	typename - System type name
+   *
+   * @example
+   * System.unregister('MySystem');
+   */
   static unregister(typename) {
     let system = typename;
 
@@ -56,6 +83,16 @@ export default class System {
     }
   }
 
+  /**
+   * Returns system instance of given type name.
+   *
+   * @param {string}	typename - System type name.
+   *
+   * @return {System|null} System instance if registered or null if not.
+   *
+   * @example
+   * const system = System.get('MySystem');
+   */
   static get(typename) {
     if (typeof typename !== 'string') {
       throw new Error('`typename` is not type of String!');
@@ -64,6 +101,12 @@ export default class System {
     return _systems.get(typename) || null;
   }
 
+  /**
+   * Dispose and remove all registered systems.
+   *
+   * @example
+   * System.dispose();
+   */
   static dispose() {
     for (const system of _systems.values()) {
       system.dispose();
@@ -73,10 +116,19 @@ export default class System {
     _events.dispose();
   }
 
+  /**
+   * Destructor (disposes all internal resources).
+   */
   dispose() {}
 
+  /**
+   * Event called after system gets registered.
+   */
   onRegister() {}
 
+  /**
+   * Event called before system gets unregistered.
+   */
   onUnregister() {}
 
 }

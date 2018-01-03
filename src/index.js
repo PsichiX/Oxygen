@@ -181,6 +181,21 @@ export {
   box2d
 };
 
+/**
+ * Function used to initialize Oxygen Core engine without any effort.
+ *
+ * @param {*} config - engine configuration options.
+ *
+ * @example
+ * lazyInitialization({
+ *   entities: { triggerEvents: true },
+ *   asset: { pathPrefix: 'assets/' },
+ *   render: { screen: 'screen-0' },
+ *   input: { triggerEvents: true },
+ *   store: { id: 'my-game-id' },
+ *   events: { transform: true, update: true, view: true, gamepads: true, leap: true }
+ * });
+ */
 export function lazyInitialization({ entity, asset, render, input, store, events }) {
   const entities = System.register('EntitySystem', new EntitySystem(
     !!entity ? entity.triggerEvents : true
