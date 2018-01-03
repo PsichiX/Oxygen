@@ -1,20 +1,37 @@
 import System from './System';
 import Events from '../utils/Events';
 
+/**
+ * Permanent and session data storage.
+ *
+ * @example
+ * const system = new StorageSystem({ id: 'my-game' });
+ * system.load();
+ * system.storage.score = (system.storage.score || 0) + 1;
+ * system.save();
+ */
 export default class StorageSystem extends System {
 
+  /** @type {Events} */
   get events() {
     return this._events;
   }
 
+  /** @type {*} */
   get storage() {
     return this._storage;
   }
 
+  /** @type {*} */
   get storageSession() {
     return this._storageSession;
   }
 
+  /**
+   * Constructor.
+   *
+   * @param {string}	id - application storage unique id.
+   */
   constructor(id = 'oxygen-data') {
     super();
 
@@ -28,6 +45,13 @@ export default class StorageSystem extends System {
     this._storage = null;
   }
 
+  /**
+   * Destructor (disposes internal resources).
+   *
+   * @example
+   * system.dispose();
+   * system = null;
+   */
   dispose() {
     super.dispose();
 
@@ -42,16 +66,29 @@ export default class StorageSystem extends System {
     this._storage = null;
   }
 
+  /**
+   * @override
+   */
   onRegister() {
     this.loadSession();
     this.load();
   }
 
+  /**
+   * @override
+   */
   onUnregister() {
     this.saveSession();
     this.save();
   }
 
+  /**
+   * Load browser session storage data into memory.
+   *
+   * @example
+   * system.loadSession();
+   * console.log(system.storageSession.score);
+   */
   loadSession() {
     try {
       this._storageSession = JSON.parse(sessionStorage[this._id] || '{}');
@@ -61,6 +98,13 @@ export default class StorageSystem extends System {
     }
   }
 
+  /**
+   * Save memory session storage into browser.
+   *
+   * @example
+   * system.storageSession.score = 10;
+   * system.saveSession();
+   */
   saveSession() {
     try {
       const data = this._storageSession || {};
@@ -72,11 +116,21 @@ export default class StorageSystem extends System {
     }
   }
 
+  /**
+   * Clear session storage.
+   */
   clearSession() {
     this._storageSession = {};
     this.saveSession();
   }
 
+  /**
+   * Load browser permanent storage data into memory.
+   *
+   * @example
+   * system.load();
+   * console.log(system.storage.score);
+   */
   load() {
     try {
       this._storage = JSON.parse(localStorage[this._id] || '{}');
@@ -86,6 +140,13 @@ export default class StorageSystem extends System {
     }
   }
 
+  /**
+   * Save memory permanent storage into browser.
+   *
+   * @example
+   * system.storage.score = 10;
+   * system.save();
+   */
   save() {
     try {
       const data = this._storage || {};
@@ -97,6 +158,9 @@ export default class StorageSystem extends System {
     }
   }
 
+  /**
+   * Clear permanent storage.
+   */
   clear() {
     this._storage = {};
     this.save();

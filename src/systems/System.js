@@ -10,7 +10,7 @@ const _events = new Events();
  */
 export default class System {
 
-  /** @type {{string, System}} */
+  /** @type {*} */
   static get systems() {
     const result = {};
 
@@ -61,6 +61,7 @@ export default class System {
    *
    * @param {string}	typename - System type name
    *
+   * @return {System} Unregistered system instance.
    * @example
    * System.unregister('MySystem');
    */
