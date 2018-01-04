@@ -1,12 +1,25 @@
 import Sprite from './Sprite';
 import System from '../systems/System';
 
+/**
+ * Atlas sprite renderer.
+ *
+ * @example
+ * const component = new AtlasSprite();
+ * component.deserialize({ shader: 'shader://sprite.json', atlas: 'atlas://sheet.json:box.png' });
+ */
 export default class AtlasSprite extends Sprite {
 
+  /**
+   * Component factory.
+   *
+   * @return {AtlasSprite} Component instance.
+   */
   static factory() {
     return new AtlasSprite();
   }
 
+  /** @type {*} */
   static get propsTypes() {
     return {
       visible: Sprite.propsTypes.visible,
@@ -25,10 +38,12 @@ export default class AtlasSprite extends Sprite {
     };
   }
 
+  /** @type {string|null} */
   get atlas() {
     return this._atlas;
   }
 
+  /** @type {string|null} */
   set atlas(value) {
     if (!value || value === '') {
       this._atlas = value;
@@ -91,10 +106,12 @@ export default class AtlasSprite extends Sprite {
     ];
   }
 
+  /** @type {number} */
   get scale() {
     return this._scale;
   }
 
+  /** @type {number} */
   set scale(value) {
     if (typeof value !== 'number') {
       throw new Error('`value` is not type of Number!');
@@ -104,6 +121,9 @@ export default class AtlasSprite extends Sprite {
     this.atlas = this.atlas;
   }
 
+  /**
+   * Constructor.
+   */
   constructor() {
     super();
 

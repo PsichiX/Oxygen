@@ -7,12 +7,21 @@ const cachedZeroMat4 = mat4.fromValues(
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 );
 
+/**
+ * Camera base class component.
+ */
 export default class Camera extends Component {
 
+  /**
+   * Component factory.
+   *
+   * @return {Camera} Component instance.
+   */
   static factory() {
     return new Camera();
   }
 
+  /** @type {*} */
   static get propsTypes() {
     return {
       ignoreChildrenViews: 'boolean',
@@ -21,14 +30,17 @@ export default class Camera extends Component {
       renderTargetWidth: 'integer',
       renderTargetHeight: 'integer',
       renderTargetScale: 'number',
+      renderTargetFloat: 'boolean',
       layer: 'string_null'
     };
   }
 
+  /** @type {boolean} */
   get ignoreChildrenViews() {
     return this._ignoreChildrenViews;
   }
 
+  /** @type {boolean} */
   set ignoreChildrenViews(value) {
     if (typeof value !== 'boolean') {
       throw new Error('`value` is not type of Boolean!');
@@ -37,10 +49,12 @@ export default class Camera extends Component {
     this._ignoreChildrenViews = value;
   }
 
+  /** @type {string|null} */
   get captureEntity() {
     return this._captureEntity;
   }
 
+  /** @type {string|null} */
   set captureEntity(value) {
     if (typeof value !== 'string') {
       throw new Error('`value` is not type of String');
@@ -50,10 +64,12 @@ export default class Camera extends Component {
     this._dirty = true;
   }
 
+  /** @type {string|null} */
   get renderTargetId() {
     return this._renderTargetId;
   }
 
+  /** @type {string|null} */
   set renderTargetId(value) {
     if (!!value && typeof value !== 'string') {
       throw new Error('`value` is not type of String');
@@ -64,10 +80,12 @@ export default class Camera extends Component {
     this._dirty = true;
   }
 
+  /** @type {number} */
   get renderTargetWidth() {
     return this._renderTargetWidth;
   }
 
+  /** @type {number} */
   set renderTargetWidth(value) {
     if (typeof value !== 'number') {
       throw new Error('`value` is not type of Number');
@@ -78,10 +96,12 @@ export default class Camera extends Component {
     this._dirty = true;
   }
 
+  /** @type {number} */
   get renderTargetHeight() {
     return this._renderTargetHeight;
   }
 
+  /** @type {number} */
   set renderTargetHeight(value) {
     if (typeof value !== 'number') {
       throw new Error('`value` is not type of Number');
@@ -92,10 +112,12 @@ export default class Camera extends Component {
     this._dirty = true;
   }
 
+  /** @type {number} */
   get renderTargetScale() {
     return this._renderTargetScale;
   }
 
+  /** @type {number} */
   set renderTargetScale(value) {
     if (typeof value !== 'number') {
       throw new Error('`value` is not type of Number');
@@ -106,10 +128,12 @@ export default class Camera extends Component {
     this._dirty = true;
   }
 
+  /** @type {boolean} */
   get renderTargetFloat() {
     return this._renderTargetFloat;
   }
 
+  /** @type {boolean} */
   set renderTargetFloat(value) {
     if (typeof value !== 'boolean') {
       throw new Error('`value` is not type of Boolean');
@@ -120,10 +144,12 @@ export default class Camera extends Component {
     this._dirty = true;
   }
 
+  /** @type {string|null} */
   get layer() {
     return this._layer;
   }
 
+  /** @type {string|null} */
   set layer(value) {
     if (!!value && typeof value !== 'string') {
       throw new Error('`value` is not type of String!');
@@ -132,14 +158,19 @@ export default class Camera extends Component {
     this._layer = value;
   }
 
+  /** @type {mat4} */
   get projectionMatrix() {
     return this._projectionMatrix;
   }
 
+  /** @type {mat4} */
   get inverseProjectionMatrix() {
     return this._inverseProjectionMatrix;
   }
 
+  /**
+   * Constructor.
+   */
   constructor() {
     super();
 
@@ -162,6 +193,9 @@ export default class Camera extends Component {
     this._onResize = this.onResize.bind(this);
   }
 
+  /**
+   * @override
+   */
   dispose() {
     super.dispose();
 
@@ -173,10 +207,21 @@ export default class Camera extends Component {
     }
   }
 
+  /**
+   * Building camera matrix.
+   *
+   * @abstract
+   * @param {mat4}	target - Result mat4 object.
+   * @param {number}	width - Width.
+   * @param {number}	height - Height.
+   */
   buildCameraMatrix(target, width, height) {
     throw new Error('Not implemented!');
   }
 
+  /**
+   * @override
+   */
   onAttach() {
     const { RenderSystem } = System.systems;
     if (!RenderSystem) {
@@ -186,6 +231,9 @@ export default class Camera extends Component {
     RenderSystem.events.on('resize', this._onResize);
   }
 
+  /**
+   * @override
+   */
   onDetach() {
     const { RenderSystem } = System.systems;
     if (!RenderSystem) {
@@ -195,12 +243,24 @@ export default class Camera extends Component {
     RenderSystem.events.off('resize', this._onResize);
   }
 
+  /**
+   * @override
+   */
   onAction(name, ...args) {
     if (name === 'view') {
       return this.onView(...args);
     }
   }
 
+  /**
+   * Called when camera need to view rendered scene.
+   *
+   * @param {WebGLRenderingContext}	gl - WebGL context.
+   * @param {RenderSystem}	renderer - Calling renderer instance.
+   * @param {number}	deltaTime - Delta time.
+   *
+   * @return {boolean} True if ignore viewing entity children, false otherwise.
+   */
   onView(gl, renderer, deltaTime) {
     const { entity, _ignoreChildrenViews } = this;
     if (!entity) {
@@ -291,6 +351,12 @@ export default class Camera extends Component {
     return _ignoreChildrenViews;
   }
 
+  /**
+   * Called on view resize.
+   *
+   * @param {number}	width - Width.
+   * @param {number}	height - Height.
+   */
   onResize(width, height) {
     const { _renderTargetWidth, _renderTargetHeight } = this;
     if (_renderTargetWidth <= 0 || _renderTargetHeight <= 0) {

@@ -7,12 +7,25 @@ const ZoomMode = {
   KEEP_ASPECT: 'keep-aspect'
 };
 
+/**
+ * Camera used to view 2D scene.
+ *
+ * @example
+ * const component = new Camera2D();
+ * component.deserialize({ zoomOut: 1024, zoomMode: 'keep-aspect' });
+ */
 export default class Camera2D extends Camera {
 
+  /**
+   * Component factory.
+   *
+   * @return {Camera2D} Component instance.
+   */
   static factory() {
     return new Camera2D();
   }
 
+  /** @type {*} */
   static get propsTypes() {
     return {
       ...Camera.propsTypes,
@@ -24,14 +37,17 @@ export default class Camera2D extends Camera {
     };
   }
 
+  /** @type {*} */
   static get ZoomMode() {
     return ZoomMode;
   }
 
+  /** @type {number} */
   get zoom() {
     return this._zoom;
   }
 
+  /** @type {number} */
   set zoom(value) {
     if (typeof value !== 'number') {
       throw new Error('`value` is not type of Number');
@@ -41,11 +57,13 @@ export default class Camera2D extends Camera {
     this._dirty = true;
   }
 
+  /** @type {number} */
   get zoomOut() {
     const { _zoom } = this;
     return _zoom !== 0 ? 1 / _zoom : 1;
   }
 
+  /** @type {number} */
   set zoomOut(value) {
     if (typeof value !== 'number') {
       throw new Error('`value` is not type of Number');
@@ -55,10 +73,12 @@ export default class Camera2D extends Camera {
     this._dirty = true;
   }
 
+  /** @type {number} */
   get near() {
     return this._near;
   }
 
+  /** @type {number} */
   set near(value) {
     if (typeof value !== 'number') {
       throw new Error('`value` is not type of Number');
@@ -68,10 +88,12 @@ export default class Camera2D extends Camera {
     this._dirty = true;
   }
 
+  /** @type {number} */
   get far() {
     return this._far;
   }
 
+  /** @type {number} */
   set far(value) {
     if (typeof value !== 'number') {
       throw new Error('`value` is not type of Number');
@@ -81,10 +103,12 @@ export default class Camera2D extends Camera {
     this._dirty = true;
   }
 
+  /** @type {string} */
   get zoomMode() {
     return this._zoomMode;
   }
 
+  /** @type {string} */
   set zoomMode(value) {
     if (typeof value !== 'string') {
       throw new Error('`value` is not type of String');
@@ -94,14 +118,19 @@ export default class Camera2D extends Camera {
     this._dirty = true;
   }
 
+  /** @type {number} */
   get cachedWorldWidth() {
     return this._cachedWorldWidth;
   }
 
+  /** @type {number} */
   get cachedWorldHeight() {
     return this._cachedWorldHeight;
   }
 
+  /**
+   * Constructor.
+   */
   constructor() {
     super();
 
@@ -113,6 +142,9 @@ export default class Camera2D extends Camera {
     this._cachedWorldHeight = 0;
   }
 
+  /**
+   * @override
+   */
   buildCameraMatrix(target, width, height) {
     const { _zoom, _zoomMode } = this;
     const scale = _zoom > 0 ? 1 / _zoom : 0;
@@ -143,6 +175,9 @@ export default class Camera2D extends Camera {
     );
   }
 
+  /**
+   * @override
+   */
   onPropertySerialize(name, value) {
     if (this.zoomOut > this.zoom ? name === 'zoom' : name === 'zoomOut') {
       return;
