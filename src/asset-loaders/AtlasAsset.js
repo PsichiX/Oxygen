@@ -1,11 +1,27 @@
 import Asset from '../systems/AssetSystem/Asset';
 
+/**
+ * Atlas asset loader.
+ */
 export default class AtlasAsset extends Asset {
 
+  /**
+   * Asset factory.
+   *
+   * @param {*}	args - Factory parameters.
+   *
+   * @return {AtlasAsset} Asset instance.
+   *
+   * @example
+   * system.registerProtocol('atlas', AtlasAsset.factory);
+   */
   static factory(...args) {
     return new AtlasAsset(...args);
   }
 
+  /**
+   * @override
+   */
   constructor(...args) {
     super(...args);
 
@@ -13,6 +29,9 @@ export default class AtlasAsset extends Asset {
     this._imageAsset = null;
   }
 
+  /**
+   * @override
+   */
   dispose() {
     super.dispose();
 
@@ -29,6 +48,9 @@ export default class AtlasAsset extends Asset {
     this._imageAsset = null;
   }
 
+  /**
+   * @override
+   */
   load() {
     const { filename, owner } = this;
 

@@ -1,11 +1,27 @@
 import Asset from '../systems/AssetSystem/Asset';
 
+/**
+ * Image asset loader.
+ */
 export default class ImageAsset extends Asset {
 
+  /**
+   * Asset factory.
+   *
+   * @param {*}	args - Factory parameters.
+   *
+   * @return {ImageAsset} Asset instance.
+   *
+   * @example
+   * system.registerProtocol('image', ImageAsset.factory);
+   */
   static factory(...args) {
     return new ImageAsset(...args);
   }
 
+  /**
+   * @override
+   */
   dispose() {
     if (!!this.data) {
       delete this.data.src;
@@ -14,6 +30,9 @@ export default class ImageAsset extends Asset {
     super.dispose();
   }
 
+  /**
+   * @override 
+   */
   load() {
     const { filename, owner } = this;
 

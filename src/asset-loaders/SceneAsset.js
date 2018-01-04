@@ -1,17 +1,36 @@
 import Asset from '../systems/AssetSystem/Asset';
 
+/**
+ * Scene asset loader.
+ */
 export default class SceneAsset extends Asset {
 
+  /**
+   * Asset factory.
+   *
+   * @param {*}	args - Factory parameters.
+   *
+   * @return {SceneAsset} Asset instance.
+   *
+   * @example
+   * system.registerProtocol('scene', SceneAsset.factory);
+   */
   static factory(...args) {
     return new SceneAsset(...args);
   }
 
+  /**
+   * @override
+   */
   constructor(...args) {
     super(...args);
 
     this._descriptorAsset = null;
   }
 
+  /**
+   * @override
+   */
   dispose() {
     super.dispose();
 
@@ -24,6 +43,9 @@ export default class SceneAsset extends Asset {
     this._descriptorAsset = null;
   }
 
+  /**
+   * @override
+   */
   load() {
     const { filename, owner } = this;
 

@@ -53,12 +53,28 @@ function getLineData(line) {
   return result;
 }
 
-export default class AtlasAsset extends Asset {
+/**
+ * Font asset loader.
+ */
+export default class FontAsset extends Asset {
 
+  /**
+   * Asset factory.
+   *
+   * @param {*}	args - Factory parameters.
+   *
+   * @return {FontAsset} Asset instance.
+   *
+   * @example
+   * system.registerProtocol('font', FontAsset.factory);
+   */
   static factory(...args) {
-    return new AtlasAsset(...args);
+    return new FontAsset(...args);
   }
 
+  /**
+   * @override
+   */
   constructor(...args) {
     super(...args);
 
@@ -67,6 +83,9 @@ export default class AtlasAsset extends Asset {
     this._imageAssets = null;
   }
 
+  /**
+   * @override
+   */
   dispose() {
     super.dispose();
 
@@ -90,6 +109,9 @@ export default class AtlasAsset extends Asset {
     this._imageAssets = null;
   }
 
+  /**
+   * @override
+   */
   load() {
     const { filename, owner } = this;
 

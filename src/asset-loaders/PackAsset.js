@@ -1,12 +1,29 @@
 import Asset from '../systems/AssetSystem/Asset';
 import AssetSystem from '../systems/AssetSystem';
 
+/**
+ * Pack asset loader.
+ * It serves also as fetch engine (it's subassets container).
+ */
 export default class PackAsset extends Asset {
 
+  /**
+   * Asset factory.
+   *
+   * @param {*}	args - Factory parameters.
+   *
+   * @return {PackAsset} Asset instance.
+   *
+   * @example
+   * system.registerProtocol('pack', PackAsset.factory);
+   */
   static factory(...args) {
     return new PackAsset(...args);
   }
 
+  /**
+   * @override
+   */
   constructor(...args) {
     super(...args);
 
@@ -16,6 +33,9 @@ export default class PackAsset extends Asset {
     this._binaryAsset = null;
   }
 
+  /**
+   * @override
+   */
   dispose() {
     super.dispose();
 
@@ -31,6 +51,9 @@ export default class PackAsset extends Asset {
     this._binaryAsset = null;
   }
 
+  /**
+   * @override
+   */
   load() {
     const { filename, owner } = this;
 
@@ -58,6 +81,9 @@ export default class PackAsset extends Asset {
       });
   }
 
+  /**
+   * @override
+   */
   fetchSubAsset(path, options, fallbackEngine) {
     try {
       const view = this.entryView(path, true);
@@ -67,10 +93,25 @@ export default class PackAsset extends Asset {
     }
   }
 
+  /**
+   * Tells if pack has subasset of given path.
+   *
+   * @param {string}	path - Subasset path.
+   *
+   * @return {boolean} True if entry exists, false otherwise.
+   */
   hasEntry(path) {
     return !!this._findEntry(path, this._descriptor);
   }
 
+  /**
+   * Gets Array buffer view of given subasset.
+   *
+   * @param {string}	path - Subasset path.
+   * @param {boolean}	noThrow - Tells if function should not throw exceptions on fail.
+   *
+   * @return {ArrayBufferView|null} Subasset array view if exists or null otherwise.
+   */
   entryView(path, noThrow = false) {
     const entry = this._findEntry(path, this._descriptor);
     if (!entry) {
@@ -95,6 +136,14 @@ export default class PackAsset extends Asset {
     );
   }
 
+  /**
+   * Gets text representation of given subasset.
+   *
+   * @param {string}	path - Subasset path.
+   * @param {boolean}	noThrow - Tells if function should not throw exceptions on fail.
+   *
+   * @return {string} Text representation of subasset.
+   */
   entryText(path, noThrow = false) {
     const view = this.entryView(path, noThrow);
     return String.fromCharCode.apply(null, view);

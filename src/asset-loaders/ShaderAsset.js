@@ -1,11 +1,27 @@
 import Asset from '../systems/AssetSystem/Asset';
 
+/**
+ * Shader asset loader.
+ */
 export default class ShaderAsset extends Asset {
 
+  /**
+   * Asset factory.
+   *
+   * @param {*}	args - Factory parameters.
+   *
+   * @return {ShaderAsset} Asset instance.
+   *
+   * @example
+   * system.registerProtocol('shader', ShaderAsset.factory);
+   */
   static factory(...args) {
     return new ShaderAsset(...args);
   }
 
+  /**
+   * @override
+   */
   constructor(...args) {
     super(...args);
 
@@ -14,6 +30,9 @@ export default class ShaderAsset extends Asset {
     this._fragmentAsset = null;
   }
 
+  /**
+   * @override
+   */
   dispose() {
     super.dispose();
 
@@ -34,6 +53,9 @@ export default class ShaderAsset extends Asset {
     this._fragmentAsset = null;
   }
 
+  /**
+   * @override 
+   */
   load() {
     const { filename, owner } = this;
     let descriptor = null;

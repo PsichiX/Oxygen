@@ -50,18 +50,37 @@ function applySamplers(data) {
   }
 }
 
+/**
+ * Spine2D skeleton asset loader.
+ */
 export default class SkeletonAsset extends Asset {
 
+  /**
+   * Asset factory.
+   *
+   * @param {*}	args - Factory parameters.
+   *
+   * @return {SkeletonAsset} Asset instance.
+   *
+   * @example
+   * system.registerProtocol('skeleton', SkeletonAsset.factory);
+   */
   static factory(...args) {
     return new SkeletonAsset(...args);
   }
 
+  /**
+   * @override
+   */
   constructor(...args) {
     super(...args);
 
     this._descriptorAsset = null;
   }
 
+  /**
+   * @override
+   */
   dispose() {
     super.dispose();
 
@@ -74,6 +93,9 @@ export default class SkeletonAsset extends Asset {
     this._descriptorAsset = null;
   }
 
+  /**
+   * @override 
+   */
   load() {
     const { filename, owner } = this;
 

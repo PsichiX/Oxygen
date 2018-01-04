@@ -1,11 +1,27 @@
 import Asset from '../systems/AssetSystem/Asset';
 
+/**
+ * JSON asset loader.
+ */
 export default class JSONAsset extends Asset {
 
+  /**
+   * Asset factory.
+   *
+   * @param {*}	args - Factory parameters.
+   *
+   * @return {JSONAsset} Asset instance.
+   *
+   * @example
+   * system.registerProtocol('json', JSONAsset.factory);
+   */
   static factory(...args) {
     return new JSONAsset(...args);
   }
 
+  /**
+   * @override 
+   */
   load() {
     const { filename, owner } = this;
 
