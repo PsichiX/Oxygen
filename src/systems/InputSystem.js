@@ -6,28 +6,45 @@ import Leap from 'leapjs';
 const cachedUnitsVector = vec2.create();
 const cachedScreenVector = vec2.create();
 
+/**
+ * User input (mouse, keyboard, gamepad, leap motion).
+ *
+ * @example
+ * const system = new InputSystem(document.getElementById('screen-0'));
+ */
 export default class InputSystem extends System {
 
+  /** @type {Events} */
   get events() {
     return this._events;
   }
 
+  /** @type {Map} */
   get gamepads() {
     return this._gamepads;
   }
 
+  /** @type {Leap.Controller} */
   get leap() {
     return this._leap;
   }
 
+  /** @type {boolean} */
   get leapConnected() {
     return this._leapConnected;
   }
 
+  /** @type {boolean} */
   get triggerEvents() {
     return this._triggerEvents;
   }
 
+  /**
+   * Constructor.
+   *
+   * @param {HTMLCanvasElement}	canvas - Canvas element to listen for events from.
+   * @param {boolean}	triggerEvents - Tells if system should trigger events.
+   */
   constructor(canvas, triggerEvents = true) {
     super();
 
@@ -47,6 +64,9 @@ export default class InputSystem extends System {
     this._onKeyUp = this.onKeyUp.bind(this);
   }
 
+  /**
+   * @override
+   */
   onRegister() {
     this._canvas.addEventListener('mousedown', this._onMouseDown);
     document.addEventListener('mouseup', this._onMouseUp);
@@ -56,6 +76,9 @@ export default class InputSystem extends System {
     this._leap.connect();
   }
 
+  /**
+   * @override
+   */
   onUnregister() {
     this._canvas.removeEventListener('mousedown', this._onMouseDown);
     document.removeEventListener('mouseup', this._onMouseUp);
@@ -122,6 +145,9 @@ export default class InputSystem extends System {
     );
   }
 
+  /**
+   * Scan for changes in browser gamepads list.
+   */
   scanForGamepads() {
     const { _gamepads, _events, _triggerEvents } = this;
     const gamepads = !!navigator.getGamepads
@@ -158,6 +184,9 @@ export default class InputSystem extends System {
     }
   }
 
+  /**
+   * Process leap motion data frame.
+   */
   leapProcessFrame() {
     const { _leap, _events, _triggerEvents } = this;
     if (!!_leap) {

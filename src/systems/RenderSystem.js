@@ -2,8 +2,15 @@ import System from './System';
 import Events from '../utils/Events';
 import { vec4, mat4 } from '../utils/gl-matrix';
 
+/**
+ * Rendering graphics onto screen canvas.
+ *
+ * @example
+ * const system = new RenderSystem('screen-0');
+ */
 export default class RenderSystem extends System {
 
+  /** @type {*} */
   static get propsTypes() {
     return {
       useDevicePixelRatio: 'boolean',
@@ -11,18 +18,22 @@ export default class RenderSystem extends System {
     };
   }
 
+  /** @type {boolean} */
   get useDevicePixelRatio() {
     return this._useDevicePixelRatio;
   }
 
+  /** @type {boolean} */
   set useDevicePixelRatio(value) {
     this._useDevicePixelRatio = !!value;
   }
 
+  /** @type {number} */
   get timeScale() {
     return this._timeScale;
   }
 
+  /** @type {number} */
   set timeScale(value) {
     if (typeof value !== 'number') {
       throw new Error('`value` is not type of Number!');
@@ -31,38 +42,55 @@ export default class RenderSystem extends System {
     this._timeScale = value;
   }
 
+  /** @type {number} */
   get passedTime() {
     return this._passedTime;
   }
 
+  /** @type {HTMLCanvasElement} */
   get canvas() {
     return this._canvas;
   }
 
+  /** @type {Events} */
   get events() {
     return this._events;
   }
 
+  /** @type {string} */
   get activeShader() {
     return this._activeShader;
   }
 
+  /** @type {string} */
   get clearColor() {
     return this._clearColor;
   }
 
+  /** @type {mat4} */
   get projectionMatrix() {
     return this._projectionMatrix;
   }
 
+  /** @type {mat4} */
   get modelViewMatrix() {
     return this._modelViewMatrix;
   }
 
+  /** @type {Map} */
   get stats() {
     return this._stats;
   }
 
+  /**
+   * Constructor.
+   * Automaticaly binds into specified canvas.
+   *
+   * @param {string}	canvas - HTML canvas element id.
+   * @param {boolean}	optimize - Optimize rendering pipeline.
+   * @param {array}	extensions - array with WebGL extensions list.
+   * @param {number}	contextVersion - WebGL context version number.
+   */
   constructor(canvas, optimize = true, extensions = null, contextVersion = 1) {
     super();
 
@@ -97,6 +125,13 @@ export default class RenderSystem extends System {
     this._setup(canvas);
   }
 
+  /**
+   * Destructor (disposes internal resources).
+   *
+   * @example
+   * system.dispose();
+   * sustem = null;
+   */
   dispose() {
     const { _context, _shaders, _textures, _renderTargets, _events } = this;
 
@@ -117,10 +152,45 @@ export default class RenderSystem extends System {
     this._stats.clear();
   }
 
+  /**
+   * Get WebGL extension by it's name.
+   *
+   * @param {string}	name - Extension name.
+   *
+   * @return {*|null} WebGL extension or null if not found.
+   *
+   * @example
+   * const extension = system.extension('OES_vertex_array_object');
+   * if (!!extension) {
+   *   const vao = extension.createVertexArrayOES();
+   *   extension.bindVertexArrayOES(vao);
+   * }
+   */
   extension(name) {
     return this._extensions.get(name) || null;
   }
 
+  /**
+   * Register new shader.
+   *
+   * @param {string}	id - Shader id.
+   * @param {string}	vertex - Vertex shader code.
+   * @param {string}	fragment - Fragment shader code.
+   * @param {*}	layoutInfo - Vertex layout description.
+   * @param {*}	uniformsInfo - Uniforms description.
+   * @param {*}	samplersInfo - Samplers description.
+   * @param {*}	blendingInfo - Blending mode description.
+   *
+   * @example
+   * system.registerShader(
+   *   'red',
+   *   'attribute vec2 aPosition;\nvoid main() { gl_Position = vec4(aPosition, 0.0, 1.0); }',
+   *   'void main() { gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0); }',
+   *   { aPosition: { size: 2, stride: 2, offset: 0 } },
+   *   {},
+   *   { source: 'src-alpha', destination: 'one-minus-src-alpha' }
+   * );
+   */
   registerShader(
     id,
     vertex,
@@ -304,6 +374,14 @@ export default class RenderSystem extends System {
     this._shaders.set(id, { shader, layout, uniforms, samplers, blending });
   }
 
+  /**
+   * Unregister existing shader.
+   *
+   * @param {string}	id - Shader id.
+   *
+   * @example
+   * system.unregisterShader('red');
+   */
   unregisterShader(id) {
     const { _shaders } = this;
     const gl = this._context;
@@ -323,6 +401,15 @@ export default class RenderSystem extends System {
     _shaders.delete(id);
   }
 
+  /**
+   * Enable given shader (make it currently active for further rendering).
+   *
+   * @param {string}	id - Shader id.
+   * @param {boolean}	forced - ignore optimizations (by default it will not enable if is currently active).
+   *
+   * @example
+   * system.enableShader('red');
+   */
   enableShader(id, forced = false) {
     const {
       _shaders,
@@ -446,6 +533,17 @@ export default class RenderSystem extends System {
     }
   }
 
+  /**
+   * Disable given shader.
+   * Make sure that this is currently active shader (otherwise it will unbind wrong shader locations)!
+   *
+   * @param {string}	id - Shader id.
+   *
+   * @example
+   * const id = 'red';
+   * system.enableShader(id);
+   * system.disableShader(id);
+   */
   disableShader(id) {
     const { _shaders } = this;
     const gl = this._context;
@@ -463,6 +561,16 @@ export default class RenderSystem extends System {
     }
   }
 
+  /**
+   * Give active shader uniform a different than it's default value.
+   *
+   * @param {string}	name - Uniform name.
+   * @param {*}	value - Uniform value. Can be number of array of numbers.
+   *
+   * @example
+   * system.enableShader('color');
+   * system.overrideShaderUniform('uColor', [1, 0, 0, 1]);
+   */
   overrideShaderUniform(name, value) {
     const { _shaders, _activeShader } = this;
     const gl = this._context;
@@ -505,6 +613,17 @@ export default class RenderSystem extends System {
     }
   }
 
+  /**
+   * Give active shader sampler different than it's default texture.
+   *
+   * @param {string}	name - Sampler id.
+   * @param {string}	texture - Texture id.
+   * @param {string}	filtering - Sampler filtering. Can be linear or nearest.
+   *
+   * @example
+   * system.enableShader('sprite');
+   * system.overrideShaderSampler('sTexture', 'marsian', 'linear');
+   */
   overrideShaderSampler(name, texture, filtering) {
     const { _shaders, _textures, _activeShader } = this;
     const gl = this._context;
@@ -541,6 +660,17 @@ export default class RenderSystem extends System {
     gl.uniform1i(location, channel | 0);
   }
 
+  /**
+   * Register new texture.
+   *
+   * @param {string}	id - Texture id.
+   * @param {HTMLImageElement}	image - Image instance.
+   *
+   * @example
+   * const image = new Image();
+   * image.src = 'marsian.png';
+   * system.registerTexture('marsian', image);
+   */
   registerTexture(id, image) {
     this.unregisterTexture(id);
 
@@ -562,6 +692,17 @@ export default class RenderSystem extends System {
     });
   }
 
+  /**
+   * Register empty texture (mostly usedin  offscreen rendering cases).
+   *
+   * @param {string}	id - Texture id.
+   * @param {number}	width - Width.
+   * @param {number}	height - Height.
+   * @param {boolean}	floatPointData - Tells if this texture will store floating point data.
+   *
+   * @example
+   * system.registerTextureEmpty('offscreen', 512, 512);
+   */
   registerTextureEmpty(id, width, height, floatPointData = false) {
     this.unregisterTexture(id);
 
@@ -595,6 +736,14 @@ export default class RenderSystem extends System {
     });
   }
 
+  /**
+   * Unregister existing texture.
+   *
+   * @param {string}	id - Texture id.
+   *
+   * @example
+   * system.unregisterTexture('red');
+   */
   unregisterTexture(id) {
     const { _textures } = this;
     const gl = this._context;
@@ -606,6 +755,13 @@ export default class RenderSystem extends System {
     }
   }
 
+  /**
+   * Get texture meta information (width and height).
+   *
+   * @param {string}	id - Texture id.
+   *
+   * @return {*|null} Object with width and height properties or null if not found.
+   */
   getTextureMeta(id) {
     const { _textures } = this;
     const texture = _textures.get(id);
@@ -615,6 +771,17 @@ export default class RenderSystem extends System {
       : null;
   }
 
+  /**
+   * Register new render target.
+   *
+   * @param {string}	id - Render target id.
+   * @param {number}	width - Width.
+   * @param {number}	height - Height.
+   * @param {boolean}	floatPointData - Tells if render target will store floating point data.
+   *
+   * @example
+   * system.registerRenderTarget('offscreen', 512, 512);
+   */
   registerRenderTarget(id, width, height, floatPointData = false) {
     this.unregisterRenderTarget(id);
 
@@ -646,6 +813,14 @@ export default class RenderSystem extends System {
     });
   }
 
+  /**
+   * Unregister existing render target.
+   *
+   * @param {string}	id - Render target id.
+   *
+   * @example
+   * system.unregisterRenderTarget('offscreen');
+   */
   unregisterRenderTarget(id) {
     this.unregisterTexture(id);
 
@@ -659,6 +834,13 @@ export default class RenderSystem extends System {
     }
   }
 
+  /**
+   * Get render target meta information (width and height).
+   *
+   * @param {string}	id - Texture id.
+   *
+   * @return {*|null} Object with width and height properties or null if not found.
+   */
   getRenderTargetMeta(id) {
     const { _renderTargets } = this;
     const target = _renderTargets.get(id);
@@ -668,6 +850,14 @@ export default class RenderSystem extends System {
       : null;
   }
 
+  /**
+   * Make given render target active for further rendering.
+   *
+   * @param {string}	id - Render target id.
+   *
+   * @example
+   * system.enableRenderTarget('offscreen');
+   */
   enableRenderTarget(id) {
     const { _renderTargets } = this;
     const gl = this._context;
@@ -682,6 +872,12 @@ export default class RenderSystem extends System {
     gl.clear(gl.COLOR_BUFFER_BIT);
   }
 
+  /**
+   * Disable active render target.
+   *
+   * @example
+   * system.disableRenderTarget();
+   */
   disableRenderTarget() {
     const { _context, _canvas } = this;
 
@@ -689,14 +885,44 @@ export default class RenderSystem extends System {
     _context.viewport(0, 0, _canvas.width, _canvas.height);
   }
 
+  /**
+   * Tells if there is registered given shader.
+   *
+   * @param {string}	id - Shader id.
+   *
+   * @return {boolean}
+   */
   hasShader(id) {
     return !!this._shaders.get(id);
   }
 
+  /**
+   * Tells if there is registered given texture.
+   *
+   * @param {string}	id - Texture id.
+   *
+   * @return {boolean}
+   */
   hasTexture(id) {
     return !!this._textures.get(id);
   }
 
+  /**
+   * Tells if there is registered given render target.
+   *
+   * @param {string}	id - Render target id.
+   *
+   * @return {boolean}
+   */
+  hasRenderTarget(id) {
+    return !!this._renderTargets.get(id);
+  }
+
+  /**
+   * Resize frame buffer to match canvas size.
+   *
+   * @param {boolean}	forced - True if ignore optimizations.
+   */
   resize(forced = false) {
     const { _canvas, _context } = this;
     let { width, height, clientWidth, clientHeight } = _canvas;
@@ -716,10 +942,16 @@ export default class RenderSystem extends System {
     }
   }
 
+  /**
+   * @override
+   */
   onRegister() {
     this._startAnimation();
   }
 
+  /**
+   * @override
+   */
   onUnregister() {
     this._stopAnimation();
   }

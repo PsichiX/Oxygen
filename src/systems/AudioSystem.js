@@ -2,16 +2,27 @@ import System from './System';
 import Events from '../utils/Events';
 import { createAudioContext, createWaver } from 'waver-js';
 
+/**
+ * System used to manage audio.
+ *
+ * @example
+ * const system = new AudioSystem();
+ */
 export default class AudioSystem extends System {
 
+  /** @type {AudioContext} */
   get context() {
     return this._context;
   }
 
+  /** @type {Events} */
   get events() {
     return this._events;
   }
 
+  /**
+   * Constructor.
+   */
   constructor() {
     super();
 
@@ -22,6 +33,13 @@ export default class AudioSystem extends System {
     this._musics = new Map();
   }
 
+  /**
+   * Destructor (dispose internal resources).
+   *
+   * @example
+   * system.dispose();
+   * system = null;
+   */
   dispose() {
     for (const key of this._wavers.keys()) {
       this.unregisterWaver(key);
@@ -39,6 +57,13 @@ export default class AudioSystem extends System {
     super.dispose();
   }
 
+  /**
+   * Register new waver (audio shaders).
+   *
+   * @experimental
+   * @param {string}	id - Waver id.
+   * @param {string}	source - Waver code.
+   */
   registerWaver(id, source) {
     if (typeof id !== 'string') {
       throw new Error('`id` is not type of String!');
@@ -57,6 +82,12 @@ export default class AudioSystem extends System {
     this._wavers.set(id, waver);
   }
 
+  /**
+   * Unregister existing waver.
+   *
+   * @experimental
+   * @param {string}	id - Waver id.
+   */
   unregisterWaver(id) {
     if (typeof id !== 'string') {
       throw new Error('`id` is not type of String!');
@@ -69,6 +100,14 @@ export default class AudioSystem extends System {
     }
   }
 
+  /**
+   * Gets given waver by it's id.
+   *
+   * @experimental
+   * @param {string}	id - Waver id.
+   *
+   * @return {Waver} Waver instance.
+   */
   getWaver(id) {
     if (typeof id !== 'string') {
       throw new Error('`id` is not type of String!');
@@ -82,17 +121,37 @@ export default class AudioSystem extends System {
     return null;
   }
 
+  /**
+   * Play sound with given waver.
+   *
+   * @experimental
+   * @param {string}	id - Waver id.
+   * @param {string}	input - Input id.
+   * @param {string}	sound - Sound id.
+   *
+   * @return {AudioBufferSourceNode}
+   */
   waverPlaySound(id, input, sound) {
     const waver = this.getWaver(id);
     if (!waver) {
       throw new Error(`There is no registered waver: ${id}`);
     }
 
-    const source = this.playSound(sound);
+    const source = this.playSound(sound, false);
     waver.bindInput(input, source);
     return source;
   }
 
+  /**
+   * Play music with waver.
+   *
+   * @experimental
+   * @param {string}	id - Waver id.
+   * @param {string}	input - Input id.
+   * @param {string}	music - Music id.
+   *
+   * @return {MediaElementAudioSourceNode}
+   */
   waverPlayMusic(id, input, music) {
     const waver = this.getWaver(id);
     if (!waver) {
@@ -104,6 +163,12 @@ export default class AudioSystem extends System {
     return source;
   }
 
+  /**
+   * Register new sound.
+   *
+   * @param {string}	id - Sound id.
+   * @param {ArrayBuffer|AudioBuffer}	data - Sound data.
+   */
   registerSound(id, data) {
     if (typeof id !== 'string') {
       throw new Error('`id` is not type of String!');
@@ -119,6 +184,11 @@ export default class AudioSystem extends System {
     }
   }
 
+  /**
+   * Unregister existing sound.
+   *
+   * @param {string}	id - Sound id.
+   */
   unregisterSound(id) {
     if (typeof id !== 'string') {
       throw new Error('`id` is not type of String!');
@@ -127,6 +197,13 @@ export default class AudioSystem extends System {
     this._sounds.delete(id);
   }
 
+  /**
+   * Tells if there is registered given sound.
+   *
+   * @param {string}	id - Sound id.
+   *
+   * @return {boolean} True if sound exists, false otherwise.
+   */
   hasSound(id) {
     if (typeof id !== 'string') {
       throw new Error('`id` is not type of String!');
@@ -135,6 +212,13 @@ export default class AudioSystem extends System {
     return this._sounds.has(id);
   }
 
+  /**
+   * Gets given sound instance.
+   *
+   * @param {string}	id - Sound id.
+   *
+   * @return {AudioBufferSourceNode|null} Sound audio buffer source node if found or null if not.
+   */
   getSound(id) {
     if (typeof id !== 'string') {
       throw new Error('`id` is not type of String!');
@@ -148,6 +232,14 @@ export default class AudioSystem extends System {
     return null;
   }
 
+  /**
+   * Play given sound.
+   *
+   * @param {string}	id - Sound id.
+   * @param {boolean}	autoDestination - Tells if sound should be automaticaly bound with context destination.
+   *
+   * @return {AudioBufferSourceNode} Sound audio buffer source node.
+   */
   playSound(id, autoDestination = true) {
     if (typeof id !== 'string') {
       throw new Error('`id` is not type of String!');
@@ -180,6 +272,16 @@ export default class AudioSystem extends System {
     return source;
   }
 
+  /**
+   * Produces promise that resolves when sound is decoded into memory (decoding is done asynchronously).
+   *
+   * @param {string}	id - Sound id.
+   *
+   * @return {Promise} Produced promise.
+   *
+   * @example
+   * system.whenSoundIsReady('fire').then(() => system.playSound('fire'));
+   */
   whenSoundIsReady(id) {
     if (typeof id !== 'string') {
       throw new Error('`id` is not type of String!');
@@ -212,6 +314,15 @@ export default class AudioSystem extends System {
     });
   }
 
+  /**
+   * Register new music.
+   *
+   * @param {string}	id - Music id.
+   * @param {HTMLAudioElement}	audio - HTML audio element.
+   *
+   * @example
+   * system.registerMusic('ambient', document.getElementById('ambient'));
+   */
   registerMusic(id, audio) {
     if (typeof id !== 'string') {
       throw new Error('`id` is not type of String!');
@@ -223,6 +334,11 @@ export default class AudioSystem extends System {
     this._musics.set(id, audio);
   }
 
+  /**
+   * Unregister existing music.
+   *
+   * @param {string}	id - Music id.
+   */
   unregisterMusic(id) {
     if (typeof id !== 'string') {
       throw new Error('`id` is not type of String!');
@@ -231,6 +347,13 @@ export default class AudioSystem extends System {
     this._musics.delete(id);
   }
 
+  /**
+   * Tells if given music is registered.
+   *
+   * @param {string}	id - Music id.
+   *
+   * @return {boolean} True if music exists, false otherwise.
+   */
   hasMusic(id) {
     if (typeof id !== 'string') {
       throw new Error('`id` is not type of String!');
@@ -239,6 +362,13 @@ export default class AudioSystem extends System {
     return this._musics.has(id);
   }
 
+  /**
+   * Gets music instance.
+   *
+   * @param {string}	id - Music id.
+   *
+   * @return {HTMLAudioElement|null} Music instance if found, null otherwise.
+   */
   getMusic(id) {
     if (typeof id !== 'string') {
       throw new Error('`id` is not type of String!');
@@ -252,6 +382,14 @@ export default class AudioSystem extends System {
     return null;
   }
 
+  /**
+   * Play given music.
+   * Mostly you will be able to play only one music at the same time.
+   *
+   * @param {string}	id - Music id.
+   *
+   * @return {HTMLAudioElement} Music instance.
+   */
   playMusic(id) {
     if (typeof id !== 'string') {
       throw new Error('`id` is not type of String!');

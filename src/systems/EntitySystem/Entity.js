@@ -6,16 +6,28 @@ import { findMapKeyOfValue } from '../../utils';
 const zVector = vec3.fromValues(0, 0, 1);
 const cachedTempVec3 = vec3.create();
 
+/**
+ * Entity - actor of the scene, container for behaviour components.
+ *
+ * @example
+ * const entity = new Entity();
+ * entity.deserialize({ name: 'hey', components: { Hello: { hello: 'world' } } });
+ * const hello = entity.getComponent('Hello');
+ * console.log(hello.hello);
+ */
 export default class Entity {
 
+  /** @type {EntitySystem|null} */
   get owner() {
     return this._owner;
   }
 
+  /** @type {string|null} */
   get name() {
     return this._name;
   }
 
+  /** @type {string|null} */
   set name(value) {
     if (!!value && typeof value != 'string') {
       throw new Error('`value` is not type of String!');
@@ -24,10 +36,12 @@ export default class Entity {
     this._name = value || '';
   }
 
+  /** @type {string|null} */
   get tag() {
     return this._tag;
   }
 
+  /** @type {string|null} */
   set tag(value) {
     if (!!value && typeof value != 'string') {
       throw new Error('`value` is not type of String!');
@@ -36,10 +50,12 @@ export default class Entity {
     this._tag = value || '';
   }
 
+  /** @type {boolean} */
   get active() {
     return this._active;
   }
 
+  /** @type {boolean} */
   set active(value) {
     if (typeof value !== 'boolean') {
       throw new Error('`value` is not type of Boolean!');
@@ -48,6 +64,7 @@ export default class Entity {
     this._active = value;
   }
 
+  /** @type {string} */
   get path() {
     let result = `/${this._name}`;
     let current = this._parent;
@@ -58,6 +75,7 @@ export default class Entity {
     return result;
   }
 
+  /** @type {Entity} */
   get root() {
     let result = this;
     let current = this._parent;
@@ -68,61 +86,75 @@ export default class Entity {
     return result;
   }
 
+  /** @type {Entity|null} */
   get parent() {
     return this._parent;
   }
 
+  /** @type {Entity|null} */
   set parent(value) {
     this.reparent(value);
   }
 
+  /** @type {number} */
   get childrenCount() {
     return this._children.length;
   }
 
+  /** @type {number} */
   get indexInParent() {
     const { _parent } = this;
     return !_parent ? -1 : _parent._children.indexOf(this);
   }
 
+  /** @type {mat4} */
   get transformLocal() {
     return this._transformLocal;
   }
 
+  /** @type {mat4} */
   get transform() {
     return this._transform;
   }
 
+  /** @type {mat4} */
   get inverseTransform() {
     return this._inverseTransform;
   }
 
+  /** @type {vec3} */
   get position() {
     return this._position;
   }
 
+  /** @type {quat} */
   get rotation() {
     return this._rotation;
   }
 
+  /** @type {vec3} */
   get scale() {
     return this._scale;
   }
 
+  /** @type {vec3} */
   get globalPosition() {
     const result = vec3.create();
     vec3.set(cachedTempVec3, 0, 0, 0);
     return vec3.transformMat4(result, cachedTempVec3, this._transform);
   }
 
+  /** @type {*} */
   get componentNames() {
     return this._components.keys();
   }
 
+  /** @type {Function|null} */
   get childrenSorting() {
     return this._childrenSorting;
   }
 
+  /** @type {Function|null} */
   set childrenSorting(value) {
     if (!value) {
       this._childrenSorting = null;
@@ -136,10 +168,14 @@ export default class Entity {
     this.sortChildren();
   }
 
+  /** @type {*} */
   get meta() {
     return this._meta;
   }
 
+  /**
+   * Constructor.
+   */
   constructor() {
     this._owner = null;
     this._name = '';
@@ -159,6 +195,13 @@ export default class Entity {
     this._dirty = true;
   }
 
+  /**
+   * Destructor (disposes internal resources).
+   *
+   * @example
+   * entity.dispose();
+   * entity = null;
+   */
   dispose() {
     const { _children, _components } = this;
 
@@ -188,6 +231,13 @@ export default class Entity {
     this._meta = null;
   }
 
+  /**
+   * Make this entity and it's children active.
+   *
+   * @example
+   * entity.activete();
+   * entity.active === true;
+   */
   activate() {
     this.active = true;
 
@@ -197,6 +247,13 @@ export default class Entity {
     }
   }
 
+  /**
+   * Make this entity and it's children inactive.
+   *
+   * @example
+   * entity.deactivete();
+   * entity.active === false;
+   */
   deactivate() {
     this.active = false;
 
@@ -206,6 +263,16 @@ export default class Entity {
     }
   }
 
+  /**
+   * Serialize this entity into JSON data.
+   *
+   * @return {*} Serialized JSON data.
+   *
+   * @example
+   * entity.name = 'serialized';
+   * const json = entity.serialize();
+   * json.name === 'serialized';
+   */
   serialize() {
     const name = this._name || '';
     const tag = this._tag || '';
@@ -242,6 +309,15 @@ export default class Entity {
     return result;
   }
 
+  /**
+   * Deserialize JSON data into this entity.
+   *
+   * @param {*}	json - Serialized entity JSON data.
+   *
+   * @example
+   * entity.deserialize({ name: 'deserialized' });
+   * entity.name === 'deserialized';
+   */
   deserialize(json) {
     if (!json) {
       return;
@@ -300,18 +376,39 @@ export default class Entity {
     }
   }
 
-  setPosition(x, y) {
+  /**
+   * Set entity local position.
+   *
+   * @param {number}	x - Local X position.
+   * @param {number}	y - Local Y position.
+   * @param {number}	z - Local Z position.
+   *
+   * @example
+   * entity.setPosition(40, 2);
+   */
+  setPosition(x, y, z = 0) {
     if (typeof x !== 'number') {
       throw new Error('`x` is not type of Number!');
     }
     if (typeof y !== 'number') {
       throw new Error('`y` is not type of Number!');
     }
+    if (typeof z !== 'number') {
+      throw new Error('`z` is not type of Number!');
+    }
 
-    vec3.set(this._position, x, y, 0);
+    vec3.set(this._position, x, y, z);
     this._dirty = true;
   }
 
+  /**
+   * Set entity local Z axis rotation.
+   *
+   * @param {number}	rad - Z axis radian angle.
+   *
+   * @example
+   * entity.setRotation(90 * Math.PI / 180);
+   */
   setRotation(rad) {
     if (typeof rad !== 'number') {
       throw new Error('`rad` is not type of Number!');
@@ -321,22 +418,100 @@ export default class Entity {
     this._dirty = true;
   }
 
-  getRotation() {
-    return quat.getAxisAngle(cachedTempVec3, this._rotation) * cachedTempVec3[2];
-  }
-
-  setScale(x, y) {
+  /**
+   * Set entity local rotation from euler degrees.
+   *
+   * @param {number}	x - X axis degree rotation.
+   * @param {number}	y - Y axis degree rotation.
+   * @param {number}	z - Z axis degree rotation.
+   *
+   * @example
+   * entity.setRotationEuler(15, 30, 45);
+   */
+  setRotationEuler(x, y, z) {
     if (typeof x !== 'number') {
       throw new Error('`x` is not type of Number!');
     }
     if (typeof y !== 'number') {
       throw new Error('`y` is not type of Number!');
     }
+    if (typeof z !== 'number') {
+      throw new Error('`z` is not type of Number!');
+    }
 
-    vec3.set(this._scale, x, y, 1);
+    quat.fromEuler(this._rotation, x, y, z);
     this._dirty = true;
   }
 
+  /**
+   * Get entity local Z axis radian rotation.
+   *
+   * @return {number} Z axis local radian rotation.
+   *
+   * @example
+   * console.log(entity.getRotation());
+   */
+  getRotation() {
+    return quat.getAxisAngle(cachedTempVec3, this._rotation) * cachedTempVec3[2];
+  }
+
+  /**
+   * Get entity local euler axis rotation in degrees.
+   *
+   * @param {vec3}	result - Result vec3 object.
+   *
+   * @example
+   * const euler = vec3.create();
+   * entity.getRotationEuler(euler);
+   * console.log(euler);
+   */
+  getRotationEuler(result) {
+    if (!result) {
+      throw new Error('`result` cannot be null!');
+    }
+
+    const rad2deg = 180 / Math.PI;
+    const angle = quat.getAxisAngle(cachedTempVec3, this._rotation);
+    vec3.set(
+      result,
+      cachedTempVec3[0] * angle * rad2deg,
+      cachedTempVec3[1] * angle * rad2deg,
+      cachedTempVec3[2] * angle * rad2deg
+    );
+  }
+
+  /**
+   * Set entity local scale.
+   *
+   * @param {number}	x - Local X scale.
+   * @param {number}	y - Local Y scale.
+   * @param {number}	z - Local Z scale.
+   *
+   * @example
+   * entity.setScale(2, 3);
+   */
+  setScale(x, y, z = 1) {
+    if (typeof x !== 'number') {
+      throw new Error('`x` is not type of Number!');
+    }
+    if (typeof y !== 'number') {
+      throw new Error('`y` is not type of Number!');
+    }
+    if (typeof z !== 'number') {
+      throw new Error('`z` is not type of Number!');
+    }
+
+    vec3.set(this._scale, x, y, z);
+    this._dirty = true;
+  }
+
+  /**
+   * Get entity children at given index.
+   *
+   * @param {number}	index - Child index.
+   *
+   * @return {Entity} Child entity instance.
+   */
   getChild(index) {
     if (typeof index !== 'number') {
       throw new Error('`index` is not type of Number!');
@@ -351,6 +526,12 @@ export default class Entity {
     return _children[index];
   }
 
+  /**
+   * Kills all entity children (calls dispose on them and removes them from entity).
+   *
+   * @example
+   * entity.killChildren();
+   */
   killChildren() {
     const { _children } = this;
     const container = new Set(_children);
@@ -361,6 +542,15 @@ export default class Entity {
     container.clear();
   }
 
+  /**
+   * Rebind entity to different parent.
+   *
+   * @param {Entity|null}	entity - New parent entity or null if not bound to any entity.
+   * @param {number}	insertAt - Child index at given should be placed this entity in new parent
+   *
+   * @example
+   * entity.reparent(system.root);
+   */
   reparent(entity, insertAt = -1) {
     if (!!entity && !(entity instanceof Entity)) {
       throw new Error('`entity` is not type of Entity!');
@@ -399,6 +589,18 @@ export default class Entity {
     }
   }
 
+  /**
+   * Find entity by it's name or path in scene tree.
+   *
+   * @param {string}	name - Entity name or path.
+   *
+   * @return {Entity|null} Found entity instance or null if not found.
+   *
+   * @example
+   * entity.findEntity('./some-child');
+   * entity.findEntity('/root-child');
+   * entity.findEntity('/root-child/some-child');
+   */
   findEntity(name) {
     if (typeof name !== 'string') {
       throw new Error('`name` is not type of String!');
@@ -454,6 +656,16 @@ export default class Entity {
     return current;
   }
 
+  /**
+   * Attach component to this entity.
+   *
+   * @param {string}	typename - Component type name.
+   * @param {Component}	component - Component instance.
+   *
+   * @example
+   * entity.attachComponent('MyComponent', new MyComponent());
+   * entity.attachComponent('Hello', new Hello());
+   */
   attachComponent(typename, component) {
     if (typeof typename !== 'string') {
       throw new Error('`typename` is not type of String!');
@@ -477,6 +689,14 @@ export default class Entity {
     }
   }
 
+  /**
+   * Detach component by it's type name.
+   *
+   * @param {string}	typename - Component type name.
+   *
+   * @example
+   * entity.detachComponent('Hello');
+   */
   detachComponent(typename) {
     const { _components } = this;
     let component = typename;
@@ -499,6 +719,18 @@ export default class Entity {
     }
   }
 
+  /**
+   * Find component by it's type name.
+   *
+   * @param {string}	typename - Component type name.
+   *
+   * @return {Component|null} Component instance if found or null otherwise.
+   *
+   * @example
+   * class Hello extends Component {}
+   * entity.attachComponent('Hello', new Hello());
+   * const hello = entity.getComponent('Hello');
+   */
   getComponent(typename) {
     if (typeof typename !== 'string') {
       throw new Error('`typename` is not type of String!');
@@ -507,6 +739,17 @@ export default class Entity {
     return this._components.get(typename) || null;
   }
 
+  /**
+   * Perform action on entity.
+   *
+   * @param {string}	name - Action name.
+   * @param {*}	args - Action parameters.
+   *
+   * @example
+   * class Hi extends Component { onAction(name, wat) { if (name === 'hi') console.log(wat); } }
+   * entity.attachComponent('Hi', new Hi());
+   * entity.performAction('hi', 'hello');
+   */
   performAction(name, ...args) {
     if (typeof name !== 'string') {
       throw new Error('`name` is not type of String!');
@@ -533,6 +776,13 @@ export default class Entity {
     }
   }
 
+  /**
+   * Perform action only on components (do not pass action further to children).
+   * See: {@link performAction}
+   *
+   * @param {string}	name - Action name.
+   * @param {*}	args - Action parameters.
+   */
   performActionOnComponents(name, ...args) {
     if (typeof name !== 'string') {
       throw new Error('`name` is not type of String!');
@@ -550,6 +800,15 @@ export default class Entity {
     }
   }
 
+  /**
+   * Perform custom callback action on entity components of given type and it's children.
+   *
+   * @param {string|null}	id - Affected component type (can be null if want to call every component).
+   * @param {Function}	action - Custom action callback. Callback gets one argument with component instance.
+   *
+   * @example
+   * entity.performOnComponents('Hello', component => console.log(component.hello));
+   */
   performOnComponents(id, action) {
     if (!!id && typeof id !== 'string') {
       throw new Error('`id` is not type of String!');
@@ -576,6 +835,15 @@ export default class Entity {
     }
   }
 
+  /**
+   * Perform custom callback action only on entity and optionally it's children.
+   *
+   * @param {Function}	action - Custom action callback. Callback gets one argument with child instance.
+   * @param {boolean}	deep - True if should be called on it's children.
+   *
+   * @example
+   * entity.performOnChildren(e => console.log(e.name));
+   */
   performOnChildren(action, deep = false) {
     if (!(action instanceof Function)) {
       throw new Error('`action` is not type of Function!');
@@ -592,6 +860,15 @@ export default class Entity {
     }
   }
 
+  /**
+   * Update entity ant it's children transforms.
+   *
+   * @param {mat4}	parentTransform - Parent transformation.
+   * @param {boolean}	forced - If true ignore optimizations and update anyway.
+   *
+   * @example
+   * entity.updateTransforms();
+   */
   updateTransforms(parentTransform, forced = false) {
     if (!this._active) {
       return;
@@ -627,6 +904,9 @@ export default class Entity {
     }
   }
 
+  /**
+   * Sort children by entity childrenSorting function if set.
+   */
   sortChildren() {
     const { _childrenSorting, _children } = this;
     if (!_childrenSorting) {
