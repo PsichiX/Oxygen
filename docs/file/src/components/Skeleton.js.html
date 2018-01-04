@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/components/Skeleton.js | oxygen-core</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Oxygen game engine (Xenon Core for browsers)"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="oxygen-core"><meta property="twitter:description" content="Oxygen game engine (Xenon Core for browsers)"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/PsichiX/Oxygen"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-lazyInitialization">lazyInitialization</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#asset-loaders">asset-loaders</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/AtlasAsset.js~AtlasAsset.html">AtlasAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/BinaryAsset.js~BinaryAsset.html">BinaryAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/FontAsset.js~FontAsset.html">FontAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/ImageAsset.js~ImageAsset.html">ImageAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/JSONAsset.js~JSONAsset.html">JSONAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/MusicAsset.js~MusicAsset.html">MusicAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/PackAsset.js~PackAsset.html">PackAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/ParticleSystemAsset.js~ParticleSystemAsset.html">ParticleSystemAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/SceneAsset.js~SceneAsset.html">SceneAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/ShaderAsset.js~ShaderAsset.html">ShaderAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/SkeletonAsset.js~SkeletonAsset.html">SkeletonAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/SoundAsset.js~SoundAsset.html">SoundAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/TextAsset.js~TextAsset.html">TextAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/WaverAsset.js~WaverAsset.html">WaverAsset</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components">components</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/AtlasSprite.js~AtlasSprite.html">AtlasSprite</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Camera.js~Camera.html">Camera</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Camera2D.js~Camera2D.html">Camera2D</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/CameraDirector.js~CameraDirector.html">CameraDirector</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html">InputHandler</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/InputListener.js~InputListener.html">InputListener</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html">Particles</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/PhysicsBody.js~PhysicsBody.html">PhysicsBody</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/PhysicsWorld.js~PhysicsWorld.html">PhysicsWorld</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/PrefabInstance.js~PrefabInstance.html">PrefabInstance</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/RectangleRenderer.js~RectangleRenderer.html">RectangleRenderer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Script.js~Script.html">Script</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Skeleton.js~Skeleton.html">Skeleton</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/SortedActions.js~SortedActions.html">SortedActions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Sprite.js~Sprite.html">Sprite</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/TextRenderer.js~TextRenderer.html">TextRenderer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/UiLayout.js~UiLayout.html">UiLayout</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/UiSprite.js~UiSprite.html">UiSprite</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/VerticesRenderer.js~VerticesRenderer.html">VerticesRenderer</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#systems">systems</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/AudioSystem.js~AudioSystem.html">AudioSystem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/InputSystem.js~InputSystem.html">InputSystem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/RenderSystem.js~RenderSystem.html">RenderSystem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/StorageSystem.js~StorageSystem.html">StorageSystem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/System.js~System.html">System</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#systems-assetsystem">systems/AssetSystem</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/AssetSystem/Asset.js~Asset.html">Asset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/AssetSystem/index.js~AssetSystem.html">AssetSystem</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#systems-entitysystem">systems/EntitySystem</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/EntitySystem/Component.js~Component.html">Component</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/EntitySystem/Entity.js~Entity.html">Entity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/EntitySystem/index.js~EntitySystem.html">EntitySystem</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/Events.js~Events.html">Events</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-angleDifference">angleDifference</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-bezierCubic">bezierCubic</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-convertGlobalPointToLocalPoint">convertGlobalPointToLocalPoint</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-convertLocalPointToGlobalPoint">convertLocalPointToGlobalPoint</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-findMapKeyOfValue">findMapKeyOfValue</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isGlobalPointInGlobalBoundingBox">isGlobalPointInGlobalBoundingBox</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isLocalPointInLocalBoundingBox">isLocalPointInLocalBoundingBox</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-propsEnumStringify">propsEnumStringify</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stringToRGBA">stringToRGBA</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-waitForSeconds">waitForSeconds</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/components/Skeleton.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import Script from &apos;./Script&apos;;
+import System from &apos;../systems/System&apos;;
+import Events from &apos;../utils/Events&apos;;
+import { angleDifference } from &apos;../utils&apos;;
+
+function findFrame(time, frames) {
+  for (let i = 0, c = frames.length; i &lt; c; ++i) {
+    const a = frames[i];
+    const b = frames[i + 1];
+    if (!!b) {
+      if (time &gt;= a.time &amp;&amp; time &lt; b.time) {
+        return a;
+      }
+    } else {
+      if (time &gt;= a.time) {
+        return a;
+      }
+    }
+  }
+
+  return null;
+}
+
+function findFrames(time, frames) {
+  if (frames.length &lt; 2) {
+    const frame = findFrame(time, frames);
+    if (!!frame) {
+      return { a: frame, b: frame };
+    }
+
+    return null;
+  }
+
+  for (let i = 1, c = frames.length; i &lt; c; ++i) {
+    const a = frames[i - 1];
+    const b = frames[i];
+    if (time &gt;= a.time &amp;&amp; time &lt; b.time) {
+      return { a, b };
+    }
+  }
+
+  return null;
+}
+
+function sampleValue(sampler, from, to, timeFrom, timeTo, time) {
+  const dt = timeTo - timeFrom;
+  if (Math.abs(dt) &gt; 0) {
+    time = Math.max(timeFrom, Math.min(timeTo, time));
+    return (to - from) * sampler((time - timeFrom) / dt) + from;
+  }
+  return to;
+}
+
+export default class Skeleton extends Script {
+
+  static factory() {
+    return new Skeleton();
+  }
+
+  static get propsTypes() {
+    return {
+      ...Script.propsTypes,
+      asset: &apos;string_null&apos;,
+      skin: &apos;string_null&apos;,
+      animation: &apos;string_null&apos;,
+      loop: &apos;boolean&apos;,
+      speed: &apos;number&apos;,
+      time: &apos;number&apos;,
+      paused: &apos;boolean&apos;
+    };
+  }
+
+  get asset() {
+    return this._asset;
+  }
+
+  set asset(value) {
+    if (!value) {
+      this._asset = null;
+      this._data = null;
+      return;
+    }
+
+    if (typeof value !== &apos;string&apos;) {
+      throw new Error(&apos;`value` is not type of String!&apos;);
+    }
+
+    this._asset = value;
+    this._slots = null;
+    this._data = null;
+
+    const { AssetSystem } = System.systems;
+    if (!AssetSystem) {
+      throw new Error(&apos;There is no registered AssetSystem!&apos;);
+    }
+
+    const asset = AssetSystem.get(`skeleton://${value}`);
+    if (!asset) {
+      throw new Error(`There is no asset loaded: ${value}`);
+    }
+
+    if (!!this.entity) {
+      this.rebind();
+    }
+
+    this._data = asset.data;
+    this._rebuildSkin = true;
+  }
+
+  get skin() {
+    return this._skin;
+  }
+
+  set skin(value) {
+    if (!value) {
+      this._skin = null;
+      return;
+    }
+
+    if (typeof value !== &apos;string&apos;) {
+      throw new Error(&apos;`value` is not type of String!&apos;);
+    }
+
+    this._skin = value;
+    this._rebuildSkin = true;
+  }
+
+  get animation() {
+    return this._animation;
+  }
+
+  set animation(value) {
+    if (!value) {
+      this._animation = null;
+      return;
+    }
+
+    if (typeof value !== &apos;string&apos;) {
+      throw new Error(&apos;`value` is not type of String!&apos;);
+    }
+
+    this._animation = value;
+  }
+
+  get loop() {
+    return this._loop;
+  }
+
+  set loop(value) {
+    if (typeof value !== &apos;boolean&apos;) {
+      throw new Error(&apos;`value` is not type of Boolean!&apos;);
+    }
+
+    this._loop = value;
+  }
+
+  get speed() {
+    return this._speed;
+  }
+
+  set speed(value) {
+    if (typeof value !== &apos;number&apos;) {
+      throw new Error(&apos;`value` is not type of Number!&apos;);
+    }
+
+    this._speed = value;
+  }
+
+  get time() {
+    return this._time;
+  }
+
+  set time(value) {
+    if (typeof value !== &apos;number&apos;) {
+      throw new Error(&apos;`value` is not type of Number!&apos;);
+    }
+
+    this._time = value;
+  }
+
+  get paused() {
+    return this._paused;
+  }
+
+  set paused(value) {
+    if (typeof value !== &apos;boolean&apos;) {
+      throw new Error(&apos;`value` is not type of Boolean!&apos;);
+    }
+
+    this._paused = value;
+  }
+
+  get events() {
+    return this._events;
+  }
+
+  constructor() {
+    super();
+
+    this._events = new Events();
+    this._asset = null;
+    this._skin = &apos;default&apos;;
+    this._animation = null;
+    this._speed = 1;
+    this._loop = true;
+    this._time = 0;
+    this._paused = false;
+    this._data = null;
+    this._slots = null;
+    this._bones = null;
+    this._rebuildSkin = false;
+  }
+
+  dispose() {
+    super.dispose();
+
+    const { _events } = this;
+    if (!!_events) {
+      _events.dispose();
+    }
+
+    this._events = null;
+    this._asset = null;
+    this._animation = null;
+    this._slots = null;
+    this._data = null;
+    this._slots = null;
+    this._bones = null;
+  }
+
+  rebind() {
+    const { entity, _data } = this;
+    if (!entity || !_data) {
+      return;
+    }
+
+    const slots = this._slots = {};
+    const bones = this._bones = {};
+    for (const key in _data.slots) {
+      slots[key] = entity.findEntity(_data.slots[key]);
+    }
+    for (const key in _data.bones) {
+      bones[key] = entity.findEntity(_data.bones[key]);
+    }
+  }
+
+  applySkin(id = &apos;default&apos;) {
+    if (typeof id !== &apos;string&apos;) {
+      throw new Error(&apos;`id` is not type of String!&apos;);
+    }
+
+    const { _data, _slots } = this;
+    if (!_data) {
+      throw new Error(&apos;There is no skeleton data!&apos;);
+    }
+    if (!_slots) {
+      throw new Error(&apos;There are no slots bindings!&apos;);
+    }
+
+    const { skins } = _data;
+    if (!skins) {
+      throw new Error(&apos;There are no skins in skeleton data!&apos;);
+    }
+
+    const skin = skins[id];
+    if (!skin) {
+      throw new Error(`Skin not found in skeleton data: ${id}`);
+    }
+
+    for (const key in _slots) {
+      const slot = skin[key] || skins.default[key];
+      if (!slot) {
+        console.warn(`There is no slot in skeleton data: ${key}`);
+        continue;
+      }
+
+      const attachmentName = Object.keys(slot)[0];
+      if (!attachmentName) {
+        console.warn(`There are no attachments in slot: ${key}`);
+        continue;
+      }
+
+      this._applyAttachment(_slots[key], slot, attachmentName);
+    }
+  }
+
+  applyAnimationFrame(id, time, loop = false) {
+    const { _data, _slots, _bones, _skin } = this;
+    if (!_data) {
+      throw new Error(&apos;There is no skeleton data!&apos;);
+    }
+
+    const { animations, attachments, skins, pose } = _data;
+    if (!animations) {
+      throw new Error(&apos;There are no animations in skeleton data!&apos;);
+    }
+    if (!skins) {
+      throw new Error(&apos;There are no skins in skeleton data!&apos;);
+    }
+    if (!pose) {
+      throw new Error(&apos;There is no pose in skeleton data!&apos;);
+    }
+
+    const skin = skins[_skin];
+    if (!skin) {
+      throw new Error(`Skin not found in skeleton data: ${id}`);
+    }
+
+    const animation = animations[id];
+    if (!animation) {
+      throw new Error(`There is no animation: ${id}`);
+    }
+
+    const { bones, slots, duration } = animation;
+    if (!!loop) {
+      time = time % duration;
+    }
+
+    if (!!bones) {
+      for (const boneKey in bones) {
+        const bone = _bones[boneKey];
+        if (!bone) {
+          console.warn(`There is no bone: ${boneKey}`);
+          continue;
+        }
+
+        const timelines = bones[boneKey];
+        const { translate, rotate, scale } = timelines;
+        const p = pose[boneKey];
+        if (!!translate) {
+          const frame = findFrames(time, translate);
+          if (!!frame) {
+            const { a, b } = frame;
+            const { sample } = a;
+            if (!!sample) {
+              bone.setPosition(
+                p.x + sampleValue(sample, a.x, b.x, a.time, b.time, time),
+                p.y + sampleValue(sample, a.y, b.y, a.time, b.time, time)
+              );
+            }
+          }
+        }
+        if (!!rotate) {
+          const frame = findFrames(time, rotate);
+          if (!!frame) {
+            const { a, b } = frame;
+            const { sample } = a;
+            if (!!sample) {
+              bone.setRotation(
+                (p.rotation + sampleValue(
+                  sample,
+                  a.angle,
+                  a.angle + angleDifference(b.angle, a.angle),
+                  a.time,
+                  b.time,
+                  time
+                )) * Math.PI / 180
+              );
+            }
+          }
+        }
+        if (!!scale) {
+          const frame = findFrames(time, scale);
+          if (!!frame) {
+            const { a, b } = frame;
+            const { sample } = a;
+            if (!!sample) {
+              bone.setScale(
+                p.scaleX + sampleValue(sample, a.x, b.x, a.time, b.time, time),
+                p.scaleY + sampleValue(sample, a.y, b.y, a.time, b.time, time)
+              );
+            }
+          }
+        }
+      }
+    }
+
+    if (!!slots) {
+      for (const slotKey in slots) {
+        const slot = _slots[slotKey];
+        if (!slot) {
+          console.warn(`There is no slot: ${slotKey}`);
+          continue;
+        }
+
+        const timelines = slots[slotKey];
+        const { attachment } = timelines;
+        if (!!attachment) {
+          const frame = findFrame(time, attachment);
+          if (!!frame) {
+            this._applyAttachment(
+              slot,
+              skin[slotKey] || skins.default[slotKey],
+              frame.name
+            );
+          }
+        }
+      }
+    }
+  }
+
+  playAnimation(id, looped = false) {
+    this.time = 0;
+    this.loop = looped;
+    this.animation = id;
+  }
+
+  stopAnimation() {
+    this.time = 0;
+    this.animation = null;
+  }
+
+  onAttach() {
+    super.onAttach();
+    this.rebind();
+  }
+
+  onUpdate(deltaTime) {
+    deltaTime *= 0.001;
+    const { _rebuildSkin, _skin, _animation, _loop, _time } = this;
+
+    if (_rebuildSkin) {
+      this._rebuildSkin = false;
+      this.applySkin(_skin);
+    }
+
+    if (!!_animation &amp;&amp; !this._paused) {
+      this.applyAnimationFrame(_animation, _time, _loop);
+      this._time += deltaTime * this._speed;
+      this._performAnimationEvents(_animation, _time, this._time, _loop);
+    }
+  }
+
+  _performAnimationEvents(id, timePrev, time, loop) {
+    const { _data, _events } = this;
+    if (!_data) {
+      throw new Error(&apos;There is no skeleton data!&apos;);
+    }
+
+    const { animations } = _data;
+    if (!animations) {
+      throw new Error(&apos;There are no animations in skeleton data!&apos;);
+    }
+
+    const animation = animations[id];
+    if (!animation) {
+      throw new Error(`There is no animation: ${id}`);
+    }
+
+    const { events, duration } = animation;
+    const diff = time - timePrev;
+    if (!!loop) {
+      time = time % duration;
+      timePrev = time - diff;
+    }
+
+    if (!!events) {
+      for (const event of events) {
+        if (event.time &gt;= timePrev &amp;&amp; event.time &lt; time) {
+          const { name } = event;
+          if (name.startsWith(&apos;#&apos;)) {
+            System.events.trigger(name.substr(1), event.int, event.float, event.string);
+          } else {
+            _events.trigger(name, event.int, event.float, event.string);
+          }
+        }
+      }
+    }
+  }
+
+  _applyAttachment(node, slot, id) {
+    const atlasFrame = this._data.attachments[id];
+    if (!atlasFrame) {
+      console.warn(`There is no attachment in skeleton data: ${id}`);
+      return;
+    }
+
+    const attachment = slot[id];
+    if (!attachment) {
+      console.warn(`There is no attachment in skeleton slots data: ${id}`);
+      return;
+    }
+
+    const renderer = node.getComponent(&apos;AtlasSprite&apos;);
+    renderer.atlas = atlasFrame;
+    renderer.xOrigin = 0.5;
+    renderer.yOrigin = 0.5;
+    if (&apos;width&apos; in attachment) {
+      renderer.width = attachment.width;
+    }
+    if (&apos;height&apos; in attachment) {
+      renderer.height = attachment.height;
+    }
+    node.setPosition(attachment.x || 0, attachment.y || 0);
+    node.setRotation((attachment.rotation || 0) * Math.PI / 180);
+    node.setScale(attachment.scaleX || 1, attachment.scaleY || 1);
+  }
+
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.4)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

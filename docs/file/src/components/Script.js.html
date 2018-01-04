@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/components/Script.js | oxygen-core</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Oxygen game engine (Xenon Core for browsers)"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="oxygen-core"><meta property="twitter:description" content="Oxygen game engine (Xenon Core for browsers)"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/PsichiX/Oxygen"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-lazyInitialization">lazyInitialization</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#asset-loaders">asset-loaders</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/AtlasAsset.js~AtlasAsset.html">AtlasAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/BinaryAsset.js~BinaryAsset.html">BinaryAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/FontAsset.js~FontAsset.html">FontAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/ImageAsset.js~ImageAsset.html">ImageAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/JSONAsset.js~JSONAsset.html">JSONAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/MusicAsset.js~MusicAsset.html">MusicAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/PackAsset.js~PackAsset.html">PackAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/ParticleSystemAsset.js~ParticleSystemAsset.html">ParticleSystemAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/SceneAsset.js~SceneAsset.html">SceneAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/ShaderAsset.js~ShaderAsset.html">ShaderAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/SkeletonAsset.js~SkeletonAsset.html">SkeletonAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/SoundAsset.js~SoundAsset.html">SoundAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/TextAsset.js~TextAsset.html">TextAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/WaverAsset.js~WaverAsset.html">WaverAsset</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components">components</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/AtlasSprite.js~AtlasSprite.html">AtlasSprite</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Camera.js~Camera.html">Camera</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Camera2D.js~Camera2D.html">Camera2D</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/CameraDirector.js~CameraDirector.html">CameraDirector</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html">InputHandler</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/InputListener.js~InputListener.html">InputListener</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html">Particles</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/PhysicsBody.js~PhysicsBody.html">PhysicsBody</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/PhysicsWorld.js~PhysicsWorld.html">PhysicsWorld</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/PrefabInstance.js~PrefabInstance.html">PrefabInstance</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/RectangleRenderer.js~RectangleRenderer.html">RectangleRenderer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Script.js~Script.html">Script</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Skeleton.js~Skeleton.html">Skeleton</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/SortedActions.js~SortedActions.html">SortedActions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Sprite.js~Sprite.html">Sprite</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/TextRenderer.js~TextRenderer.html">TextRenderer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/UiLayout.js~UiLayout.html">UiLayout</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/UiSprite.js~UiSprite.html">UiSprite</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/VerticesRenderer.js~VerticesRenderer.html">VerticesRenderer</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#systems">systems</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/AudioSystem.js~AudioSystem.html">AudioSystem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/InputSystem.js~InputSystem.html">InputSystem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/RenderSystem.js~RenderSystem.html">RenderSystem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/StorageSystem.js~StorageSystem.html">StorageSystem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/System.js~System.html">System</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#systems-assetsystem">systems/AssetSystem</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/AssetSystem/Asset.js~Asset.html">Asset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/AssetSystem/index.js~AssetSystem.html">AssetSystem</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#systems-entitysystem">systems/EntitySystem</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/EntitySystem/Component.js~Component.html">Component</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/EntitySystem/Entity.js~Entity.html">Entity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/EntitySystem/index.js~EntitySystem.html">EntitySystem</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/Events.js~Events.html">Events</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-angleDifference">angleDifference</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-bezierCubic">bezierCubic</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-convertGlobalPointToLocalPoint">convertGlobalPointToLocalPoint</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-convertLocalPointToGlobalPoint">convertLocalPointToGlobalPoint</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-findMapKeyOfValue">findMapKeyOfValue</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isGlobalPointInGlobalBoundingBox">isGlobalPointInGlobalBoundingBox</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isLocalPointInLocalBoundingBox">isLocalPointInLocalBoundingBox</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-propsEnumStringify">propsEnumStringify</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stringToRGBA">stringToRGBA</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-waitForSeconds">waitForSeconds</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/components/Script.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import Component from &apos;../systems/EntitySystem/Component&apos;;
+import System from &apos;../systems/System&apos;;
+import { propsEnumStringify } from &apos;../utils&apos;;
+
+const EventFlags = {
+  NONE: 0,
+  MOUSE_DOWN: 1 &lt;&lt; 0,
+  MOUSE_UP: 1 &lt;&lt; 1,
+  MOUSE_MOVE: 1 &lt;&lt; 2,
+  MOUSE: 0x7,
+  KEY_DOWN: 1 &lt;&lt; 3,
+  KEY_UP: 1 &lt;&lt; 4,
+  KEY: 0x18,
+  GAMEPAD_CONNECTED: 1 &lt;&lt; 5,
+  GAMEPAD_DISCONNECTED: 1 &lt;&lt; 6,
+  GAMEPAD_PROCESS: 1 &lt;&lt; 7,
+  GAMEPAD: 0xE0,
+  LEAP_CONNECTED: 1 &lt;&lt; 8,
+  LEAP_DISCONNECTED: 1 &lt;&lt; 9,
+  LEAP_PROCESS: 1 &lt;&lt; 10,
+  LEAP: 0x700,
+  INPUT: 0x7FF,
+  CONTACT_BEGIN: 1 &lt;&lt; 11,
+  CONTACT_END: 1 &lt;&lt; 12,
+  CONTACT: 0x1800,
+  ALL: 0x1FFF
+};
+
+export default class Script extends Component {
+
+  static factory() {
+    return new Script();
+  }
+
+  static get propsTypes() {
+    return {
+      listenTo: `flags(${propsEnumStringify(EventFlags)})`
+    };
+  }
+
+  static get EventFlags() {
+    return EventFlags;
+  }
+
+  get listenTo() {
+    return this._listenTo;
+  }
+
+  set listenTo(value) {
+    if (typeof value !== &apos;number&apos;) {
+      throw new Error(&apos;`value` is not type of Number!&apos;);
+    }
+
+    const input = System.get(&apos;InputSystem&apos;);
+
+    if (!input) {
+      throw new Error(&apos;There is no registered InputSystem!&apos;);
+    }
+
+    const last = this._listenTo;
+    const listenTo = this._listenTo = value | 0;
+    const change = last ^ listenTo;
+
+    if (change &amp; EventFlags.MOUSE_DOWN) {
+      if (listenTo &amp; EventFlags.MOUSE_DOWN) {
+        input.events.on(&apos;mouse-down&apos;, this._onMouseDown);
+      } else {
+        input.events.off(&apos;mouse-down&apos;, this._onMouseDown);
+      }
+    }
+
+    if (change &amp; EventFlags.MOUSE_UP) {
+      if (listenTo &amp; EventFlags.MOUSE_UP) {
+        input.events.on(&apos;mouse-up&apos;, this._onMouseUp);
+      } else {
+        input.events.off(&apos;mouse-up&apos;, this._onMouseUp);
+      }
+    }
+
+    if (change &amp; EventFlags.MOUSE_MOVE) {
+      if (listenTo &amp; EventFlags.MOUSE_MOVE) {
+        input.events.on(&apos;mouse-move&apos;, this._onMouseMove);
+      } else {
+        input.events.off(&apos;mouse-move&apos;, this._onMouseMove);
+      }
+    }
+
+    if (change &amp; EventFlags.KEY_DOWN) {
+      if (listenTo &amp; EventFlags.KEY_DOWN) {
+        input.events.on(&apos;key-down&apos;, this._onKeyDown);
+      } else {
+        input.events.off(&apos;key-down&apos;, this._onKeyDown);
+      }
+    }
+
+    if (change &amp; EventFlags.KEY_UP) {
+      if (listenTo &amp; EventFlags.KEY_UP) {
+        input.events.on(&apos;key-up&apos;, this._onKeyUp);
+      } else {
+        input.events.off(&apos;key-up&apos;, this._onKeyUp);
+      }
+    }
+
+    if (change &amp; EventFlags.GAMEPAD_CONNECTED) {
+      if (listenTo &amp; EventFlags.GAMEPAD_CONNECTED) {
+        input.events.on(&apos;gamepad-connected&apos;, this._onGamepadConnected);
+      } else {
+        input.events.off(&apos;gamepad-connected&apos;, this._onGamepadConnected);
+      }
+    }
+
+    if (change &amp; EventFlags.GAMEPAD_DISCONNECTED) {
+      if (listenTo &amp; EventFlags.GAMEPAD_DISCONNECTED) {
+        input.events.on(&apos;gamepad-disconnected&apos;, this._onGamepadDisconnected);
+      } else {
+        input.events.off(&apos;gamepad-disconnected&apos;, this._onGamepadDisconnected);
+      }
+    }
+
+    if (change &amp; EventFlags.GAMEPAD_PROCESS) {
+      if (listenTo &amp; EventFlags.GAMEPAD_PROCESS) {
+        input.events.on(&apos;gamepad-process&apos;, this._onGamepadProcess);
+      } else {
+        input.events.off(&apos;gamepad-process&apos;, this._onGamepadProcess);
+      }
+    }
+
+    if (change &amp; EventFlags.LEAP_CONNECTED) {
+      if (listenTo &amp; EventFlags.LEAP_CONNECTED) {
+        input.events.on(&apos;leap-connected&apos;, this._onLeapConnected);
+      } else {
+        input.events.off(&apos;leap-connected&apos;, this._onLeapConnected);
+      }
+    }
+
+    if (change &amp; EventFlags.LEAP_DISCONNECTED) {
+      if (listenTo &amp; EventFlags.LEAP_DISCONNECTED) {
+        input.events.on(&apos;leap-disconnected&apos;, this._onLeapDisconnected);
+      } else {
+        input.events.off(&apos;leap-disconnected&apos;, this._onLeapDisconnected);
+      }
+    }
+
+    if (change &amp; EventFlags.LEAP_PROCESS) {
+      if (listenTo &amp; EventFlags.LEAP_PROCESS) {
+        input.events.on(&apos;leap-process&apos;, this._onLeapProcess);
+      } else {
+        input.events.off(&apos;leap-process&apos;, this._onLeapProcess);
+      }
+    }
+
+    if (change &amp; EventFlags.CONTACT_BEGIN) {
+      if (listenTo &amp; EventFlags.CONTACT_BEGIN) {
+        input.events.on(&apos;contact-begin&apos;, this._onContactBegin);
+      } else {
+        input.events.off(&apos;contact-begin&apos;, this._onContactBegin);
+      }
+    }
+
+    if (change &amp; EventFlags.CONTACT_END) {
+      if (listenTo &amp; EventFlags.CONTACT_END) {
+        input.events.on(&apos;contact-end&apos;, this._onContactEnd);
+      } else {
+        input.events.off(&apos;contact-end&apos;, this._onContactEnd);
+      }
+    }
+  }
+
+  constructor() {
+    super();
+
+    this._listenTo = EventFlags.NONE;
+    this._onMouseDown = this.onMouseDown.bind(this);
+    this._onMouseUp = this.onMouseUp.bind(this);
+    this._onMouseMove = this.onMouseMove.bind(this);
+    this._onKeyDown = this.onKeyDown.bind(this);
+    this._onKeyUp = this.onKeyUp.bind(this);
+    this._onGamepadConnected = this.onGamepadConnected.bind(this);
+    this._onGamepadDisconnected = this.onGamepadDisconnected.bind(this);
+    this._onGamepadProcess = this.onGamepadProcess.bind(this);
+    this._onLeapConnected = this.onLeapConnected.bind(this);
+    this._onLeapDisconnected = this.onLeapDisconnected.bind(this);
+    this._onLeapProcess = this.onLeapProcess.bind(this);
+    this._onContactBegin = this.onContactBegin.bind(this);
+    this._onContactEnd = this.onContactEnd.bind(this);
+  }
+
+  dispose() {
+    this.listenTo = EventFlags.NONE;
+    super.dispose();
+  }
+
+  onAttach() {
+    if ((this._listenTo | 0) &amp; EventFlags.GAMEPAD_CONNECTED === 0) {
+      return;
+    }
+
+    const input = System.get(&apos;InputSystem&apos;);
+
+    if (!input) {
+      throw new Error(&apos;There is no registered InputSystem!&apos;);
+    }
+
+    for (const gamepad of input.gamepads.values()) {
+      this.onGamepadConnected(gamepad);
+    }
+  }
+
+  onDetach() {
+    if ((this._listenTo | 0) &amp; EventFlags.GAMEPAD_DISCONNECTED === 0) {
+      return;
+    }
+
+    const input = System.get(&apos;InputSystem&apos;);
+
+    if (!input) {
+      throw new Error(&apos;There is no registered InputSystem!&apos;);
+    }
+
+    for (const gamepad of input.gamepads.values()) {
+      this.onGamepadDisconnected(gamepad);
+    }
+  }
+
+  onAction(name, ...args) {
+    if (name === &apos;update&apos;) {
+      return this.onUpdate(...args);
+    } else if (name === &apos;render&apos;) {
+      return this.onRender(...args);
+    } else if (name === &apos;render-layer&apos;) {
+      return this.onRenderLayer(...args);
+    } else if (name === &apos;preview&apos;) {
+      return this.onPreview(...args);
+    } else if (name === &apos;begin-contact&apos;) {
+      if (this._listenTo &amp; EventFlags.CONTACT_BEGIN) {
+        return this.onContactBegin(...args);
+      }
+    } else if (name === &apos;end-contact&apos;) {
+      if (this._listenTo &amp; EventFlags.CONTACT_END) {
+        return this.onContactEnd(...args);
+      }
+    }
+  }
+
+  onPropertySetup(name, value) {
+    if (name === &apos;listenTo&apos;) {
+      if (!(value instanceof Array)) {
+        throw new Error(&apos;`value` is not type of Array!&apos;);
+      }
+
+      let flags = EventFlags.NONE;
+      for (let i = 0, c = value.length; i &lt; c; ++i) {
+        const flag = value[i];
+
+        if (flag === &apos;mouse-down&apos;) {
+          flags |= EventFlags.MOUSE_DOWN;
+        } else if (flag === &apos;mouse-up&apos;) {
+          flags |= EventFlags.MOUSE_UP;
+        } else if (flag === &apos;mouse-move&apos;) {
+          flags |= EventFlags.MOUSE_MOVE;
+        } else if (flag === &apos;mouse&apos;) {
+          flags |= EventFlags.MOUSE;
+        } else if (flag === &apos;key-down&apos;) {
+          flags |= EventFlags.KEY_DOWN;
+        } else if (flag === &apos;key-up&apos;) {
+          flags |= EventFlags.KEY_UP;
+        } else if (flag === &apos;key&apos;) {
+          flags |= EventFlags.KEY;
+        } else if (flag === &apos;gamepad-connected&apos;) {
+          flags |= EventFlags.GAMEPAD_CONNECTED;
+        } else if (flag === &apos;gamepad-disconnected&apos;) {
+          flags |= EventFlags.GAMEPAD_DISCONNECTED;
+        } else if (flag === &apos;gamepad-process&apos;) {
+          flags |= EventFlags.GAMEPAD_PROCESS;
+        } else if (flag === &apos;gamepad&apos;) {
+          flags |= EventFlags.GAMEPAD;
+        } else if (flag === &apos;leap-connected&apos;) {
+          flags |= EventFlags.LEAP_CONNECTED;
+        } else if (flag === &apos;leap-disconnected&apos;) {
+          flags |= EventFlags.LEAP_DISCONNECTED;
+        } else if (flag === &apos;leap-process&apos;) {
+          flags |= EventFlags.LEAP_PROCESS;
+        } else if (flag === &apos;leap&apos;) {
+          flags |= EventFlags.LEAP;
+        } else if (flag === &apos;input&apos;) {
+          flags |= EventFlags.INPUT;
+        } else if (flag === &apos;contact-begin&apos;) {
+          flags |= EventFlags.CONTACT_BEGIN;
+        } else if (flag === &apos;contact-end&apos;) {
+          flags |= EventFlags.CONTACT_END;
+        } else if (flag === &apos;contact&apos;) {
+          flags |= EventFlags.CONTACT;
+        } else if (flag === &apos;all&apos;) {
+          flags |= EventFlags.ALL;
+        }
+      }
+
+      this.listenTo = flags;
+    } else {
+      super.onPropertySetup(name, value);
+    }
+  }
+
+  onPropertySerialize(name, value) {
+    if (name === &apos;listenTo&apos;) {
+      if ((value &amp; EventFlags.ALL) === EventFlags.ALL) {
+        return [ &apos;all&apos; ];
+      }
+
+      const result = [];
+
+      if ((value &amp; EventFlags.MOUSE_DOWN) !== 0) {
+        result.push(&apos;mouse-down&apos;);
+      }
+      if ((value &amp; EventFlags.MOUSE_UP) !== 0) {
+        result.push(&apos;mouse-up&apos;);
+      }
+      if ((value &amp; EventFlags.MOUSE_MOVE) !== 0) {
+        result.push(&apos;mouse-move&apos;);
+      }
+      if ((value &amp; EventFlags.KEY_DOWN) !== 0) {
+        result.push(&apos;key-down&apos;);
+      }
+      if ((value &amp; EventFlags.KEY_UP) !== 0) {
+        result.push(&apos;key-up&apos;);
+      }
+      if ((value &amp; EventFlags.GAMEPAD_CONNECTED) !== 0) {
+        result.push(&apos;gamepad-connected&apos;);
+      }
+      if ((value &amp; EventFlags.GAMEPAD_DISCONNECTED) !== 0) {
+        result.push(&apos;gamepad-disconnected&apos;);
+      }
+      if ((value &amp; EventFlags.GAMEPAD_PROCESS) !== 0) {
+        result.push(&apos;gamepad-process&apos;);
+      }
+      if ((value &amp; EventFlags.LEAP_CONNECTED) !== 0) {
+        result.push(&apos;leap-connected&apos;);
+      }
+      if ((value &amp; EventFlags.LEAP_DISCONNECTED) !== 0) {
+        result.push(&apos;leap-disconnected&apos;);
+      }
+      if ((value &amp; EventFlags.LEAP_PROCESS) !== 0) {
+        result.push(&apos;leap-process&apos;);
+      }
+      if ((value &amp; EventFlags.CONTACT_BEGIN) !== 0) {
+        result.push(&apos;contact-begin&apos;);
+      }
+      if ((value &amp; EventFlags.CONTACT_END) !== 0) {
+        result.push(&apos;contact-end&apos;);
+      }
+      return result;
+    } else {
+      return super.onPropertySerialize(name, value);
+    }
+  }
+
+  onUpdate(deltaTime) {}
+
+  onRender(gl, renderer, deltaTime, layer) {}
+
+  onRenderLayer(gl, renderer, deltaTime, layer) {
+    this.onRender(gl, renderer, deltaTime, layer);
+  }
+
+  onPreview(gl, renderer, deltaTime) {
+    this.onRender(gl, renderer, deltaTime, null);
+  }
+
+  onMouseDown(unitVec, screenVec, button) {}
+
+  onMouseUp(unitVec, screenVec, button) {}
+
+  onMouseMove(unitVec, screenVec) {}
+
+  onKeyDown(code) {}
+
+  onKeyUp(code) {}
+
+  onGamepadConnected(gamepad) {}
+
+  onGamepadDisconnected(gamepad) {}
+
+  onGamepadProcess(gamepad) {}
+
+  onLeapConnected(leap) {}
+
+  onLeapDisconnected(leap) {}
+
+  onLeapProcess(frame, leap) {}
+
+  onContactBegin(body, contact) {}
+
+  onContactEnd(body, contact) {}
+
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.4)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">src/components/InputHandler.js | oxygen-core</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Oxygen game engine (Xenon Core for browsers)"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="oxygen-core"><meta property="twitter:description" content="Oxygen game engine (Xenon Core for browsers)"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/PsichiX/Oxygen"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-lazyInitialization">lazyInitialization</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#asset-loaders">asset-loaders</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/AtlasAsset.js~AtlasAsset.html">AtlasAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/BinaryAsset.js~BinaryAsset.html">BinaryAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/FontAsset.js~FontAsset.html">FontAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/ImageAsset.js~ImageAsset.html">ImageAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/JSONAsset.js~JSONAsset.html">JSONAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/MusicAsset.js~MusicAsset.html">MusicAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/PackAsset.js~PackAsset.html">PackAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/ParticleSystemAsset.js~ParticleSystemAsset.html">ParticleSystemAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/SceneAsset.js~SceneAsset.html">SceneAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/ShaderAsset.js~ShaderAsset.html">ShaderAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/SkeletonAsset.js~SkeletonAsset.html">SkeletonAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/SoundAsset.js~SoundAsset.html">SoundAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/TextAsset.js~TextAsset.html">TextAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/WaverAsset.js~WaverAsset.html">WaverAsset</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components">components</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/AtlasSprite.js~AtlasSprite.html">AtlasSprite</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Camera.js~Camera.html">Camera</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Camera2D.js~Camera2D.html">Camera2D</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/CameraDirector.js~CameraDirector.html">CameraDirector</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html">InputHandler</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/InputListener.js~InputListener.html">InputListener</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html">Particles</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/PhysicsBody.js~PhysicsBody.html">PhysicsBody</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/PhysicsWorld.js~PhysicsWorld.html">PhysicsWorld</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/PrefabInstance.js~PrefabInstance.html">PrefabInstance</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/RectangleRenderer.js~RectangleRenderer.html">RectangleRenderer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Script.js~Script.html">Script</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Skeleton.js~Skeleton.html">Skeleton</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/SortedActions.js~SortedActions.html">SortedActions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Sprite.js~Sprite.html">Sprite</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/TextRenderer.js~TextRenderer.html">TextRenderer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/UiLayout.js~UiLayout.html">UiLayout</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/UiSprite.js~UiSprite.html">UiSprite</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/VerticesRenderer.js~VerticesRenderer.html">VerticesRenderer</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#systems">systems</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/AudioSystem.js~AudioSystem.html">AudioSystem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/InputSystem.js~InputSystem.html">InputSystem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/RenderSystem.js~RenderSystem.html">RenderSystem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/StorageSystem.js~StorageSystem.html">StorageSystem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/System.js~System.html">System</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#systems-assetsystem">systems/AssetSystem</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/AssetSystem/Asset.js~Asset.html">Asset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/AssetSystem/index.js~AssetSystem.html">AssetSystem</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#systems-entitysystem">systems/EntitySystem</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/EntitySystem/Component.js~Component.html">Component</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/EntitySystem/Entity.js~Entity.html">Entity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/EntitySystem/index.js~EntitySystem.html">EntitySystem</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/Events.js~Events.html">Events</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-angleDifference">angleDifference</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-bezierCubic">bezierCubic</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-convertGlobalPointToLocalPoint">convertGlobalPointToLocalPoint</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-convertLocalPointToGlobalPoint">convertLocalPointToGlobalPoint</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-findMapKeyOfValue">findMapKeyOfValue</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isGlobalPointInGlobalBoundingBox">isGlobalPointInGlobalBoundingBox</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isLocalPointInLocalBoundingBox">isLocalPointInLocalBoundingBox</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-propsEnumStringify">propsEnumStringify</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stringToRGBA">stringToRGBA</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-waitForSeconds">waitForSeconds</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/components/InputHandler.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import Script from &apos;./Script&apos;;
+import System from &apos;../systems/System&apos;;
+
+const ControlDevice = {
+  NONE: &apos;none&apos;,
+  MOUSE_KEYBOARD: &apos;mouse-keyboard&apos;,
+  GAMEPAD: &apos;gamepad&apos;,
+  LEAP: &apos;leap&apos;
+};
+const regexLeapItem = /^(\w+)(-(\w+)(-(\w+))?)?$/;
+const fingerTypes = {
+  thumb: 0,
+  index: 1,
+  middle: 2,
+  ring: 3,
+  pinky: 4
+};
+const boneTypes = {
+  metacarpal: 0,
+  proximal: 1,
+  intermediate: 2,
+  distal: 3
+};
+
+function getGamepadAxisById(axes, id) {
+  if (id === &apos;primary-x&apos;) {
+    return axes[0];
+  } else if (id === &apos;primary-y&apos;) {
+    return axes[1];
+  } else if (id === &apos;secondary-x&apos;) {
+    return axes[2];
+  } else if (id === &apos;secondary-y&apos;) {
+    return axes[3];
+  } else if (id === &apos;primary-left&apos;) {
+    return -Math.min(0, axes[0]);
+  } else if (id === &apos;primary-right&apos;) {
+    return Math.max(0, axes[0]);
+  } else if (id === &apos;primary-up&apos;) {
+    return -Math.min(0, axes[1]);
+  } else if (id === &apos;primary-down&apos;) {
+    return Math.max(0, axes[1]);
+  } else if (id === &apos;secondary-left&apos;) {
+    return -Math.min(0, axes[2]);
+  } else if (id === &apos;secondary-right&apos;) {
+    return Math.max(0, axes[2]);
+  } else if (id === &apos;secondary-up&apos;) {
+    return -Math.min(0, axes[3]);
+  } else if (id === &apos;secondary-down&apos;) {
+    return Math.max(0, axes[3]);
+  } else {
+    return 0;
+  }
+}
+
+function getLeapItemById(frame, id) {
+  const matches = regexLeapItem.exec(id);
+  const hand_type = matches[1];
+  const hand = frame.hands.find(h =&gt; h.type === hand_type) || null;
+  if (!hand) {
+    return null;
+  }
+
+  hand.isHand = true;
+  const finger_type = matches[3];
+  const finger = hand.fingers.find(f =&gt; f.type === fingerTypes[finger_type]);
+  if (!finger) {
+    return hand;
+  }
+
+  finger.isFinger = true;
+  const bone_type = matches[5];
+  const bone = finger.bones.find(b =&gt; b.type === boneTypes[bone_type]);
+  if (!bone) {
+    return finger;
+  }
+
+  bone.isBone = true;
+  return bone;
+}
+
+function getLeapAxisById(frame, id) {
+  if (id.startsWith(&apos;pos-&apos;)) {
+    const item = getLeapItemById(frame, id.substr(6));
+    if (!item) {
+      return 0;
+    }
+
+    let pos = !!item.isHand ? item.palmPosition : item.tipPosition;
+    if (!pos) {
+      return 0;
+    }
+    pos = frame.interactionBox.normalizePoint(pos);
+    if (id.startsWith(&apos;pos-x-&apos;)) {
+      return pos[0] * 2 - 1;
+    } else if (id.startsWith(&apos;pos-y-&apos;)) {
+      return pos[1] * 2 - 1;
+    } else if (id.startsWith(&apos;pos-z-&apos;)) {
+      return pos[2] * 2 - 1;
+    }
+  } else if (id.startsWith(&apos;dir-&apos;)) {
+    const item = getLeapItemById(frame, id.substr(6));
+    if (!item) {
+      return 0;
+    }
+
+    const dir = item.direction;
+    if (!dir) {
+      return 0;
+    }
+    if (id.startsWith(&apos;dir-x-&apos;)) {
+      return dir[0];
+    } else if (id.startsWith(&apos;dir-y-&apos;)) {
+      return dir[1];
+    } else if (id.startsWith(&apos;dir-z-&apos;)) {
+      return dir[2];
+    }
+  } else if (id === &apos;pinch-left&apos;) {
+    const hand = frame.hands.find(h =&gt; h.type === &apos;left&apos;);
+    return !!hand ? hand.pinchStrength : 0;
+  } else if (id === &apos;pinch-right&apos;) {
+    const hand = frame.hands.find(h =&gt; h.type === &apos;right&apos;);
+    return !!hand ? hand.pinchStrength : 0;
+  } else if (id === &apos;grab-left&apos;) {
+    const hand = frame.hands.find(h =&gt; h.type === &apos;left&apos;);
+    return !!hand ? hand.grabStrength : 0;
+  } else if (id === &apos;grab-right&apos;) {
+    const hand = frame.hands.find(h =&gt; h.type === &apos;right&apos;);
+    return !!hand ? hand.grabStrength : 0;
+  } else if (id === &apos;confidence-left&apos;) {
+    const hand = frame.hands.find(h =&gt; h.type === &apos;left&apos;);
+    return !!hand ? hand.confidence : 0;
+  } else if (id === &apos;confidence-right&apos;) {
+    const hand = frame.hands.find(h =&gt; h.type === &apos;right&apos;);
+    return !!hand ? hand.confidence : 0;
+  }
+
+  return 0;
+}
+
+export default class InputHandler extends Script {
+
+  static factory() {
+    return new InputHandler();
+  }
+
+  static propsTypes() {
+    return {
+      ...Script.propsTypes,
+      requireGamepad: &apos;boolean&apos;,
+      acceptMouse: &apos;boolean&apos;,
+      acceptKeyboard: &apos;boolean&apos;,
+      acceptGamepad: &apos;boolean&apos;,
+      acceptLeap: &apos;boolean&apos;,
+      controlDeviceChangeTreshold: &apos;number&apos;,
+      repeatingTriggersDelay: &apos;number&apos;,
+      firstTriggersDelay: &apos;number&apos;,
+      acceptFirstConnectedGamepad: &apos;boolean&apos;
+    };
+  }
+
+  static get ControlDevice() {
+    return ControlDevice;
+  }
+
+  get requireGamepad() {
+    return this._requireGamepad;
+  }
+
+  set requireGamepad(value) {
+    if (typeof value !== &apos;boolean&apos;) {
+      throw new Error(&apos;`value` is not type of Boolean!&apos;);
+    }
+
+    this._requireGamepad = value;
+  }
+
+  get acceptMouse() {
+    return this._acceptMouse;
+  }
+
+  set acceptMouse(value) {
+    if (typeof value !== &apos;boolean&apos;) {
+      throw new Error(&apos;`value` is not type of Boolean!&apos;);
+    }
+
+    this._acceptMouse = value;
+  }
+
+  get acceptKeyboard() {
+    return this._acceptKeyboard;
+  }
+
+  set acceptKeyboard(value) {
+    if (typeof value !== &apos;boolean&apos;) {
+      throw new Error(&apos;`value` is not type of Boolean!&apos;);
+    }
+
+    this._acceptKeyboard = value;
+  }
+
+  get acceptGamepad() {
+    return this._acceptGamepad;
+  }
+
+  set acceptGamepad(value) {
+    if (typeof value !== &apos;boolean&apos;) {
+      throw new Error(&apos;`value` is not type of Boolean!&apos;);
+    }
+
+    this._acceptGamepad = value;
+  }
+
+  get acceptLeap() {
+    return this._acceptLeap;
+  }
+
+  set acceptLeap(value) {
+    if (typeof value !== &apos;boolean&apos;) {
+      throw new Error(&apos;`value` is not type of Boolean!&apos;);
+    }
+
+    this._acceptLeap = value;
+  }
+
+  get controlDeviceChangeTreshold() {
+    return this._controlDeviceChangeTreshold;
+  }
+
+  set controlDeviceChangeTreshold(value) {
+    if (typeof value !== &apos;number&apos;) {
+      throw new Error(&apos;`value` is not type of Number!&apos;);
+    }
+
+    this._controlDeviceChangeTreshold = value;
+  }
+
+  get repeatingTriggersDelay() {
+    return this._repeatingTriggersDelay;
+  }
+
+  set repeatingTriggersDelay(value) {
+    if (typeof value !== &apos;number&apos;) {
+      throw new Error(&apos;`value` is not type of Number!&apos;);
+    }
+
+    this._repeatingTriggersDelay = value;
+  }
+
+  get firstTriggersDelay() {
+    return this._firstTriggersDelay;
+  }
+
+  set firstTriggersDelay(value) {
+    if (typeof value !== &apos;number&apos;) {
+      throw new Error(&apos;`value` is not type of Number!&apos;);
+    }
+
+    this._firstTriggersDelay = value;
+  }
+
+  get acceptFirstConnectedGamepad() {
+    return this._acceptFirstConnectedGamepad;
+  }
+
+  set acceptFirstConnectedGamepad(value) {
+    if (typeof value !== &apos;boolean&apos;) {
+      throw new Error(&apos;`value` is not type of Boolean!&apos;);
+    }
+
+    this._acceptFirstConnectedGamepad = value;
+  }
+
+  get isAcquiringGamepad() {
+    return !!this._acquireGamepad;
+  }
+
+  get axes() {
+    const result = {};
+
+    for (const [key, value] of this._axes) {
+      result[key] = value;
+    }
+
+    return result;
+  }
+
+  get triggers() {
+    const result = {};
+
+    for (const [key, value] of this._triggers) {
+      result[key] = value;
+    }
+
+    return result;
+  }
+
+  get gamepadIndex() {
+    return this._gamepadIndex;
+  }
+
+  get lastControlDevice() {
+    return this._lastControlDevice;
+  }
+
+  constructor() {
+    super();
+
+    this._requireGamepad = false;
+    this._acceptMouse = true;
+    this._acceptKeyboard = true;
+    this._acceptGamepad = true;
+    this._acceptLeap = true;
+    this._controlDeviceChangeTreshold = 0.1;
+    this._repeatingTriggersDelay = -1;
+    this._firstTriggersDelay = -1;
+    this._acceptFirstConnectedGamepad = false;
+    this._configAxesMouse = new Map();
+    this._configAxesKey = new Map();
+    this._configAxesGamepad = new Map();
+    this._configAxesGamepadAxis = new Map();
+    this._configAxesLeap = new Map();
+    this._configTriggersMouse = new Map();
+    this._configTriggersKey = new Map();
+    this._configTriggersGamepad = new Map();
+    this._configTriggersGamepadAxis = new Map();
+    this._configTriggersLeap = new Map();
+    this._axes = new Map();
+    this._axesPrev = new Map();
+    this._axesNext = new Map();
+    this._triggers = new Map();
+    this._triggersPrev = new Map();
+    this._triggersNext = new Map();
+    this._triggersTimers = new Map();
+    this._acquireGamepad = null;
+    this._gamepadIndex = -1;
+    this._lastControlDevice = ControlDevice.NONE;
+  }
+
+  dispose() {
+    this.clear();
+
+    this._acquireGamepad = null;
+    this._gamepadIndex = -1;
+
+    super.dispose();
+  }
+
+  clear() {
+    this._configAxesMouse.clear();
+    this._configAxesKey.clear();
+    this._configAxesGamepad.clear();
+    this._configAxesGamepadAxis.clear();
+    this._configAxesLeap.clear();
+    this._configTriggersMouse.clear();
+    this._configTriggersKey.clear();
+    this._configTriggersGamepad.clear();
+    this._configTriggersGamepadAxis.clear();
+    this._configTriggersLeap.clear();
+    this._axes.clear();
+    this._axesPrev.clear();
+    this._axesNext.clear();
+    this._triggers.clear();
+    this._triggersPrev.clear();
+    this._triggersNext.clear();
+    this._triggersTimers.clear();
+  }
+
+  setup(config) {
+    this.clear();
+
+    if (!config) {
+      return;
+    }
+
+    const { axes, triggers } = config;
+
+    if (!!axes) {
+      for (const name in axes) {
+        const axis = axes[name];
+        if (!axis) {
+          continue;
+        }
+
+        const {
+          mouse,
+          keys,
+          gamepad,
+          gamepadAxis,
+          leap
+        } = axis;
+        if (typeof mouse === &apos;string&apos;) {
+          this._configAxesMouse.set(name, mouse);
+        }
+
+        if (keys instanceof Array &amp;&amp; keys.length === 4) {
+          this._configAxesKey.set(
+            name,
+            keys.map(item =&gt; typeof item === &apos;string&apos;
+              ? item.charCodeAt(0)
+              : item
+            )
+          );
+        }
+
+        if (typeof gamepad === &apos;number&apos;) {
+          this._configAxesGamepad.set(name, gamepad);
+        }
+
+        if (typeof gamepadAxis === &apos;string&apos;) {
+          this._configAxesGamepadAxis.set(name, gamepadAxis);
+        }
+
+        if (typeof leap === &apos;string&apos;) {
+          this._configAxesLeap.set(name, leap);
+        }
+      }
+    }
+
+    if (!!triggers) {
+      for (const name in triggers) {
+        const trigger = triggers[name];
+        if (!trigger) {
+          continue;
+        }
+
+        const {
+          mouse,
+          key,
+          gamepad,
+          gamepadAxis,
+          leap
+        } = trigger;
+        if (typeof mouse === &apos;number&apos;) {
+          this._configTriggersMouse.set(name, mouse);
+        } else if (typeof mouse === &apos;string&apos;) {
+          if (mouse === &apos;left&apos;) {
+            this._configTriggersMouse.set(name, 0);
+          } else if (mouse === &apos;middle&apos;) {
+            this._configTriggersMouse.set(name, 1);
+          } else if (mouse === &apos;right&apos;) {
+            this._configTriggersMouse.set(name, 2);
+          }
+        }
+
+        if (typeof key === &apos;number&apos;) {
+          this._configTriggersKey.set(name, key);
+        } else if (typeof key === &apos;string&apos;) {
+          this._configTriggersKey.set(name, key.charCodeAt(0));
+        }
+
+        if (typeof gamepad === &apos;number&apos;) {
+          this._configTriggersGamepad.set(name, gamepad);
+        }
+
+        if (typeof gamepadAxis === &apos;string&apos;) {
+          this._configTriggersGamepadAxis.set(name, gamepadAxis)
+        }
+
+        if (typeof leap === &apos;string&apos;) {
+          this._configTriggersLeap.set(name, leap);
+        }
+      }
+    }
+  }
+
+  getAxis(id, treshold = 0) {
+    const result = this._axes.get(id) || 0;
+    return Math.abs(result) &gt; treshold ? result : 0;
+  }
+
+  getAxisDelta(id) {
+    return (this._axes.get(id) || 0) - (this._axesPrev.get(id) || 0);
+  }
+
+  setAxis(id, value) {
+    this._axes.set(id, Math.max(-1, Math.min(1, value || 0)));
+  }
+
+  isAxisHold(id, treshold = 0.5) {
+    return Math.abs(this.getAxis(id, treshold)) &gt; 0;
+  }
+
+  isAxisPressed(id, treshold = 0.5) {
+    const current = Math.abs(this._axes.get(id) || 0) &gt; treshold;
+    const prev = Math.abs(this._axesPrev.get(id) || 0) &gt; treshold;
+    return current &amp;&amp; !prev;
+  }
+
+  isAxisReleased(id, treshold = 0.5) {
+    const current = Math.abs(this._axes.get(id) || 0) &gt; treshold;
+    const prev = Math.abs(this._axesPrev.get(id) || 0) &gt; treshold;
+    return !current &amp;&amp; prev;
+  }
+
+  getTrigger(id, treshold = 0) {
+    const result = this._triggers.get(id) || 0;
+    return result &gt; treshold ? result : 0;
+  }
+
+  getTriggerDelta(id) {
+    return (this._triggers.get(id) || 0) - (this._triggersPrev.get(id) || 0);
+  }
+
+  setTrigger(id, value) {
+    this._triggers.set(id, Math.max(0, Math.min(1, value || 0)));
+  }
+
+  isTriggerHold(id, treshold = 0.5) {
+    return Math.abs(this.getTrigger(id, treshold)) &gt; 0;
+  }
+
+  isTriggerPressed(id, treshold = 0.5) {
+    const current = Math.abs(this._triggers.get(id) || 0) &gt; treshold;
+    const prev = Math.abs(this._triggersPrev.get(id) || 0) &gt; treshold;
+    return current &amp;&amp; !prev;
+  }
+
+  isTriggerReleased(id, treshold = 0.5) {
+    const current = Math.abs(this._triggers.get(id) || 0) &gt; treshold;
+    const prev = Math.abs(this._triggersPrev.get(id) || 0) &gt; treshold;
+    return !current &amp;&amp; prev;
+  }
+
+  acquireGamepad(trigger, timeout = 3000) {
+    if (typeof trigger !== &apos;number&apos;) {
+      throw new Error(&apos;`trigger` is not type of Number!&apos;);
+    }
+    if (typeof timeout !== &apos;number&apos;) {
+      throw new Error(&apos;`timeout` is not type of Number!&apos;);
+    }
+    if (trigger &lt; 0) {
+      throw new Error(&apos;`trigger` cannot be less than 0!&apos;);
+    }
+    if (timeout &lt;= 0) {
+      throw new Error(&apos;`timeout` must be grater than 0!&apos;);
+    }
+    if (!!this._acquireGamepad) {
+      throw new Error(&apos;Acquiring gamepad already in progress!&apos;);
+    }
+
+    this._gamepadIndex = -1;
+
+    return new Promise((resolve, reject) =&gt; {
+      const onTimeout = () =&gt; {
+        this._acquireGamepad = null;
+        this._gamepadIndex = -1;
+        reject(new Error(&apos;Detecting gamepad timeout!&apos;));
+      };
+      const timer = setTimeout(onTimeout, timeout);
+
+      this._acquireGamepad = (value, index) =&gt; {
+        if (value !== trigger) {
+          return false;
+        }
+
+        this._acquireGamepad = null;
+        this._gamepadIndex = index;
+        clearTimeout(timer);
+        resolve();
+        return true;
+      };
+    });
+  }
+
+  releaseGamepad() {
+    this._gamepadIndex = -1;
+  }
+
+  setAcquiredGamepad(index) {
+    const { InputSystem } = System.systems;
+
+    if (!!InputSystem) {
+      for (const gamepad of InputSystem.gamepads.values()) {
+        if (index === gamepad.index) {
+          this._gamepadIndex = index;
+          return;
+        }
+      }
+    }
+  }
+
+  getAcquiredGamepad() {
+    const { InputSystem } = System.systems;
+
+    if (!!InputSystem) {
+      for (const gamepad of InputSystem.gamepads.values()) {
+        if (gamepad.index === this._gamepadIndex) {
+          return gamepad;
+        }
+      }
+    }
+
+    return null;
+  }
+
+  onAttach() {
+    this.listenTo = Script.EventFlags.INPUT;
+
+    super.onAttach();
+  }
+
+  onDetach() {
+    super.onDetach();
+
+    this.listenTo = Script.EventFlags.INPUT;
+    this.clear();
+  }
+
+  onUpdate(deltaTime) {
+    this._axesPrev.clear();
+    this._triggersPrev.clear();
+
+    for (const [key, value] of this._axes) {
+      this._axesPrev.set(key, value);
+    }
+
+    for (const [key, value] of this._triggers) {
+      this._triggersPrev.set(key, value);
+    }
+
+    for (const [key, value] of this._axesNext) {
+      this._axes.set(key, value);
+    }
+
+    for (const [key, value] of this._triggersNext) {
+      this._triggers.set(key, value);
+    }
+
+    this._axesNext.clear();
+    this._triggersNext.clear();
+
+    if (this._repeatingTriggersDelay &gt; 0) {
+      for (let [key, value] of this._triggersTimers) {
+        value -= deltaTime;
+        this._triggersTimers.set(key, value);
+        if (value &lt;= 0) {
+          this._triggers.delete(key);
+          this._triggersTimers.set(key, this._repeatingTriggersDelay);
+        }
+      }
+    }
+  }
+
+  onMouseDown(unitVec, screenVec, button) {
+    if (!this._acceptMouse) {
+      return;
+    }
+    this._applyControlDevice(ControlDevice.MOUSE_KEYBOARD);
+
+    for (const [key, value] of this._configTriggersMouse.entries()) {
+      if (value === button) {
+        this._triggersNext.set(key, 1);
+        if (this._firstTriggersDelay &gt; 0) {
+          this._triggersTimers.set(key, this._firstTriggersDelay);
+        }
+      }
+    }
+  }
+
+  onMouseUp(unitVec, screenVec, button) {
+    if (!this._acceptMouse) {
+      return;
+    }
+    this._applyControlDevice(ControlDevice.MOUSE_KEYBOARD);
+
+    for (const [key, value] of this._configTriggersMouse.entries()) {
+      if (value === button) {
+        this._triggersNext.set(key, 0);
+        if (this._firstTriggersDelay &gt; 0) {
+          this._triggersTimers.delete(key);
+        }
+      }
+    }
+  }
+
+  onMouseMove(unitVec, screenVec) {
+    if (!this._acceptMouse) {
+      return;
+    }
+    this._applyControlDevice(ControlDevice.MOUSE_KEYBOARD);
+
+    for (const [key, value] of this._configAxesMouse.entries()) {
+      if (value === &apos;x&apos;) {
+        this._axesNext.set(key, unitVec[0]);
+      } else if (value === &apos;y&apos;) {
+        this._axesNext.set(key, -unitVec[1]);
+      }
+    }
+  }
+
+  onKeyDown(code) {
+    if (!this._acceptKeyboard) {
+      return;
+    }
+    this._applyControlDevice(ControlDevice.MOUSE_KEYBOARD);
+
+    for (const [key, value] of this._configTriggersKey.entries()) {
+      if (value === code) {
+        this._triggersNext.set(key, 1);
+        if (this._firstTriggersDelay &gt; 0) {
+          this._triggersTimers.set(key, this._firstTriggersDelay);
+        }
+      }
+    }
+
+    for (const [key, value] of this._configAxesKey.entries()) {
+      const [fc, fv, tc, tv] = value;
+      if (fc === code) {
+        this._axesNext.set(key, Math.max(-1, Math.min(1, fv)));
+      } else if (tc === code) {
+        this._axesNext.set(key, Math.max(-1, Math.min(1, tv)));
+      }
+    }
+  }
+
+  onKeyUp(code) {
+    if (!this._acceptKeyboard) {
+      return;
+    }
+    this._applyControlDevice(ControlDevice.MOUSE_KEYBOARD);
+
+    for (const [key, value] of this._configTriggersKey.entries()) {
+      if (value === code) {
+        this._triggersNext.set(key, 0);
+        if (this._firstTriggersDelay &gt; 0) {
+          this._triggersTimers.delete(key);
+        }
+      }
+    }
+
+    for (const [key, value] of this._configAxesKey.entries()) {
+      const [fc, fv, tc, tv] = value;
+      if (fc === code) {
+        this._axesNext.set(key, 0);
+      } else if (tc === code) {
+        this._axesNext.set(key, 0);
+      }
+    }
+  }
+
+  onGamepadConnected(gamepad) {
+    if (!this._acceptGamepad) {
+      return;
+    }
+
+    if (this._gamepadIndex &lt; 0 &amp;&amp; this._acceptFirstConnectedGamepad) {
+      this._gamepadIndex = gamepad.index;
+    }
+  }
+
+  onGamepadDisconnected(gamepad) {
+    if (!this._acceptGamepad) {
+      return;
+    }
+
+    const {
+      _axes,
+      _axesPrev,
+      _axesNext,
+      _triggers,
+      _triggersPrev,
+      _triggersNext,
+      _triggersTimers
+    } = this;
+    const { index } = gamepad;
+
+    for (const key of [..._axes.keys()]) {
+      if (key.endsWith(`:${index}`)) {
+        _axes.delete(key);
+        _axesPrev.delete(key);
+        _axesNext.delete(key);
+      }
+    }
+
+    for (const key of [..._triggers.keys()]) {
+      if (key.endsWith(`:${index}`)) {
+        _triggers.delete(key);
+        _triggersPrev.delete(key);
+        _triggersNext.delete(key);
+        _triggersTimers.delete(key);
+      }
+    }
+
+    if (this._gamepadIndex === index) {
+      this._gamepadIndex = -1;
+    }
+  }
+
+  onGamepadProcess(gamepad) {
+    if (!this._acceptGamepad) {
+      return;
+    }
+
+    const { index, buttons, axes } = gamepad;
+    const {
+      _controlDeviceChangeTreshold,
+      _triggersTimers,
+      _firstTriggersDelay
+    } = this;
+
+    if (!!this._acquireGamepad) {
+      for (let i = 0, c = buttons.length; i &lt; c; ++i) {
+        if (buttons[i].value &gt; 0 &amp;&amp; this._acquireGamepad(i, index)) {
+          break;
+        }
+      }
+    }
+
+    if (this._requireGamepad &amp;&amp; this._gamepadIndex &lt; 0) {
+      return;
+    }
+
+    for (const [key, value] of this._configTriggersGamepad.entries()) {
+      const button = buttons[value];
+
+      if (!!button) {
+        if (this._gamepadIndex &lt; 0 || this._gamepadIndex === index) {
+          this._triggersNext.set(key, button.value || 0);
+          this._triggersNext.set(`${key}:${index}`, button.value || 0);
+
+          if (_firstTriggersDelay &gt; 0) {
+            if (button.value || 0 &gt; 0) {
+              if (!_triggersTimers.has(key)) {
+                _triggersTimers.set(key, _firstTriggersDelay);
+                _triggersTimers.set(`${key}:${index}`, _firstTriggersDelay);
+              }
+            } else {
+              _triggersTimers.delete(key);
+              _triggersTimers.delete(`${key}:${index}`);
+            }
+          }
+
+          if ((button.value || 0) &gt; _controlDeviceChangeTreshold) {
+            this._applyControlDevice(ControlDevice.GAMEPAD);
+          }
+        }
+      }
+    }
+
+    for (const [key, value] of this._configTriggersGamepadAxis.entries()) {
+      const axis = getGamepadAxisById(axes, value);
+
+      if (this._gamepadIndex &lt; 0 || this._gamepadIndex === index) {
+        this._triggersNext.set(key, axis || 0);
+        this._triggersNext.set(`${key}:${index}`, axis || 0);
+
+        if (_firstTriggersDelay &gt; 0) {
+          if (Math.abs(axis || 0) &gt; 0.5) {
+            if (!_triggersTimers.has(key)) {
+              _triggersTimers.set(key, _firstTriggersDelay);
+              _triggersTimers.set(`${key}:${index}`, _firstTriggersDelay);
+            }
+          } else {
+            _triggersTimers.delete(key);
+            _triggersTimers.delete(`${key}:${index}`);
+          }
+        }
+
+        if (Math.abs(axis || 0) &gt; _controlDeviceChangeTreshold) {
+          this._applyControlDevice(ControlDevice.GAMEPAD);
+        }
+      }
+    }
+
+    for (const [key, value] of this._configAxesGamepad.entries()) {
+      const button = buttons[value];
+
+      if (!!button) {
+        if (this._gamepadIndex &lt; 0 || this._gamepadIndex === index) {
+          this._axesNext.set(key, button.value || 0);
+          this._axesNext.set(`${key}:${index}`, button.value || 0);
+
+          if ((button.value || 0) &gt; _controlDeviceChangeTreshold) {
+            this._applyControlDevice(ControlDevice.GAMEPAD);
+          }
+        }
+      }
+    }
+
+    for (const [key, value] of this._configAxesGamepadAxis.entries()) {
+      const axis = getGamepadAxisById(axes, value);
+
+      if (this._gamepadIndex &lt; 0 || this._gamepadIndex === index) {
+        this._axesNext.set(key, axis || 0);
+        this._axesNext.set(`${key}:${index}`, axis || 0);
+
+        if (Math.abs(axis || 0) &gt; _controlDeviceChangeTreshold) {
+          this._applyControlDevice(ControlDevice.GAMEPAD);
+        }
+      }
+    }
+  }
+
+  onLeapProcess(frame, leap) {
+    if (!this._acceptLeap) {
+      return;
+    }
+
+    this._applyControlDevice(ControlDevice.LEAP);
+
+    for (const [key, value] of this._configAxesLeap.entries()) {
+      const axis = getLeapAxisById(frame, value);
+      this._axesNext.set(key, axis || 0);
+    }
+
+    for (const [key, value] of this._configTriggersLeap.entries()) {
+      const axis = getLeapAxisById(frame, value);
+      this._triggersNext.set(key, axis || 0);
+    }
+  }
+
+  _applyControlDevice(device) {
+    const { _lastControlDevice } = this;
+    this._lastControlDevice = device;
+
+    if (_lastControlDevice !== device) {
+      System.events.trigger(&apos;input-handler-control-device&apos;, this, device);
+    }
+  }
+
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.4)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

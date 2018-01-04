@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">src/systems/EntitySystem/Entity.js | oxygen-core</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Oxygen game engine (Xenon Core for browsers)"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="oxygen-core"><meta property="twitter:description" content="Oxygen game engine (Xenon Core for browsers)"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/PsichiX/Oxygen"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-lazyInitialization">lazyInitialization</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#asset-loaders">asset-loaders</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/AtlasAsset.js~AtlasAsset.html">AtlasAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/BinaryAsset.js~BinaryAsset.html">BinaryAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/FontAsset.js~FontAsset.html">FontAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/ImageAsset.js~ImageAsset.html">ImageAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/JSONAsset.js~JSONAsset.html">JSONAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/MusicAsset.js~MusicAsset.html">MusicAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/PackAsset.js~PackAsset.html">PackAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/ParticleSystemAsset.js~ParticleSystemAsset.html">ParticleSystemAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/SceneAsset.js~SceneAsset.html">SceneAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/ShaderAsset.js~ShaderAsset.html">ShaderAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/SkeletonAsset.js~SkeletonAsset.html">SkeletonAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/SoundAsset.js~SoundAsset.html">SoundAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/TextAsset.js~TextAsset.html">TextAsset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/WaverAsset.js~WaverAsset.html">WaverAsset</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components">components</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/AtlasSprite.js~AtlasSprite.html">AtlasSprite</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Camera.js~Camera.html">Camera</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Camera2D.js~Camera2D.html">Camera2D</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/CameraDirector.js~CameraDirector.html">CameraDirector</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html">InputHandler</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/InputListener.js~InputListener.html">InputListener</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html">Particles</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/PhysicsBody.js~PhysicsBody.html">PhysicsBody</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/PhysicsWorld.js~PhysicsWorld.html">PhysicsWorld</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/PrefabInstance.js~PrefabInstance.html">PrefabInstance</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/RectangleRenderer.js~RectangleRenderer.html">RectangleRenderer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Script.js~Script.html">Script</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Skeleton.js~Skeleton.html">Skeleton</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/SortedActions.js~SortedActions.html">SortedActions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Sprite.js~Sprite.html">Sprite</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/TextRenderer.js~TextRenderer.html">TextRenderer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/UiLayout.js~UiLayout.html">UiLayout</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/UiSprite.js~UiSprite.html">UiSprite</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/VerticesRenderer.js~VerticesRenderer.html">VerticesRenderer</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#systems">systems</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/AudioSystem.js~AudioSystem.html">AudioSystem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/InputSystem.js~InputSystem.html">InputSystem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/RenderSystem.js~RenderSystem.html">RenderSystem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/StorageSystem.js~StorageSystem.html">StorageSystem</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/System.js~System.html">System</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#systems-assetsystem">systems/AssetSystem</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/AssetSystem/Asset.js~Asset.html">Asset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/AssetSystem/index.js~AssetSystem.html">AssetSystem</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#systems-entitysystem">systems/EntitySystem</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/EntitySystem/Component.js~Component.html">Component</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/EntitySystem/Entity.js~Entity.html">Entity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/systems/EntitySystem/index.js~EntitySystem.html">EntitySystem</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#utils">utils</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/utils/Events.js~Events.html">Events</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-angleDifference">angleDifference</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-bezierCubic">bezierCubic</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-convertGlobalPointToLocalPoint">convertGlobalPointToLocalPoint</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-convertLocalPointToGlobalPoint">convertLocalPointToGlobalPoint</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-findMapKeyOfValue">findMapKeyOfValue</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isGlobalPointInGlobalBoundingBox">isGlobalPointInGlobalBoundingBox</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-isLocalPointInLocalBoundingBox">isLocalPointInLocalBoundingBox</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-propsEnumStringify">propsEnumStringify</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-stringToRGBA">stringToRGBA</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-waitForSeconds">waitForSeconds</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/systems/EntitySystem/Entity.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import Component from &apos;./Component&apos;;
+import EntitySystem from &apos;.&apos;;
+import { mat4, quat, vec3 } from &apos;../../utils/gl-matrix&apos;;
+import { findMapKeyOfValue } from &apos;../../utils&apos;;
+
+const zVector = vec3.fromValues(0, 0, 1);
+const cachedTempVec3 = vec3.create();
+
+/**
+ * Entity - actor of the scene, container for behaviour components.
+ *
+ * @example
+ * const entity = new Entity();
+ * entity.deserialize({ name: &apos;hey&apos;, components: { Hello: { hello: &apos;world&apos; } } });
+ * const hello = entity.getComponent(&apos;Hello&apos;);
+ * console.log(hello.hello);
+ */
+export default class Entity {
+
+  /** @type {EntitySystem|null} */
+  get owner() {
+    return this._owner;
+  }
+
+  /** @type {string|null} */
+  get name() {
+    return this._name;
+  }
+
+  /** @type {string|null} */
+  set name(value) {
+    if (!!value &amp;&amp; typeof value != &apos;string&apos;) {
+      throw new Error(&apos;`value` is not type of String!&apos;);
+    }
+
+    this._name = value || &apos;&apos;;
+  }
+
+  /** @type {string|null} */
+  get tag() {
+    return this._tag;
+  }
+
+  /** @type {string|null} */
+  set tag(value) {
+    if (!!value &amp;&amp; typeof value != &apos;string&apos;) {
+      throw new Error(&apos;`value` is not type of String!&apos;);
+    }
+
+    this._tag = value || &apos;&apos;;
+  }
+
+  /** @type {boolean} */
+  get active() {
+    return this._active;
+  }
+
+  /** @type {boolean} */
+  set active(value) {
+    if (typeof value !== &apos;boolean&apos;) {
+      throw new Error(&apos;`value` is not type of Boolean!&apos;);
+    }
+
+    this._active = value;
+  }
+
+  /** @type {string} */
+  get path() {
+    let result = `/${this._name}`;
+    let current = this._parent;
+    while (!!current) {
+      result = `/${current.name}${result}`;
+      current = current._parent;
+    }
+    return result;
+  }
+
+  /** @type {Entity} */
+  get root() {
+    let result = this;
+    let current = this._parent;
+    while (!!current) {
+      result = current;
+      current = current._parent;
+    }
+    return result;
+  }
+
+  /** @type {Entity|null} */
+  get parent() {
+    return this._parent;
+  }
+
+  /** @type {Entity|null} */
+  set parent(value) {
+    this.reparent(value);
+  }
+
+  /** @type {number} */
+  get childrenCount() {
+    return this._children.length;
+  }
+
+  /** @type {number} */
+  get indexInParent() {
+    const { _parent } = this;
+    return !_parent ? -1 : _parent._children.indexOf(this);
+  }
+
+  /** @type {mat4} */
+  get transformLocal() {
+    return this._transformLocal;
+  }
+
+  /** @type {mat4} */
+  get transform() {
+    return this._transform;
+  }
+
+  /** @type {mat4} */
+  get inverseTransform() {
+    return this._inverseTransform;
+  }
+
+  /** @type {vec3} */
+  get position() {
+    return this._position;
+  }
+
+  /** @type {quat} */
+  get rotation() {
+    return this._rotation;
+  }
+
+  /** @type {vec3} */
+  get scale() {
+    return this._scale;
+  }
+
+  /** @type {vec3} */
+  get globalPosition() {
+    const result = vec3.create();
+    vec3.set(cachedTempVec3, 0, 0, 0);
+    return vec3.transformMat4(result, cachedTempVec3, this._transform);
+  }
+
+  /** @type {*} */
+  get componentNames() {
+    return this._components.keys();
+  }
+
+  /** @type {Function|null} */
+  get childrenSorting() {
+    return this._childrenSorting;
+  }
+
+  /** @type {Function|null} */
+  set childrenSorting(value) {
+    if (!value) {
+      this._childrenSorting = null;
+      return;
+    }
+    if (!(value instanceof Function)) {
+      throw new Error(&apos;`value` is not type of Function!&apos;);
+    }
+
+    this._childrenSorting = value;
+    this.sortChildren();
+  }
+
+  /** @type {*} */
+  get meta() {
+    return this._meta;
+  }
+
+  /**
+   * Constructor.
+   */
+  constructor() {
+    this._owner = null;
+    this._name = &apos;&apos;;
+    this._tag = &apos;&apos;;
+    this._active = true;
+    this._children = [];
+    this._parent = null;
+    this._components = new Map();
+    this._transformLocal = mat4.create();
+    this._transform = mat4.create();
+    this._inverseTransform = mat4.create();
+    this._position = vec3.create();
+    this._rotation = quat.create();
+    this._scale = vec3.fromValues(1, 1, 1);
+    this._childrenSorting = null;
+    this._meta = {};
+    this._dirty = true;
+  }
+
+  /**
+   * Destructor (disposes internal resources).
+   *
+   * @example
+   * entity.dispose();
+   * entity = null;
+   */
+  dispose() {
+    const { _children, _components } = this;
+
+    this.reparent(null);
+
+    for (let i = _children.length - 1; i &gt;= 0; --i) {
+      _children[i].dispose();
+    }
+
+    for (const component of _components.values()) {
+      component.dispose();
+    }
+
+    this._owner = null;
+    this._name = null;
+    this._tag = null;
+    this._children = null;
+    this._parent = null;
+    this._components = null;
+    this._transformLocal = null;
+    this._transform = null;
+    this._inverseTransform = null;
+    this._position = null;
+    this._rotation = null;
+    this._scale = null;
+    this._childrenSorting = null;
+    this._meta = null;
+  }
+
+  /**
+   * Make this entity and it&apos;s children active.
+   *
+   * @example
+   * entity.activete();
+   * entity.active === true;
+   */
+  activate() {
+    this.active = true;
+
+    const { _children } = this;
+    for (let i = 0, c = _children.length; i &lt; c; ++i) {
+      _children[i].activate();
+    }
+  }
+
+  /**
+   * Make this entity and it&apos;s children inactive.
+   *
+   * @example
+   * entity.deactivete();
+   * entity.active === false;
+   */
+  deactivate() {
+    this.active = false;
+
+    const { _children } = this;
+    for (let i = 0, c = _children.length; i &lt; c; ++i) {
+      _children[i].deactivate();
+    }
+  }
+
+  /**
+   * Serialize this entity into JSON data.
+   *
+   * @return {*} Serialized JSON data.
+   *
+   * @example
+   * entity.name = &apos;serialized&apos;;
+   * const json = entity.serialize();
+   * json.name === &apos;serialized&apos;;
+   */
+  serialize() {
+    const name = this._name || &apos;&apos;;
+    const tag = this._tag || &apos;&apos;;
+    const active = this._active;
+    const position = [ ...this._position ].slice(0, 2);
+    const scale = [ ...this._scale ].slice(0, 2);
+    const rotation = this.getRotation() * 180 / Math.PI;
+    const result = {
+      name,
+      tag,
+      active,
+      meta: {},
+      transform: {
+        position,
+        rotation,
+        scale
+      },
+      components: {},
+      children: []
+    };
+
+    for (const key in this._meta) {
+      result.meta[key] = this._meta[key];
+    }
+
+    for (const [key, value] of this._components) {
+      result.components[key] = value.serialize();
+    }
+
+    for (const child of this._children) {
+      result.children.push(child.serialize());
+    }
+
+    return result;
+  }
+
+  /**
+   * Deserialize JSON data into this entity.
+   *
+   * @param {*}	json - Serialized entity JSON data.
+   *
+   * @example
+   * entity.deserialize({ name: &apos;deserialized&apos; });
+   * entity.name === &apos;deserialized&apos;;
+   */
+  deserialize(json) {
+    if (!json) {
+      return;
+    }
+
+    if (typeof json.name !== &apos;undefined&apos;) {
+      this.name = json.name;
+    }
+
+    if (typeof json.tag !== &apos;undefined&apos;) {
+      this.tag = json.tag;
+    }
+
+    if (typeof json.active !== &apos;undefined&apos;) {
+      this.active = json.active;
+    }
+
+    const { meta, transform, components } = json;
+
+    if (!!meta) {
+      const { _meta } = this;
+
+      for (const name in meta) {
+        _meta[name] = meta[name];
+      }
+    }
+
+    if (!!transform) {
+      const { position, rotation, scale } = transform;
+
+      if (typeof position === &apos;number&apos;) {
+        this.setPosition(position, position);
+      } else if (!!position &amp;&amp; position.length &gt;= 2) {
+        this.setPosition(position[0], position[1]);
+      }
+
+      if (typeof rotation === &apos;number&apos;) {
+        this.setRotation(rotation * Math.PI / 180);
+      }
+
+      if (typeof scale === &apos;number&apos;) {
+        this.setScale(scale, scale);
+      } else if (!!scale &amp;&amp; scale.length &gt;= 2) {
+        this.setScale(scale[0], scale[1]);
+      }
+    }
+
+    if (!!components) {
+      const { _components } = this;
+
+      for (const name in components) {
+        if (_components.has(name)) {
+          _components.get(name).deserialize(components[name]);
+        }
+      }
+    }
+  }
+
+  /**
+   * Set entity local position.
+   *
+   * @param {number}	x - Local X position.
+   * @param {number}	y - Local Y position.
+   * @param {number}	z - Local Z position.
+   *
+   * @example
+   * entity.setPosition(40, 2);
+   */
+  setPosition(x, y, z = 0) {
+    if (typeof x !== &apos;number&apos;) {
+      throw new Error(&apos;`x` is not type of Number!&apos;);
+    }
+    if (typeof y !== &apos;number&apos;) {
+      throw new Error(&apos;`y` is not type of Number!&apos;);
+    }
+    if (typeof z !== &apos;number&apos;) {
+      throw new Error(&apos;`z` is not type of Number!&apos;);
+    }
+
+    vec3.set(this._position, x, y, z);
+    this._dirty = true;
+  }
+
+  /**
+   * Set entity local Z axis rotation.
+   *
+   * @param {number}	rad - Z axis radian angle.
+   *
+   * @example
+   * entity.setRotation(90 * Math.PI / 180);
+   */
+  setRotation(rad) {
+    if (typeof rad !== &apos;number&apos;) {
+      throw new Error(&apos;`rad` is not type of Number!&apos;);
+    }
+
+    quat.setAxisAngle(this._rotation, zVector, rad);
+    this._dirty = true;
+  }
+
+  /**
+   * Set entity local rotation from euler degrees.
+   *
+   * @param {number}	x - X axis degree rotation.
+   * @param {number}	y - Y axis degree rotation.
+   * @param {number}	z - Z axis degree rotation.
+   *
+   * @example
+   * entity.setRotationEuler(15, 30, 45);
+   */
+  setRotationEuler(x, y, z) {
+    if (typeof x !== &apos;number&apos;) {
+      throw new Error(&apos;`x` is not type of Number!&apos;);
+    }
+    if (typeof y !== &apos;number&apos;) {
+      throw new Error(&apos;`y` is not type of Number!&apos;);
+    }
+    if (typeof z !== &apos;number&apos;) {
+      throw new Error(&apos;`z` is not type of Number!&apos;);
+    }
+
+    quat.fromEuler(this._rotation, x, y, z);
+    this._dirty = true;
+  }
+
+  /**
+   * Get entity local Z axis radian rotation.
+   *
+   * @return {number} Z axis local radian rotation.
+   *
+   * @example
+   * console.log(entity.getRotation());
+   */
+  getRotation() {
+    return quat.getAxisAngle(cachedTempVec3, this._rotation) * cachedTempVec3[2];
+  }
+
+  /**
+   * Get entity local euler axis rotation in degrees.
+   *
+   * @param {vec3}	result - Result vec3 object.
+   *
+   * @example
+   * const euler = vec3.create();
+   * entity.getRotationEuler(euler);
+   * console.log(euler);
+   */
+  getRotationEuler(result) {
+    if (!result) {
+      throw new Error(&apos;`result` cannot be null!&apos;);
+    }
+
+    const rad2deg = 180 / Math.PI;
+    const angle = quat.getAxisAngle(cachedTempVec3, this._rotation);
+    vec3.set(
+      result,
+      cachedTempVec3[0] * angle * rad2deg,
+      cachedTempVec3[1] * angle * rad2deg,
+      cachedTempVec3[2] * angle * rad2deg
+    );
+  }
+
+  /**
+   * Set entity local scale.
+   *
+   * @param {number}	x - Local X scale.
+   * @param {number}	y - Local Y scale.
+   * @param {number}	z - Local Z scale.
+   *
+   * @example
+   * entity.setScale(2, 3);
+   */
+  setScale(x, y, z = 1) {
+    if (typeof x !== &apos;number&apos;) {
+      throw new Error(&apos;`x` is not type of Number!&apos;);
+    }
+    if (typeof y !== &apos;number&apos;) {
+      throw new Error(&apos;`y` is not type of Number!&apos;);
+    }
+    if (typeof z !== &apos;number&apos;) {
+      throw new Error(&apos;`z` is not type of Number!&apos;);
+    }
+
+    vec3.set(this._scale, x, y, z);
+    this._dirty = true;
+  }
+
+  /**
+   * Get entity children at given index.
+   *
+   * @param {number}	index - Child index.
+   *
+   * @return {Entity} Child entity instance.
+   */
+  getChild(index) {
+    if (typeof index !== &apos;number&apos;) {
+      throw new Error(&apos;`index` is not type of Number!&apos;);
+    }
+
+    const { _children } = this;
+
+    if (index &lt; 0 || index &gt;= _children.length) {
+      throw new Error(&apos;`index` is out of bounds!&apos;);
+    }
+
+    return _children[index];
+  }
+
+  /**
+   * Kills all entity children (calls dispose on them and removes them from entity).
+   *
+   * @example
+   * entity.killChildren();
+   */
+  killChildren() {
+    const { _children } = this;
+    const container = new Set(_children);
+
+    for (const child of container) {
+      child.dispose();
+    }
+    container.clear();
+  }
+
+  /**
+   * Rebind entity to different parent.
+   *
+   * @param {Entity|null}	entity - New parent entity or null if not bound to any entity.
+   * @param {number}	insertAt - Child index at given should be placed this entity in new parent
+   *
+   * @example
+   * entity.reparent(system.root);
+   */
+  reparent(entity, insertAt = -1) {
+    if (!!entity &amp;&amp; !(entity instanceof Entity)) {
+      throw new Error(&apos;`entity` is not type of Entity!&apos;);
+    }
+    if (typeof insertAt !== &apos;number&apos;) {
+      throw new Error(&apos;`insertAt` is not type of Number!&apos;);
+    }
+
+    const { _parent } = this;
+
+    if (entity === _parent) {
+      return;
+    }
+
+    this._parent = entity;
+
+    if (!!_parent) {
+      const { _children } = _parent;
+      const found = _children.indexOf(this);
+
+      if (found &gt;= 0) {
+        this._setOwner(null);
+        _children.splice(found, 1);
+      }
+      _parent.sortChildren();
+    }
+
+    if (!!entity) {
+      if (insertAt &lt; 0) {
+        entity._children.push(this);
+      } else {
+        entity._children.splice(insertAt, 0, this);
+      }
+      this._setOwner(entity.owner);
+      entity.sortChildren();
+    }
+  }
+
+  /**
+   * Find entity by it&apos;s name or path in scene tree.
+   *
+   * @param {string}	name - Entity name or path.
+   *
+   * @return {Entity|null} Found entity instance or null if not found.
+   *
+   * @example
+   * entity.findEntity(&apos;./some-child&apos;);
+   * entity.findEntity(&apos;/root-child&apos;);
+   * entity.findEntity(&apos;/root-child/some-child&apos;);
+   */
+  findEntity(name) {
+    if (typeof name !== &apos;string&apos;) {
+      throw new Error(&apos;`name` is not type of String!&apos;);
+    }
+
+    let current = this;
+    while (!!current &amp;&amp; name.length &gt; 0) {
+      const found = name.indexOf(&apos;/&apos;);
+
+      if (found === 0) {
+        while (!!current._parent) {
+          current = current._parent;
+        }
+
+        name = name.substr(found + 1);
+      } else {
+        const part = found &gt; 0 ? name.substr(0, found) : name;
+
+        if (part === &apos;.&apos;) {
+          // do nothing
+
+        } else if (part === &apos;..&apos;) {
+          current = current._parent;
+
+        } else {
+          const { _children } = current;
+          let found = false;
+
+          for (let i = 0, c = _children.length; i &lt; c; ++i) {
+            const child = _children[i];
+
+            if (child.name === part) {
+              current = child;
+              found = true;
+              break;
+            }
+          }
+
+          if (!found) {
+            return null;
+          }
+
+        }
+
+        if (found &lt; 0) {
+          return current;
+        }
+
+        name = name.substr(found + 1);
+      }
+    }
+
+    return current;
+  }
+
+  /**
+   * Attach component to this entity.
+   *
+   * @param {string}	typename - Component type name.
+   * @param {Component}	component - Component instance.
+   *
+   * @example
+   * entity.attachComponent(&apos;MyComponent&apos;, new MyComponent());
+   * entity.attachComponent(&apos;Hello&apos;, new Hello());
+   */
+  attachComponent(typename, component) {
+    if (typeof typename !== &apos;string&apos;) {
+      throw new Error(&apos;`typename` is not type of String!&apos;);
+    }
+    if (!(component instanceof Component)) {
+      throw new Error(&apos;`component` is not type of Component!&apos;);
+    }
+
+    const { _components } = this;
+
+    if (_components.has(typename)) {
+      throw new Error(
+        `Given component type is already attached to entity: ${typename}`
+      );
+    }
+
+    _components.set(typename, component);
+    component._owner = this;
+    if (!!this._owner &amp;&amp; !!this._owner.triggerEvents) {
+      component.onAttach();
+    }
+  }
+
+  /**
+   * Detach component by it&apos;s type name.
+   *
+   * @param {string}	typename - Component type name.
+   *
+   * @example
+   * entity.detachComponent(&apos;Hello&apos;);
+   */
+  detachComponent(typename) {
+    const { _components } = this;
+    let component = typename;
+
+    if (typeof typename === &apos;string&apos;) {
+      component = _components.get(typename);
+    } else if (component instanceof Component) {
+      typename = findMapKeyOfValue(_components, component);
+    } else {
+      throw new Error(&apos;`typename` is not type of either Component or String!&apos;);
+    }
+
+    if (_components.delete(typename)) {
+      component._owner = null;
+      if (!!this._owner &amp;&amp; !!this._owner.triggerEvents) {
+        component.onDetach();
+      }
+    } else {
+      throw new Error(`Trying to remove non-attached component type: ${typename}`);
+    }
+  }
+
+  /**
+   * Find component by it&apos;s type name.
+   *
+   * @param {string}	typename - Component type name.
+   *
+   * @return {Component|null} Component instance if found or null otherwise.
+   *
+   * @example
+   * class Hello extends Component {}
+   * entity.attachComponent(&apos;Hello&apos;, new Hello());
+   * const hello = entity.getComponent(&apos;Hello&apos;);
+   */
+  getComponent(typename) {
+    if (typeof typename !== &apos;string&apos;) {
+      throw new Error(&apos;`typename` is not type of String!&apos;);
+    }
+
+    return this._components.get(typename) || null;
+  }
+
+  /**
+   * Perform action on entity.
+   *
+   * @param {string}	name - Action name.
+   * @param {*}	args - Action parameters.
+   *
+   * @example
+   * class Hi extends Component { onAction(name, wat) { if (name === &apos;hi&apos;) console.log(wat); } }
+   * entity.attachComponent(&apos;Hi&apos;, new Hi());
+   * entity.performAction(&apos;hi&apos;, &apos;hello&apos;);
+   */
+  performAction(name, ...args) {
+    if (typeof name !== &apos;string&apos;) {
+      throw new Error(&apos;`name` is not type of String!&apos;);
+    }
+    if (!this._active) {
+      return;
+    }
+
+    const { _components, _children } = this;
+    let status = false;
+    let a = args;
+
+    for (const component of _components.values()) {
+      status = !!component.onAction(name, ...a) || status;
+      a = component.onAlterActionArguments(name, a) || a;
+    }
+
+    if (status) {
+      return;
+    }
+
+    for (let i = 0, c = _children.length; i &lt; c; ++i) {
+      _children[i].performAction(name, ...a);
+    }
+  }
+
+  /**
+   * Perform action only on components (do not pass action further to children).
+   * See: {@link performAction}
+   *
+   * @param {string}	name - Action name.
+   * @param {*}	args - Action parameters.
+   */
+  performActionOnComponents(name, ...args) {
+    if (typeof name !== &apos;string&apos;) {
+      throw new Error(&apos;`name` is not type of String!&apos;);
+    }
+    if (!this._active) {
+      return;
+    }
+
+    const { _components } = this;
+    let a = args;
+
+    for (const component of _components.values()) {
+      !!component.onAction(name, ...a);
+      a = component.onAlterActionArguments(name, a) || a;
+    }
+  }
+
+  /**
+   * Perform custom callback action on entity components of given type and it&apos;s children.
+   *
+   * @param {string|null}	id - Affected component type (can be null if want to call every component).
+   * @param {Function}	action - Custom action callback. Callback gets one argument with component instance.
+   *
+   * @example
+   * entity.performOnComponents(&apos;Hello&apos;, component =&gt; console.log(component.hello));
+   */
+  performOnComponents(id, action) {
+    if (!!id &amp;&amp; typeof id !== &apos;string&apos;) {
+      throw new Error(&apos;`id` is not type of String!&apos;);
+    }
+    if (!(action instanceof Function)) {
+      throw new Error(&apos;`action` is not type of Function!&apos;);
+    }
+
+    if (!!id) {
+      const component = this.getComponent(id);
+      if (!!component) {
+        action(component);
+      }
+    } else {
+      const { _components } = this;
+      for (const component of _components.values()) {
+        action(component);
+      }
+    }
+
+    const { _children } = this;
+    for (let i = 0, c = _children.length; i &lt; c; ++i) {
+      _children[i].performOnComponents(id, action);
+    }
+  }
+
+  /**
+   * Perform custom callback action only on entity and optionally it&apos;s children.
+   *
+   * @param {Function}	action - Custom action callback. Callback gets one argument with child instance.
+   * @param {boolean}	deep - True if should be called on it&apos;s children.
+   *
+   * @example
+   * entity.performOnChildren(e =&gt; console.log(e.name));
+   */
+  performOnChildren(action, deep = false) {
+    if (!(action instanceof Function)) {
+      throw new Error(&apos;`action` is not type of Function!&apos;);
+    }
+
+    const { _children } = this;
+    for (let i = 0, c = _children.length; i &lt; c; ++i) {
+      const child = _children[i];
+
+      action(child);
+      if (!!deep) {
+        child.performOnChildren(action, deep);
+      }
+    }
+  }
+
+  /**
+   * Update entity ant it&apos;s children transforms.
+   *
+   * @param {mat4}	parentTransform - Parent transformation.
+   * @param {boolean}	forced - If true ignore optimizations and update anyway.
+   *
+   * @example
+   * entity.updateTransforms();
+   */
+  updateTransforms(parentTransform, forced = false) {
+    if (!this._active) {
+      return;
+    }
+
+    const {
+      _children,
+      _transform,
+      _inverseTransform,
+      _transformLocal,
+      _position,
+      _rotation,
+      _scale
+    } = this;
+
+    if (!!forced || this._dirty) {
+      mat4.fromRotationTranslationScale(
+        _transformLocal,
+        _rotation,
+        _position,
+        _scale
+      );
+
+      mat4.multiply(_transform, parentTransform, _transformLocal);
+      mat4.invert(_inverseTransform, _transform);
+
+      forced = true;
+      this._dirty = false;
+    }
+
+    for (let i = 0, c = _children.length; i &lt; c; ++i) {
+      _children[i].updateTransforms(_transform, forced);
+    }
+  }
+
+  /**
+   * Sort children by entity childrenSorting function if set.
+   */
+  sortChildren() {
+    const { _childrenSorting, _children } = this;
+    if (!_childrenSorting) {
+      return;
+    }
+
+    _children.sort(_childrenSorting);
+  }
+
+  _setOwner(owner) {
+    const { _owner, _components, _children } = this;
+
+    if (!!owner === !!_owner) {
+      return;
+    }
+
+    if (!!_owner &amp;&amp; !!_owner.triggerEvents) {
+      for (const component of _components.values()) {
+        component.onDetach();
+      }
+    }
+
+    this._owner = owner;
+
+    if (!!owner &amp;&amp; !!owner.triggerEvents) {
+      for (const component of _components.values()) {
+        component.onAttach();
+      }
+    }
+
+    for (let i = 0, c = _children.length; i &lt; c; ++i) {
+      _children[i]._setOwner(owner);
+    }
+  }
+
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.4)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
