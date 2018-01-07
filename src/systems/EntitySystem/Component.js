@@ -8,6 +8,15 @@ export default class Component {
     return {};
   }
 
+  /**
+   * Component factory.
+   *
+   * @return {Component} New component instance.
+   */
+  static factory() {
+    throw new Error('Factory is not implemented!');
+  }
+
   /** @type {Entity|null} */
   get entity() {
     return this._owner;
