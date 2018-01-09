@@ -27629,7 +27629,7 @@
   },
   {
     "kind": "index",
-    "content": "# Oxygen Core\r\n## Xenon Core browser game engine\r\n",
+    "content": "# Oxygen Core\r\n## Professional HTML5 game engine - One of the best Xenon Core engines family.\r\n\r\n![Travis CI](https://travis-ci.org/PsichiX/Oxygen.svg?branch=master)\r\n![ESDoc Coverage](./docs/badge.svg)\r\n\r\n## Table of contents\r\n1. [Installation](#installation)\r\n1. [Simple project generator](#simple-project-generator)\r\n1. [Imagination is your ONLY limit](#imagination-is-your-only-limit)\r\n\r\n## Installation\r\n```bash\r\nnpm install oxygen-core\r\n```\r\n\r\n## Simple project generator\r\nTo automatically generate base project structure and install dependencies, install:\r\nhttps://www.npmjs.com/package/oxygen-project-generator\r\n\r\nThen:\r\n```bash\r\ncd path/to/your/project\r\noxy-gen project-name\r\n```\r\n\r\n## Imagination is your ONLY limit\r\nCheck **[Operation: SoulHunter](http://soulhunter.psichix.io)** game to see what you can do.\r\n\r\n**Imagine more, don't limit yourself - make your HTML5 dream come true!**\r\n",
     "longname": "D:\\Git\\oxygen\\README.md",
     "name": "./README.md",
     "static": true,
