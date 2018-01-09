@@ -1,6 +1,6 @@
 {
   "name": "oxygen-core",
-  "version": "1.2.35",
+  "version": "1.2.36",
   "description": "Oxygen game engine (Xenon Core for browsers)",
   "main": "bin/index.js",
   "scripts": {
@@ -12,7 +12,6 @@
     "browserify-min": "npm run browserify && npm run browserify-uglify",
     "docs": "esdoc -c esdoc.json",
     "make": "npm run build && npm run build-tools && npm run browserify-min && npm run docs",
-    "prepublishOnly": "npm run make",
     "postinstall": "npm run make",
     "oxygen-pack": "node ./bin-tools/pack-cli.js"
   },
