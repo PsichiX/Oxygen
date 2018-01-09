@@ -47,7 +47,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components">components</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/AtlasSprite.js~AtlasSprite.html">AtlasSprite</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Camera.js~Camera.html">Camera</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Camera2D.js~Camera2D.html">Camera2D</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/CameraDirector.js~CameraDirector.html">CameraDirector</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/CameraDirector2D.js~CameraDirector2D.html">CameraDirector2D</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html">InputHandler</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/InputListener.js~InputListener.html">InputListener</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html">Particles</a></span></span></li>
@@ -89,13 +89,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import InputHandler from &apos;<span><a href="file/src/components/InputHandler.js.html#lineNumber140">oxygen-core/components/InputHandler.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import InputHandler from &apos;<span><a href="file/src/components/InputHandler.js.html#lineNumber147">oxygen-core/components/InputHandler.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/components/InputHandler.js.html#lineNumber140">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/components/InputHandler.js.html#lineNumber147">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -115,12 +115,21 @@
 
   
   
-  
+  <div class="description" data-ice="description"><p>Simple yet powerful input handler.</p>
+</div>
   
 
   
 
-  
+  <div data-ice="exampleDocs">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const component = new InputHandler();
+component.deserialize({ requireGamepad: true });</code></pre>
+    </div>
+</div>
 
   
 
@@ -159,6 +168,34 @@
       
     </td>
   </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      <span class="kind" data-ice="kind">get</span>
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#static-get-propsTypes">propsTypes</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
 </tbody>
 </table>
 </div>
@@ -180,41 +217,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#static-method-factory">factory</a></span></span><span class="code" data-ice="signature">(): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#static-method-factory">factory</a></span></span><span class="code" data-ice="signature">(): <span><a href="class/src/components/InputHandler.js~InputHandler.html">InputHandler</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      <span data-ice="static">static</span>
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#static-method-propsTypes">propsTypes</a></span></span><span class="code" data-ice="signature">(): {...undefined: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, &quot;requireGamepad&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;acceptMouse&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;acceptKeyboard&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;acceptGamepad&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;acceptLeap&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;controlDeviceChangeTreshold&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;repeatingTriggersDelay&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;firstTriggersDelay&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;acceptFirstConnectedGamepad&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>}</span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
+        <div data-ice="description"><p>Component factory.</p>
+</div>
       </div>
     </td>
     <td>
@@ -249,7 +259,8 @@
       <div>
         
         
-        
+        <div data-ice="description"><p>Constructor.</p>
+</div>
       </div>
     </td>
     <td>
@@ -278,7 +289,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-set-acceptFirstConnectedGamepad">acceptFirstConnectedGamepad</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-set-acceptFirstConnectedGamepad">acceptFirstConnectedGamepad</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
@@ -306,7 +317,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-get-acceptFirstConnectedGamepad">acceptFirstConnectedGamepad</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-get-acceptFirstConnectedGamepad">acceptFirstConnectedGamepad</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
@@ -334,7 +345,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-get-acceptGamepad">acceptGamepad</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-get-acceptGamepad">acceptGamepad</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
@@ -362,7 +373,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-set-acceptGamepad">acceptGamepad</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-set-acceptGamepad">acceptGamepad</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
@@ -390,7 +401,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-get-acceptKeyboard">acceptKeyboard</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-get-acceptKeyboard">acceptKeyboard</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
@@ -418,7 +429,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-set-acceptKeyboard">acceptKeyboard</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-set-acceptKeyboard">acceptKeyboard</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
@@ -446,7 +457,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-get-acceptLeap">acceptLeap</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-get-acceptLeap">acceptLeap</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
@@ -474,7 +485,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-set-acceptLeap">acceptLeap</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-set-acceptLeap">acceptLeap</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
@@ -502,7 +513,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-get-acceptMouse">acceptMouse</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-get-acceptMouse">acceptMouse</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
@@ -530,7 +541,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-set-acceptMouse">acceptMouse</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-set-acceptMouse">acceptMouse</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
@@ -586,7 +597,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-set-controlDeviceChangeTreshold">controlDeviceChangeTreshold</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-set-controlDeviceChangeTreshold">controlDeviceChangeTreshold</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
         </p>
       </div>
       <div>
@@ -614,7 +625,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-get-controlDeviceChangeTreshold">controlDeviceChangeTreshold</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-get-controlDeviceChangeTreshold">controlDeviceChangeTreshold</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
         </p>
       </div>
       <div>
@@ -642,7 +653,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-get-firstTriggersDelay">firstTriggersDelay</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-get-firstTriggersDelay">firstTriggersDelay</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
         </p>
       </div>
       <div>
@@ -670,7 +681,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-set-firstTriggersDelay">firstTriggersDelay</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-set-firstTriggersDelay">firstTriggersDelay</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
         </p>
       </div>
       <div>
@@ -698,7 +709,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-get-gamepadIndex">gamepadIndex</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-get-gamepadIndex">gamepadIndex</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
         </p>
       </div>
       <div>
@@ -726,7 +737,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-get-isAcquiringGamepad">isAcquiringGamepad</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-get-isAcquiringGamepad">isAcquiringGamepad</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
@@ -754,7 +765,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-get-lastControlDevice">lastControlDevice</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-get-lastControlDevice">lastControlDevice</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
         </p>
       </div>
       <div>
@@ -810,7 +821,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-set-repeatingTriggersDelay">repeatingTriggersDelay</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-set-repeatingTriggersDelay">repeatingTriggersDelay</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
         </p>
       </div>
       <div>
@@ -838,7 +849,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-get-repeatingTriggersDelay">repeatingTriggersDelay</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-get-repeatingTriggersDelay">repeatingTriggersDelay</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
         </p>
       </div>
       <div>
@@ -866,7 +877,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-set-requireGamepad">requireGamepad</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-set-requireGamepad">requireGamepad</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
@@ -894,7 +905,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-get-requireGamepad">requireGamepad</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-get-requireGamepad">requireGamepad</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
@@ -957,13 +968,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-method-acquireGamepad">acquireGamepad</a></span></span><span class="code" data-ice="signature">(trigger: <span>*</span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-method-acquireGamepad">acquireGamepad</a></span></span><span class="code" data-ice="signature">(trigger: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Asynchronously acquire gamepad (specify trigger to press and waiting duration).</p>
+</div>
       </div>
     </td>
     <td>
@@ -991,7 +1003,8 @@
       <div>
         
         
-        
+        <div data-ice="description"><p>Clear all axes, triggers and configs.</p>
+</div>
       </div>
     </td>
     <td>
@@ -1041,13 +1054,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-method-getAcquiredGamepad">getAcquiredGamepad</a></span></span><span class="code" data-ice="signature">(): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-method-getAcquiredGamepad">getAcquiredGamepad</a></span></span><span class="code" data-ice="signature">(): <span>Gamepad</span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null">null</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Get acquired gamepad instance.</p>
+</div>
       </div>
     </td>
     <td>
@@ -1069,13 +1083,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-method-getAxis">getAxis</a></span></span><span class="code" data-ice="signature">(id: <span>*</span>, treshold: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-method-getAxis">getAxis</a></span></span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, treshold: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Get value of given axis.</p>
+</div>
       </div>
     </td>
     <td>
@@ -1097,13 +1112,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-method-getAxisDelta">getAxisDelta</a></span></span><span class="code" data-ice="signature">(id: <span>*</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-method-getAxisDelta">getAxisDelta</a></span></span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Get delta value of given axis.</p>
+</div>
       </div>
     </td>
     <td>
@@ -1125,13 +1141,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-method-getTrigger">getTrigger</a></span></span><span class="code" data-ice="signature">(id: <span>*</span>, treshold: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-method-getTrigger">getTrigger</a></span></span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, treshold: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Get value of given trigger.</p>
+</div>
       </div>
     </td>
     <td>
@@ -1153,13 +1170,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-method-getTriggerDelta">getTriggerDelta</a></span></span><span class="code" data-ice="signature">(id: <span>*</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-method-getTriggerDelta">getTriggerDelta</a></span></span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Get delta value of given trigger.</p>
+</div>
       </div>
     </td>
     <td>
@@ -1181,13 +1199,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-method-isAxisHold">isAxisHold</a></span></span><span class="code" data-ice="signature">(id: <span>*</span>, treshold: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-method-isAxisHold">isAxisHold</a></span></span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, treshold: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Tells if axis is currently hold.</p>
+</div>
       </div>
     </td>
     <td>
@@ -1209,13 +1228,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-method-isAxisPressed">isAxisPressed</a></span></span><span class="code" data-ice="signature">(id: <span>*</span>, treshold: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-method-isAxisPressed">isAxisPressed</a></span></span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, treshold: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Tells if axis is pressed in current frame.</p>
+</div>
       </div>
     </td>
     <td>
@@ -1237,13 +1257,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-method-isAxisReleased">isAxisReleased</a></span></span><span class="code" data-ice="signature">(id: <span>*</span>, treshold: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-method-isAxisReleased">isAxisReleased</a></span></span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, treshold: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Tells if axis is released in current frame.</p>
+</div>
       </div>
     </td>
     <td>
@@ -1265,13 +1286,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-method-isTriggerHold">isTriggerHold</a></span></span><span class="code" data-ice="signature">(id: <span>*</span>, treshold: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-method-isTriggerHold">isTriggerHold</a></span></span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, treshold: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Tells if trigger is currently hold.</p>
+</div>
       </div>
     </td>
     <td>
@@ -1293,13 +1315,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-method-isTriggerPressed">isTriggerPressed</a></span></span><span class="code" data-ice="signature">(id: <span>*</span>, treshold: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-method-isTriggerPressed">isTriggerPressed</a></span></span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, treshold: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Tells if trigger is pressed in current frame.</p>
+</div>
       </div>
     </td>
     <td>
@@ -1321,13 +1344,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-method-isTriggerReleased">isTriggerReleased</a></span></span><span class="code" data-ice="signature">(id: <span>*</span>, treshold: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-method-isTriggerReleased">isTriggerReleased</a></span></span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, treshold: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Tells if trigger is released in current frame.</p>
+</div>
       </div>
     </td>
     <td>
@@ -1691,7 +1715,8 @@
       <div>
         
         
-        
+        <div data-ice="description"><p>Release acquired gamepad.</p>
+</div>
       </div>
     </td>
     <td>
@@ -1713,13 +1738,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-method-setAcquiredGamepad">setAcquiredGamepad</a></span></span><span class="code" data-ice="signature">(index: <span>*</span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-method-setAcquiredGamepad">setAcquiredGamepad</a></span></span><span class="code" data-ice="signature">(index: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>)</span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Manually acquire gamepad by it&apos;s index.</p>
+</div>
       </div>
     </td>
     <td>
@@ -1741,13 +1767,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-method-setAxis">setAxis</a></span></span><span class="code" data-ice="signature">(id: <span>*</span>, value: <span>*</span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-method-setAxis">setAxis</a></span></span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>)</span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Set given axis value.</p>
+</div>
       </div>
     </td>
     <td>
@@ -1769,13 +1796,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-method-setTrigger">setTrigger</a></span></span><span class="code" data-ice="signature">(id: <span>*</span>, value: <span>*</span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html#instance-method-setTrigger">setTrigger</a></span></span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>)</span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Set given trigger value.</p>
+</div>
       </div>
     </td>
     <td>
@@ -1803,7 +1831,8 @@
       <div>
         
         
-        
+        <div data-ice="description"><p>Setup axes and triggers.</p>
+</div>
       </div>
     </td>
     <td>
@@ -1840,6 +1869,35 @@
         
         
         
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/systems/EntitySystem/Component.js~Component.html#static-method-factory">factory</a></span></span><span class="code" data-ice="signature">(): <span><a href="class/src/systems/EntitySystem/Component.js~Component.html">Component</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Component factory.</p>
+</div>
       </div>
     </td>
     <td>
@@ -2973,7 +3031,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber161">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber175">source</a></span></span>
     </span>
   </h3>
 
@@ -2983,6 +3041,49 @@
   
 
   
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-get-propsTypes">
+    <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
+    <span class="kind" data-ice="kind">get</span>
+    
+    
+    
+    <span class="code" data-ice="name">propsTypes</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber159">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  <div data-ice="override"><h4>Override:</h4><span><a href="class/src/components/Script.js~Script.html#static-get-propsTypes">Script#propsTypes</a></span></div>
 
   <div data-ice="properties">
 </div>
@@ -3015,18 +3116,19 @@
     
     
     
-    <span class="code" data-ice="name">factory</span><span class="code" data-ice="signature">(): <span>*</span></span>
+    <span class="code" data-ice="name">factory</span><span class="code" data-ice="signature">(): <span><a href="class/src/components/InputHandler.js~InputHandler.html">InputHandler</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber142">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber154">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Component factory.</p>
+</div>
 
   <div data-ice="override"><h4>Override:</h4><span><a href="class/src/components/Script.js~Script.html#static-method-factory">Script#factory</a></span></div>
 
@@ -3038,63 +3140,9 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="static-method-propsTypes">
-    <span class="access" data-ice="access">public</span>
-    <span data-ice="static">static</span>
-    
-    
-    
-    
-    <span class="code" data-ice="name">propsTypes</span><span class="code" data-ice="signature">(): {...undefined: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, &quot;requireGamepad&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;acceptMouse&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;acceptKeyboard&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;acceptGamepad&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;acceptLeap&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;controlDeviceChangeTreshold&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;repeatingTriggersDelay&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;firstTriggersDelay&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;acceptFirstConnectedGamepad&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>}</span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber146">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  
-
-  <div data-ice="override"><h4>Override:</h4><span><a href="class/src/components/Script.js~Script.html#static-get-propsTypes">Script#propsTypes</a></span></div>
-
-  <div data-ice="properties">
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Return:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType">{...undefined: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, &quot;requireGamepad&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;acceptMouse&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;acceptKeyboard&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;acceptGamepad&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;acceptLeap&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;controlDeviceChangeTreshold&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;repeatingTriggersDelay&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;firstTriggersDelay&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;acceptFirstConnectedGamepad&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>}</td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/components/InputHandler.js~InputHandler.html">InputHandler</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Component instance.</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -3132,7 +3180,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber305">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber345">source</a></span></span>
     </span>
   </h3>
 
@@ -3175,11 +3223,11 @@
     
     
     
-    <span class="code" data-ice="name">acceptFirstConnectedGamepad</span>
+    <span class="code" data-ice="name">acceptFirstConnectedGamepad</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber265">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber297">source</a></span></span>
     </span>
   </h3>
 
@@ -3218,11 +3266,11 @@
     
     
     
-    <span class="code" data-ice="name">acceptFirstConnectedGamepad</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">acceptFirstConnectedGamepad</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber261">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber292">source</a></span></span>
     </span>
   </h3>
 
@@ -3261,11 +3309,11 @@
     
     
     
-    <span class="code" data-ice="name">acceptGamepad</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">acceptGamepad</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber201">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber222">source</a></span></span>
     </span>
   </h3>
 
@@ -3304,11 +3352,11 @@
     
     
     
-    <span class="code" data-ice="name">acceptGamepad</span>
+    <span class="code" data-ice="name">acceptGamepad</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber205">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber227">source</a></span></span>
     </span>
   </h3>
 
@@ -3347,11 +3395,11 @@
     
     
     
-    <span class="code" data-ice="name">acceptKeyboard</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">acceptKeyboard</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber189">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber208">source</a></span></span>
     </span>
   </h3>
 
@@ -3390,11 +3438,11 @@
     
     
     
-    <span class="code" data-ice="name">acceptKeyboard</span>
+    <span class="code" data-ice="name">acceptKeyboard</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber193">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber213">source</a></span></span>
     </span>
   </h3>
 
@@ -3433,11 +3481,11 @@
     
     
     
-    <span class="code" data-ice="name">acceptLeap</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">acceptLeap</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber213">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber236">source</a></span></span>
     </span>
   </h3>
 
@@ -3476,11 +3524,11 @@
     
     
     
-    <span class="code" data-ice="name">acceptLeap</span>
+    <span class="code" data-ice="name">acceptLeap</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber217">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber241">source</a></span></span>
     </span>
   </h3>
 
@@ -3519,11 +3567,11 @@
     
     
     
-    <span class="code" data-ice="name">acceptMouse</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">acceptMouse</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber177">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber194">source</a></span></span>
     </span>
   </h3>
 
@@ -3562,11 +3610,11 @@
     
     
     
-    <span class="code" data-ice="name">acceptMouse</span>
+    <span class="code" data-ice="name">acceptMouse</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber181">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber199">source</a></span></span>
     </span>
   </h3>
 
@@ -3609,7 +3657,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber277">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber311">source</a></span></span>
     </span>
   </h3>
 
@@ -3648,11 +3696,11 @@
     
     
     
-    <span class="code" data-ice="name">controlDeviceChangeTreshold</span>
+    <span class="code" data-ice="name">controlDeviceChangeTreshold</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber229">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber255">source</a></span></span>
     </span>
   </h3>
 
@@ -3691,11 +3739,11 @@
     
     
     
-    <span class="code" data-ice="name">controlDeviceChangeTreshold</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">controlDeviceChangeTreshold</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber225">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber250">source</a></span></span>
     </span>
   </h3>
 
@@ -3734,11 +3782,11 @@
     
     
     
-    <span class="code" data-ice="name">firstTriggersDelay</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">firstTriggersDelay</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber249">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber278">source</a></span></span>
     </span>
   </h3>
 
@@ -3777,11 +3825,11 @@
     
     
     
-    <span class="code" data-ice="name">firstTriggersDelay</span>
+    <span class="code" data-ice="name">firstTriggersDelay</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber253">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber283">source</a></span></span>
     </span>
   </h3>
 
@@ -3820,11 +3868,11 @@
     
     
     
-    <span class="code" data-ice="name">gamepadIndex</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">gamepadIndex</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber297">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber333">source</a></span></span>
     </span>
   </h3>
 
@@ -3863,11 +3911,11 @@
     
     
     
-    <span class="code" data-ice="name">isAcquiringGamepad</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">isAcquiringGamepad</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber273">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber306">source</a></span></span>
     </span>
   </h3>
 
@@ -3906,11 +3954,11 @@
     
     
     
-    <span class="code" data-ice="name">lastControlDevice</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">lastControlDevice</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber301">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber338">source</a></span></span>
     </span>
   </h3>
 
@@ -3953,7 +4001,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber597">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber815">source</a></span></span>
     </span>
   </h3>
 
@@ -3992,11 +4040,11 @@
     
     
     
-    <span class="code" data-ice="name">repeatingTriggersDelay</span>
+    <span class="code" data-ice="name">repeatingTriggersDelay</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber241">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber269">source</a></span></span>
     </span>
   </h3>
 
@@ -4035,11 +4083,11 @@
     
     
     
-    <span class="code" data-ice="name">repeatingTriggersDelay</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">repeatingTriggersDelay</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber237">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber264">source</a></span></span>
     </span>
   </h3>
 
@@ -4078,11 +4126,11 @@
     
     
     
-    <span class="code" data-ice="name">requireGamepad</span>
+    <span class="code" data-ice="name">requireGamepad</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber169">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber185">source</a></span></span>
     </span>
   </h3>
 
@@ -4121,11 +4169,11 @@
     
     
     
-    <span class="code" data-ice="name">requireGamepad</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">requireGamepad</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber165">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber180">source</a></span></span>
     </span>
   </h3>
 
@@ -4168,7 +4216,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber287">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber322">source</a></span></span>
     </span>
   </h3>
 
@@ -4210,18 +4258,19 @@
     
     
     
-    <span class="code" data-ice="name">acquireGamepad</span><span class="code" data-ice="signature">(trigger: <span>*</span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span>*</span></span>
+    <span class="code" data-ice="name">acquireGamepad</span><span class="code" data-ice="signature">(trigger: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber524">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber720">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Asynchronously acquire gamepad (specify trigger to press and waiting duration).</p>
+</div>
 
   
 
@@ -4235,16 +4284,17 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">trigger</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Trigger index.</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">timeout</td>
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
-      <td data-ice="appendix"><ul><li>optional</li>
-<li>default: 3000</li></ul></td>
-      <td data-ice="description"></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Waiting duration in milliseconds.</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -4256,8 +4306,9 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Waiting promise.</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -4273,7 +4324,14 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">component.acquireGamepad(0).then(() =&gt; System.events.trigger(&apos;player-is-ready&apos;));</code></pre>
+    </div>
+</div>
 
   
 
@@ -4292,14 +4350,15 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber348">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber397">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Clear all axes, triggers and configs.</p>
+</div>
 
   
 
@@ -4316,7 +4375,14 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">component.clear();</code></pre>
+    </div>
+</div>
 
   
 
@@ -4335,7 +4401,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber339">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber382">source</a></span></span>
     </span>
   </h3>
 
@@ -4375,18 +4441,19 @@
     
     
     
-    <span class="code" data-ice="name">getAcquiredGamepad</span><span class="code" data-ice="signature">(): <span>*</span></span>
+    <span class="code" data-ice="name">getAcquiredGamepad</span><span class="code" data-ice="signature">(): <span>Gamepad</span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null">null</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber582">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber797">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Get acquired gamepad instance.</p>
+</div>
 
   
 
@@ -4398,8 +4465,9 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span>Gamepad</span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null">null</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Acquired gamepad instance or null.</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -4430,18 +4498,19 @@
     
     
     
-    <span class="code" data-ice="name">getAxis</span><span class="code" data-ice="signature">(id: <span>*</span>, treshold: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span>*</span></span>
+    <span class="code" data-ice="name">getAxis</span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, treshold: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber466">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber534">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Get value of given axis.</p>
+</div>
 
   
 
@@ -4455,16 +4524,17 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">id</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Axis id.</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">treshold</td>
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
-      <td data-ice="appendix"><ul><li>optional</li>
-<li>default: 0</li></ul></td>
-      <td data-ice="description"></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Value treshold (if value is greater than treshold, return value, zero otherwise).</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -4476,8 +4546,9 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Axis value.</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -4493,7 +4564,14 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">x += component.getAxis(&apos;pos-x&apos;);</code></pre>
+    </div>
+</div>
 
   
 
@@ -4508,18 +4586,19 @@
     
     
     
-    <span class="code" data-ice="name">getAxisDelta</span><span class="code" data-ice="signature">(id: <span>*</span>): <span>*</span></span>
+    <span class="code" data-ice="name">getAxisDelta</span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber471">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber549">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Get delta value of given axis.</p>
+</div>
 
   
 
@@ -4533,9 +4612,10 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">id</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Axis id.</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -4547,8 +4627,9 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Axis value.</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -4564,7 +4645,14 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">if (component.getAxisDelta(&apos;pos-y&apos;) &lt; 0) { entity.performAction(&apos;jump&apos;); }</code></pre>
+    </div>
+</div>
 
   
 
@@ -4579,18 +4667,19 @@
     
     
     
-    <span class="code" data-ice="name">getTrigger</span><span class="code" data-ice="signature">(id: <span>*</span>, treshold: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span>*</span></span>
+    <span class="code" data-ice="name">getTrigger</span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, treshold: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber495">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber627">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Get value of given trigger.</p>
+</div>
 
   
 
@@ -4604,16 +4693,17 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">id</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Trigger id.</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">treshold</td>
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
-      <td data-ice="appendix"><ul><li>optional</li>
-<li>default: 0</li></ul></td>
-      <td data-ice="description"></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Value treshold (if value is greater than treshold, return value, zero otherwise).</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -4625,8 +4715,9 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Trigger value.</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -4642,7 +4733,14 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">speed += component.getTrigger(&apos;accel&apos;);</code></pre>
+    </div>
+</div>
 
   
 
@@ -4657,18 +4755,19 @@
     
     
     
-    <span class="code" data-ice="name">getTriggerDelta</span><span class="code" data-ice="signature">(id: <span>*</span>): <span>*</span></span>
+    <span class="code" data-ice="name">getTriggerDelta</span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber500">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber642">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Get delta value of given trigger.</p>
+</div>
 
   
 
@@ -4682,9 +4781,10 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">id</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Trigger id.</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -4696,8 +4796,9 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Trigger value.</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -4713,7 +4814,14 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">if (component.getTriggerDelta(&apos;pull&apos;) &gt; 0) { entity.performAction(&apos;pull-rope&apos;); }</code></pre>
+    </div>
+</div>
 
   
 
@@ -4728,18 +4836,19 @@
     
     
     
-    <span class="code" data-ice="name">isAxisHold</span><span class="code" data-ice="signature">(id: <span>*</span>, treshold: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span>*</span></span>
+    <span class="code" data-ice="name">isAxisHold</span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, treshold: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber479">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber578">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Tells if axis is currently hold.</p>
+</div>
 
   
 
@@ -4753,16 +4862,17 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">id</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Axis id.</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">treshold</td>
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
-      <td data-ice="appendix"><ul><li>optional</li>
-<li>default: 0.5</li></ul></td>
-      <td data-ice="description"></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Value treshold (if value is greater than treshold, return true, false otherwise).</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -4774,8 +4884,9 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Holding state.</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -4791,7 +4902,14 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">if (component.isAxisHold(&apos;pos-x&apos;)) { entity.performAction(&apos;animate&apos;, &apos;walk&apos;); }</code></pre>
+    </div>
+</div>
 
   
 
@@ -4806,18 +4924,19 @@
     
     
     
-    <span class="code" data-ice="name">isAxisPressed</span><span class="code" data-ice="signature">(id: <span>*</span>, treshold: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span>*</span></span>
+    <span class="code" data-ice="name">isAxisPressed</span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, treshold: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber483">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber593">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Tells if axis is pressed in current frame.</p>
+</div>
 
   
 
@@ -4831,16 +4950,17 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">id</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Axis id.</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">treshold</td>
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
-      <td data-ice="appendix"><ul><li>optional</li>
-<li>default: 0.5</li></ul></td>
-      <td data-ice="description"></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Value treshold (if value is greater than treshold and axis was not hold in previous frame, return true, false otherwise).</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -4852,8 +4972,9 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Pressing state.</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -4869,7 +4990,14 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">if (component.isAxisPressed(&apos;bow&apos;)) { entity.performAction(&apos;aim&apos;); }</code></pre>
+    </div>
+</div>
 
   
 
@@ -4884,18 +5012,19 @@
     
     
     
-    <span class="code" data-ice="name">isAxisReleased</span><span class="code" data-ice="signature">(id: <span>*</span>, treshold: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span>*</span></span>
+    <span class="code" data-ice="name">isAxisReleased</span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, treshold: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber489">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber610">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Tells if axis is released in current frame.</p>
+</div>
 
   
 
@@ -4909,16 +5038,17 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">id</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Axis id.</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">treshold</td>
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
-      <td data-ice="appendix"><ul><li>optional</li>
-<li>default: 0.5</li></ul></td>
-      <td data-ice="description"></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Value treshold (if value is smaller than treshold and axis was hold in previous frame, return true, false otherwise).</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -4930,8 +5060,9 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Releasing state.</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -4947,7 +5078,14 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">if (component.isAxisReleased(&apos;bow&apos;)) { entity.performAction(&apos;fire&apos;); }</code></pre>
+    </div>
+</div>
 
   
 
@@ -4962,18 +5100,19 @@
     
     
     
-    <span class="code" data-ice="name">isTriggerHold</span><span class="code" data-ice="signature">(id: <span>*</span>, treshold: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span>*</span></span>
+    <span class="code" data-ice="name">isTriggerHold</span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, treshold: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber508">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber671">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Tells if trigger is currently hold.</p>
+</div>
 
   
 
@@ -4987,16 +5126,17 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">id</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Trigger id.</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">treshold</td>
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
-      <td data-ice="appendix"><ul><li>optional</li>
-<li>default: 0.5</li></ul></td>
-      <td data-ice="description"></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Value treshold (if value is greater than treshold, return true, false otherwise).</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -5008,8 +5148,9 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Holding state.</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -5025,7 +5166,14 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">if (component.isTriggerHold(&apos;swim&apos;)) { entity.performAction(&apos;swim&apos;); }</code></pre>
+    </div>
+</div>
 
   
 
@@ -5040,18 +5188,19 @@
     
     
     
-    <span class="code" data-ice="name">isTriggerPressed</span><span class="code" data-ice="signature">(id: <span>*</span>, treshold: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span>*</span></span>
+    <span class="code" data-ice="name">isTriggerPressed</span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, treshold: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber512">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber686">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Tells if trigger is pressed in current frame.</p>
+</div>
 
   
 
@@ -5065,16 +5214,17 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">id</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Trigger id.</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">treshold</td>
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
-      <td data-ice="appendix"><ul><li>optional</li>
-<li>default: 0.5</li></ul></td>
-      <td data-ice="description"></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Value treshold (if value is greater than treshold and trigger was not hold in previous frame, return true, false otherwise).</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -5086,8 +5236,9 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Pressing state.</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -5103,7 +5254,14 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">if (component.isTriggerPressed(&apos;jump&apos;)) { entity.performAction(&apos;jump&apos;); }</code></pre>
+    </div>
+</div>
 
   
 
@@ -5118,18 +5276,19 @@
     
     
     
-    <span class="code" data-ice="name">isTriggerReleased</span><span class="code" data-ice="signature">(id: <span>*</span>, treshold: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span>*</span></span>
+    <span class="code" data-ice="name">isTriggerReleased</span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, treshold: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber518">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber703">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Tells if trigger is released in current frame.</p>
+</div>
 
   
 
@@ -5143,16 +5302,17 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">id</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Trigger id.</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">treshold</td>
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
-      <td data-ice="appendix"><ul><li>optional</li>
-<li>default: 0.5</li></ul></td>
-      <td data-ice="description"></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Value treshold (if value is smaller than treshold and trigger was hold in previous frame, return true, false otherwise).</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -5164,8 +5324,9 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Releasing state.</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -5181,7 +5342,14 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">if (component.isTriggerReleased(&apos;fire&apos;)) { entity.performAction(&apos;fire&apos;); }</code></pre>
+    </div>
+</div>
 
   
 
@@ -5200,7 +5368,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber596">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber814">source</a></span></span>
     </span>
   </h3>
 
@@ -5244,7 +5412,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber602">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber823">source</a></span></span>
     </span>
   </h3>
 
@@ -5288,7 +5456,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber741">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber983">source</a></span></span>
     </span>
   </h3>
 
@@ -5347,7 +5515,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber751">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber996">source</a></span></span>
     </span>
   </h3>
 
@@ -5406,7 +5574,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber789">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber1037">source</a></span></span>
     </span>
   </h3>
 
@@ -5465,7 +5633,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber691">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber927">source</a></span></span>
     </span>
   </h3>
 
@@ -5524,7 +5692,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber716">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber955">source</a></span></span>
     </span>
   </h3>
 
@@ -5583,7 +5751,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber894">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber1145">source</a></span></span>
     </span>
   </h3>
 
@@ -5648,7 +5816,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber644">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber871">source</a></span></span>
     </span>
   </h3>
 
@@ -5719,7 +5887,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber676">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber909">source</a></span></span>
     </span>
   </h3>
 
@@ -5784,7 +5952,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber660">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber890">source</a></span></span>
     </span>
   </h3>
 
@@ -5855,7 +6023,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber609">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber833">source</a></span></span>
     </span>
   </h3>
 
@@ -5914,14 +6082,15 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber565">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber767">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Release acquired gamepad.</p>
+</div>
 
   
 
@@ -5938,7 +6107,14 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">if (gameOver) { component.releaseGamepad(); }</code></pre>
+    </div>
+</div>
 
   
 
@@ -5953,18 +6129,19 @@
     
     
     
-    <span class="code" data-ice="name">setAcquiredGamepad</span><span class="code" data-ice="signature">(index: <span>*</span>)</span>
+    <span class="code" data-ice="name">setAcquiredGamepad</span><span class="code" data-ice="signature">(index: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber569">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber779">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Manually acquire gamepad by it&apos;s index.</p>
+</div>
 
   
 
@@ -5978,9 +6155,10 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">index</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Gamepad index.</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -5997,7 +6175,14 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">component.setAcquiredGamepad(0);</code></pre>
+    </div>
+</div>
 
   
 
@@ -6012,18 +6197,19 @@
     
     
     
-    <span class="code" data-ice="name">setAxis</span><span class="code" data-ice="signature">(id: <span>*</span>, value: <span>*</span>)</span>
+    <span class="code" data-ice="name">setAxis</span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber475">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber563">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Set given axis value.</p>
+</div>
 
   
 
@@ -6037,15 +6223,17 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">id</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Axis id.</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">value</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>New axis value.</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -6062,7 +6250,15 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">// reset axis to prevent further usage in this frame.
+component.setAxis(&apos;pos-x&apos;, 0);</code></pre>
+    </div>
+</div>
 
   
 
@@ -6077,18 +6273,19 @@
     
     
     
-    <span class="code" data-ice="name">setTrigger</span><span class="code" data-ice="signature">(id: <span>*</span>, value: <span>*</span>)</span>
+    <span class="code" data-ice="name">setTrigger</span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber504">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber656">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Set given trigger value.</p>
+</div>
 
   
 
@@ -6102,15 +6299,17 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">id</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Trigger id.</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">value</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>New trigger value.</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -6127,7 +6326,15 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">// reset trigger to prevent further usage in this frame.
+component.setTrigger(&apos;pos-x&apos;, 0);</code></pre>
+    </div>
+</div>
 
   
 
@@ -6146,14 +6353,15 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber368">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/InputHandler.js.html#lineNumber425">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Setup axes and triggers.</p>
+</div>
 
   
 
@@ -6169,7 +6377,8 @@
       <td data-ice="name" class="code" data-depth="0">config</td>
       <td data-ice="type" class="code"><span>*</span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Configuration object.</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -6186,7 +6395,14 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">component.setup({ axes: { &apos;pos-x&apos;: { mouse: &apos;left&apos; } }, triggers: { action: { key: 32 } } });</code></pre>
+    </div>
+</div>
 
   
 

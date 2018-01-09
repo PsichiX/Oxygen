@@ -14,7 +14,7 @@ import PackAsset from './asset-loaders/PackAsset';
 import SkeletonAsset from './asset-loaders/SkeletonAsset';
 import Camera from './components/Camera';
 import Camera2D from './components/Camera2D';
-import CameraDirector from './components/CameraDirector';
+import CameraDirector2D from './components/CameraDirector2D';
 import InputHandler from './components/InputHandler';
 import InputListener from './components/InputListener';
 import Particles from './components/Particles';
@@ -80,7 +80,7 @@ export default {
   SkeletonAsset,
   Camera,
   Camera2D,
-  CameraDirector,
+  CameraDirector2D,
   InputHandler,
   InputListener,
   Particles,
@@ -141,7 +141,7 @@ export {
   SkeletonAsset,
   Camera,
   Camera2D,
-  CameraDirector,
+  CameraDirector2D,
   InputHandler,
   InputListener,
   Particles,
@@ -226,7 +226,7 @@ export function lazyInitialization({ entity, asset, render, input, store, events
   const eventLeap = !!events ? !!events.leap : true;
 
   entities.registerComponent('Camera2D', Camera2D.factory);
-  entities.registerComponent('CameraDirector', CameraDirector.factory);
+  entities.registerComponent('CameraDirector2D', CameraDirector2D.factory);
   entities.registerComponent('InputHandler', InputHandler.factory);
   entities.registerComponent('InputListener', InputListener.factory);
   entities.registerComponent('Particles', Particles.factory);

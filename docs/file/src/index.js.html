@@ -47,7 +47,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components">components</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/AtlasSprite.js~AtlasSprite.html">AtlasSprite</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Camera.js~Camera.html">Camera</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Camera2D.js~Camera2D.html">Camera2D</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/CameraDirector.js~CameraDirector.html">CameraDirector</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/CameraDirector2D.js~CameraDirector2D.html">CameraDirector2D</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html">InputHandler</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/InputListener.js~InputListener.html">InputListener</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html">Particles</a></span></span></li>
@@ -105,7 +105,7 @@ import PackAsset from &apos;./asset-loaders/PackAsset&apos;;
 import SkeletonAsset from &apos;./asset-loaders/SkeletonAsset&apos;;
 import Camera from &apos;./components/Camera&apos;;
 import Camera2D from &apos;./components/Camera2D&apos;;
-import CameraDirector from &apos;./components/CameraDirector&apos;;
+import CameraDirector2D from &apos;./components/CameraDirector2D&apos;;
 import InputHandler from &apos;./components/InputHandler&apos;;
 import InputListener from &apos;./components/InputListener&apos;;
 import Particles from &apos;./components/Particles&apos;;
@@ -171,7 +171,7 @@ export default {
   SkeletonAsset,
   Camera,
   Camera2D,
-  CameraDirector,
+  CameraDirector2D,
   InputHandler,
   InputListener,
   Particles,
@@ -232,7 +232,7 @@ export {
   SkeletonAsset,
   Camera,
   Camera2D,
-  CameraDirector,
+  CameraDirector2D,
   InputHandler,
   InputListener,
   Particles,
@@ -317,7 +317,7 @@ export function lazyInitialization({ entity, asset, render, input, store, events
   const eventLeap = !!events ? !!events.leap : true;
 
   entities.registerComponent(&apos;Camera2D&apos;, Camera2D.factory);
-  entities.registerComponent(&apos;CameraDirector&apos;, CameraDirector.factory);
+  entities.registerComponent(&apos;CameraDirector2D&apos;, CameraDirector2D.factory);
   entities.registerComponent(&apos;InputHandler&apos;, InputHandler.factory);
   entities.registerComponent(&apos;InputListener&apos;, InputListener.factory);
   entities.registerComponent(&apos;Particles&apos;, Particles.factory);

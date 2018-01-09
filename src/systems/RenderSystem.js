@@ -88,7 +88,7 @@ export default class RenderSystem extends System {
    *
    * @param {string}	canvas - HTML canvas element id.
    * @param {boolean}	optimize - Optimize rendering pipeline.
-   * @param {array}	extensions - array with WebGL extensions list.
+   * @param {Array.<string>}	extensions - array with WebGL extensions list.
    * @param {number}	contextVersion - WebGL context version number.
    */
   constructor(canvas, optimize = true, extensions = null, contextVersion = 1) {

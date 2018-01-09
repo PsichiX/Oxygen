@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../../">
-  <title data-ice="title">src/components/CameraDirector.js | oxygen-core</title>
+  <title data-ice="title">src/components/CameraDirector2D.js | oxygen-core</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -47,7 +47,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components">components</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/AtlasSprite.js~AtlasSprite.html">AtlasSprite</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Camera.js~Camera.html">Camera</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Camera2D.js~Camera2D.html">Camera2D</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/CameraDirector.js~CameraDirector.html">CameraDirector</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/CameraDirector2D.js~CameraDirector2D.html">CameraDirector2D</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html">InputHandler</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/InputListener.js~InputListener.html">InputListener</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html">Particles</a></span></span></li>
@@ -88,16 +88,29 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">src/components/CameraDirector.js</h1>
+<div class="content" data-ice="content"><h1 data-ice="title">src/components/CameraDirector2D.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import Camera2D from &apos;./Camera2D&apos;;
 import Component from &apos;../systems/EntitySystem/Component&apos;;
 
-export default class CameraDirector extends Component {
+/**
+ * Control multiple 2D cameras with one director.
+ *
+ * @example
+ * const component = new CameraDirector2D();
+ * component.deserialize({ zoomOut: 1024, zoomMode: &apos;keep-aspect&apos;, cameras: [ &apos;./cameraA&apos;, &apos;./cameraB&apos; ] });
+ */
+export default class CameraDirector2D extends Component {
 
+  /**
+   * Componeny factory.
+   *
+   * @return {CameraDirector2D} Component instance.
+   */
   static factory() {
-    return new CameraDirector();
+    return new CameraDirector2D();
   }
 
+  /** @type {*} */
   static get propsTypes() {
     return {
       ...Component.propsTypes,
@@ -111,14 +124,17 @@ export default class CameraDirector extends Component {
     };
   }
 
+  /** @type {*} */
   static get ZoomMode() {
     return Camera2D.ZoomMode;
   }
 
+  /** @type {number} */
   get zoom() {
     return this._zoom;
   }
 
+  /** @type {number} */
   set zoom(value) {
     if (typeof value !== &apos;number&apos;) {
       throw new Error(&apos;`value` is not type of Number&apos;);
@@ -127,11 +143,13 @@ export default class CameraDirector extends Component {
     this._zoom = value;
   }
 
+  /** @type {number} */
   get zoomOut() {
     const { _zoom } = this;
     return _zoom !== 0 ? 1 / _zoom : 1;
   }
 
+  /** @type {number} */
   set zoomOut(value) {
     if (typeof value !== &apos;number&apos;) {
       throw new Error(&apos;`value` is not type of Number&apos;);
@@ -140,10 +158,12 @@ export default class CameraDirector extends Component {
     this._zoom = value !== 0 ? 1 / value : 1;
   }
 
+  /** @type {number} */
   get near() {
     return this._near;
   }
 
+  /** @type {number} */
   set near(value) {
     if (typeof value !== &apos;number&apos;) {
       throw new Error(&apos;`value` is not type of Number&apos;);
@@ -152,10 +172,12 @@ export default class CameraDirector extends Component {
     this._near = value;
   }
 
+  /** @type {number} */
   get far() {
     return this._far;
   }
 
+  /** @type {number} */
   set far(value) {
     if (typeof value !== &apos;number&apos;) {
       throw new Error(&apos;`value` is not type of Number&apos;);
@@ -164,10 +186,12 @@ export default class CameraDirector extends Component {
     this._far = value;
   }
 
+  /** @type {string} */
   get zoomMode() {
     return this._zoomMode;
   }
 
+  /** @type {string} */
   set zoomMode(value) {
     if (typeof value !== &apos;string&apos;) {
       throw new Error(&apos;`value` is not type of String&apos;);
@@ -176,10 +200,12 @@ export default class CameraDirector extends Component {
     this._zoomMode = value;
   }
 
+  /** @type {string|null} */
   get captureEntity() {
     return this._captureEntity;
   }
 
+  /** @type {number|null} */
   set captureEntity(value) {
     if (typeof value !== &apos;string&apos;) {
       throw new Error(&apos;`value` is not type of String&apos;);
@@ -188,10 +214,12 @@ export default class CameraDirector extends Component {
     this._captureEntity = value;
   }
 
+  /** @type {Array.&lt;string&gt;} */
   get cameras() {
     return [ ...this._cameras ];
   }
 
+  /** @type {Array.&lt;string&gt;} */
   set cameras(value) {
     if (!value) {
       this._cameras = null;
@@ -210,6 +238,9 @@ export default class CameraDirector extends Component {
     this._cameras = [ ...value ];
   }
 
+  /**
+   * Constructor.
+   */
   constructor() {
     super();
 
@@ -221,12 +252,18 @@ export default class CameraDirector extends Component {
     this._cameras = null;
   }
 
+  /**
+   * @override
+   */
   onAction(name, ...args) {
     if (name === &apos;view&apos;) {
       return this.onView(...args);
     }
   }
 
+  /**
+   * @override
+   */
   onPropertySerialize(name, value) {
     if (this.zoomOut &gt; this.zoom ? name === &apos;zoom&apos; : name === &apos;zoomOut&apos;) {
       return;
@@ -237,7 +274,16 @@ export default class CameraDirector extends Component {
     }
   }
 
-  onView(...args) {
+  /**
+   * Called when camera need to view rendered scene.
+   *
+   * @param {WebGLRenderingContext}	gl - WebGL context.
+   * @param {RenderSystem}	renderer - Calling renderer instance.
+   * @param {number}	deltaTime - Delta time.
+   *
+   * @return {boolean} True if ignore viewing entity children, false otherwise.
+   */
+  onView(gl, renderer, deltaTime) {
     const {
       entity,
       _zoom,

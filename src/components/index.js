@@ -1,6 +1,6 @@
 import Camera from './Camera';
 import Camera2D from './Camera2D';
-import CameraDirector from './CameraDirector';
+import CameraDirector2D from './CameraDirector2D';
 import InputHandler from './InputHandler';
 import InputListener from './InputListener';
 import PhysicsBody from './PhysicsBody';
@@ -21,7 +21,7 @@ import SortedActions from './SortedActions';
 export default {
   Camera,
   Camera2D,
-  CameraDirector,
+  CameraDirector2D,
   InputHandler,
   InputListener,
   Particles,
@@ -43,7 +43,7 @@ export default {
 export {
   Camera,
   Camera2D,
-  CameraDirector,
+  CameraDirector2D,
   InputHandler,
   InputListener,
   Particles,

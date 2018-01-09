@@ -47,7 +47,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components">components</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/AtlasSprite.js~AtlasSprite.html">AtlasSprite</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Camera.js~Camera.html">Camera</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Camera2D.js~Camera2D.html">Camera2D</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/CameraDirector.js~CameraDirector.html">CameraDirector</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/CameraDirector2D.js~CameraDirector2D.html">CameraDirector2D</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html">InputHandler</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/InputListener.js~InputListener.html">InputListener</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html">Particles</a></span></span></li>
@@ -489,7 +489,7 @@
           
           <span data-ice="async">async</span>
           
-          <span class="code" data-ice="name"><span><a href="class/src/systems/AssetSystem/index.js~AssetSystem.html#instance-method-loadAll">loadAll</a></span></span><span class="code" data-ice="signature">(paths: <span>array</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/systems/AssetSystem/index.js~AssetSystem.html#instance-method-loadAll">loadAll</a></span></span><span class="code" data-ice="signature">(paths: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>&gt;): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
         </p>
       </div>
       <div>
@@ -518,7 +518,7 @@
           
           <span data-ice="async">async</span>
           
-          <span class="code" data-ice="name"><span><a href="class/src/systems/AssetSystem/index.js~AssetSystem.html#instance-method-loadSequence">loadSequence</a></span></span><span class="code" data-ice="signature">(paths: <span>array</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/systems/AssetSystem/index.js~AssetSystem.html#instance-method-loadSequence">loadSequence</a></span></span><span class="code" data-ice="signature">(paths: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>&gt;): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
         </p>
       </div>
       <div>
@@ -633,7 +633,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/systems/AssetSystem/index.js~AssetSystem.html#instance-method-unloadAll">unloadAll</a></span></span><span class="code" data-ice="signature">(paths: <span>array</span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/src/systems/AssetSystem/index.js~AssetSystem.html#instance-method-unloadAll">unloadAll</a></span></span><span class="code" data-ice="signature">(paths: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>&gt;)</span>
         </p>
       </div>
       <div>
@@ -1641,7 +1641,7 @@ system = null;</code></pre>
     
     <span data-ice="async">async</span>
     
-    <span class="code" data-ice="name">loadAll</span><span class="code" data-ice="signature">(paths: <span>array</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
+    <span class="code" data-ice="name">loadAll</span><span class="code" data-ice="signature">(paths: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>&gt;): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
     <span class="right-info">
       
       
@@ -1667,7 +1667,7 @@ system = null;</code></pre>
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">paths</td>
-      <td data-ice="type" class="code"><span>array</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>&gt;</td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>Array of assets paths.</p>
 </td>
@@ -1723,7 +1723,7 @@ system.loadAll(list).then(assets =&gt; console.log(assets.map(a =&gt; a.data)));
     
     <span data-ice="async">async</span>
     
-    <span class="code" data-ice="name">loadSequence</span><span class="code" data-ice="signature">(paths: <span>array</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
+    <span class="code" data-ice="name">loadSequence</span><span class="code" data-ice="signature">(paths: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>&gt;): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
     <span class="right-info">
       
       
@@ -1749,7 +1749,7 @@ system.loadAll(list).then(assets =&gt; console.log(assets.map(a =&gt; a.data)));
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">paths</td>
-      <td data-ice="type" class="code"><span>array</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>&gt;</td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>Array of assets paths.</p>
 </td>
@@ -1992,7 +1992,7 @@ system.loadSequence(list).then(assets =&gt; console.log(assets.map(a =&gt; a.dat
     
     
     
-    <span class="code" data-ice="name">unloadAll</span><span class="code" data-ice="signature">(paths: <span>array</span>)</span>
+    <span class="code" data-ice="name">unloadAll</span><span class="code" data-ice="signature">(paths: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>&gt;)</span>
     <span class="right-info">
       
       
@@ -2018,7 +2018,7 @@ system.loadSequence(list).then(assets =&gt; console.log(assets.map(a =&gt; a.dat
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">paths</td>
-      <td data-ice="type" class="code"><span>array</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>&gt;</td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>Array of assets paths.</p>
 </td>

@@ -9,12 +9,25 @@ import parser from '../utils/particleSystemParser';
 
 const processors = new Map();
 
+/**
+ * Particles renderer.
+ *
+ * @example
+ * const component = new Particles();
+ * component.deserialize({ shader: 'shaders/particles.json', processor: 'particles/fire.ps' });
+ */
 export default class Particles extends VerticesRenderer {
 
+  /**
+   * Component factory.
+   *
+   * @return {Particles} Component instance.
+   */
   static factory() {
     return new Particles();
   }
 
+  /** @type {*} */
   static get propsTypes() {
     return {
       visible: VerticesRenderer.propsTypes.visible,
@@ -31,6 +44,16 @@ export default class Particles extends VerticesRenderer {
     };
   }
 
+  /**
+   * Register new particles processor.
+   *
+   * @param {string}	id - Processor id.
+   * @param {string}	contents - Processor code.
+   *
+   * @example
+   * const code = 'attribute x: 0;\nattribute y: 1;\nprogram:\ny -= deltaTime * life;';
+   * Particles.registerProcessor('fire', code);
+   */
   static registerProcessor(id, contents) {
     if (typeof id !== 'string') {
       throw new Error('`id` is not type of String!');
@@ -87,6 +110,14 @@ export default class Particles extends VerticesRenderer {
     });
   }
 
+  /**
+   * Unregister existing processor.
+   *
+   * @param {string}	id - processor id
+   *
+   * @example
+   * Particles.unregisterProcessor('fire');
+   */
   static unregisterProcessor(id) {
     if (typeof id !== 'string') {
       throw new Error('`id` is not type of String!');
@@ -98,10 +129,12 @@ export default class Particles extends VerticesRenderer {
     processors.delete(id);
   }
 
+  /** @type {number} */
   get capacity() {
     return this._capacity;
   }
 
+  /** @type {number} */
   set capacity(value) {
     if (typeof value !== 'number') {
       throw new Error('`value` is not type of Number!');
@@ -111,10 +144,12 @@ export default class Particles extends VerticesRenderer {
     this._rebuildParticlesData();
   }
 
+  /** @type {string|null} */
   get processor() {
     return this._processor;
   }
 
+  /** @type {string|null} */
   set processor(value) {
     if (!value) {
       this._processor = null;
@@ -147,10 +182,12 @@ export default class Particles extends VerticesRenderer {
     this._rebuildParticlesData();
   }
 
+  /** @type {*} */
   get overrideParams() {
     return { ...this._overrideParams };
   }
 
+  /** @type {*} */
   set overrideParams(value) {
     this._overrideParams = {};
 
@@ -166,10 +203,12 @@ export default class Particles extends VerticesRenderer {
     this.processor = this.processor;
   }
 
+  /** @type {Function|null} */
   get burstGenerator() {
     return this._burstGenerator;
   }
 
+  /** @type {Function|null} */
   set burstGenerator(value) {
     if (!!value && !(value instanceof Function)) {
       throw new Error('`value` is not type of Function!');
@@ -178,10 +217,12 @@ export default class Particles extends VerticesRenderer {
     this._burstGenerator = value;
   }
 
+  /** @type {boolean} */
   get constantBurst() {
     return this._constantBurst;
   }
 
+  /** @type {boolean} */
   set constantBurst(value) {
     if (typeof value !== 'boolean') {
       throw new Error('`value` is not type of Boolean!');
@@ -191,10 +232,12 @@ export default class Particles extends VerticesRenderer {
     this._constantBurstTimeout = 0;
   }
 
+  /** @type {number} */
   get constantBurstDelay() {
     return this._constantBurstDelay;
   }
 
+  /** @type {number} */
   set constantBurstDelay(value) {
     if (typeof value !== 'number') {
       throw new Error('`value` is not type of Number!');
@@ -203,10 +246,12 @@ export default class Particles extends VerticesRenderer {
     this._constantBurstDelay = value;
   }
 
+  /** @type {number} */
   get constantBurstCount() {
     return this._constantBurstCount;
   }
 
+  /** @type {number} */
   set constantBurstCount(value) {
     if (typeof value !== 'number') {
       throw new Error('`value` is not type of Number!');
@@ -215,10 +260,14 @@ export default class Particles extends VerticesRenderer {
     this._constantBurstCount = value | 0;
   }
 
+  /** @type {number} */
   get activeCount() {
     return this._active;
   }
 
+  /**
+   * Constructor.
+   */
   constructor() {
     super();
 
@@ -241,6 +290,9 @@ export default class Particles extends VerticesRenderer {
     this._rebuildParticlesData();
   }
 
+  /**
+   * @override
+   */
   dispose() {
     super.dispose();
 
@@ -251,6 +303,19 @@ export default class Particles extends VerticesRenderer {
     this._params = null;
   }
 
+  /**
+   * Emit single particle.
+   *
+   * @param {number}	life - Initial life value.
+   * @param {number}	timeScale - Particle life-cycle time scale.
+   * @param {number}	size - Particle size.
+   * @param {*}	args - Particle attributes.
+   *
+   * @return {boolean} True if emitted, false otherwise.
+   *
+   * @example
+   * component.emitParticle(1, 0.5, 10);
+   */
   emitParticle(life, timeScale, size, ...args) {
     if (typeof life !== 'number') {
       throw new Error('`life` is not type of Number!');
@@ -299,6 +364,15 @@ export default class Particles extends VerticesRenderer {
     return true;
   }
 
+  /**
+   * Emit burst of particles using burst generator function.
+   *
+   * @param {number}	count - Number of particles to emit.
+   * @param {*}	args - Particles attributes.
+   *
+   * @example
+   * component.emitBurst(100);
+   */
   emitBurst(count, ...args) {
     const { _burstGenerator } = this;
     if (!_burstGenerator) {
@@ -313,6 +387,15 @@ export default class Particles extends VerticesRenderer {
     }
   }
 
+  /**
+   * Set particles parameter.
+   *
+   * @param {string}	id - Parameter id.
+   * @param {number}	value - Parameter value.
+   *
+   * @example
+   * component.setParam('alpha', 0.5);
+   */
   setParam(id, value) {
     if (typeof id !== 'string') {
       throw new Error('`id` is not type of String!');
@@ -329,6 +412,9 @@ export default class Particles extends VerticesRenderer {
     this._params[id] = value;
   }
 
+  /**
+   * @override
+   */
   onAction(name, ...args) {
     if (name === 'update') {
       return this.onUpdate(...args);
@@ -337,6 +423,9 @@ export default class Particles extends VerticesRenderer {
     }
   }
 
+  /**
+   * @override
+   */
   onUpdate(deltaTime) {
     deltaTime *= 0.001;
 

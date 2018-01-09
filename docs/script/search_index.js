@@ -48,9 +48,9 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "oxygen-core/components/cameradirector.js~cameradirector",
-    "class/src/components/CameraDirector.js~CameraDirector.html",
-    "<span>CameraDirector</span> <span class=\"search-result-import-path\">oxygen-core/components/CameraDirector.js</span>",
+    "oxygen-core/components/cameradirector2d.js~cameradirector2d",
+    "class/src/components/CameraDirector2D.js~CameraDirector2D.html",
+    "<span>CameraDirector2D</span> <span class=\"search-result-import-path\">oxygen-core/components/CameraDirector2D.js</span>",
     "class"
   ],
   [
@@ -1105,13 +1105,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/atlassprite.js~atlassprite#scale",
-    "class/src/components/AtlasSprite.js~AtlasSprite.html#instance-set-scale",
+    "class/src/components/AtlasSprite.js~AtlasSprite.html#instance-get-scale",
     "src/components/AtlasSprite.js~AtlasSprite#scale",
     "member"
   ],
   [
     "src/components/atlassprite.js~atlassprite#scale",
-    "class/src/components/AtlasSprite.js~AtlasSprite.html#instance-get-scale",
+    "class/src/components/AtlasSprite.js~AtlasSprite.html#instance-set-scale",
     "src/components/AtlasSprite.js~AtlasSprite#scale",
     "member"
   ],
@@ -1171,13 +1171,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/camera.js~camera#ignorechildrenviews",
-    "class/src/components/Camera.js~Camera.html#instance-set-ignoreChildrenViews",
+    "class/src/components/Camera.js~Camera.html#instance-get-ignoreChildrenViews",
     "src/components/Camera.js~Camera#ignoreChildrenViews",
     "member"
   ],
   [
     "src/components/camera.js~camera#ignorechildrenviews",
-    "class/src/components/Camera.js~Camera.html#instance-get-ignoreChildrenViews",
+    "class/src/components/Camera.js~Camera.html#instance-set-ignoreChildrenViews",
     "src/components/Camera.js~Camera#ignoreChildrenViews",
     "member"
   ],
@@ -1189,13 +1189,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/camera.js~camera#layer",
-    "class/src/components/Camera.js~Camera.html#instance-set-layer",
+    "class/src/components/Camera.js~Camera.html#instance-get-layer",
     "src/components/Camera.js~Camera#layer",
     "member"
   ],
   [
     "src/components/camera.js~camera#layer",
-    "class/src/components/Camera.js~Camera.html#instance-get-layer",
+    "class/src/components/Camera.js~Camera.html#instance-set-layer",
     "src/components/Camera.js~Camera#layer",
     "member"
   ],
@@ -1249,25 +1249,25 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/camera.js~camera#rendertargetheight",
-    "class/src/components/Camera.js~Camera.html#instance-set-renderTargetHeight",
-    "src/components/Camera.js~Camera#renderTargetHeight",
-    "member"
-  ],
-  [
-    "src/components/camera.js~camera#rendertargetheight",
     "class/src/components/Camera.js~Camera.html#instance-get-renderTargetHeight",
     "src/components/Camera.js~Camera#renderTargetHeight",
     "member"
   ],
   [
-    "src/components/camera.js~camera#rendertargetid",
-    "class/src/components/Camera.js~Camera.html#instance-get-renderTargetId",
-    "src/components/Camera.js~Camera#renderTargetId",
+    "src/components/camera.js~camera#rendertargetheight",
+    "class/src/components/Camera.js~Camera.html#instance-set-renderTargetHeight",
+    "src/components/Camera.js~Camera#renderTargetHeight",
     "member"
   ],
   [
     "src/components/camera.js~camera#rendertargetid",
     "class/src/components/Camera.js~Camera.html#instance-set-renderTargetId",
+    "src/components/Camera.js~Camera#renderTargetId",
+    "member"
+  ],
+  [
+    "src/components/camera.js~camera#rendertargetid",
+    "class/src/components/Camera.js~Camera.html#instance-get-renderTargetId",
     "src/components/Camera.js~Camera#renderTargetId",
     "member"
   ],
@@ -1381,13 +1381,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/camera2d.js~camera2d#zoommode",
-    "class/src/components/Camera2D.js~Camera2D.html#instance-set-zoomMode",
+    "class/src/components/Camera2D.js~Camera2D.html#instance-get-zoomMode",
     "src/components/Camera2D.js~Camera2D#zoomMode",
     "member"
   ],
   [
     "src/components/camera2d.js~camera2d#zoommode",
-    "class/src/components/Camera2D.js~Camera2D.html#instance-get-zoomMode",
+    "class/src/components/Camera2D.js~Camera2D.html#instance-set-zoomMode",
     "src/components/Camera2D.js~Camera2D#zoomMode",
     "member"
   ],
@@ -1422,135 +1422,135 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/components/cameradirector.js",
-    "file/src/components/CameraDirector.js.html",
-    "src/components/CameraDirector.js",
+    "src/components/cameradirector2d.js",
+    "file/src/components/CameraDirector2D.js.html",
+    "src/components/CameraDirector2D.js",
     "file"
   ],
   [
-    "src/components/cameradirector.js~cameradirector#cameras",
-    "class/src/components/CameraDirector.js~CameraDirector.html#instance-set-cameras",
-    "src/components/CameraDirector.js~CameraDirector#cameras",
+    "src/components/cameradirector2d.js~cameradirector2d#cameras",
+    "class/src/components/CameraDirector2D.js~CameraDirector2D.html#instance-get-cameras",
+    "src/components/CameraDirector2D.js~CameraDirector2D#cameras",
     "member"
   ],
   [
-    "src/components/cameradirector.js~cameradirector#cameras",
-    "class/src/components/CameraDirector.js~CameraDirector.html#instance-get-cameras",
-    "src/components/CameraDirector.js~CameraDirector#cameras",
+    "src/components/cameradirector2d.js~cameradirector2d#cameras",
+    "class/src/components/CameraDirector2D.js~CameraDirector2D.html#instance-set-cameras",
+    "src/components/CameraDirector2D.js~CameraDirector2D#cameras",
     "member"
   ],
   [
-    "src/components/cameradirector.js~cameradirector#captureentity",
-    "class/src/components/CameraDirector.js~CameraDirector.html#instance-set-captureEntity",
-    "src/components/CameraDirector.js~CameraDirector#captureEntity",
+    "src/components/cameradirector2d.js~cameradirector2d#captureentity",
+    "class/src/components/CameraDirector2D.js~CameraDirector2D.html#instance-set-captureEntity",
+    "src/components/CameraDirector2D.js~CameraDirector2D#captureEntity",
     "member"
   ],
   [
-    "src/components/cameradirector.js~cameradirector#captureentity",
-    "class/src/components/CameraDirector.js~CameraDirector.html#instance-get-captureEntity",
-    "src/components/CameraDirector.js~CameraDirector#captureEntity",
+    "src/components/cameradirector2d.js~cameradirector2d#captureentity",
+    "class/src/components/CameraDirector2D.js~CameraDirector2D.html#instance-get-captureEntity",
+    "src/components/CameraDirector2D.js~CameraDirector2D#captureEntity",
     "member"
   ],
   [
-    "src/components/cameradirector.js~cameradirector#constructor",
-    "class/src/components/CameraDirector.js~CameraDirector.html#instance-constructor-constructor",
-    "src/components/CameraDirector.js~CameraDirector#constructor",
+    "src/components/cameradirector2d.js~cameradirector2d#constructor",
+    "class/src/components/CameraDirector2D.js~CameraDirector2D.html#instance-constructor-constructor",
+    "src/components/CameraDirector2D.js~CameraDirector2D#constructor",
     "method"
   ],
   [
-    "src/components/cameradirector.js~cameradirector#far",
-    "class/src/components/CameraDirector.js~CameraDirector.html#instance-set-far",
-    "src/components/CameraDirector.js~CameraDirector#far",
+    "src/components/cameradirector2d.js~cameradirector2d#far",
+    "class/src/components/CameraDirector2D.js~CameraDirector2D.html#instance-get-far",
+    "src/components/CameraDirector2D.js~CameraDirector2D#far",
     "member"
   ],
   [
-    "src/components/cameradirector.js~cameradirector#far",
-    "class/src/components/CameraDirector.js~CameraDirector.html#instance-get-far",
-    "src/components/CameraDirector.js~CameraDirector#far",
+    "src/components/cameradirector2d.js~cameradirector2d#far",
+    "class/src/components/CameraDirector2D.js~CameraDirector2D.html#instance-set-far",
+    "src/components/CameraDirector2D.js~CameraDirector2D#far",
     "member"
   ],
   [
-    "src/components/cameradirector.js~cameradirector#near",
-    "class/src/components/CameraDirector.js~CameraDirector.html#instance-get-near",
-    "src/components/CameraDirector.js~CameraDirector#near",
+    "src/components/cameradirector2d.js~cameradirector2d#near",
+    "class/src/components/CameraDirector2D.js~CameraDirector2D.html#instance-set-near",
+    "src/components/CameraDirector2D.js~CameraDirector2D#near",
     "member"
   ],
   [
-    "src/components/cameradirector.js~cameradirector#near",
-    "class/src/components/CameraDirector.js~CameraDirector.html#instance-set-near",
-    "src/components/CameraDirector.js~CameraDirector#near",
+    "src/components/cameradirector2d.js~cameradirector2d#near",
+    "class/src/components/CameraDirector2D.js~CameraDirector2D.html#instance-get-near",
+    "src/components/CameraDirector2D.js~CameraDirector2D#near",
     "member"
   ],
   [
-    "src/components/cameradirector.js~cameradirector#onaction",
-    "class/src/components/CameraDirector.js~CameraDirector.html#instance-method-onAction",
-    "src/components/CameraDirector.js~CameraDirector#onAction",
+    "src/components/cameradirector2d.js~cameradirector2d#onaction",
+    "class/src/components/CameraDirector2D.js~CameraDirector2D.html#instance-method-onAction",
+    "src/components/CameraDirector2D.js~CameraDirector2D#onAction",
     "method"
   ],
   [
-    "src/components/cameradirector.js~cameradirector#onpropertyserialize",
-    "class/src/components/CameraDirector.js~CameraDirector.html#instance-method-onPropertySerialize",
-    "src/components/CameraDirector.js~CameraDirector#onPropertySerialize",
+    "src/components/cameradirector2d.js~cameradirector2d#onpropertyserialize",
+    "class/src/components/CameraDirector2D.js~CameraDirector2D.html#instance-method-onPropertySerialize",
+    "src/components/CameraDirector2D.js~CameraDirector2D#onPropertySerialize",
     "method"
   ],
   [
-    "src/components/cameradirector.js~cameradirector#onview",
-    "class/src/components/CameraDirector.js~CameraDirector.html#instance-method-onView",
-    "src/components/CameraDirector.js~CameraDirector#onView",
+    "src/components/cameradirector2d.js~cameradirector2d#onview",
+    "class/src/components/CameraDirector2D.js~CameraDirector2D.html#instance-method-onView",
+    "src/components/CameraDirector2D.js~CameraDirector2D#onView",
     "method"
   ],
   [
-    "src/components/cameradirector.js~cameradirector#zoom",
-    "class/src/components/CameraDirector.js~CameraDirector.html#instance-set-zoom",
-    "src/components/CameraDirector.js~CameraDirector#zoom",
+    "src/components/cameradirector2d.js~cameradirector2d#zoom",
+    "class/src/components/CameraDirector2D.js~CameraDirector2D.html#instance-set-zoom",
+    "src/components/CameraDirector2D.js~CameraDirector2D#zoom",
     "member"
   ],
   [
-    "src/components/cameradirector.js~cameradirector#zoom",
-    "class/src/components/CameraDirector.js~CameraDirector.html#instance-get-zoom",
-    "src/components/CameraDirector.js~CameraDirector#zoom",
+    "src/components/cameradirector2d.js~cameradirector2d#zoom",
+    "class/src/components/CameraDirector2D.js~CameraDirector2D.html#instance-get-zoom",
+    "src/components/CameraDirector2D.js~CameraDirector2D#zoom",
     "member"
   ],
   [
-    "src/components/cameradirector.js~cameradirector#zoommode",
-    "class/src/components/CameraDirector.js~CameraDirector.html#instance-get-zoomMode",
-    "src/components/CameraDirector.js~CameraDirector#zoomMode",
+    "src/components/cameradirector2d.js~cameradirector2d#zoommode",
+    "class/src/components/CameraDirector2D.js~CameraDirector2D.html#instance-get-zoomMode",
+    "src/components/CameraDirector2D.js~CameraDirector2D#zoomMode",
     "member"
   ],
   [
-    "src/components/cameradirector.js~cameradirector#zoommode",
-    "class/src/components/CameraDirector.js~CameraDirector.html#instance-set-zoomMode",
-    "src/components/CameraDirector.js~CameraDirector#zoomMode",
+    "src/components/cameradirector2d.js~cameradirector2d#zoommode",
+    "class/src/components/CameraDirector2D.js~CameraDirector2D.html#instance-set-zoomMode",
+    "src/components/CameraDirector2D.js~CameraDirector2D#zoomMode",
     "member"
   ],
   [
-    "src/components/cameradirector.js~cameradirector#zoomout",
-    "class/src/components/CameraDirector.js~CameraDirector.html#instance-set-zoomOut",
-    "src/components/CameraDirector.js~CameraDirector#zoomOut",
+    "src/components/cameradirector2d.js~cameradirector2d#zoomout",
+    "class/src/components/CameraDirector2D.js~CameraDirector2D.html#instance-set-zoomOut",
+    "src/components/CameraDirector2D.js~CameraDirector2D#zoomOut",
     "member"
   ],
   [
-    "src/components/cameradirector.js~cameradirector#zoomout",
-    "class/src/components/CameraDirector.js~CameraDirector.html#instance-get-zoomOut",
-    "src/components/CameraDirector.js~CameraDirector#zoomOut",
+    "src/components/cameradirector2d.js~cameradirector2d#zoomout",
+    "class/src/components/CameraDirector2D.js~CameraDirector2D.html#instance-get-zoomOut",
+    "src/components/CameraDirector2D.js~CameraDirector2D#zoomOut",
     "member"
   ],
   [
-    "src/components/cameradirector.js~cameradirector.zoommode",
-    "class/src/components/CameraDirector.js~CameraDirector.html#static-get-ZoomMode",
-    "src/components/CameraDirector.js~CameraDirector.ZoomMode",
+    "src/components/cameradirector2d.js~cameradirector2d.zoommode",
+    "class/src/components/CameraDirector2D.js~CameraDirector2D.html#static-get-ZoomMode",
+    "src/components/CameraDirector2D.js~CameraDirector2D.ZoomMode",
     "member"
   ],
   [
-    "src/components/cameradirector.js~cameradirector.factory",
-    "class/src/components/CameraDirector.js~CameraDirector.html#static-method-factory",
-    "src/components/CameraDirector.js~CameraDirector.factory",
+    "src/components/cameradirector2d.js~cameradirector2d.factory",
+    "class/src/components/CameraDirector2D.js~CameraDirector2D.html#static-method-factory",
+    "src/components/CameraDirector2D.js~CameraDirector2D.factory",
     "method"
   ],
   [
-    "src/components/cameradirector.js~cameradirector.propstypes",
-    "class/src/components/CameraDirector.js~CameraDirector.html#static-get-propsTypes",
-    "src/components/CameraDirector.js~CameraDirector.propsTypes",
+    "src/components/cameradirector2d.js~cameradirector2d.propstypes",
+    "class/src/components/CameraDirector2D.js~CameraDirector2D.html#static-get-propsTypes",
+    "src/components/CameraDirector2D.js~CameraDirector2D.propsTypes",
     "member"
   ],
   [
@@ -1561,13 +1561,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/inputhandler.js~inputhandler#acceptfirstconnectedgamepad",
-    "class/src/components/InputHandler.js~InputHandler.html#instance-get-acceptFirstConnectedGamepad",
+    "class/src/components/InputHandler.js~InputHandler.html#instance-set-acceptFirstConnectedGamepad",
     "src/components/InputHandler.js~InputHandler#acceptFirstConnectedGamepad",
     "member"
   ],
   [
     "src/components/inputhandler.js~inputhandler#acceptfirstconnectedgamepad",
-    "class/src/components/InputHandler.js~InputHandler.html#instance-set-acceptFirstConnectedGamepad",
+    "class/src/components/InputHandler.js~InputHandler.html#instance-get-acceptFirstConnectedGamepad",
     "src/components/InputHandler.js~InputHandler#acceptFirstConnectedGamepad",
     "member"
   ],
@@ -1585,13 +1585,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/inputhandler.js~inputhandler#acceptkeyboard",
-    "class/src/components/InputHandler.js~InputHandler.html#instance-get-acceptKeyboard",
+    "class/src/components/InputHandler.js~InputHandler.html#instance-set-acceptKeyboard",
     "src/components/InputHandler.js~InputHandler#acceptKeyboard",
     "member"
   ],
   [
     "src/components/inputhandler.js~inputhandler#acceptkeyboard",
-    "class/src/components/InputHandler.js~InputHandler.html#instance-set-acceptKeyboard",
+    "class/src/components/InputHandler.js~InputHandler.html#instance-get-acceptKeyboard",
     "src/components/InputHandler.js~InputHandler#acceptKeyboard",
     "member"
   ],
@@ -1609,13 +1609,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/inputhandler.js~inputhandler#acceptmouse",
-    "class/src/components/InputHandler.js~InputHandler.html#instance-set-acceptMouse",
+    "class/src/components/InputHandler.js~InputHandler.html#instance-get-acceptMouse",
     "src/components/InputHandler.js~InputHandler#acceptMouse",
     "member"
   ],
   [
     "src/components/inputhandler.js~inputhandler#acceptmouse",
-    "class/src/components/InputHandler.js~InputHandler.html#instance-get-acceptMouse",
+    "class/src/components/InputHandler.js~InputHandler.html#instance-set-acceptMouse",
     "src/components/InputHandler.js~InputHandler#acceptMouse",
     "member"
   ],
@@ -1645,13 +1645,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/inputhandler.js~inputhandler#controldevicechangetreshold",
-    "class/src/components/InputHandler.js~InputHandler.html#instance-set-controlDeviceChangeTreshold",
+    "class/src/components/InputHandler.js~InputHandler.html#instance-get-controlDeviceChangeTreshold",
     "src/components/InputHandler.js~InputHandler#controlDeviceChangeTreshold",
     "member"
   ],
   [
     "src/components/inputhandler.js~inputhandler#controldevicechangetreshold",
-    "class/src/components/InputHandler.js~InputHandler.html#instance-get-controlDeviceChangeTreshold",
+    "class/src/components/InputHandler.js~InputHandler.html#instance-set-controlDeviceChangeTreshold",
     "src/components/InputHandler.js~InputHandler#controlDeviceChangeTreshold",
     "member"
   ],
@@ -1843,13 +1843,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/inputhandler.js~inputhandler#repeatingtriggersdelay",
-    "class/src/components/InputHandler.js~InputHandler.html#instance-get-repeatingTriggersDelay",
+    "class/src/components/InputHandler.js~InputHandler.html#instance-set-repeatingTriggersDelay",
     "src/components/InputHandler.js~InputHandler#repeatingTriggersDelay",
     "member"
   ],
   [
     "src/components/inputhandler.js~inputhandler#repeatingtriggersdelay",
-    "class/src/components/InputHandler.js~InputHandler.html#instance-set-repeatingTriggersDelay",
+    "class/src/components/InputHandler.js~InputHandler.html#instance-get-repeatingTriggersDelay",
     "src/components/InputHandler.js~InputHandler#repeatingTriggersDelay",
     "member"
   ],
@@ -1909,9 +1909,9 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/inputhandler.js~inputhandler.propstypes",
-    "class/src/components/InputHandler.js~InputHandler.html#static-method-propsTypes",
+    "class/src/components/InputHandler.js~InputHandler.html#static-get-propsTypes",
     "src/components/InputHandler.js~InputHandler.propsTypes",
-    "method"
+    "member"
   ],
   [
     "src/components/inputlistener.js",
@@ -1921,13 +1921,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/inputlistener.js~inputlistener#camera",
-    "class/src/components/InputListener.js~InputListener.html#instance-set-camera",
+    "class/src/components/InputListener.js~InputListener.html#instance-get-camera",
     "src/components/InputListener.js~InputListener#camera",
     "member"
   ],
   [
     "src/components/inputlistener.js~inputlistener#camera",
-    "class/src/components/InputListener.js~InputListener.html#instance-get-camera",
+    "class/src/components/InputListener.js~InputListener.html#instance-set-camera",
     "src/components/InputListener.js~InputListener#camera",
     "member"
   ],
@@ -1987,13 +1987,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/inputlistener.js~inputlistener#xoffset",
-    "class/src/components/InputListener.js~InputListener.html#instance-set-xOffset",
+    "class/src/components/InputListener.js~InputListener.html#instance-get-xOffset",
     "src/components/InputListener.js~InputListener#xOffset",
     "member"
   ],
   [
     "src/components/inputlistener.js~inputlistener#xoffset",
-    "class/src/components/InputListener.js~InputListener.html#instance-get-xOffset",
+    "class/src/components/InputListener.js~InputListener.html#instance-set-xOffset",
     "src/components/InputListener.js~InputListener#xOffset",
     "member"
   ],
@@ -2035,13 +2035,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/particles.js~particles#burstgenerator",
-    "class/src/components/Particles.js~Particles.html#instance-get-burstGenerator",
+    "class/src/components/Particles.js~Particles.html#instance-set-burstGenerator",
     "src/components/Particles.js~Particles#burstGenerator",
     "member"
   ],
   [
     "src/components/particles.js~particles#burstgenerator",
-    "class/src/components/Particles.js~Particles.html#instance-set-burstGenerator",
+    "class/src/components/Particles.js~Particles.html#instance-get-burstGenerator",
     "src/components/Particles.js~Particles#burstGenerator",
     "member"
   ],
@@ -2059,25 +2059,25 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/particles.js~particles#constantburst",
-    "class/src/components/Particles.js~Particles.html#instance-set-constantBurst",
-    "src/components/Particles.js~Particles#constantBurst",
-    "member"
-  ],
-  [
-    "src/components/particles.js~particles#constantburst",
     "class/src/components/Particles.js~Particles.html#instance-get-constantBurst",
     "src/components/Particles.js~Particles#constantBurst",
     "member"
   ],
   [
-    "src/components/particles.js~particles#constantburstcount",
-    "class/src/components/Particles.js~Particles.html#instance-set-constantBurstCount",
-    "src/components/Particles.js~Particles#constantBurstCount",
+    "src/components/particles.js~particles#constantburst",
+    "class/src/components/Particles.js~Particles.html#instance-set-constantBurst",
+    "src/components/Particles.js~Particles#constantBurst",
     "member"
   ],
   [
     "src/components/particles.js~particles#constantburstcount",
     "class/src/components/Particles.js~Particles.html#instance-get-constantBurstCount",
+    "src/components/Particles.js~Particles#constantBurstCount",
+    "member"
+  ],
+  [
+    "src/components/particles.js~particles#constantburstcount",
+    "class/src/components/Particles.js~Particles.html#instance-set-constantBurstCount",
     "src/components/Particles.js~Particles#constantBurstCount",
     "member"
   ],
@@ -2149,13 +2149,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/particles.js~particles#processor",
-    "class/src/components/Particles.js~Particles.html#instance-get-processor",
+    "class/src/components/Particles.js~Particles.html#instance-set-processor",
     "src/components/Particles.js~Particles#processor",
     "member"
   ],
   [
     "src/components/particles.js~particles#processor",
-    "class/src/components/Particles.js~Particles.html#instance-set-processor",
+    "class/src/components/Particles.js~Particles.html#instance-get-processor",
     "src/components/Particles.js~Particles#processor",
     "member"
   ],
@@ -2215,13 +2215,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/physicsbody.js~physicsbody#angularvelocity",
-    "class/src/components/PhysicsBody.js~PhysicsBody.html#instance-get-angularVelocity",
+    "class/src/components/PhysicsBody.js~PhysicsBody.html#instance-set-angularVelocity",
     "src/components/PhysicsBody.js~PhysicsBody#angularVelocity",
     "member"
   ],
   [
     "src/components/physicsbody.js~physicsbody#angularvelocity",
-    "class/src/components/PhysicsBody.js~PhysicsBody.html#instance-set-angularVelocity",
+    "class/src/components/PhysicsBody.js~PhysicsBody.html#instance-get-angularVelocity",
     "src/components/PhysicsBody.js~PhysicsBody#angularVelocity",
     "member"
   ],
@@ -2239,20 +2239,14 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/physicsbody.js~physicsbody#applypositionfrom",
-    "class/src/components/PhysicsBody.js~PhysicsBody.html#instance-set-applyPositionFrom",
-    "src/components/PhysicsBody.js~PhysicsBody#applyPositionFrom",
-    "member"
-  ],
-  [
-    "src/components/physicsbody.js~physicsbody#applypositionfrom",
     "class/src/components/PhysicsBody.js~PhysicsBody.html#instance-get-applyPositionFrom",
     "src/components/PhysicsBody.js~PhysicsBody#applyPositionFrom",
     "member"
   ],
   [
-    "src/components/physicsbody.js~physicsbody#applypositionto",
-    "class/src/components/PhysicsBody.js~PhysicsBody.html#instance-set-applyPositionTo",
-    "src/components/PhysicsBody.js~PhysicsBody#applyPositionTo",
+    "src/components/physicsbody.js~physicsbody#applypositionfrom",
+    "class/src/components/PhysicsBody.js~PhysicsBody.html#instance-set-applyPositionFrom",
+    "src/components/PhysicsBody.js~PhysicsBody#applyPositionFrom",
     "member"
   ],
   [
@@ -2262,14 +2256,20 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/components/physicsbody.js~physicsbody#applyrotationfrom",
-    "class/src/components/PhysicsBody.js~PhysicsBody.html#instance-set-applyRotationFrom",
-    "src/components/PhysicsBody.js~PhysicsBody#applyRotationFrom",
+    "src/components/physicsbody.js~physicsbody#applypositionto",
+    "class/src/components/PhysicsBody.js~PhysicsBody.html#instance-set-applyPositionTo",
+    "src/components/PhysicsBody.js~PhysicsBody#applyPositionTo",
     "member"
   ],
   [
     "src/components/physicsbody.js~physicsbody#applyrotationfrom",
     "class/src/components/PhysicsBody.js~PhysicsBody.html#instance-get-applyRotationFrom",
+    "src/components/PhysicsBody.js~PhysicsBody#applyRotationFrom",
+    "member"
+  ],
+  [
+    "src/components/physicsbody.js~physicsbody#applyrotationfrom",
+    "class/src/components/PhysicsBody.js~PhysicsBody.html#instance-set-applyRotationFrom",
     "src/components/PhysicsBody.js~PhysicsBody#applyRotationFrom",
     "member"
   ],
@@ -2299,25 +2299,25 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/physicsbody.js~physicsbody#bodytype",
-    "class/src/components/PhysicsBody.js~PhysicsBody.html#instance-set-bodyType",
-    "src/components/PhysicsBody.js~PhysicsBody#bodyType",
-    "member"
-  ],
-  [
-    "src/components/physicsbody.js~physicsbody#bodytype",
     "class/src/components/PhysicsBody.js~PhysicsBody.html#instance-get-bodyType",
     "src/components/PhysicsBody.js~PhysicsBody#bodyType",
     "member"
   ],
   [
-    "src/components/physicsbody.js~physicsbody#bullet",
-    "class/src/components/PhysicsBody.js~PhysicsBody.html#instance-get-bullet",
-    "src/components/PhysicsBody.js~PhysicsBody#bullet",
+    "src/components/physicsbody.js~physicsbody#bodytype",
+    "class/src/components/PhysicsBody.js~PhysicsBody.html#instance-set-bodyType",
+    "src/components/PhysicsBody.js~PhysicsBody#bodyType",
     "member"
   ],
   [
     "src/components/physicsbody.js~physicsbody#bullet",
     "class/src/components/PhysicsBody.js~PhysicsBody.html#instance-set-bullet",
+    "src/components/PhysicsBody.js~PhysicsBody#bullet",
+    "member"
+  ],
+  [
+    "src/components/physicsbody.js~physicsbody#bullet",
+    "class/src/components/PhysicsBody.js~PhysicsBody.html#instance-get-bullet",
     "src/components/PhysicsBody.js~PhysicsBody#bullet",
     "member"
   ],
@@ -2329,13 +2329,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/physicsbody.js~physicsbody#coordsscale",
-    "class/src/components/PhysicsBody.js~PhysicsBody.html#instance-get-coordsScale",
+    "class/src/components/PhysicsBody.js~PhysicsBody.html#instance-set-coordsScale",
     "src/components/PhysicsBody.js~PhysicsBody#coordsScale",
     "member"
   ],
   [
     "src/components/physicsbody.js~physicsbody#coordsscale",
-    "class/src/components/PhysicsBody.js~PhysicsBody.html#instance-set-coordsScale",
+    "class/src/components/PhysicsBody.js~PhysicsBody.html#instance-get-coordsScale",
     "src/components/PhysicsBody.js~PhysicsBody#coordsScale",
     "member"
   ],
@@ -2389,13 +2389,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/physicsbody.js~physicsbody#lineardamping",
-    "class/src/components/PhysicsBody.js~PhysicsBody.html#instance-get-linearDamping",
+    "class/src/components/PhysicsBody.js~PhysicsBody.html#instance-set-linearDamping",
     "src/components/PhysicsBody.js~PhysicsBody#linearDamping",
     "member"
   ],
   [
     "src/components/physicsbody.js~physicsbody#lineardamping",
-    "class/src/components/PhysicsBody.js~PhysicsBody.html#instance-set-linearDamping",
+    "class/src/components/PhysicsBody.js~PhysicsBody.html#instance-get-linearDamping",
     "src/components/PhysicsBody.js~PhysicsBody#linearDamping",
     "member"
   ],
@@ -2419,13 +2419,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/physicsbody.js~physicsbody#listenforcontacts",
-    "class/src/components/PhysicsBody.js~PhysicsBody.html#instance-get-listenForContacts",
+    "class/src/components/PhysicsBody.js~PhysicsBody.html#instance-set-listenForContacts",
     "src/components/PhysicsBody.js~PhysicsBody#listenForContacts",
     "member"
   ],
   [
     "src/components/physicsbody.js~physicsbody#listenforcontacts",
-    "class/src/components/PhysicsBody.js~PhysicsBody.html#instance-set-listenForContacts",
+    "class/src/components/PhysicsBody.js~PhysicsBody.html#instance-get-listenForContacts",
     "src/components/PhysicsBody.js~PhysicsBody#listenForContacts",
     "member"
   ],
@@ -2479,13 +2479,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/physicsbody.js~physicsbody#restitution",
-    "class/src/components/PhysicsBody.js~PhysicsBody.html#instance-set-restitution",
+    "class/src/components/PhysicsBody.js~PhysicsBody.html#instance-get-restitution",
     "src/components/PhysicsBody.js~PhysicsBody#restitution",
     "member"
   ],
   [
     "src/components/physicsbody.js~physicsbody#restitution",
-    "class/src/components/PhysicsBody.js~PhysicsBody.html#instance-get-restitution",
+    "class/src/components/PhysicsBody.js~PhysicsBody.html#instance-set-restitution",
     "src/components/PhysicsBody.js~PhysicsBody#restitution",
     "member"
   ],
@@ -2593,25 +2593,25 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/physicsworld.js~physicsworld#gravity",
-    "class/src/components/PhysicsWorld.js~PhysicsWorld.html#instance-set-gravity",
-    "src/components/PhysicsWorld.js~PhysicsWorld#gravity",
-    "member"
-  ],
-  [
-    "src/components/physicsworld.js~physicsworld#gravity",
     "class/src/components/PhysicsWorld.js~PhysicsWorld.html#instance-get-gravity",
     "src/components/PhysicsWorld.js~PhysicsWorld#gravity",
     "member"
   ],
   [
-    "src/components/physicsworld.js~physicsworld#iterations",
-    "class/src/components/PhysicsWorld.js~PhysicsWorld.html#instance-get-iterations",
-    "src/components/PhysicsWorld.js~PhysicsWorld#iterations",
+    "src/components/physicsworld.js~physicsworld#gravity",
+    "class/src/components/PhysicsWorld.js~PhysicsWorld.html#instance-set-gravity",
+    "src/components/PhysicsWorld.js~PhysicsWorld#gravity",
     "member"
   ],
   [
     "src/components/physicsworld.js~physicsworld#iterations",
     "class/src/components/PhysicsWorld.js~PhysicsWorld.html#instance-set-iterations",
+    "src/components/PhysicsWorld.js~PhysicsWorld#iterations",
+    "member"
+  ],
+  [
+    "src/components/physicsworld.js~physicsworld#iterations",
+    "class/src/components/PhysicsWorld.js~PhysicsWorld.html#instance-get-iterations",
     "src/components/PhysicsWorld.js~PhysicsWorld#iterations",
     "member"
   ],
@@ -2713,13 +2713,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/prefabinstance.js~prefabinstance#components",
-    "class/src/components/PrefabInstance.js~PrefabInstance.html#instance-get-components",
+    "class/src/components/PrefabInstance.js~PrefabInstance.html#instance-set-components",
     "src/components/PrefabInstance.js~PrefabInstance#components",
     "member"
   ],
   [
     "src/components/prefabinstance.js~prefabinstance#components",
-    "class/src/components/PrefabInstance.js~PrefabInstance.html#instance-set-components",
+    "class/src/components/PrefabInstance.js~PrefabInstance.html#instance-get-components",
     "src/components/PrefabInstance.js~PrefabInstance#components",
     "member"
   ],
@@ -2731,13 +2731,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/prefabinstance.js~prefabinstance#count",
-    "class/src/components/PrefabInstance.js~PrefabInstance.html#instance-get-count",
+    "class/src/components/PrefabInstance.js~PrefabInstance.html#instance-set-count",
     "src/components/PrefabInstance.js~PrefabInstance#count",
     "member"
   ],
   [
     "src/components/prefabinstance.js~prefabinstance#count",
-    "class/src/components/PrefabInstance.js~PrefabInstance.html#instance-set-count",
+    "class/src/components/PrefabInstance.js~PrefabInstance.html#instance-get-count",
     "src/components/PrefabInstance.js~PrefabInstance#count",
     "member"
   ],
@@ -2785,13 +2785,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/rectanglerenderer.js~rectanglerenderer#color",
-    "class/src/components/RectangleRenderer.js~RectangleRenderer.html#instance-set-color",
+    "class/src/components/RectangleRenderer.js~RectangleRenderer.html#instance-get-color",
     "src/components/RectangleRenderer.js~RectangleRenderer#color",
     "member"
   ],
   [
     "src/components/rectanglerenderer.js~rectanglerenderer#color",
-    "class/src/components/RectangleRenderer.js~RectangleRenderer.html#instance-get-color",
+    "class/src/components/RectangleRenderer.js~RectangleRenderer.html#instance-set-color",
     "src/components/RectangleRenderer.js~RectangleRenderer#color",
     "member"
   ],
@@ -2869,13 +2869,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/rectanglerenderer.js~rectanglerenderer#xoffset",
-    "class/src/components/RectangleRenderer.js~RectangleRenderer.html#instance-get-xOffset",
+    "class/src/components/RectangleRenderer.js~RectangleRenderer.html#instance-set-xOffset",
     "src/components/RectangleRenderer.js~RectangleRenderer#xOffset",
     "member"
   ],
   [
     "src/components/rectanglerenderer.js~rectanglerenderer#xoffset",
-    "class/src/components/RectangleRenderer.js~RectangleRenderer.html#instance-set-xOffset",
+    "class/src/components/RectangleRenderer.js~RectangleRenderer.html#instance-get-xOffset",
     "src/components/RectangleRenderer.js~RectangleRenderer#xOffset",
     "member"
   ],
@@ -2893,13 +2893,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/rectanglerenderer.js~rectanglerenderer#yoffset",
-    "class/src/components/RectangleRenderer.js~RectangleRenderer.html#instance-set-yOffset",
+    "class/src/components/RectangleRenderer.js~RectangleRenderer.html#instance-get-yOffset",
     "src/components/RectangleRenderer.js~RectangleRenderer#yOffset",
     "member"
   ],
   [
     "src/components/rectanglerenderer.js~rectanglerenderer#yoffset",
-    "class/src/components/RectangleRenderer.js~RectangleRenderer.html#instance-get-yOffset",
+    "class/src/components/RectangleRenderer.js~RectangleRenderer.html#instance-set-yOffset",
     "src/components/RectangleRenderer.js~RectangleRenderer#yOffset",
     "member"
   ],
@@ -3247,13 +3247,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/skeleton.js~skeleton#time",
-    "class/src/components/Skeleton.js~Skeleton.html#instance-set-time",
+    "class/src/components/Skeleton.js~Skeleton.html#instance-get-time",
     "src/components/Skeleton.js~Skeleton#time",
     "member"
   ],
   [
     "src/components/skeleton.js~skeleton#time",
-    "class/src/components/Skeleton.js~Skeleton.html#instance-get-time",
+    "class/src/components/Skeleton.js~Skeleton.html#instance-set-time",
     "src/components/Skeleton.js~Skeleton#time",
     "member"
   ],
@@ -3277,13 +3277,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/sortedactions.js~sortedactions#actions",
-    "class/src/components/SortedActions.js~SortedActions.html#instance-set-actions",
+    "class/src/components/SortedActions.js~SortedActions.html#instance-get-actions",
     "src/components/SortedActions.js~SortedActions#actions",
     "member"
   ],
   [
     "src/components/sortedactions.js~sortedactions#actions",
-    "class/src/components/SortedActions.js~SortedActions.html#instance-get-actions",
+    "class/src/components/SortedActions.js~SortedActions.html#instance-set-actions",
     "src/components/SortedActions.js~SortedActions#actions",
     "member"
   ],
@@ -3319,13 +3319,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/sortedactions.js~sortedactions#sorting",
-    "class/src/components/SortedActions.js~SortedActions.html#instance-set-sorting",
+    "class/src/components/SortedActions.js~SortedActions.html#instance-get-sorting",
     "src/components/SortedActions.js~SortedActions#sorting",
     "member"
   ],
   [
     "src/components/sortedactions.js~sortedactions#sorting",
-    "class/src/components/SortedActions.js~SortedActions.html#instance-get-sorting",
+    "class/src/components/SortedActions.js~SortedActions.html#instance-set-sorting",
     "src/components/SortedActions.js~SortedActions#sorting",
     "member"
   ],
@@ -3361,25 +3361,25 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/sprite.js~sprite#framebottomright",
-    "class/src/components/Sprite.js~Sprite.html#instance-get-frameBottomRight",
-    "src/components/Sprite.js~Sprite#frameBottomRight",
-    "member"
-  ],
-  [
-    "src/components/sprite.js~sprite#framebottomright",
     "class/src/components/Sprite.js~Sprite.html#instance-set-frameBottomRight",
     "src/components/Sprite.js~Sprite#frameBottomRight",
     "member"
   ],
   [
-    "src/components/sprite.js~sprite#frametopleft",
-    "class/src/components/Sprite.js~Sprite.html#instance-get-frameTopLeft",
-    "src/components/Sprite.js~Sprite#frameTopLeft",
+    "src/components/sprite.js~sprite#framebottomright",
+    "class/src/components/Sprite.js~Sprite.html#instance-get-frameBottomRight",
+    "src/components/Sprite.js~Sprite#frameBottomRight",
     "member"
   ],
   [
     "src/components/sprite.js~sprite#frametopleft",
     "class/src/components/Sprite.js~Sprite.html#instance-set-frameTopLeft",
+    "src/components/Sprite.js~Sprite#frameTopLeft",
+    "member"
+  ],
+  [
+    "src/components/sprite.js~sprite#frametopleft",
+    "class/src/components/Sprite.js~Sprite.html#instance-get-frameTopLeft",
     "src/components/Sprite.js~Sprite#frameTopLeft",
     "member"
   ],
@@ -3409,13 +3409,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/sprite.js~sprite#overridebasetexture",
-    "class/src/components/Sprite.js~Sprite.html#instance-get-overrideBaseTexture",
+    "class/src/components/Sprite.js~Sprite.html#instance-set-overrideBaseTexture",
     "src/components/Sprite.js~Sprite#overrideBaseTexture",
     "member"
   ],
   [
     "src/components/sprite.js~sprite#overridebasetexture",
-    "class/src/components/Sprite.js~Sprite.html#instance-set-overrideBaseTexture",
+    "class/src/components/Sprite.js~Sprite.html#instance-get-overrideBaseTexture",
     "src/components/Sprite.js~Sprite#overrideBaseTexture",
     "member"
   ],
@@ -3463,13 +3463,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/textrenderer.js~textrenderer#coloroutline",
-    "class/src/components/TextRenderer.js~TextRenderer.html#instance-get-colorOutline",
+    "class/src/components/TextRenderer.js~TextRenderer.html#instance-set-colorOutline",
     "src/components/TextRenderer.js~TextRenderer#colorOutline",
     "member"
   ],
   [
     "src/components/textrenderer.js~textrenderer#coloroutline",
-    "class/src/components/TextRenderer.js~TextRenderer.html#instance-set-colorOutline",
+    "class/src/components/TextRenderer.js~TextRenderer.html#instance-get-colorOutline",
     "src/components/TextRenderer.js~TextRenderer#colorOutline",
     "member"
   ],
@@ -3505,25 +3505,25 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/textrenderer.js~textrenderer#font",
-    "class/src/components/TextRenderer.js~TextRenderer.html#instance-get-font",
-    "src/components/TextRenderer.js~TextRenderer#font",
-    "member"
-  ],
-  [
-    "src/components/textrenderer.js~textrenderer#font",
     "class/src/components/TextRenderer.js~TextRenderer.html#instance-set-font",
     "src/components/TextRenderer.js~TextRenderer#font",
     "member"
   ],
   [
-    "src/components/textrenderer.js~textrenderer#halign",
-    "class/src/components/TextRenderer.js~TextRenderer.html#instance-set-halign",
-    "src/components/TextRenderer.js~TextRenderer#halign",
+    "src/components/textrenderer.js~textrenderer#font",
+    "class/src/components/TextRenderer.js~TextRenderer.html#instance-get-font",
+    "src/components/TextRenderer.js~TextRenderer#font",
     "member"
   ],
   [
     "src/components/textrenderer.js~textrenderer#halign",
     "class/src/components/TextRenderer.js~TextRenderer.html#instance-get-halign",
+    "src/components/TextRenderer.js~TextRenderer#halign",
+    "member"
+  ],
+  [
+    "src/components/textrenderer.js~textrenderer#halign",
+    "class/src/components/TextRenderer.js~TextRenderer.html#instance-set-halign",
     "src/components/TextRenderer.js~TextRenderer#halign",
     "member"
   ],
@@ -3577,13 +3577,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/textrenderer.js~textrenderer#valign",
-    "class/src/components/TextRenderer.js~TextRenderer.html#instance-get-valign",
+    "class/src/components/TextRenderer.js~TextRenderer.html#instance-set-valign",
     "src/components/TextRenderer.js~TextRenderer#valign",
     "member"
   ],
   [
     "src/components/textrenderer.js~textrenderer#valign",
-    "class/src/components/TextRenderer.js~TextRenderer.html#instance-set-valign",
+    "class/src/components/TextRenderer.js~TextRenderer.html#instance-get-valign",
     "src/components/TextRenderer.js~TextRenderer#valign",
     "member"
   ],
@@ -3697,13 +3697,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/uilayout.js~uilayout#yanchor",
-    "class/src/components/UiLayout.js~UiLayout.html#instance-get-yAnchor",
+    "class/src/components/UiLayout.js~UiLayout.html#instance-set-yAnchor",
     "src/components/UiLayout.js~UiLayout#yAnchor",
     "member"
   ],
   [
     "src/components/uilayout.js~uilayout#yanchor",
-    "class/src/components/UiLayout.js~UiLayout.html#instance-set-yAnchor",
+    "class/src/components/UiLayout.js~UiLayout.html#instance-get-yAnchor",
     "src/components/UiLayout.js~UiLayout#yAnchor",
     "member"
   ],
@@ -3751,25 +3751,25 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/uisprite.js~uisprite#bottomborder",
-    "class/src/components/UiSprite.js~UiSprite.html#instance-set-bottomBorder",
-    "src/components/UiSprite.js~UiSprite#bottomBorder",
-    "member"
-  ],
-  [
-    "src/components/uisprite.js~uisprite#bottomborder",
     "class/src/components/UiSprite.js~UiSprite.html#instance-get-bottomBorder",
     "src/components/UiSprite.js~UiSprite#bottomBorder",
     "member"
   ],
   [
-    "src/components/uisprite.js~uisprite#bottomoffset",
-    "class/src/components/UiSprite.js~UiSprite.html#instance-set-bottomOffset",
-    "src/components/UiSprite.js~UiSprite#bottomOffset",
+    "src/components/uisprite.js~uisprite#bottomborder",
+    "class/src/components/UiSprite.js~UiSprite.html#instance-set-bottomBorder",
+    "src/components/UiSprite.js~UiSprite#bottomBorder",
     "member"
   ],
   [
     "src/components/uisprite.js~uisprite#bottomoffset",
     "class/src/components/UiSprite.js~UiSprite.html#instance-get-bottomOffset",
+    "src/components/UiSprite.js~UiSprite#bottomOffset",
+    "member"
+  ],
+  [
+    "src/components/uisprite.js~uisprite#bottomoffset",
+    "class/src/components/UiSprite.js~UiSprite.html#instance-set-bottomOffset",
     "src/components/UiSprite.js~UiSprite#bottomOffset",
     "member"
   ],
@@ -3787,13 +3787,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/uisprite.js~uisprite#camera",
-    "class/src/components/UiSprite.js~UiSprite.html#instance-set-camera",
+    "class/src/components/UiSprite.js~UiSprite.html#instance-get-camera",
     "src/components/UiSprite.js~UiSprite#camera",
     "member"
   ],
   [
     "src/components/uisprite.js~uisprite#camera",
-    "class/src/components/UiSprite.js~UiSprite.html#instance-get-camera",
+    "class/src/components/UiSprite.js~UiSprite.html#instance-set-camera",
     "src/components/UiSprite.js~UiSprite#camera",
     "member"
   ],
@@ -3841,13 +3841,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/uisprite.js~uisprite#heightanchor",
-    "class/src/components/UiSprite.js~UiSprite.html#instance-get-heightAnchor",
+    "class/src/components/UiSprite.js~UiSprite.html#instance-set-heightAnchor",
     "src/components/UiSprite.js~UiSprite#heightAnchor",
     "member"
   ],
   [
     "src/components/uisprite.js~uisprite#heightanchor",
-    "class/src/components/UiSprite.js~UiSprite.html#instance-set-heightAnchor",
+    "class/src/components/UiSprite.js~UiSprite.html#instance-get-heightAnchor",
     "src/components/UiSprite.js~UiSprite#heightAnchor",
     "member"
   ],
@@ -3991,13 +3991,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/uisprite.js~uisprite#topoffset",
-    "class/src/components/UiSprite.js~UiSprite.html#instance-get-topOffset",
+    "class/src/components/UiSprite.js~UiSprite.html#instance-set-topOffset",
     "src/components/UiSprite.js~UiSprite#topOffset",
     "member"
   ],
   [
     "src/components/uisprite.js~uisprite#topoffset",
-    "class/src/components/UiSprite.js~UiSprite.html#instance-set-topOffset",
+    "class/src/components/UiSprite.js~UiSprite.html#instance-get-topOffset",
     "src/components/UiSprite.js~UiSprite#topOffset",
     "member"
   ],
@@ -4009,20 +4009,14 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/uisprite.js~uisprite#width",
-    "class/src/components/UiSprite.js~UiSprite.html#instance-get-width",
-    "src/components/UiSprite.js~UiSprite#width",
-    "member"
-  ],
-  [
-    "src/components/uisprite.js~uisprite#width",
     "class/src/components/UiSprite.js~UiSprite.html#instance-set-width",
     "src/components/UiSprite.js~UiSprite#width",
     "member"
   ],
   [
-    "src/components/uisprite.js~uisprite#widthanchor",
-    "class/src/components/UiSprite.js~UiSprite.html#instance-set-widthAnchor",
-    "src/components/UiSprite.js~UiSprite#widthAnchor",
+    "src/components/uisprite.js~uisprite#width",
+    "class/src/components/UiSprite.js~UiSprite.html#instance-get-width",
+    "src/components/UiSprite.js~UiSprite#width",
     "member"
   ],
   [
@@ -4032,14 +4026,20 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/components/uisprite.js~uisprite#xorigin",
-    "class/src/components/UiSprite.js~UiSprite.html#instance-get-xOrigin",
-    "src/components/UiSprite.js~UiSprite#xOrigin",
+    "src/components/uisprite.js~uisprite#widthanchor",
+    "class/src/components/UiSprite.js~UiSprite.html#instance-set-widthAnchor",
+    "src/components/UiSprite.js~UiSprite#widthAnchor",
     "member"
   ],
   [
     "src/components/uisprite.js~uisprite#xorigin",
     "class/src/components/UiSprite.js~UiSprite.html#instance-set-xOrigin",
+    "src/components/UiSprite.js~UiSprite#xOrigin",
+    "member"
+  ],
+  [
+    "src/components/uisprite.js~uisprite#xorigin",
+    "class/src/components/UiSprite.js~UiSprite.html#instance-get-xOrigin",
     "src/components/UiSprite.js~UiSprite#xOrigin",
     "member"
   ],
@@ -4087,25 +4087,25 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/verticesrenderer.js~verticesrenderer#indices",
-    "class/src/components/VerticesRenderer.js~VerticesRenderer.html#instance-get-indices",
-    "src/components/VerticesRenderer.js~VerticesRenderer#indices",
-    "member"
-  ],
-  [
-    "src/components/verticesrenderer.js~verticesrenderer#indices",
     "class/src/components/VerticesRenderer.js~VerticesRenderer.html#instance-set-indices",
     "src/components/VerticesRenderer.js~VerticesRenderer#indices",
     "member"
   ],
   [
-    "src/components/verticesrenderer.js~verticesrenderer#indicesusage",
-    "class/src/components/VerticesRenderer.js~VerticesRenderer.html#instance-get-indicesUsage",
-    "src/components/VerticesRenderer.js~VerticesRenderer#indicesUsage",
+    "src/components/verticesrenderer.js~verticesrenderer#indices",
+    "class/src/components/VerticesRenderer.js~VerticesRenderer.html#instance-get-indices",
+    "src/components/VerticesRenderer.js~VerticesRenderer#indices",
     "member"
   ],
   [
     "src/components/verticesrenderer.js~verticesrenderer#indicesusage",
     "class/src/components/VerticesRenderer.js~VerticesRenderer.html#instance-set-indicesUsage",
+    "src/components/VerticesRenderer.js~VerticesRenderer#indicesUsage",
+    "member"
+  ],
+  [
+    "src/components/verticesrenderer.js~verticesrenderer#indicesusage",
+    "class/src/components/VerticesRenderer.js~VerticesRenderer.html#instance-get-indicesUsage",
     "src/components/VerticesRenderer.js~VerticesRenderer#indicesUsage",
     "member"
   ],
@@ -4177,13 +4177,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/verticesrenderer.js~verticesrenderer#rendermode",
-    "class/src/components/VerticesRenderer.js~VerticesRenderer.html#instance-get-renderMode",
+    "class/src/components/VerticesRenderer.js~VerticesRenderer.html#instance-set-renderMode",
     "src/components/VerticesRenderer.js~VerticesRenderer#renderMode",
     "member"
   ],
   [
     "src/components/verticesrenderer.js~verticesrenderer#rendermode",
-    "class/src/components/VerticesRenderer.js~VerticesRenderer.html#instance-set-renderMode",
+    "class/src/components/VerticesRenderer.js~VerticesRenderer.html#instance-get-renderMode",
     "src/components/VerticesRenderer.js~VerticesRenderer#renderMode",
     "member"
   ],
@@ -4195,13 +4195,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/verticesrenderer.js~verticesrenderer#shader",
-    "class/src/components/VerticesRenderer.js~VerticesRenderer.html#instance-get-shader",
+    "class/src/components/VerticesRenderer.js~VerticesRenderer.html#instance-set-shader",
     "src/components/VerticesRenderer.js~VerticesRenderer#shader",
     "member"
   ],
   [
     "src/components/verticesrenderer.js~verticesrenderer#shader",
-    "class/src/components/VerticesRenderer.js~VerticesRenderer.html#instance-set-shader",
+    "class/src/components/VerticesRenderer.js~VerticesRenderer.html#instance-get-shader",
     "src/components/VerticesRenderer.js~VerticesRenderer#shader",
     "member"
   ],
@@ -4219,25 +4219,25 @@ window.esdocSearchIndex = [
   ],
   [
     "src/components/verticesrenderer.js~verticesrenderer#vertices",
-    "class/src/components/VerticesRenderer.js~VerticesRenderer.html#instance-get-vertices",
-    "src/components/VerticesRenderer.js~VerticesRenderer#vertices",
-    "member"
-  ],
-  [
-    "src/components/verticesrenderer.js~verticesrenderer#vertices",
     "class/src/components/VerticesRenderer.js~VerticesRenderer.html#instance-set-vertices",
     "src/components/VerticesRenderer.js~VerticesRenderer#vertices",
     "member"
   ],
   [
-    "src/components/verticesrenderer.js~verticesrenderer#verticesusage",
-    "class/src/components/VerticesRenderer.js~VerticesRenderer.html#instance-set-verticesUsage",
-    "src/components/VerticesRenderer.js~VerticesRenderer#verticesUsage",
+    "src/components/verticesrenderer.js~verticesrenderer#vertices",
+    "class/src/components/VerticesRenderer.js~VerticesRenderer.html#instance-get-vertices",
+    "src/components/VerticesRenderer.js~VerticesRenderer#vertices",
     "member"
   ],
   [
     "src/components/verticesrenderer.js~verticesrenderer#verticesusage",
     "class/src/components/VerticesRenderer.js~VerticesRenderer.html#instance-get-verticesUsage",
+    "src/components/VerticesRenderer.js~VerticesRenderer#verticesUsage",
+    "member"
+  ],
+  [
+    "src/components/verticesrenderer.js~verticesrenderer#verticesusage",
+    "class/src/components/VerticesRenderer.js~VerticesRenderer.html#instance-set-verticesUsage",
     "src/components/VerticesRenderer.js~VerticesRenderer#verticesUsage",
     "member"
   ],
@@ -4387,13 +4387,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/systems/assetsystem/index.js~assetsystem#fetchengine",
-    "class/src/systems/AssetSystem/index.js~AssetSystem.html#instance-set-fetchEngine",
+    "class/src/systems/AssetSystem/index.js~AssetSystem.html#instance-get-fetchEngine",
     "src/systems/AssetSystem/index.js~AssetSystem#fetchEngine",
     "member"
   ],
   [
     "src/systems/assetsystem/index.js~assetsystem#fetchengine",
-    "class/src/systems/AssetSystem/index.js~AssetSystem.html#instance-get-fetchEngine",
+    "class/src/systems/AssetSystem/index.js~AssetSystem.html#instance-set-fetchEngine",
     "src/systems/AssetSystem/index.js~AssetSystem#fetchEngine",
     "member"
   ],
@@ -4680,6 +4680,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/systems/entitysystem/component.js~component.factory",
+    "class/src/systems/EntitySystem/Component.js~Component.html#static-method-factory",
+    "src/systems/EntitySystem/Component.js~Component.factory",
+    "method"
+  ],
+  [
     "src/systems/entitysystem/component.js~component.propstypes",
     "class/src/systems/EntitySystem/Component.js~Component.html#static-get-propsTypes",
     "src/systems/EntitySystem/Component.js~Component.propsTypes",
@@ -4699,13 +4705,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/systems/entitysystem/entity.js~entity#active",
-    "class/src/systems/EntitySystem/Entity.js~Entity.html#instance-set-active",
+    "class/src/systems/EntitySystem/Entity.js~Entity.html#instance-get-active",
     "src/systems/EntitySystem/Entity.js~Entity#active",
     "member"
   ],
   [
     "src/systems/entitysystem/entity.js~entity#active",
-    "class/src/systems/EntitySystem/Entity.js~Entity.html#instance-get-active",
+    "class/src/systems/EntitySystem/Entity.js~Entity.html#instance-set-active",
     "src/systems/EntitySystem/Entity.js~Entity#active",
     "member"
   ],
@@ -4723,13 +4729,13 @@ window.esdocSearchIndex = [
   ],
   [
     "src/systems/entitysystem/entity.js~entity#childrensorting",
-    "class/src/systems/EntitySystem/Entity.js~Entity.html#instance-set-childrenSorting",
+    "class/src/systems/EntitySystem/Entity.js~Entity.html#instance-get-childrenSorting",
     "src/systems/EntitySystem/Entity.js~Entity#childrenSorting",
     "member"
   ],
   [
     "src/systems/entitysystem/entity.js~entity#childrensorting",
-    "class/src/systems/EntitySystem/Entity.js~Entity.html#instance-get-childrenSorting",
+    "class/src/systems/EntitySystem/Entity.js~Entity.html#instance-set-childrenSorting",
     "src/systems/EntitySystem/Entity.js~Entity#childrenSorting",
     "member"
   ],

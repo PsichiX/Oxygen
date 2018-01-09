@@ -47,7 +47,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components">components</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/AtlasSprite.js~AtlasSprite.html">AtlasSprite</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Camera.js~Camera.html">Camera</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Camera2D.js~Camera2D.html">Camera2D</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/CameraDirector.js~CameraDirector.html">CameraDirector</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/CameraDirector2D.js~CameraDirector2D.html">CameraDirector2D</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/InputHandler.js~InputHandler.html">InputHandler</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/InputListener.js~InputListener.html">InputListener</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html">Particles</a></span></span></li>
@@ -89,13 +89,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import Particles from &apos;<span><a href="file/src/components/Particles.js.html#lineNumber12">oxygen-core/components/Particles.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import Particles from &apos;<span><a href="file/src/components/Particles.js.html#lineNumber19">oxygen-core/components/Particles.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/components/Particles.js.html#lineNumber12">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/components/Particles.js.html#lineNumber19">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -115,12 +115,21 @@
 
   
   
-  
+  <div class="description" data-ice="description"><p>Particles renderer.</p>
+</div>
   
 
   
 
-  
+  <div data-ice="exampleDocs">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const component = new Particles();
+component.deserialize({ shader: &apos;shaders/particles.json&apos;, processor: &apos;particles/fire.ps&apos; });</code></pre>
+    </div>
+</div>
 
   
 
@@ -145,7 +154,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#static-get-propsTypes">propsTypes</a></span></span><span class="code" data-ice="signature">: {&quot;visible&quot;: <span>*</span>, &quot;shader&quot;: <span>*</span>, &quot;overrideUniforms&quot;: <span>*</span>, &quot;overrideSamplers&quot;: <span>*</span>, &quot;layers&quot;: <span>*</span>, &quot;capacity&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;processor&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;overrideParams&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;constantBurst&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;constantBurstDelay&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;constantBurstCount&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>}</span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#static-get-propsTypes">propsTypes</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
         </p>
       </div>
       <div>
@@ -180,13 +189,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#static-method-factory">factory</a></span></span><span class="code" data-ice="signature">(): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#static-method-factory">factory</a></span></span><span class="code" data-ice="signature">(): <span><a href="class/src/components/Particles.js~Particles.html">Particles</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Component factory.</p>
+</div>
       </div>
     </td>
     <td>
@@ -208,13 +218,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#static-method-registerProcessor">registerProcessor</a></span></span><span class="code" data-ice="signature">(id: <span>*</span>, contents: <span>*</span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#static-method-registerProcessor">registerProcessor</a></span></span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, contents: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Register new particles processor.</p>
+</div>
       </div>
     </td>
     <td>
@@ -236,13 +247,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#static-method-unregisterProcessor">unregisterProcessor</a></span></span><span class="code" data-ice="signature">(id: <span>*</span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#static-method-unregisterProcessor">unregisterProcessor</a></span></span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Unregister existing processor.</p>
+</div>
       </div>
     </td>
     <td>
@@ -277,7 +289,8 @@
       <div>
         
         
-        
+        <div data-ice="description"><p>Constructor.</p>
+</div>
       </div>
     </td>
     <td>
@@ -306,7 +319,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-get-activeCount">activeCount</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-get-activeCount">activeCount</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
         </p>
       </div>
       <div>
@@ -334,7 +347,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-set-burstGenerator">burstGenerator</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-set-burstGenerator">burstGenerator</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">Function</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null">null</a></span></span>
         </p>
       </div>
       <div>
@@ -362,7 +375,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-get-burstGenerator">burstGenerator</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-get-burstGenerator">burstGenerator</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">Function</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null">null</a></span></span>
         </p>
       </div>
       <div>
@@ -390,7 +403,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-get-capacity">capacity</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-get-capacity">capacity</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
         </p>
       </div>
       <div>
@@ -418,7 +431,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-set-capacity">capacity</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-set-capacity">capacity</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
         </p>
       </div>
       <div>
@@ -446,7 +459,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-set-constantBurst">constantBurst</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-set-constantBurst">constantBurst</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
@@ -474,7 +487,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-get-constantBurst">constantBurst</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-get-constantBurst">constantBurst</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
@@ -502,7 +515,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-get-constantBurstCount">constantBurstCount</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-get-constantBurstCount">constantBurstCount</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
         </p>
       </div>
       <div>
@@ -530,7 +543,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-set-constantBurstCount">constantBurstCount</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-set-constantBurstCount">constantBurstCount</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
         </p>
       </div>
       <div>
@@ -558,7 +571,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-get-constantBurstDelay">constantBurstDelay</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-get-constantBurstDelay">constantBurstDelay</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
         </p>
       </div>
       <div>
@@ -586,7 +599,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-set-constantBurstDelay">constantBurstDelay</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-set-constantBurstDelay">constantBurstDelay</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
         </p>
       </div>
       <div>
@@ -642,7 +655,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-set-overrideParams">overrideParams</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-set-overrideParams">overrideParams</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
         </p>
       </div>
       <div>
@@ -670,7 +683,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-get-overrideParams">overrideParams</a></span></span><span class="code" data-ice="signature">: {...undefined: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>}</span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-get-overrideParams">overrideParams</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
         </p>
       </div>
       <div>
@@ -698,7 +711,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-set-processor">processor</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-set-processor">processor</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null">null</a></span></span>
         </p>
       </div>
       <div>
@@ -726,7 +739,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-get-processor">processor</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-get-processor">processor</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null">null</a></span></span>
         </p>
       </div>
       <div>
@@ -817,13 +830,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-method-emitBurst">emitBurst</a></span></span><span class="code" data-ice="signature">(count: <span>*</span>, args: ...<span>*</span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-method-emitBurst">emitBurst</a></span></span><span class="code" data-ice="signature">(count: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, args: <span>*</span>)</span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Emit burst of particles using burst generator function.</p>
+</div>
       </div>
     </td>
     <td>
@@ -845,13 +859,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-method-emitParticle">emitParticle</a></span></span><span class="code" data-ice="signature">(life: <span>*</span>, timeScale: <span>*</span>, size: <span>*</span>, args: ...<span>*</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-method-emitParticle">emitParticle</a></span></span><span class="code" data-ice="signature">(life: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, timeScale: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, size: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, args: <span>*</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Emit single particle.</p>
+</div>
       </div>
     </td>
     <td>
@@ -929,13 +944,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-method-setParam">setParam</a></span></span><span class="code" data-ice="signature">(id: <span>*</span>, value: <span>*</span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/src/components/Particles.js~Particles.html#instance-method-setParam">setParam</a></span></span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>)</span>
         </p>
       </div>
       <div>
         
         
-        
+        <div data-ice="description"><p>Set particles parameter.</p>
+</div>
       </div>
     </td>
     <td>
@@ -972,6 +988,35 @@
         
         
         
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/systems/EntitySystem/Component.js~Component.html#static-method-factory">factory</a></span></span><span class="code" data-ice="signature">(): <span><a href="class/src/systems/EntitySystem/Component.js~Component.html">Component</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Component factory.</p>
+</div>
       </div>
     </td>
     <td>
@@ -2241,11 +2286,11 @@
     
     
     
-    <span class="code" data-ice="name">propsTypes</span><span class="code" data-ice="signature">: {&quot;visible&quot;: <span>*</span>, &quot;shader&quot;: <span>*</span>, &quot;overrideUniforms&quot;: <span>*</span>, &quot;overrideSamplers&quot;: <span>*</span>, &quot;layers&quot;: <span>*</span>, &quot;capacity&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;processor&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;overrideParams&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;constantBurst&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;constantBurstDelay&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;constantBurstCount&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>}</span>
+    <span class="code" data-ice="name">propsTypes</span><span class="code" data-ice="signature">: <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber18">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber31">source</a></span></span>
     </span>
   </h3>
 
@@ -2287,18 +2332,19 @@
     
     
     
-    <span class="code" data-ice="name">factory</span><span class="code" data-ice="signature">(): <span>*</span></span>
+    <span class="code" data-ice="name">factory</span><span class="code" data-ice="signature">(): <span><a href="class/src/components/Particles.js~Particles.html">Particles</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber14">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber26">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Component factory.</p>
+</div>
 
   <div data-ice="override"><h4>Override:</h4><span><a href="class/src/components/VerticesRenderer.js~VerticesRenderer.html#static-method-factory">VerticesRenderer#factory</a></span></div>
 
@@ -2310,8 +2356,9 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/components/Particles.js~Particles.html">Particles</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Component instance.</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -2342,18 +2389,19 @@
     
     
     
-    <span class="code" data-ice="name">registerProcessor</span><span class="code" data-ice="signature">(id: <span>*</span>, contents: <span>*</span>)</span>
+    <span class="code" data-ice="name">registerProcessor</span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, contents: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber34">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber57">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Register new particles processor.</p>
+</div>
 
   
 
@@ -2367,15 +2415,17 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">id</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Processor id.</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">contents</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Processor code.</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -2392,7 +2442,15 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const code = &apos;attribute x: 0;\nattribute y: 1;\nprogram:\ny -= deltaTime * life;&apos;;
+Particles.registerProcessor(&apos;fire&apos;, code);</code></pre>
+    </div>
+</div>
 
   
 
@@ -2407,18 +2465,19 @@
     
     
     
-    <span class="code" data-ice="name">unregisterProcessor</span><span class="code" data-ice="signature">(id: <span>*</span>)</span>
+    <span class="code" data-ice="name">unregisterProcessor</span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber90">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber121">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Unregister existing processor.</p>
+</div>
 
   
 
@@ -2432,9 +2491,10 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">id</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>processor id</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -2451,7 +2511,14 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">Particles.unregisterProcessor(&apos;fire&apos;);</code></pre>
+    </div>
+</div>
 
   
 
@@ -2473,7 +2540,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber222">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber271">source</a></span></span>
     </span>
   </h3>
 
@@ -2516,11 +2583,11 @@
     
     
     
-    <span class="code" data-ice="name">activeCount</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">activeCount</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber218">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber264">source</a></span></span>
     </span>
   </h3>
 
@@ -2559,11 +2626,11 @@
     
     
     
-    <span class="code" data-ice="name">burstGenerator</span>
+    <span class="code" data-ice="name">burstGenerator</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">Function</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null">null</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber173">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber212">source</a></span></span>
     </span>
   </h3>
 
@@ -2602,11 +2669,11 @@
     
     
     
-    <span class="code" data-ice="name">burstGenerator</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">burstGenerator</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">Function</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null">null</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber169">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber207">source</a></span></span>
     </span>
   </h3>
 
@@ -2645,11 +2712,11 @@
     
     
     
-    <span class="code" data-ice="name">capacity</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">capacity</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber101">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber133">source</a></span></span>
     </span>
   </h3>
 
@@ -2688,11 +2755,11 @@
     
     
     
-    <span class="code" data-ice="name">capacity</span>
+    <span class="code" data-ice="name">capacity</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber105">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber138">source</a></span></span>
     </span>
   </h3>
 
@@ -2731,11 +2798,11 @@
     
     
     
-    <span class="code" data-ice="name">constantBurst</span>
+    <span class="code" data-ice="name">constantBurst</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber185">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber226">source</a></span></span>
     </span>
   </h3>
 
@@ -2774,11 +2841,11 @@
     
     
     
-    <span class="code" data-ice="name">constantBurst</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">constantBurst</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber181">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber221">source</a></span></span>
     </span>
   </h3>
 
@@ -2817,11 +2884,11 @@
     
     
     
-    <span class="code" data-ice="name">constantBurstCount</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">constantBurstCount</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber206">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber250">source</a></span></span>
     </span>
   </h3>
 
@@ -2860,11 +2927,11 @@
     
     
     
-    <span class="code" data-ice="name">constantBurstCount</span>
+    <span class="code" data-ice="name">constantBurstCount</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber210">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber255">source</a></span></span>
     </span>
   </h3>
 
@@ -2903,11 +2970,11 @@
     
     
     
-    <span class="code" data-ice="name">constantBurstDelay</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">constantBurstDelay</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber194">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber236">source</a></span></span>
     </span>
   </h3>
 
@@ -2946,11 +3013,11 @@
     
     
     
-    <span class="code" data-ice="name">constantBurstDelay</span>
+    <span class="code" data-ice="name">constantBurstDelay</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber198">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber241">source</a></span></span>
     </span>
   </h3>
 
@@ -2993,7 +3060,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber391">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber480">source</a></span></span>
     </span>
   </h3>
 
@@ -3032,11 +3099,11 @@
     
     
     
-    <span class="code" data-ice="name">overrideParams</span>
+    <span class="code" data-ice="name">overrideParams</span><span class="code" data-ice="signature">: <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber154">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber191">source</a></span></span>
     </span>
   </h3>
 
@@ -3075,11 +3142,11 @@
     
     
     
-    <span class="code" data-ice="name">overrideParams</span><span class="code" data-ice="signature">: {...undefined: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>}</span>
+    <span class="code" data-ice="name">overrideParams</span><span class="code" data-ice="signature">: <span>*</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber150">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber186">source</a></span></span>
     </span>
   </h3>
 
@@ -3118,11 +3185,11 @@
     
     
     
-    <span class="code" data-ice="name">processor</span>
+    <span class="code" data-ice="name">processor</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null">null</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber118">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber153">source</a></span></span>
     </span>
   </h3>
 
@@ -3161,11 +3228,11 @@
     
     
     
-    <span class="code" data-ice="name">processor</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">processor</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null">null</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber114">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber148">source</a></span></span>
     </span>
   </h3>
 
@@ -3208,7 +3275,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber392">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber481">source</a></span></span>
     </span>
   </h3>
 
@@ -3254,7 +3321,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber244">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber296">source</a></span></span>
     </span>
   </h3>
 
@@ -3294,18 +3361,19 @@
     
     
     
-    <span class="code" data-ice="name">emitBurst</span><span class="code" data-ice="signature">(count: <span>*</span>, args: ...<span>*</span>)</span>
+    <span class="code" data-ice="name">emitBurst</span><span class="code" data-ice="signature">(count: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, args: <span>*</span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber302">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber376">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Emit burst of particles using burst generator function.</p>
+</div>
 
   
 
@@ -3319,15 +3387,17 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">count</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Number of particles to emit.</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">args</td>
-      <td data-ice="type" class="code">...<span>*</span></td>
+      <td data-ice="type" class="code"><span>*</span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Particles attributes.</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -3344,7 +3414,14 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">component.emitBurst(100);</code></pre>
+    </div>
+</div>
 
   
 
@@ -3359,18 +3436,19 @@
     
     
     
-    <span class="code" data-ice="name">emitParticle</span><span class="code" data-ice="signature">(life: <span>*</span>, timeScale: <span>*</span>, size: <span>*</span>, args: ...<span>*</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
+    <span class="code" data-ice="name">emitParticle</span><span class="code" data-ice="signature">(life: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, timeScale: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, size: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, args: <span>*</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber254">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber319">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Emit single particle.</p>
+</div>
 
   
 
@@ -3384,27 +3462,31 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">life</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Initial life value.</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">timeScale</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Particle life-cycle time scale.</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">size</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Particle size.</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">args</td>
-      <td data-ice="type" class="code">...<span>*</span></td>
+      <td data-ice="type" class="code"><span>*</span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Particle attributes.</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -3417,7 +3499,8 @@
       <tbody>
         <tr>
           <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
-          
+          <td class="return-desc" data-ice="returnDescription"><p>True if emitted, false otherwise.</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -3433,7 +3516,14 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">component.emitParticle(1, 0.5, 10);</code></pre>
+    </div>
+</div>
 
   
 
@@ -3452,7 +3542,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber332">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber418">source</a></span></span>
     </span>
   </h3>
 
@@ -3530,7 +3620,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber340">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber429">source</a></span></span>
     </span>
   </h3>
 
@@ -3585,18 +3675,19 @@
     
     
     
-    <span class="code" data-ice="name">setParam</span><span class="code" data-ice="signature">(id: <span>*</span>, value: <span>*</span>)</span>
+    <span class="code" data-ice="name">setParam</span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber316">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/components/Particles.js.html#lineNumber399">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>Set particles parameter.</p>
+</div>
 
   
 
@@ -3610,15 +3701,17 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">id</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Parameter id.</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">value</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>Parameter value.</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -3635,7 +3728,14 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">component.setParam(&apos;alpha&apos;, 0.5);</code></pre>
+    </div>
+</div>
 
   
 

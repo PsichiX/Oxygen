@@ -231,7 +231,7 @@ export default class AssetSystem extends System {
   /**
    * Load list of assets in sequence (one by one).
    *
-   * @param {array}	paths - Array of assets paths.
+   * @param {Array.<string>}	paths - Array of assets paths.
    *
    * @return {Promise} Promise of fetch engine loader.
    *
@@ -272,7 +272,7 @@ export default class AssetSystem extends System {
   /**
    * Load list of assets possibly all at the same time (asynchronously).
    *
-   * @param {array}	paths - Array of assets paths.
+   * @param {Array.<string>}	paths - Array of assets paths.
    *
    * @return {Promise} Promise of fetch engine loader.
    *
@@ -338,7 +338,7 @@ export default class AssetSystem extends System {
   /**
    * Unload all assets from paths list.
    *
-   * @param {array}	paths - Array of assets paths.
+   * @param {Array.<string>}	paths - Array of assets paths.
    */
   unloadAll(paths) {
     if (!(paths instanceof Array)) {

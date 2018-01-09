@@ -137,13 +137,26 @@ function getLeapAxisById(frame, id) {
   return 0;
 }
 
+/**
+ * Simple yet powerful input handler.
+ *
+ * @example
+ * const component = new InputHandler();
+ * component.deserialize({ requireGamepad: true });
+ */
 export default class InputHandler extends Script {
 
+  /**
+   * Component factory.
+   *
+   * @return {InputHandler} Component instance.
+   */
   static factory() {
     return new InputHandler();
   }
 
-  static propsTypes() {
+  /** @type {*} */
+  static get propsTypes() {
     return {
       ...Script.propsTypes,
       requireGamepad: 'boolean',
@@ -158,14 +171,17 @@ export default class InputHandler extends Script {
     };
   }
 
+  /** @type {*} */
   static get ControlDevice() {
     return ControlDevice;
   }
 
+  /** @type {boolean} */
   get requireGamepad() {
     return this._requireGamepad;
   }
 
+  /** @type {boolean} */
   set requireGamepad(value) {
     if (typeof value !== 'boolean') {
       throw new Error('`value` is not type of Boolean!');
@@ -174,10 +190,12 @@ export default class InputHandler extends Script {
     this._requireGamepad = value;
   }
 
+  /** @type {boolean} */
   get acceptMouse() {
     return this._acceptMouse;
   }
 
+  /** @type {boolean} */
   set acceptMouse(value) {
     if (typeof value !== 'boolean') {
       throw new Error('`value` is not type of Boolean!');
@@ -186,10 +204,12 @@ export default class InputHandler extends Script {
     this._acceptMouse = value;
   }
 
+  /** @type {boolean} */
   get acceptKeyboard() {
     return this._acceptKeyboard;
   }
 
+  /** @type {boolean} */
   set acceptKeyboard(value) {
     if (typeof value !== 'boolean') {
       throw new Error('`value` is not type of Boolean!');
@@ -198,10 +218,12 @@ export default class InputHandler extends Script {
     this._acceptKeyboard = value;
   }
 
+  /** @type {boolean} */
   get acceptGamepad() {
     return this._acceptGamepad;
   }
 
+  /** @type {boolean} */
   set acceptGamepad(value) {
     if (typeof value !== 'boolean') {
       throw new Error('`value` is not type of Boolean!');
@@ -210,10 +232,12 @@ export default class InputHandler extends Script {
     this._acceptGamepad = value;
   }
 
+  /** @type {boolean} */
   get acceptLeap() {
     return this._acceptLeap;
   }
 
+  /** @type {boolean} */
   set acceptLeap(value) {
     if (typeof value !== 'boolean') {
       throw new Error('`value` is not type of Boolean!');
@@ -222,10 +246,12 @@ export default class InputHandler extends Script {
     this._acceptLeap = value;
   }
 
+  /** @type {number} */
   get controlDeviceChangeTreshold() {
     return this._controlDeviceChangeTreshold;
   }
 
+  /** @type {number} */
   set controlDeviceChangeTreshold(value) {
     if (typeof value !== 'number') {
       throw new Error('`value` is not type of Number!');
@@ -234,10 +260,12 @@ export default class InputHandler extends Script {
     this._controlDeviceChangeTreshold = value;
   }
 
+  /** @type {number} */
   get repeatingTriggersDelay() {
     return this._repeatingTriggersDelay;
   }
 
+  /** @type {number} */
   set repeatingTriggersDelay(value) {
     if (typeof value !== 'number') {
       throw new Error('`value` is not type of Number!');
@@ -246,10 +274,12 @@ export default class InputHandler extends Script {
     this._repeatingTriggersDelay = value;
   }
 
+  /** @type {number} */
   get firstTriggersDelay() {
     return this._firstTriggersDelay;
   }
 
+  /** @type {number} */
   set firstTriggersDelay(value) {
     if (typeof value !== 'number') {
       throw new Error('`value` is not type of Number!');
@@ -258,10 +288,12 @@ export default class InputHandler extends Script {
     this._firstTriggersDelay = value;
   }
 
+  /** @type {boolean} */
   get acceptFirstConnectedGamepad() {
     return this._acceptFirstConnectedGamepad;
   }
 
+  /** @type {boolean} */
   set acceptFirstConnectedGamepad(value) {
     if (typeof value !== 'boolean') {
       throw new Error('`value` is not type of Boolean!');
@@ -270,10 +302,12 @@ export default class InputHandler extends Script {
     this._acceptFirstConnectedGamepad = value;
   }
 
+  /** @type {boolean} */
   get isAcquiringGamepad() {
     return !!this._acquireGamepad;
   }
 
+  /** @type {*} */
   get axes() {
     const result = {};
 
@@ -284,6 +318,7 @@ export default class InputHandler extends Script {
     return result;
   }
 
+  /** @type {*} */
   get triggers() {
     const result = {};
 
@@ -294,14 +329,19 @@ export default class InputHandler extends Script {
     return result;
   }
 
+  /** @type {number} */
   get gamepadIndex() {
     return this._gamepadIndex;
   }
 
+  /** @type {string} */
   get lastControlDevice() {
     return this._lastControlDevice;
   }
 
+  /**
+   * Constructor.
+   */
   constructor() {
     super();
 
@@ -336,6 +376,9 @@ export default class InputHandler extends Script {
     this._lastControlDevice = ControlDevice.NONE;
   }
 
+  /**
+   * @override
+   */
   dispose() {
     this.clear();
 
@@ -345,6 +388,12 @@ export default class InputHandler extends Script {
     super.dispose();
   }
 
+  /**
+   * Clear all axes, triggers and configs.
+   *
+   * @example
+   * component.clear();
+   */
   clear() {
     this._configAxesMouse.clear();
     this._configAxesKey.clear();
@@ -365,6 +414,14 @@ export default class InputHandler extends Script {
     this._triggersTimers.clear();
   }
 
+  /**
+   * Setup axes and triggers.
+   *
+   * @param {*}	config - Configuration object.
+   *
+   * @example
+   * component.setup({ axes: { 'pos-x': { mouse: 'left' } }, triggers: { action: { key: 32 } } });
+   */
   setup(config) {
     this.clear();
 
@@ -463,64 +520,203 @@ export default class InputHandler extends Script {
     }
   }
 
+  /**
+   * Get value of given axis.
+   *
+   * @param {string}	id - Axis id.
+   * @param {number}	treshold - Value treshold (if value is greater than treshold, return value, zero otherwise).
+   *
+   * @return {number} Axis value.
+   *
+   * @example
+   * x += component.getAxis('pos-x');
+   */
   getAxis(id, treshold = 0) {
     const result = this._axes.get(id) || 0;
     return Math.abs(result) > treshold ? result : 0;
   }
 
+  /**
+   * Get delta value of given axis.
+   *
+   * @param {string}	id - Axis id.
+   *
+   * @return {number} Axis value.
+   *
+   * @example
+   * if (component.getAxisDelta('pos-y') < 0) { entity.performAction('jump'); }
+   */
   getAxisDelta(id) {
     return (this._axes.get(id) || 0) - (this._axesPrev.get(id) || 0);
   }
 
+  /**
+   * Set given axis value.
+   *
+   * @param {string}	id - Axis id.
+   * @param {number}	value - New axis value.
+   *
+   * @example
+   * // reset axis to prevent further usage in this frame.
+   * component.setAxis('pos-x', 0);
+   */
   setAxis(id, value) {
     this._axes.set(id, Math.max(-1, Math.min(1, value || 0)));
   }
 
+  /**
+   * Tells if axis is currently hold.
+   *
+   * @param {string}	id - Axis id.
+   * @param {number}	treshold - Value treshold (if value is greater than treshold, return true, false otherwise).
+   *
+   * @return {boolean} Holding state.
+   *
+   * @example
+   * if (component.isAxisHold('pos-x')) { entity.performAction('animate', 'walk'); }
+   */
   isAxisHold(id, treshold = 0.5) {
     return Math.abs(this.getAxis(id, treshold)) > 0;
   }
 
+  /**
+   * Tells if axis is pressed in current frame.
+   *
+   * @param {string}	id - Axis id.
+   * @param {number}	treshold - Value treshold (if value is greater than treshold and axis was not hold in previous frame, return true, false otherwise).
+   *
+   * @return {boolean} Pressing state.
+   *
+   * @example
+   * if (component.isAxisPressed('bow')) { entity.performAction('aim'); }
+   */
   isAxisPressed(id, treshold = 0.5) {
     const current = Math.abs(this._axes.get(id) || 0) > treshold;
     const prev = Math.abs(this._axesPrev.get(id) || 0) > treshold;
     return current && !prev;
   }
 
+  /**
+   * Tells if axis is released in current frame.
+   *
+   * @param {string}	id - Axis id.
+   * @param {number}	treshold - Value treshold (if value is smaller than treshold and axis was hold in previous frame, return true, false otherwise).
+   *
+   * @return {boolean} Releasing state.
+   *
+   * @example
+   * if (component.isAxisReleased('bow')) { entity.performAction('fire'); }
+   */
   isAxisReleased(id, treshold = 0.5) {
     const current = Math.abs(this._axes.get(id) || 0) > treshold;
     const prev = Math.abs(this._axesPrev.get(id) || 0) > treshold;
     return !current && prev;
   }
 
+  /**
+  * Get value of given trigger.
+   *
+   * @param {string}	id - Trigger id.
+   * @param {number}	treshold - Value treshold (if value is greater than treshold, return value, zero otherwise).
+   *
+   * @return {number} Trigger value.
+   *
+   * @example
+   * speed += component.getTrigger('accel');
+   */
   getTrigger(id, treshold = 0) {
     const result = this._triggers.get(id) || 0;
     return result > treshold ? result : 0;
   }
 
+  /**
+   * Get delta value of given trigger.
+   *
+   * @param {string}	id - Trigger id.
+   *
+   * @return {number} Trigger value.
+   *
+   * @example
+   * if (component.getTriggerDelta('pull') > 0) { entity.performAction('pull-rope'); }
+   */
   getTriggerDelta(id) {
     return (this._triggers.get(id) || 0) - (this._triggersPrev.get(id) || 0);
   }
 
+  /**
+   * Set given trigger value.
+   *
+   * @param {string}	id - Trigger id.
+   * @param {number}	value - New trigger value.
+   *
+   * @example
+   * // reset trigger to prevent further usage in this frame.
+   * component.setTrigger('pos-x', 0);
+   */
   setTrigger(id, value) {
     this._triggers.set(id, Math.max(0, Math.min(1, value || 0)));
   }
 
+  /**
+   * Tells if trigger is currently hold.
+   *
+   * @param {string}	id - Trigger id.
+   * @param {number}	treshold - Value treshold (if value is greater than treshold, return true, false otherwise).
+   *
+   * @return {boolean} Holding state.
+   *
+   * @example
+   * if (component.isTriggerHold('swim')) { entity.performAction('swim'); }
+   */
   isTriggerHold(id, treshold = 0.5) {
     return Math.abs(this.getTrigger(id, treshold)) > 0;
   }
 
+  /**
+   * Tells if trigger is pressed in current frame.
+   *
+   * @param {string}	id - Trigger id.
+   * @param {number}	treshold - Value treshold (if value is greater than treshold and trigger was not hold in previous frame, return true, false otherwise).
+   *
+   * @return {boolean} Pressing state.
+   *
+   * @example
+   * if (component.isTriggerPressed('jump')) { entity.performAction('jump'); }
+   */
   isTriggerPressed(id, treshold = 0.5) {
     const current = Math.abs(this._triggers.get(id) || 0) > treshold;
     const prev = Math.abs(this._triggersPrev.get(id) || 0) > treshold;
     return current && !prev;
   }
 
+  /**
+   * Tells if trigger is released in current frame.
+   *
+   * @param {string}	id - Trigger id.
+   * @param {number}	treshold - Value treshold (if value is smaller than treshold and trigger was hold in previous frame, return true, false otherwise).
+   *
+   * @return {boolean} Releasing state.
+   *
+   * @example
+   * if (component.isTriggerReleased('fire')) { entity.performAction('fire'); }
+   */
   isTriggerReleased(id, treshold = 0.5) {
     const current = Math.abs(this._triggers.get(id) || 0) > treshold;
     const prev = Math.abs(this._triggersPrev.get(id) || 0) > treshold;
     return !current && prev;
   }
 
+  /**
+   * Asynchronously acquire gamepad (specify trigger to press and waiting duration).
+   *
+   * @param {number}	trigger - Trigger index.
+   * @param {number}	timeout - Waiting duration in milliseconds.
+   *
+   * @return {Promise} Waiting promise.
+   *
+   * @example
+   * component.acquireGamepad(0).then(() => System.events.trigger('player-is-ready'));
+   */
   acquireGamepad(trigger, timeout = 3000) {
     if (typeof trigger !== 'number') {
       throw new Error('`trigger` is not type of Number!');
@@ -562,10 +758,24 @@ export default class InputHandler extends Script {
     });
   }
 
+  /**
+   * Release acquired gamepad.
+   *
+   * @example
+   * if (gameOver) { component.releaseGamepad(); }
+   */
   releaseGamepad() {
     this._gamepadIndex = -1;
   }
 
+  /**
+   * Manually acquire gamepad by it's index.
+   *
+   * @param {number}	index - Gamepad index.
+   *
+   * @example
+   * component.setAcquiredGamepad(0);
+   */
   setAcquiredGamepad(index) {
     const { InputSystem } = System.systems;
 
@@ -579,6 +789,11 @@ export default class InputHandler extends Script {
     }
   }
 
+  /**
+   * Get acquired gamepad instance.
+   *
+   * @return {Gamepad|null} Acquired gamepad instance or null.
+   */
   getAcquiredGamepad() {
     const { InputSystem } = System.systems;
 
@@ -593,12 +808,18 @@ export default class InputHandler extends Script {
     return null;
   }
 
+  /**
+   * @override
+   */
   onAttach() {
     this.listenTo = Script.EventFlags.INPUT;
 
     super.onAttach();
   }
 
+  /**
+   * @override
+   */
   onDetach() {
     super.onDetach();
 
@@ -606,6 +827,9 @@ export default class InputHandler extends Script {
     this.clear();
   }
 
+  /**
+   * @override
+   */
   onUpdate(deltaTime) {
     this._axesPrev.clear();
     this._triggersPrev.clear();
@@ -641,6 +865,9 @@ export default class InputHandler extends Script {
     }
   }
 
+  /**
+   * @override
+   */
   onMouseDown(unitVec, screenVec, button) {
     if (!this._acceptMouse) {
       return;
@@ -657,6 +884,9 @@ export default class InputHandler extends Script {
     }
   }
 
+  /**
+   * @override
+   */
   onMouseUp(unitVec, screenVec, button) {
     if (!this._acceptMouse) {
       return;
@@ -673,6 +903,9 @@ export default class InputHandler extends Script {
     }
   }
 
+  /**
+   * @override
+   */
   onMouseMove(unitVec, screenVec) {
     if (!this._acceptMouse) {
       return;
@@ -688,6 +921,9 @@ export default class InputHandler extends Script {
     }
   }
 
+  /**
+   * @override
+   */
   onKeyDown(code) {
     if (!this._acceptKeyboard) {
       return;
@@ -713,6 +949,9 @@ export default class InputHandler extends Script {
     }
   }
 
+  /**
+   * @override
+   */
   onKeyUp(code) {
     if (!this._acceptKeyboard) {
       return;
@@ -738,6 +977,9 @@ export default class InputHandler extends Script {
     }
   }
 
+  /**
+   * @override
+   */
   onGamepadConnected(gamepad) {
     if (!this._acceptGamepad) {
       return;
@@ -748,6 +990,9 @@ export default class InputHandler extends Script {
     }
   }
 
+  /**
+   * @override
+   */
   onGamepadDisconnected(gamepad) {
     if (!this._acceptGamepad) {
       return;
@@ -786,6 +1031,9 @@ export default class InputHandler extends Script {
     }
   }
 
+  /**
+   * @override
+   */
   onGamepadProcess(gamepad) {
     if (!this._acceptGamepad) {
       return;
@@ -891,6 +1139,9 @@ export default class InputHandler extends Script {
     }
   }
 
+  /**
+   * @override
+   */
   onLeapProcess(frame, leap) {
     if (!this._acceptLeap) {
       return;

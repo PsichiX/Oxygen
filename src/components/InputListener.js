@@ -6,12 +6,25 @@ import { isLocalPointInLocalBoundingBox } from '../utils';
 const cachedLocalVec = vec2.create();
 const cachedInverseMatrix = mat4.create();
 
+/**
+ * Entity listener for mouse input (good for buttons logic).
+ *
+ * @example
+ * const component = new InputListener();
+ * component.deserialize({ width: 100, height: 50, xOffset: 50, yOfffset: 25, camera: '/ui' });
+ */
 export default class InputListener extends Script {
 
+  /**
+   * Component factory.
+   *
+   * @return {InputListener} Component factory.
+   */
   static factory() {
     return new InputListener();
   }
 
+  /** @type {*} */
   static get propsTypes() {
     return {
       ...Script.propsTypes,
@@ -23,10 +36,12 @@ export default class InputListener extends Script {
     };
   }
 
+  /** @type {number} */
   get width() {
     return this._width;
   }
 
+  /** @type {number} */
   set width(value) {
     if (typeof value !== 'number') {
       throw new Error('`value` is not type of Number!');
@@ -35,10 +50,12 @@ export default class InputListener extends Script {
     this._width = value;
   }
 
+  /** @type {number} */
   get height() {
     return this._height;
   }
 
+  /** @type {number} */
   set height(value) {
     if (typeof value !== 'number') {
       throw new Error('`value` is not type of Number!');
@@ -47,10 +64,12 @@ export default class InputListener extends Script {
     this._height = value;
   }
 
+  /** @type {number} */
   get xOffset() {
     return this._xOffset;
   }
 
+  /** @type {number} */
   set xOffset(value) {
     if (typeof value !== 'number') {
       throw new Error('`value` is not type of Number!');
@@ -59,10 +78,12 @@ export default class InputListener extends Script {
     this._xOffset = value;
   }
 
+  /** @type {number} */
   get yOffset() {
     return this._yOffset;
   }
 
+  /** @type {number} */
   set yOffset(value) {
     if (typeof value !== 'number') {
       throw new Error('`value` is not type of Number!');
@@ -71,10 +92,12 @@ export default class InputListener extends Script {
     this._yOffset = value;
   }
 
+  /** @type {string|null} */
   get camera() {
     return this._camera;
   }
 
+  /** @type {string|null} */
   set camera(value) {
     if (!value) {
       this._camera = null;
@@ -107,6 +130,9 @@ export default class InputListener extends Script {
     }
   }
 
+  /**
+   * Constructor.
+   */
   constructor() {
     super();
 
@@ -120,12 +146,18 @@ export default class InputListener extends Script {
     this._lastOver = false;
   }
 
+  /**
+   * @override
+   */
   onAttach() {
     super.onAttach();
 
     this.camera = this.camera;
   }
 
+  /**
+   * @override
+   */
   onMouseDown(unitVec, screenVec) {
     this._convertUnitToLocalCoords(cachedLocalVec, unitVec);
 
@@ -134,6 +166,9 @@ export default class InputListener extends Script {
     }
   }
 
+  /**
+   * @override
+   */
   onMouseUp(unitVec, screenVec) {
     this._convertUnitToLocalCoords(cachedLocalVec, unitVec);
 
@@ -142,6 +177,9 @@ export default class InputListener extends Script {
     }
   }
 
+  /**
+   * @override
+   */
   onMouseMove(unitVec, screenVec) {
     const { _lastOver } = this;
     this._convertUnitToLocalCoords(cachedLocalVec, unitVec);
