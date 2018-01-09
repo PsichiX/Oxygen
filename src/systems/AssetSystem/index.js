@@ -10,7 +10,7 @@ const _pathRegex = /(\w+)(\:\/\/)(.*)/;
  * Assets database and loader.
  *
  * @example
- * const system = new AssetSystem('assets/', { cached: true }, AssetSystem.fetchArrayView);
+ * const system = new AssetSystem('assets/', { cache: 'no-store' }, AssetSystem.fetchArrayView);
  */
 export default class AssetSystem extends System {
 
