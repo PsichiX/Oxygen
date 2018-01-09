@@ -2,7 +2,7 @@
 ## Professional HTML5 game engine - One of the best Xenon Core engines family.
 
 ![Travis CI](https://travis-ci.org/PsichiX/Oxygen.svg?branch=master)
-![ESDoc Coverage](./docs/badge.svg)
+![ESDoc Coverage](https://raw.githubusercontent.com/PsichiX/Oxygen/master/docs/badge.svg)
 
 ## Table of contents
 1. [Installation](#installation)
