@@ -53,7 +53,14 @@ export default class AudioSystem extends System {
       this.unregisterMusic(key);
     }
 
+    this._context.close();
     this._events.dispose();
+    this._context = null;
+    this._events = null;
+    this._wavers = null;
+    this._sounds = null;
+    this._musics = null;
+
     super.dispose();
   }
 
