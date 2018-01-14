@@ -1,6 +1,6 @@
 {
   "name": "oxygen-core",
-  "version": "1.2.39",
+  "version": "1.2.40",
   "description": "Oxygen game engine (Xenon Core for browsers)",
   "main": "bin/index.js",
   "scripts": {
@@ -11,9 +11,10 @@
     "browserify-uglify": "./node_modules/.bin/uglifyjs -nm -o bin/oxygen-core.min.js bin/oxygen-core.js",
     "browserify-min": "npm run browserify && npm run browserify-uglify",
     "docs": "esdoc -c esdoc.json",
-    "make": "npm run build && npm run build-tools && npm run browserify-min && npm run docs",
+    "make": "npm run clean && npm run build && npm run build-tools && npm run browserify-min && npm run docs",
     "postinstall": "npm run make",
-    "oxygen-pack": "node ./bin-tools/pack-cli.js"
+    "oxygen-pack": "node ./bin-tools/pack-cli.js",
+    "oxygen-spine": "node ./bin-tools/spine-cli.js"
   },
   "bin": {
     "oxy-pack": "./cli/pack.js",
@@ -56,14 +57,14 @@
     "babel-preset-minify": "latest",
     "bezier-easing": "latest",
     "box2dweb-commonjs": "latest",
-    "browserify": "latest",
+    "browserify": "^15.1.0",
     "esdoc": "latest",
     "esdoc-ecmascript-proposal-plugin": "latest",
     "esdoc-importpath-plugin": "latest",
     "esdoc-standard-plugin": "latest",
     "leapjs": "latest",
     "stream-buffers": "latest",
-    "uglify-js": "latest",
+    "uglify-js": "^3.3.6",
     "waver-js": "latest"
   }
 }
