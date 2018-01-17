@@ -1,6 +1,7 @@
 import System from './System';
 import Events from '../utils/Events';
-import { createAudioContext, createWaver } from 'waver-js';
+
+const audioContext = window.AudioContext || window.webkitAudioContext;
 
 /**
  * System used to manage audio.
@@ -20,15 +21,18 @@ export default class AudioSystem extends System {
     return this._events;
   }
 
+  static createAudioContext() {
+    return new audioContext();
+  }
+
   /**
    * Constructor.
    */
   constructor() {
     super();
 
-    this._context = createAudioContext();
+    this._context = AudioSystem.createAudioContext();
     this._events = new Events();
-    this._wavers = new Map();
     this._sounds = new Map();
     this._musics = new Map();
   }
@@ -41,10 +45,6 @@ export default class AudioSystem extends System {
    * system = null;
    */
   dispose() {
-    for (const key of this._wavers.keys()) {
-      this.unregisterWaver(key);
-    }
-
     for (const key of this._sounds.keys()) {
       this.unregisterSound(key);
     }
@@ -57,117 +57,10 @@ export default class AudioSystem extends System {
     this._events.dispose();
     this._context = null;
     this._events = null;
-    this._wavers = null;
     this._sounds = null;
     this._musics = null;
 
     super.dispose();
-  }
-
-  /**
-   * Register new waver (audio shaders).
-   *
-   * @experimental
-   * @param {string}	id - Waver id.
-   * @param {string}	source - Waver code.
-   */
-  registerWaver(id, source) {
-    if (typeof id !== 'string') {
-      throw new Error('`id` is not type of String!');
-    }
-    if (typeof source !== 'string') {
-      throw new Error('`source` is not type of String!');
-    }
-
-    const { _context } = this;
-    const waver = createWaver(_context, source);
-    if (!waver.valid) {
-      waver.dispose();
-      throw new Error(`Cannot compile waver: ${id}`);
-    }
-
-    this._wavers.set(id, waver);
-  }
-
-  /**
-   * Unregister existing waver.
-   *
-   * @experimental
-   * @param {string}	id - Waver id.
-   */
-  unregisterWaver(id) {
-    if (typeof id !== 'string') {
-      throw new Error('`id` is not type of String!');
-    }
-
-    const { _wavers } = this;
-    if (_wavers.has(id)) {
-      _wavers.get(id).dispose();
-      _wavers.delete(id);
-    }
-  }
-
-  /**
-   * Gets given waver by it's id.
-   *
-   * @experimental
-   * @param {string}	id - Waver id.
-   *
-   * @return {Waver} Waver instance.
-   */
-  getWaver(id) {
-    if (typeof id !== 'string') {
-      throw new Error('`id` is not type of String!');
-    }
-
-    const { _wavers } = this;
-    if (_wavers.has(id)) {
-      return _wavers.get(id);
-    }
-
-    return null;
-  }
-
-  /**
-   * Play sound with given waver.
-   *
-   * @experimental
-   * @param {string}	id - Waver id.
-   * @param {string}	input - Input id.
-   * @param {string}	sound - Sound id.
-   *
-   * @return {AudioBufferSourceNode}
-   */
-  waverPlaySound(id, input, sound) {
-    const waver = this.getWaver(id);
-    if (!waver) {
-      throw new Error(`There is no registered waver: ${id}`);
-    }
-
-    const source = this.playSound(sound, false);
-    waver.bindInput(input, source);
-    return source;
-  }
-
-  /**
-   * Play music with waver.
-   *
-   * @experimental
-   * @param {string}	id - Waver id.
-   * @param {string}	input - Input id.
-   * @param {string}	music - Music id.
-   *
-   * @return {MediaElementAudioSourceNode}
-   */
-  waverPlayMusic(id, input, music) {
-    const waver = this.getWaver(id);
-    if (!waver) {
-      throw new Error(`There is no registered waver: ${id}`);
-    }
-
-    const source = this.playMusic(music);
-    waver.bindInput(input, source);
-    return source;
   }
 
   /**

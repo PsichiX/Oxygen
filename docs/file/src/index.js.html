@@ -43,7 +43,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/SkeletonAsset.js~SkeletonAsset.html">SkeletonAsset</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/SoundAsset.js~SoundAsset.html">SoundAsset</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/TextAsset.js~TextAsset.html">TextAsset</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/asset-loaders/WaverAsset.js~WaverAsset.html">WaverAsset</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#components">components</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/AtlasSprite.js~AtlasSprite.html">AtlasSprite</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Camera.js~Camera.html">Camera</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/components/Camera2D.js~Camera2D.html">Camera2D</a></span></span></li>
@@ -97,7 +96,6 @@ import ShaderAsset from &apos;./asset-loaders/ShaderAsset&apos;;
 import SceneAsset from &apos;./asset-loaders/SceneAsset&apos;;
 import AtlasAsset from &apos;./asset-loaders/AtlasAsset&apos;;
 import FontAsset from &apos;./asset-loaders/FontAsset&apos;;
-import WaverAsset from &apos;./asset-loaders/WaverAsset&apos;;
 import SoundAsset from &apos;./asset-loaders/SoundAsset&apos;;
 import MusicAsset from &apos;./asset-loaders/MusicAsset&apos;;
 import ParticleSystemAsset from &apos;./asset-loaders/ParticleSystemAsset&apos;;
@@ -163,7 +161,6 @@ export default {
   SceneAsset,
   AtlasAsset,
   FontAsset,
-  WaverAsset,
   SoundAsset,
   MusicAsset,
   ParticleSystemAsset,
@@ -224,7 +221,6 @@ export {
   SceneAsset,
   AtlasAsset,
   FontAsset,
-  WaverAsset,
   SoundAsset,
   MusicAsset,
   ParticleSystemAsset,
@@ -343,7 +339,6 @@ export function lazyInitialization({ entity, asset, render, input, store, events
   assets.registerProtocol(&apos;scene&apos;, SceneAsset.factory);
   assets.registerProtocol(&apos;atlas&apos;, AtlasAsset.factory);
   assets.registerProtocol(&apos;font&apos;, FontAsset.factory);
-  assets.registerProtocol(&apos;waver&apos;, WaverAsset.factory);
   assets.registerProtocol(&apos;sound&apos;, SoundAsset.factory);
   assets.registerProtocol(&apos;music&apos;, MusicAsset.factory);
   assets.registerProtocol(&apos;particles&apos;, ParticleSystemAsset.factory);
@@ -365,8 +360,6 @@ export function lazyInitialization({ entity, asset, render, input, store, events
         data.samplers,
         data.blending
       );
-    } else if (protocol === &apos;waver&apos;) {
-      audio.registerWaver(filename, data);
     } else if (protocol === &apos;sound&apos;) {
       audio.registerSound(filename, data);
     } else if (protocol === &apos;music&apos;) {
@@ -383,8 +376,6 @@ export function lazyInitialization({ entity, asset, render, input, store, events
       renderer.unregisterTexture(filename);
     } else if (protocol === &apos;shader&apos;) {
       renderer.unregisterShader(filename);
-    } else if (protocol === &apos;waver&apos;) {
-      audio.unregisterWaver(filename);
     } else if (protocol === &apos;sound&apos;) {
       audio.unregisterSound(filename);
     } else if (protocol === &apos;music&apos;) {

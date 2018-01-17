@@ -5,7 +5,6 @@ import ImageAsset from './ImageAsset';
 import ShaderAsset from './ShaderAsset';
 import SceneAsset from './SceneAsset';
 import AtlasAsset from './AtlasAsset';
-import WaverAsset from './WaverAsset';
 import SoundAsset from './SoundAsset';
 import MusicAsset from './MusicAsset';
 import ParticleSystemAsset from './ParticleSystemAsset';
@@ -20,7 +19,6 @@ export default {
   ShaderAsset,
   SceneAsset,
   AtlasAsset,
-  WaverAsset,
   SoundAsset,
   MusicAsset,
   ParticleSystemAsset,
@@ -36,7 +34,6 @@ export {
   ShaderAsset,
   SceneAsset,
   AtlasAsset,
-  WaverAsset,
   SoundAsset,
   MusicAsset,
   ParticleSystemAsset,

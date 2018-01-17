@@ -1,7 +1,7 @@
 {
-  "coverage": "38.01%",
-  "expectCount": 1210,
-  "actualCount": 460,
+  "coverage": "37.6%",
+  "expectCount": 1202,
+  "actualCount": 452,
   "files": {
     "src/asset-loaders/AtlasAsset.js": {
       "expectCount": 8,
@@ -114,13 +114,6 @@
       "actualCount": 3,
       "undocumentLines": [
         34
-      ]
-    },
-    "src/asset-loaders/WaverAsset.js": {
-      "expectCount": 4,
-      "actualCount": 3,
-      "undocumentLines": [
-        32
       ]
     },
     "src/components/AtlasSprite.js": {
@@ -878,14 +871,15 @@
       ]
     },
     "src/systems/AudioSystem.js": {
-      "expectCount": 26,
-      "actualCount": 21,
+      "expectCount": 22,
+      "actualCount": 16,
       "undocumentLines": [
-        29,
-        30,
-        31,
-        32,
-        33
+        4,
+        24,
+        34,
+        35,
+        36,
+        37
       ]
     },
     "src/systems/EntitySystem/Component.js": {

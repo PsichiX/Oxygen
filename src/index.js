@@ -6,7 +6,6 @@ import ShaderAsset from './asset-loaders/ShaderAsset';
 import SceneAsset from './asset-loaders/SceneAsset';
 import AtlasAsset from './asset-loaders/AtlasAsset';
 import FontAsset from './asset-loaders/FontAsset';
-import WaverAsset from './asset-loaders/WaverAsset';
 import SoundAsset from './asset-loaders/SoundAsset';
 import MusicAsset from './asset-loaders/MusicAsset';
 import ParticleSystemAsset from './asset-loaders/ParticleSystemAsset';
@@ -72,7 +71,6 @@ export default {
   SceneAsset,
   AtlasAsset,
   FontAsset,
-  WaverAsset,
   SoundAsset,
   MusicAsset,
   ParticleSystemAsset,
@@ -133,7 +131,6 @@ export {
   SceneAsset,
   AtlasAsset,
   FontAsset,
-  WaverAsset,
   SoundAsset,
   MusicAsset,
   ParticleSystemAsset,
@@ -252,7 +249,6 @@ export function lazyInitialization({ entity, asset, render, input, store, events
   assets.registerProtocol('scene', SceneAsset.factory);
   assets.registerProtocol('atlas', AtlasAsset.factory);
   assets.registerProtocol('font', FontAsset.factory);
-  assets.registerProtocol('waver', WaverAsset.factory);
   assets.registerProtocol('sound', SoundAsset.factory);
   assets.registerProtocol('music', MusicAsset.factory);
   assets.registerProtocol('particles', ParticleSystemAsset.factory);
@@ -274,8 +270,6 @@ export function lazyInitialization({ entity, asset, render, input, store, events
         data.samplers,
         data.blending
       );
-    } else if (protocol === 'waver') {
-      audio.registerWaver(filename, data);
     } else if (protocol === 'sound') {
       audio.registerSound(filename, data);
     } else if (protocol === 'music') {
@@ -292,8 +286,6 @@ export function lazyInitialization({ entity, asset, render, input, store, events
       renderer.unregisterTexture(filename);
     } else if (protocol === 'shader') {
       renderer.unregisterShader(filename);
-    } else if (protocol === 'waver') {
-      audio.unregisterWaver(filename);
     } else if (protocol === 'sound') {
       audio.unregisterSound(filename);
     } else if (protocol === 'music') {
