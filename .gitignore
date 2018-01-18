@@ -1,5 +1,6 @@
 bin/
 bin-tools/
 node_modules/
+docs/
 *.log
 *.log.*

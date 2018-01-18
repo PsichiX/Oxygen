@@ -274,8 +274,11 @@ export default class VerticesRenderer extends Component {
     this._context = null;
     this._vertexBuffer = null;
     this._indexBuffer = null;
+    this._shader = null;
     this._vertices = null;
     this._indices = null;
+    this._overrideUniforms = null;
+    this._overrideSamplers = null;
     this._renderMode = null;
     this._layers = null;
     this._verticesChunksToUpdate = null;

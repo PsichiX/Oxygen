@@ -1,4 +1,4 @@
-import Camera from './Camera';
+import Camera, { PostprocessPass } from './Camera';
 import Camera2D from './Camera2D';
 import CameraDirector2D from './CameraDirector2D';
 import InputHandler from './InputHandler';
@@ -17,9 +17,11 @@ import UiSprite from './UiSprite';
 import UiLayout from './UiLayout';
 import Skeleton from './Skeleton';
 import SortedActions from './SortedActions';
+import Postprocess from './Postprocess';
 
 export default {
   Camera,
+  PostprocessPass,
   Camera2D,
   CameraDirector2D,
   InputHandler,
@@ -37,11 +39,13 @@ export default {
   UiSprite,
   UiLayout,
   Skeleton,
-  SortedActions
+  SortedActions,
+  Postprocess
 };
 
 export {
   Camera,
+  PostprocessPass,
   Camera2D,
   CameraDirector2D,
   InputHandler,
@@ -59,5 +63,6 @@ export {
   UiSprite,
   UiLayout,
   Skeleton,
-  SortedActions
+  SortedActions,
+  Postprocess
 };

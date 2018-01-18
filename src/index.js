@@ -11,7 +11,7 @@ import MusicAsset from './asset-loaders/MusicAsset';
 import ParticleSystemAsset from './asset-loaders/ParticleSystemAsset';
 import PackAsset from './asset-loaders/PackAsset';
 import SkeletonAsset from './asset-loaders/SkeletonAsset';
-import Camera from './components/Camera';
+import Camera, { PostprocessPass } from './components/Camera';
 import Camera2D from './components/Camera2D';
 import CameraDirector2D from './components/CameraDirector2D';
 import InputHandler from './components/InputHandler';
@@ -30,6 +30,7 @@ import UiSprite from './components/UiSprite';
 import UiLayout from './components/UiLayout';
 import Skeleton from './components/Skeleton';
 import SortedActions from './components/SortedActions';
+import Postprocess from './components/Postprocess';
 import System from './systems/System';
 import EntitySystem from './systems/EntitySystem';
 import Component from './systems/EntitySystem/Component';
@@ -77,6 +78,7 @@ export default {
   PackAsset,
   SkeletonAsset,
   Camera,
+  PostprocessPass,
   Camera2D,
   CameraDirector2D,
   InputHandler,
@@ -95,6 +97,7 @@ export default {
   UiLayout,
   Skeleton,
   SortedActions,
+  Postprocess,
   System,
   EntitySystem,
   Component,
@@ -137,6 +140,7 @@ export {
   PackAsset,
   SkeletonAsset,
   Camera,
+  PostprocessPass,
   Camera2D,
   CameraDirector2D,
   InputHandler,
@@ -155,6 +159,7 @@ export {
   UiLayout,
   Skeleton,
   SortedActions,
+  Postprocess,
   System,
   EntitySystem,
   Component,
@@ -240,6 +245,7 @@ export function lazyInitialization({ entity, asset, render, input, store, events
   entities.registerComponent('UiLayout', UiLayout.factory);
   entities.registerComponent('Skeleton', Skeleton.factory);
   entities.registerComponent('SortedActions', SortedActions.factory);
+  entities.registerComponent('Postprocess', Postprocess.factory);
 
   assets.registerProtocol('json', JSONAsset.factory);
   assets.registerProtocol('text', TextAsset.factory);

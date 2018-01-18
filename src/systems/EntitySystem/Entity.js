@@ -722,21 +722,29 @@ export default class Entity {
   /**
    * Find component by it's type name.
    *
-   * @param {string}	typename - Component type name.
+   * @param {string|Function}	typename - Component type (class or name).
    *
    * @return {Component|null} Component instance if found or null otherwise.
    *
    * @example
    * class Hello extends Component {}
    * entity.attachComponent('Hello', new Hello());
-   * const hello = entity.getComponent('Hello');
+   * const hello1 = entity.getComponent('Hello');
+   * const hello2 = entity.getComponent(Hello);
    */
   getComponent(typename) {
-    if (typeof typename !== 'string') {
-      throw new Error('`typename` is not type of String!');
+    if (typeof typename === 'string') {
+      return this._components.get(typename) || null;
+    } else if (typename instanceof Function) {
+      for (const c of this._components.values()) {
+        if (c instanceof typename) {
+          return c;
+        }
+      }
+      return null;
     }
 
-    return this._components.get(typename) || null;
+    throw new Error('`typename` is not type of either String or Function!');
   }
 
   /**
