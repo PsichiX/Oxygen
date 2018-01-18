@@ -569,8 +569,8 @@ export default class Camera extends Component {
         this._postprocessRtt = null;
       }
       if (_postprocess.length > 0) {
-        const a = `#${++rttUidGenerator}`;
-        const b = `#${++rttUidGenerator}`;
+        const a = `#Camera-PostprocessPass-${++rttUidGenerator}`;
+        const b = `#Camera-PostprocessPass-${++rttUidGenerator}`;
         renderer.registerRenderTarget(a, width, height, false);
         renderer.registerRenderTarget(b, width, height, false);
         this._postprocessRtt = [a, b];
