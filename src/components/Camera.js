@@ -18,12 +18,22 @@ const indices = new Uint16Array([
 ]);
 let rttUidGenerator = 0;
 
+/**
+ * Postprocess pass processed by camera to modify it's output image.
+ *
+ * @example
+ * const pass = new PostprocessPass();
+ * pass.deserialize({ shader: 'pixelate.json', overrideUniforms: { uScale: [100, 100] } });
+ * camera.registerPostprocessPass(pass);
+ */
 export class PostprocessPass {
 
+  /** @type {string|null} */
   get shader() {
     return this._shader;
   }
 
+  /** @type {string|null} */
   set shader(value) {
     if (!value) {
       this._shader = null;
@@ -36,14 +46,19 @@ export class PostprocessPass {
     this._shader = value;
   }
 
+  /** @type {*} */
   get overrideUniforms() {
     return this._overrideUniforms;
   }
 
+  /** @type {*} */
   get overrideSamplers() {
     return this._overrideSamplers;
   }
 
+  /**
+   * Constructor.
+   */
   constructor() {
     this._context = null;
     this._vertexBuffer = null;
@@ -54,6 +69,13 @@ export class PostprocessPass {
     this._dirty = true;
   }
 
+  /**
+   * Destructor (dispose internal resources).
+   *
+   * @example
+   * pass.dispose();
+   * pass = null;
+   */
   dispose() {
     const { _context, _vertexBuffer, _indexBuffer } = this;
 
@@ -77,6 +99,17 @@ export class PostprocessPass {
     this._overrideSamplers = null;
   }
 
+  /**
+   * Serialize pass state into JSON object.
+   *
+   * @return {*} Serialized JSON object.
+   *
+   * @example
+   * const data = { shader: 'pixelate.json' };
+   * const pass = new PostprocessPass();
+   * pass.deserialize(data);
+   * pass.serialize().shader === data.shader
+   */
   serialize() {
     const result = {
       shader: this._shader
@@ -99,6 +132,17 @@ export class PostprocessPass {
     return result;
   }
 
+  /**
+   * Deserialize JSON data into pass state.
+   *
+   * @param {*}	data - JSON object with pass state.
+   *
+   * @example
+   * const data = { shader: 'pixelate.json' };
+   * const pass = new PostprocessPass();
+   * pass.deserialize(data);
+   * pass.serialize().shader === data.shader
+   */
   deserialize(data) {
     if (!data) {
       return;
@@ -119,6 +163,13 @@ export class PostprocessPass {
     }
   }
 
+  /**
+   * Called when camera need to postprocess it's rendered image.
+   *
+   * @param {WebGLRenderingContext}	gl - WebGL context.
+   * @param {RenderSystem}	renderer - Render system that is used to render.
+   * @param {number}	deltaTime - Delta time.
+   */
   onRender(gl, renderer, deltaTime) {
     const {
       _shader,
@@ -188,15 +239,6 @@ export class PostprocessPass {
  */
 export default class Camera extends Component {
 
-  /**
-   * Component factory.
-   *
-   * @return {Camera} Component instance.
-   */
-  static factory() {
-    return new Camera();
-  }
-
   /** @type {*} */
   static get propsTypes() {
     return {
@@ -209,6 +251,15 @@ export default class Camera extends Component {
       renderTargetFloat: 'boolean',
       layer: 'string_null'
     };
+  }
+
+  /**
+   * Component factory.
+   *
+   * @return {Camera} Component instance.
+   */
+  static factory() {
+    return new Camera();
   }
 
   /** @type {boolean} */
@@ -413,7 +464,7 @@ export default class Camera extends Component {
     throw new Error('Not implemented!');
   }
 
-  registerPostProcessPass(pass) {
+  registerPostprocessPass(pass) {
     if (!(pass instanceof PostprocessPass)) {
       throw new Error('`pass` is not type of PostprocessPass!');
     }
@@ -426,7 +477,7 @@ export default class Camera extends Component {
     _postprocess.push(pass);
   }
 
-  unregisterPostProcessPass(pass) {
+  unregisterPostprocessPass(pass) {
     if (!(pass instanceof PostprocessPass)) {
       throw new Error('`pass` is not type of PostprocessPass!');
     }

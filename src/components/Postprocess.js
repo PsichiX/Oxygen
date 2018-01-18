@@ -1,22 +1,37 @@
 import Component from '../systems/EntitySystem/Component';
 import Camera, { PostprocessPass } from './Camera';
 
+/**
+ * Multipass camera postprocess controller.
+ *
+ * @example
+ * const effect = new Postprocess();
+ * effect.deserialize({ passes: [ { shader: 'pixelate.json' }, { shader: 'yellowish.json' } ] });
+ */
 export default class Postprocess extends Component {
 
+  /** @type {*} */
   static get propsTypes() {
     return {
       passes: 'array(any)|null'
     };
   }
 
+  /**
+   * Component factory.
+   *
+   * @return {Postprocess} Component instance.
+   */
   static factory() {
     return new Postprocess();
   }
 
+  /** @type {*} */
   get passes() {
     return this._passes;
   }
 
+  /** @type {*} */
   set passes(value) {
     if (!value) {
       this._unregister();
@@ -33,6 +48,9 @@ export default class Postprocess extends Component {
     }
   }
 
+  /**
+   * Constructor.
+   */
   constructor() {
     super();
 
@@ -41,6 +59,13 @@ export default class Postprocess extends Component {
     this._passInstances = null;
   }
 
+  /**
+   * Destructor (disposes internal resources).
+   *
+   * @example
+   * effect.dispose();
+   * effect = null;
+   */
   dispose() {
     super.dispose();
 
@@ -49,14 +74,23 @@ export default class Postprocess extends Component {
     this._passInstances = null;
   }
 
+  /**
+   * @override
+   */
   onAttach() {
     this._register();
   }
 
+  /**
+   * @override
+   */
   onDetach() {
     this._unregister();
   }
 
+  /**
+   * @override
+   */
   onPropertySerialize(name, value) {
     if (name === 'passes') {
       const { _passInstances, _passes } = this;
@@ -84,7 +118,7 @@ export default class Postprocess extends Component {
     this._passInstances = this._passes.map(data => {
       const pass = new PostprocessPass();
       pass.deserialize(data);
-      camera.registerPostProcessPass(pass);
+      camera.registerPostprocessPass(pass);
       return pass;
     });
   }
@@ -99,7 +133,7 @@ export default class Postprocess extends Component {
 
     if (!!_passInstances && _passInstances.length > 0) {
       this._passes = _passInstances.map(pass => {
-        _camera.unregisterPostProcessPass(pass);
+        _camera.unregisterPostprocessPass(pass);
         return pass.serialize();
       });
       this._passInstances = null;

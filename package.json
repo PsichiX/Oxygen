@@ -1,6 +1,6 @@
 {
   "name": "oxygen-core",
-  "version": "1.2.42",
+  "version": "1.2.43",
   "description": "Oxygen game engine (Xenon Core for browsers)",
   "main": "bin/index.js",
   "scripts": {
@@ -64,6 +64,6 @@
     "esdoc-standard-plugin": "latest",
     "leapjs": "latest",
     "stream-buffers": "latest",
-    "uglify-js": "^3.3.6"
+    "uglify-js": "^3.3.7"
   }
 }
