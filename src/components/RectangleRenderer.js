@@ -144,7 +144,7 @@ export default class RectangleRenderer extends VerticesRenderer {
   }
 
   onRender(gl, renderer, deltaTime, layer) {
-    this.ensureVertices();
+    this.ensureVertices(renderer);
     super.onRender(gl, renderer, deltaTime, layer);
   }
 
@@ -165,7 +165,7 @@ export default class RectangleRenderer extends VerticesRenderer {
     }
   }
 
-  ensureVertices() {
+  ensureVertices(renderer) {
     if (!this._rebuild) {
       return;
     }

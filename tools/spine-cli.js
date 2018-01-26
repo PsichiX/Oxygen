@@ -2,7 +2,7 @@
 
 import process from 'process';
 import fs from 'fs';
-import { spine } from './spine';
+import spine from './spine';
 
 const args = process.argv;
 let argmode = null;
@@ -80,7 +80,7 @@ if (!atlas) {
   throw new Error('atlas path is not provided!');
 }
 if (!output) {
-  throw new Error('input is not provided!');
+  throw new Error('output is not provided!');
 }
 
 spine(json, atlas, output, options);

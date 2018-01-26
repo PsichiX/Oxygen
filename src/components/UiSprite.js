@@ -497,13 +497,10 @@ export default class UiSprite extends VerticesRenderer {
       return;
     }
 
-    const meta = renderer.getTextureMeta(this.overrideBaseTexture);
-    if (!meta) {
-      throw new Error(
-        `Cannot find texture meta data: ${this.overrideBaseTexture}`
-      );
-    }
-
+    const meta = renderer.getTextureMeta(this.overrideBaseTexture) || {
+      width: 1,
+      height: 1
+    };
     const {
       _cachedWidth,
       _cachedHeight,

@@ -190,7 +190,7 @@ export default class TextRenderer extends VerticesRenderer {
   }
 
   onRender(gl, renderer, deltaTime, layer) {
-    this.ensureVertices();
+    this.ensureVertices(renderer);
 
     const { _text, _fontData } = this;
     if (!!_text && _text !== '' && !!_fontData) {
@@ -229,7 +229,7 @@ export default class TextRenderer extends VerticesRenderer {
     }
   }
 
-  ensureVertices() {
+  ensureVertices(renderer) {
     if (!this._rebuild) {
       return;
     }

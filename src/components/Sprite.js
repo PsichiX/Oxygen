@@ -148,14 +148,16 @@ export default class Sprite extends RectangleRenderer {
     }
   }
 
-  ensureVertices() {
+  ensureVertices(renderer) {
     if (!this._rebuild) {
       return;
     }
 
-    const {
+    let {
       _width,
-      _height,
+      _height
+    } = this;
+    const {
       _xOffset,
       _yOffset,
       _xOrigin,
@@ -163,6 +165,15 @@ export default class Sprite extends RectangleRenderer {
       _frameTopLeft,
       _frameBottomRight
     } = this;
+    if (_width < 0 || _height < 0) {
+      const meta = renderer.getTextureMeta(this.overrideBaseTexture);
+      if (_width < 0) {
+        _width = !!meta ? meta.width : 0;
+      }
+      if (_height < 0) {
+        _height = !!meta ? meta.height : 0;
+      }
+    }
     const xo = -_xOffset - (_xOrigin * _width);
     const yo = -_yOffset - (_yOrigin * _height);
 

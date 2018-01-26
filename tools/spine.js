@@ -433,7 +433,7 @@ function spinePrefab(input, output, atlasData, options = {}) {
   );
 }
 
-export function spine(json, atlas, output, options) {
+export default function spine(json, atlas, output, options) {
   const a = spineAtlas(atlas, output);
   spinePrefab(json, output, a, options);
 }
