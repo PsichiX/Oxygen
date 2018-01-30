@@ -105,7 +105,10 @@ function mapLayersToEntities(layers, tilesetsData, ignore, tw, th) {
         name: layer.name,
         active: layer.visible,
         transform: {
-          position: [ tw * (layer.x || 0), th * (layer.y || 0) ]
+          position: [
+            tw * (layer.startx || layer.x || 0),
+            th * (layer.starty || layer.y || 0)
+          ]
         }
       };
       const { type } = layer;
@@ -118,10 +121,14 @@ function mapLayersToEntities(layers, tilesetsData, ignore, tw, th) {
           th
         );
       } else if (type === 'imagelayer') {
+        result.transform.position = [
+          layer.offsetx || 0,
+          layer.offsety || 0
+        ];
         result.components = {
           Sprite: {
-            shader: 'json://sprite-transparent.json',
-            overrideBaseTexture: `image://${layer.image}`,
+            shader: 'shaders/sprite-transparent.json',
+            overrideBaseTexture: layer.image,
             width: -1,
             height: -1
           }
@@ -143,10 +150,10 @@ function mapLayersToEntities(layers, tilesetsData, ignore, tw, th) {
             },
             components: {
               VerticesRenderer: {
-                shader: 'json://sprite-transparent.json',
+                shader: 'shaders/sprite-transparent.json',
                 overrideSamplers: {
                   sBase: {
-                    texture: `image://${chunk.image}`,
+                    texture: chunk.image,
                     channel: 0,
                     filtering: 'linear'
                   }
@@ -157,6 +164,26 @@ function mapLayersToEntities(layers, tilesetsData, ignore, tw, th) {
             }
           };
         });
+      } else if (type === 'objectgroup') {
+        if (!!layer.objects) {
+          result.children = layer.objects.map(o => {
+            if (o.type === 'prefab') {
+              return {
+                name: o.properties.name || o.name,
+                transform: {
+                  position: [o.x || 0, o.y || 0],
+                  rotation: o.rotation || 0
+                },
+                components: {
+                  PrefabInstance: {
+                    asset: o.properties.asset || undefined,
+                    count: o.properties.count || undefined
+                  }
+                }
+              };
+            }
+          }).filter(o => !!o);
+        }
       } else {
         console.warn(`Unsupported layer type: ${type}`);
       }
@@ -164,6 +191,22 @@ function mapLayersToEntities(layers, tilesetsData, ignore, tw, th) {
       return result;
     }).filter(i => !!i)
     : undefined;
+}
+
+function getImages(layers, ignore, target = null) {
+  const result = target || [];
+  for (const layer of layers) {
+    if (ignore.indexOf(layer.name) >= 0) {
+      continue;
+    }
+
+    if (layer.type === 'imagelayer' && !!layer.image && result.indexOf(layer.image) < 0) {
+      result.push(layer.image);
+    } else if (layer.type === 'group' && !!layer.layers) {
+      getImages(layer.layers, ignore, result);
+    }
+  }
+  return result;
 }
 
 export default function tiled(input, output, ignore = []) {
@@ -177,8 +220,8 @@ export default function tiled(input, output, ignore = []) {
     tilewidth,
     tileheight
   } = data;
-  if (infinite !== true) {
-    throw new Error('Finite maps are not yet supported!');
+  if (infinite === true) {
+    throw new Error('Infinite maps are not yet supported!');
   }
   if (orientation !== 'orthogonal') {
     throw new Error(`Unsupported map orientation: ${orientation}`);
@@ -209,7 +252,7 @@ export default function tiled(input, output, ignore = []) {
             height: parseInt(im.height)
           };
         })
-        .catch(error => console.error(error))
+        .catch(error => console.error(error));
     }
   });
 
@@ -231,6 +274,12 @@ export default function tiled(input, output, ignore = []) {
 
         const buffer = fs.readFileSync(fp.join(dir, ts.source));
         fs.writeFileSync(fp.join(output, ts.source), buffer);
+      }
+
+      const images = getImages(layers, ignore);
+      for (const image of images) {
+        const buffer = fs.readFileSync(fp.join(dir, image));
+        fs.writeFileSync(fp.join(output, image), buffer);
       }
 
       const prefab = {

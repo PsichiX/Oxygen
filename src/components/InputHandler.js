@@ -420,7 +420,7 @@ export default class InputHandler extends Script {
    * @param {*}	config - Configuration object.
    *
    * @example
-   * component.setup({ axes: { 'pos-x': { mouse: 'left' } }, triggers: { action: { key: 32 } } });
+   * component.setup({ axes: { 'pos-x': { mouse: 'x' } }, triggers: { action: { key: 32 } } });
    */
   setup(config) {
     this.clear();
