@@ -215,7 +215,7 @@ export class PostprocessPass {
       0
     );
 
-    renderer.disableShader(_shader);
+    renderer.disableShader();
   }
 
   _ensureState(gl) {
@@ -249,6 +249,7 @@ export default class Camera extends Component {
       renderTargetHeight: 'integer',
       renderTargetScale: 'number',
       renderTargetFloat: 'boolean',
+      renderTargetMultiCount: 'integer',
       layer: 'string_null'
     };
   }
@@ -371,6 +372,22 @@ export default class Camera extends Component {
     this._dirty = true;
   }
 
+  /** @type {number} */
+  get renderTargetMultiCount() {
+    return this._renderTargetMultiCount;
+  }
+
+  /** @type {number} */
+  set renderTargetMultiCount(value) {
+    if (typeof value !== 'number') {
+      throw new Error('`value` is not type of Number');
+    }
+
+    this._renderTargetMultiCount = value;
+    this._renderTargetDirty = true;
+    this._dirty = true;
+  }
+
   /** @type {string|null} */
   get layer() {
     return this._layer;
@@ -414,6 +431,7 @@ export default class Camera extends Component {
     this._renderTargetHeight = 0;
     this._renderTargetScale = 1;
     this._renderTargetFloat = false;
+    this._renderTargetMultiCount = 0;
     this._renderTargetDirty = false;
     this._layer = null;
     this._postprocess = [];
@@ -586,7 +604,8 @@ export default class Camera extends Component {
           this._renderTargetIdUsed,
           width * _renderTargetScale,
           height * _renderTargetScale,
-          this._renderTargetFloat
+          this._renderTargetFloat,
+          this._renderTargetMultiCount
         );
       } else {
         renderer.unregisterRenderTarget(this._renderTargetIdUsed);

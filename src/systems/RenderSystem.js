@@ -63,6 +63,11 @@ export default class RenderSystem extends System {
   }
 
   /** @type {string} */
+  get activeRenderTarget() {
+    return this._activeRenderTarget;
+  }
+
+  /** @type {string} */
   get clearColor() {
     return this._clearColor;
   }
@@ -107,6 +112,7 @@ export default class RenderSystem extends System {
     this._renderTargets = new Map();
     this._events = new Events();
     this._activeShader = null;
+    this._activeRenderTarget = null;
     this._clearColor = vec4.create();
     this._projectionMatrix = mat4.create();
     this._modelViewMatrix = mat4.create();
@@ -150,10 +156,11 @@ export default class RenderSystem extends System {
 
     _events.dispose();
     this._stats.clear();
+    this._extensions = null;
   }
 
   /**
-   * Get WebGL extension by it's name.
+   * Get loaded WebGL extension by it's name.
    *
    * @param {string}	name - Extension name.
    *
@@ -171,6 +178,64 @@ export default class RenderSystem extends System {
   }
 
   /**
+   * Load WebGL extension by it's name.
+   *
+   * @param {string}	name - Extension name.
+   *
+   * @return {*|null} WebGL extension or null if not supported.
+   *
+   * @example
+   * const extension = system.requestExtension('OES_vertex_array_object');
+   * if (!!extension) {
+   *   const vao = extension.createVertexArrayOES();
+   *   extension.bindVertexArrayOES(vao);
+   * }
+   */
+  requestExtension(name) {
+    const { _context, _extensions } = this;
+    if (!_context) {
+      throw new Error('WebGL context is not yet ready!');
+    }
+
+    let ext = _extensions.get(name);
+    if (!!ext) {
+      return ext;
+    }
+
+    ext = _context.getExtension(name);
+    if (!!ext) {
+      _extensions.set(name, ext);
+    } else {
+      console.warn(`Could not get WebGL extension: ${name}`);
+    }
+
+    return ext || null;
+  }
+
+  /**
+   * Load WebGL extensions by their names.
+   *
+   * @param {string}	args - Extension names.
+   *
+   * @return {boolean} True if all are supported and loaded, false otherwise.
+   *
+   * @example
+   * const supported = system.requestExtensions('OES_texture_float', 'OES_texture_float_linear');
+   * if (!supported) {
+   *   throw new Error('One of requested WebGL extensions is not supported!');
+   * }
+   */
+  requestExtensions(...args) {
+    for (const arg of args) {
+      if (!this.requestExtension(arg)) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  /**
    * Register new shader.
    *
    * @param {string}	id - Shader id.
@@ -180,6 +245,7 @@ export default class RenderSystem extends System {
    * @param {*}	uniformsInfo - Uniforms description.
    * @param {*}	samplersInfo - Samplers description.
    * @param {*}	blendingInfo - Blending mode description.
+   * @param {string[]|null}	extensionsInfo - Required extensions list.
    *
    * @example
    * system.registerShader(
@@ -198,7 +264,8 @@ export default class RenderSystem extends System {
     layoutInfo,
     uniformsInfo,
     samplersInfo,
-    blendingInfo
+    blendingInfo,
+    extensionsInfo
   ) {
     if (typeof id !== 'string') {
       throw new Error('`id` is not type of String!');
@@ -215,8 +282,13 @@ export default class RenderSystem extends System {
 
     this.unregisterShader(id);
 
-    const gl = this._context;
+    if (Array.isArray(extensionsInfo) && extensionsInfo.length > 0) {
+      if (!this.requestExtensions(...extensionsInfo)) {
+        throw new Error(`One of shader extensions is not supported (${id})!`);
+      }
+    }
 
+    const gl = this._context;
     const shader = gl.createProgram();
     const vshader = gl.createShader(gl.VERTEX_SHADER);
     const fshader = gl.createShader(gl.FRAGMENT_SHADER);
@@ -534,28 +606,22 @@ export default class RenderSystem extends System {
   }
 
   /**
-   * Disable given shader.
+   * Disable active shader.
    * Make sure that this is currently active shader (otherwise it will unbind wrong shader locations)!
    *
-   * @param {string}	id - Shader id.
-   *
    * @example
-   * const id = 'red';
-   * system.enableShader(id);
-   * system.disableShader(id);
+   * system.enableShader('red');
+   * system.disableShader();
    */
-  disableShader(id) {
-    const { _shaders } = this;
+  disableShader() {
     const gl = this._context;
-    const meta = _shaders.get(id);
-
+    const meta = this._shaders.get(this._activeShader);
     if (!meta) {
-      console.warn(`Trying to disable non-existing shader: ${id}`);
+      console.warn(`Trying to disable non-existing shader: ${this._activeShader}`);
       return;
     }
 
     const { layout } = meta;
-
     for (const { location } of layout.values()) {
       gl.disableVertexAttribArray(location);
     }
@@ -704,6 +770,13 @@ export default class RenderSystem extends System {
    * system.registerTextureEmpty('offscreen', 512, 512);
    */
   registerTextureEmpty(id, width, height, floatPointData = false) {
+    if (!!floatPointData && !this.requestExtensions(
+      'OES_texture_float',
+      'OES_texture_float_linear'
+    )) {
+      throw new Error('Float textures are not supported!');
+    }
+
     this.unregisterTexture(id);
 
     const gl = this._context;
@@ -778,39 +851,95 @@ export default class RenderSystem extends System {
    * @param {number}	width - Width.
    * @param {number}	height - Height.
    * @param {boolean}	floatPointData - Tells if render target will store floating point data.
+   * @param {number}  multiTargetsCount - Number of target color attachments.
    *
    * @example
    * system.registerRenderTarget('offscreen', 512, 512);
    */
-  registerRenderTarget(id, width, height, floatPointData = false) {
+  registerRenderTarget(
+    id,
+    width,
+    height,
+    floatPointData = false,
+    multiTargetsCount = 0
+  ) {
+    if (!!floatPointData && !this.requestExtensions(
+      'OES_texture_float',
+      'OES_texture_float_linear'
+    )) {
+      throw new Error('Float textures are not supported!');
+    }
+    if (!!multiTargetsCount > 0 && !this.requestExtensions(
+      'WEBGL_draw_buffers'
+    )) {
+      throw new Error('Draw buffers are not supported!');
+    }
+
     this.unregisterRenderTarget(id);
 
     const gl = this._context;
     width = Math.max(1, width);
     height = Math.max(1, height);
 
-    this.registerTextureEmpty(id, width, height, floatPointData);
-    const texture = this._textures.get(id);
-    if (!texture) {
-      return;
+    if (multiTargetsCount > 0) {
+      const ext = this.extension('WEBGL_draw_buffers');
+      const textures = [];
+      const buffers = [];
+      for (let i = 0; i < multiTargetsCount; ++i) {
+        const tid = `${id}-${i}`;
+        this.registerTextureEmpty(tid, width, height, floatPointData);
+        const texture = this._textures.get(tid);
+        if (!texture) {
+          return;
+        }
+        textures.push(texture);
+        buffers.push(ext.COLOR_ATTACHMENT0_WEBGL + i);
+      }
+
+      const target = gl.createFramebuffer();
+      gl.bindFramebuffer(gl.FRAMEBUFFER, target);
+      for (let i = 0; i < multiTargetsCount; ++i) {
+        gl.framebufferTexture2D(
+          gl.FRAMEBUFFER,
+          buffers[i],
+          gl.TEXTURE_2D,
+          textures[i].texture,
+          0
+        );
+      }
+      gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+
+      this._renderTargets.set(id, {
+        target,
+        width,
+        height,
+        multiTargets: buffers
+      });
+    } else {
+      this.registerTextureEmpty(id, width, height, floatPointData);
+      const texture = this._textures.get(id);
+      if (!texture) {
+        return;
+      }
+
+      const target = gl.createFramebuffer();
+      gl.bindFramebuffer(gl.FRAMEBUFFER, target);
+      gl.framebufferTexture2D(
+        gl.FRAMEBUFFER,
+        gl.COLOR_ATTACHMENT0,
+        gl.TEXTURE_2D,
+        texture.texture,
+        0
+      );
+      gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+
+      this._renderTargets.set(id, {
+        target,
+        width,
+        height,
+        multiTargets: null
+      });
     }
-
-    const target = gl.createFramebuffer();
-    gl.bindFramebuffer(gl.FRAMEBUFFER, target);
-    gl.framebufferTexture2D(
-      gl.FRAMEBUFFER,
-      gl.COLOR_ATTACHMENT0,
-      gl.TEXTURE_2D,
-      texture.texture,
-      0
-    );
-    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-
-    this._renderTargets.set(id, {
-      target,
-      width,
-      height
-    });
   }
 
   /**
@@ -822,13 +951,18 @@ export default class RenderSystem extends System {
    * system.unregisterRenderTarget('offscreen');
    */
   unregisterRenderTarget(id) {
-    this.unregisterTexture(id);
-
     const { _renderTargets } = this;
     const gl = this._context;
     const target = _renderTargets.get(id);
 
     if (!!target) {
+      if (target.multiTargets && target.multiTargets.length > 0) {
+        for (let i = 0; i < target.multiTargets.length; ++i) {
+          this.unregisterTexture(`${id}-${i}`);
+        }
+      } else {
+        this.unregisterTexture(id);
+      }
       gl.deleteFramebuffer(target.target);
       _renderTargets.delete(id);
     }
@@ -868,8 +1002,15 @@ export default class RenderSystem extends System {
     }
 
     gl.bindFramebuffer(gl.FRAMEBUFFER, target.target);
+    if (!!target.multiTargets) {
+      const ext = this.extension('WEBGL_draw_buffers');
+      if (!!ext) {
+        ext.drawBuffersWEBGL(target.multiTargets);
+      }
+    }
     gl.viewport(0, 0, target.width, target.height);
     gl.clear(gl.COLOR_BUFFER_BIT);
+    this._activeRenderTarget = id;
   }
 
   /**
@@ -879,10 +1020,21 @@ export default class RenderSystem extends System {
    * system.disableRenderTarget();
    */
   disableRenderTarget() {
-    const { _context, _canvas } = this;
+    const { _context, _canvas, _activeRenderTarget } = this;
+    if (!_activeRenderTarget) {
+      return;
+    }
 
+    const target = this._renderTargets.get(_activeRenderTarget);
+    if (!!target.multiTargets) {
+      const ext = this.extension('WEBGL_draw_buffers');
+      if (!!ext) {
+        ext.drawBuffersWEBGL([]);
+      }
+    }
     _context.bindFramebuffer(_context.FRAMEBUFFER, null);
     _context.viewport(0, 0, _canvas.width, _canvas.height);
+    this._activeRenderTarget = null;
   }
 
   /**
@@ -985,12 +1137,7 @@ export default class RenderSystem extends System {
     }
 
     for (const name of this._extensions.keys()) {
-      const ext = gl.getExtension(name);
-      if (!!ext) {
-        this._extensions.set(name, ext);
-      } else {
-        console.warn(`Could not get WebGL extension: ${name}`);
-      }
+      this.requestExtension(name);
     }
 
     gl.viewport(0, 0, canvas.width, canvas.height);
@@ -1047,6 +1194,7 @@ export default class RenderSystem extends System {
     this._lastTimestamp = timestamp;
     this._counterShaderChanges = 0
     this._activeShader = null;
+    this._activeRenderTarget = null;
 
     gl.clearColor(cr, cg, cb, ca);
     gl.clear(gl.COLOR_BUFFER_BIT);
@@ -1058,6 +1206,8 @@ export default class RenderSystem extends System {
     _stats.set('frames', ++this._counterFrames);
     _stats.set('shaders', this._shaders.size);
     _stats.set('textures', this._textures.size);
+    _stats.set('renderTargets', this._renderTargets.size);
+    _stats.set('extensions', this._extensions.keys());
 
     this._requestFrame();
   }

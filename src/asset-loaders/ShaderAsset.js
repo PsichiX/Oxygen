@@ -54,7 +54,7 @@ export default class ShaderAsset extends Asset {
   }
 
   /**
-   * @override 
+   * @override
    */
   load() {
     const { filename, owner } = this;
@@ -92,7 +92,8 @@ export default class ShaderAsset extends Asset {
           layout: descriptor.layout,
           uniforms: descriptor.uniforms,
           samplers: descriptor.samplers,
-          blending: descriptor.blending
+          blending: descriptor.blending,
+          extensions: descriptor.extensions
         };
 
         return this;

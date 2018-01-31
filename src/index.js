@@ -274,7 +274,8 @@ export function lazyInitialization({ entity, asset, render, input, store, events
         data.layout,
         data.uniforms,
         data.samplers,
-        data.blending
+        data.blending,
+        data.extensions
       );
     } else if (protocol === 'sound') {
       audio.registerSound(filename, data);

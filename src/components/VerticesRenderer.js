@@ -492,7 +492,7 @@ export default class VerticesRenderer extends Component {
       0
     );
 
-    renderer.disableShader(_shader);
+    renderer.disableShader();
   }
 
   onRenderLayer(gl, renderer, deltaTime, layer) {
