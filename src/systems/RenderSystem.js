@@ -576,10 +576,6 @@ export default class RenderSystem extends System {
     }
 
     for (const { location, channel, texture, filtering } of samplers.values()) {
-      if (texture === '') {
-        continue;
-      }
-
       const tex = _textures.get(texture);
       if (!tex) {
         console.warn(`Trying to enable non-existing texture: ${texture} (${id})`);
@@ -683,18 +679,17 @@ export default class RenderSystem extends System {
    * Give active shader sampler different than it's default texture.
    *
    * @param {string}	name - Sampler id.
-   * @param {string}	texture - Texture id.
-   * @param {string}	filtering - Sampler filtering. Can be linear or nearest.
+   * @param {string|null}	texture - Texture id.
+   * @param {string|null}	filtering - Sampler filtering. Can be linear or nearest.
    *
    * @example
    * system.enableShader('sprite');
-   * system.overrideShaderSampler('sTexture', 'marsian', 'linear');
+   * system.overrideShaderSampler('sTexture', 'martian', 'linear');
    */
   overrideShaderSampler(name, texture, filtering) {
     const { _shaders, _textures, _activeShader } = this;
     const gl = this._context;
     const meta = _shaders.get(_activeShader);
-
     if (!meta) {
       console.warn(`Trying to set sampler of non-existing shader: ${_activeShader}`);
       return;
@@ -702,15 +697,17 @@ export default class RenderSystem extends System {
 
     const { samplers } = meta;
     const sampler = samplers.get(name);
-
     if (!sampler) {
       console.warn(`Trying to set non-existing sampler: ${_activeShader} (${name})`);
       return;
     }
 
+    texture = texture || sampler.texture;
+    filtering = filtering || sampler.filtering;
+
     const tex = _textures.get(texture);
     if (!tex) {
-      console.warn(`Trying to enable non-existing texture: ${texture} (${texture})`);
+      console.warn(`Trying to enable non-existing texture: ${texture} (${name})`);
       return;
     }
 
@@ -759,17 +756,18 @@ export default class RenderSystem extends System {
   }
 
   /**
-   * Register empty texture (mostly usedin  offscreen rendering cases).
+   * Register empty texture (mostly used in offscreen rendering cases).
    *
    * @param {string}	id - Texture id.
    * @param {number}	width - Width.
    * @param {number}	height - Height.
    * @param {boolean}	floatPointData - Tells if this texture will store floating point data.
+   * @param {ArrayBufferView|null} pixelData - ArrayBuffer view with pixel data or null if empty.
    *
    * @example
    * system.registerTextureEmpty('offscreen', 512, 512);
    */
-  registerTextureEmpty(id, width, height, floatPointData = false) {
+  registerTextureEmpty(id, width, height, floatPointData = false, pixelData = null) {
     if (!!floatPointData && !this.requestExtensions(
       'OES_texture_float',
       'OES_texture_float_linear'
@@ -794,7 +792,7 @@ export default class RenderSystem extends System {
       0,
       gl.RGBA,
       !!floatPointData ? gl.FLOAT : gl.UNSIGNED_BYTE,
-      null
+      pixelData
     );
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
@@ -807,6 +805,32 @@ export default class RenderSystem extends System {
       width,
       height
     });
+  }
+
+  /**
+   * Register colored texture (mostly used to create solid color textures).
+   *
+   * @param {string}	id - Texture id.
+   * @param {number}	width - Width.
+   * @param {number}	height - Height.
+   * @param {number}  r - Red value.
+   * @param {number}  g - Green value.
+   * @param {number}  b - Blue value.
+   * @param {number}  a - Alpha value.
+   *
+   * @example
+   * system.registerTextureEmpty('offscreen', 512, 512);
+   */
+  registerTextureColor(id, width, height, r, g, b, a) {
+    const c = width * height * 4;
+    const data = new Uint8Array(c);
+    for (let i = 0; i < c; i += 4) {
+      data[i] = r;
+      data[i + 1] = g;
+      data[i + 2] = b;
+      data[i + 3] = a;
+    }
+    return this.registerTextureEmpty(id, width, height, false, data);
   }
 
   /**
@@ -1143,6 +1167,8 @@ export default class RenderSystem extends System {
     gl.viewport(0, 0, canvas.width, canvas.height);
     gl.clearColor(0.0, 0.0, 0.0, 0.0);
     gl.clear(gl.COLOR_BUFFER_BIT);
+
+    this.registerTextureColor('', 1, 1, 255, 255, 255, 255);
 
     this._blendingConstants = {
       'zero': gl.ZERO,

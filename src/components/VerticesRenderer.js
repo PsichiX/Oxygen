@@ -479,9 +479,7 @@ export default class VerticesRenderer extends Component {
 
     if (_overrideSamplers.size > 0) {
       for (const [ name, { texture, filtering } ] of _overrideSamplers) {
-        if (texture !== '') {
-          renderer.overrideShaderSampler(name, texture, filtering);
-        }
+        renderer.overrideShaderSampler(name, texture, filtering);
       }
     }
 
