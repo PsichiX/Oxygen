@@ -412,6 +412,16 @@ export default class Camera extends Component {
     return this._inverseProjectionMatrix;
   }
 
+  /** @type {Command[]|null} */
+  get commands() {
+    return this._commands;
+  }
+
+  /** @type {Command[]|null} */
+  set commands(value) {
+    this._commands = value || null;
+  }
+
   /**
    * Constructor.
    */
@@ -438,6 +448,7 @@ export default class Camera extends Component {
     this._postprocessRtt = null;
     this._postprocessCachedWidth = 0;
     this._postprocessCachedHeight = 0;
+    this._commands = null;
     this._dirty = true;
     this._onResize = this.onResize.bind(this);
   }
@@ -449,6 +460,7 @@ export default class Camera extends Component {
     super.dispose();
 
     this._postprocess = null;
+    this._commands = null;
     const {
       _context,
       _renderTargetIdUsed,
@@ -482,6 +494,11 @@ export default class Camera extends Component {
     throw new Error('Not implemented!');
   }
 
+  /**
+   * Register postprocess pass.
+   *
+   * @param {PostprocessPass}	pass - Postprocess pass.
+   */
   registerPostprocessPass(pass) {
     if (!(pass instanceof PostprocessPass)) {
       throw new Error('`pass` is not type of PostprocessPass!');
@@ -495,6 +512,11 @@ export default class Camera extends Component {
     _postprocess.push(pass);
   }
 
+  /**
+   * Unregister postprocess pass.
+   *
+   * @param {PostprocessPass}	pass - Postprocess pass.
+   */
   unregisterPostprocessPass(pass) {
     if (!(pass instanceof PostprocessPass)) {
       throw new Error('`pass` is not type of PostprocessPass!');
@@ -651,10 +673,14 @@ export default class Camera extends Component {
       if (!!this._renderTargetIdUsed) {
         renderer.enableRenderTarget(this._renderTargetIdUsed);
       }
-      if (!!this._layer) {
-        target.performAction('render-layer', gl, renderer, deltaTime, this._layer);
+      if (!!this._commands) {
+        renderer.executeCommands(this._commands, deltaTime, this._layer);
       } else {
-        target.performAction('render', gl, renderer, deltaTime, null);
+        if (!!this._layer) {
+          target.performAction('render-layer', gl, renderer, deltaTime, this._layer);
+        } else {
+          target.performAction('render', gl, renderer, deltaTime, null);
+        }
       }
       if (!!this._renderTargetIdUsed) {
         renderer.disableRenderTarget();

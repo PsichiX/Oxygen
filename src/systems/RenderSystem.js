@@ -3,6 +3,26 @@ import Events from '../utils/Events';
 import { vec4, mat4 } from '../utils/gl-matrix';
 
 /**
+ * Rendering command base class.
+ */
+export class Command {
+
+  /**
+   * Called when command is executed.
+   *
+   * @abstract
+   * @param {WebGLRenderingContext}	gl - WebGL context.
+   * @param {RenderSystem}	renderer - Render system that is used to render.
+   * @param {number}	deltaTime - Delta time.
+   * @param {string}	layer - Layer id.
+   */
+  onRender(gl, renderer, deltaTime, layer) {
+    throw new Error('Not implemented!');
+  }
+
+}
+
+/**
  * Rendering graphics onto screen canvas.
  *
  * @example
@@ -233,6 +253,32 @@ export default class RenderSystem extends System {
     }
 
     return true;
+  }
+
+  /**
+   * Execute rendering commands.
+   *
+   * @param {Command[]}	commands - Array of commands to execute.
+   * @param {number}	deltaTime - Delta time.
+   * @param {string|null}	layer - Layer ID.
+   */
+  executeCommands(commands, deltaTime, layer) {
+    if (!Array.isArray(commands)) {
+      throw new Error('`commands` is not type of Array!');
+    }
+    for (const command of commands) {
+      if (!(command instanceof Command)) {
+        throw new Error('One of `commands` items is not type of Command!');
+      }
+    }
+    if (typeof deltaTime !== 'number') {
+      throw new Error('`deltaTime` is not type of Number!');
+    }
+
+    const { _context } = this;
+    for (const command of commands) {
+      command.onRender(_context, this, deltaTime, layer);
+    }
   }
 
   /**
@@ -1011,12 +1057,13 @@ export default class RenderSystem extends System {
   /**
    * Make given render target active for further rendering.
    *
-   * @param {string}	id - Render target id.
+   * @param {string}	id - Render target id
+   * @param {bool} clearBuffer - clear buffer.
    *
    * @example
    * system.enableRenderTarget('offscreen');
    */
-  enableRenderTarget(id) {
+  enableRenderTarget(id, clearBuffer = true) {
     const { _renderTargets } = this;
     const gl = this._context;
     const target = _renderTargets.get(id);
@@ -1033,7 +1080,10 @@ export default class RenderSystem extends System {
       }
     }
     gl.viewport(0, 0, target.width, target.height);
-    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.scissor(0, 0, target.width, target.height);
+    if (!!clearBuffer) {
+      gl.clear(gl.COLOR_BUFFER_BIT);
+    }
     this._activeRenderTarget = id;
   }
 
@@ -1058,6 +1108,7 @@ export default class RenderSystem extends System {
     }
     _context.bindFramebuffer(_context.FRAMEBUFFER, null);
     _context.viewport(0, 0, _canvas.width, _canvas.height);
+    _context.scissor(0, 0, _canvas.width, _canvas.height);
     this._activeRenderTarget = null;
   }
 
@@ -1114,6 +1165,7 @@ export default class RenderSystem extends System {
       _canvas.width = clientWidth;
       _canvas.height = clientHeight;
       _context.viewport(0, 0, clientWidth, clientHeight);
+      _context.scissor(0, 0, clientWidth, clientHeight);
       this._events.trigger('resize', clientWidth, clientHeight);
     }
   }
@@ -1164,7 +1216,9 @@ export default class RenderSystem extends System {
       this.requestExtension(name);
     }
 
+    gl.enable(gl.SCISSOR_TEST);
     gl.viewport(0, 0, canvas.width, canvas.height);
+    gl.scissor(0, 0, canvas.width, canvas.height);
     gl.clearColor(0.0, 0.0, 0.0, 0.0);
     gl.clear(gl.COLOR_BUFFER_BIT);
 
