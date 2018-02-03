@@ -31,13 +31,14 @@ import UiLayout from './components/UiLayout';
 import Skeleton from './components/Skeleton';
 import SortedActions from './components/SortedActions';
 import Postprocess from './components/Postprocess';
+import DeferredRenderer, { DeferredPipeline } from './components/DeferredRenderer';
 import System from './systems/System';
 import EntitySystem from './systems/EntitySystem';
 import Component from './systems/EntitySystem/Component';
 import Entity from './systems/EntitySystem/Entity';
 import AssetSystem from './systems/AssetSystem';
 import Asset from './systems/AssetSystem/Asset';
-import RenderSystem from './systems/RenderSystem';
+import RenderSystem, { Command, Pipeline, RenderFullscreenCommand } from './systems/RenderSystem';
 import InputSystem from './systems/InputSystem';
 import StorageSystem from './systems/StorageSystem';
 import AudioSystem from './systems/AudioSystem';
@@ -98,11 +99,16 @@ export default {
   Skeleton,
   SortedActions,
   Postprocess,
+  DeferredRenderer,
+  DeferredPipeline,
   System,
   EntitySystem,
   Component,
   Entity,
   RenderSystem,
+  Command,
+  Pipeline,
+  RenderFullscreenCommand,
   InputSystem,
   StorageSystem,
   AssetSystem,
@@ -160,11 +166,16 @@ export {
   Skeleton,
   SortedActions,
   Postprocess,
+  DeferredRenderer,
+  DeferredPipeline,
   System,
   EntitySystem,
   Component,
   Entity,
   RenderSystem,
+  Command,
+  Pipeline,
+  RenderFullscreenCommand,
   InputSystem,
   StorageSystem,
   AssetSystem,
@@ -246,6 +257,7 @@ export function lazyInitialization({ entity, asset, render, input, store, events
   entities.registerComponent('Skeleton', Skeleton.factory);
   entities.registerComponent('SortedActions', SortedActions.factory);
   entities.registerComponent('Postprocess', Postprocess.factory);
+  entities.registerComponent('DeferredRenderer', DeferredRenderer.factory);
 
   assets.registerProtocol('json', JSONAsset.factory);
   assets.registerProtocol('text', TextAsset.factory);

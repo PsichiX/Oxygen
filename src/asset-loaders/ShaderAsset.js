@@ -1,5 +1,7 @@
 import Asset from '../systems/AssetSystem/Asset';
 
+const includePattern = /\#include\s+\"([\w/.-]+)\"/g;
+
 /**
  * Shader asset loader.
  */
@@ -28,6 +30,7 @@ export default class ShaderAsset extends Asset {
     this._descriptorAsset = null;
     this._vertexAsset = null;
     this._fragmentAsset = null;
+    this._includes = null;
   }
 
   /**
@@ -36,7 +39,12 @@ export default class ShaderAsset extends Asset {
   dispose() {
     super.dispose();
 
-    const { _descriptorAsset, _vertexAsset, _fragmentAsset } = this;
+    const {
+      _descriptorAsset,
+      _vertexAsset,
+      _fragmentAsset,
+      _includes
+    } = this;
 
     if (!!_descriptorAsset) {
       _descriptorAsset.dispose();
@@ -47,10 +55,16 @@ export default class ShaderAsset extends Asset {
     if (!!_fragmentAsset) {
       _fragmentAsset.dispose();
     }
+    if (!!_includes) {
+      for (const item of _includes) {
+        item.dispose();
+      }
+    }
 
     this._descriptorAsset = null;
     this._vertexAsset = null;
     this._fragmentAsset = null;
+    this._includes = null;
   }
 
   /**
@@ -75,20 +89,27 @@ export default class ShaderAsset extends Asset {
           );
         }
 
-        this._descriptorAsset = descriptorAsset;
-        return owner.loadSequence([
+        const result = [
           `text://${descriptor.vertex}`,
           `text://${descriptor.fragment}`
-        ]);
+        ];
+        if (Array.isArray(descriptor.includes)) {
+          for (const item of descriptor.includes) {
+            result.push(`text://${item}`);
+          }
+        }
+
+        this._descriptorAsset = descriptorAsset;
+        return owner.loadSequence(result);
       })
       .then(sources => {
         const [ vertex, fragment ] = sources;
-
+        this._includes = sources.slice(2);
         this._vertexAsset = vertex;
         this._fragmentAsset = fragment;
         this.data = {
-          vertex: vertex.data,
-          fragment: fragment.data,
+          vertex: this._implement(vertex.data, this._includes),
+          fragment: this._implement(fragment.data, this._includes),
           layout: descriptor.layout,
           uniforms: descriptor.uniforms,
           samplers: descriptor.samplers,
@@ -98,6 +119,22 @@ export default class ShaderAsset extends Asset {
 
         return this;
       });
+  }
+
+  _implement(source, includes) {
+    if (!includes || includes.length <= 0) {
+      return source;
+    }
+
+    const { owner } = this;
+    return source.replace(includePattern, (m, p) => {
+      const asset = owner.get(`text://${p}`);
+      if (!asset) {
+        throw new Error(`There is no loaded include shader: ${p}`);
+      }
+
+      return asset.data;
+    });
   }
 
 }

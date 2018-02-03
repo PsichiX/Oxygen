@@ -18,6 +18,7 @@ import UiLayout from './UiLayout';
 import Skeleton from './Skeleton';
 import SortedActions from './SortedActions';
 import Postprocess from './Postprocess';
+import DeferredRenderer, { DeferredPipeline } from './DeferredRenderer';
 
 export default {
   Camera,
@@ -40,7 +41,9 @@ export default {
   UiLayout,
   Skeleton,
   SortedActions,
-  Postprocess
+  Postprocess,
+  DeferredRenderer,
+  DeferredPipeline
 };
 
 export {
@@ -64,5 +67,7 @@ export {
   UiLayout,
   Skeleton,
   SortedActions,
-  Postprocess
+  Postprocess,
+  DeferredRenderer,
+  DeferredPipeline
 };

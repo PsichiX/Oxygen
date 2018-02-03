@@ -133,8 +133,10 @@ export default class Postprocess extends Component {
 
     if (!!_passInstances && _passInstances.length > 0) {
       this._passes = _passInstances.map(pass => {
+        const data = pass.serialize();
         _camera.unregisterPostprocessPass(pass);
-        return pass.serialize();
+        pass.dispose();
+        return data;
       });
       this._passInstances = null;
     }

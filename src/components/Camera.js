@@ -1,4 +1,5 @@
 import Component from '../systems/EntitySystem/Component';
+import { Command, RenderFullscreenCommand } from '../systems/RenderSystem';
 import System from '../systems/System';
 import { mat4 } from '../utils/gl-matrix';
 
@@ -6,16 +7,6 @@ const cachedTempMat4 = mat4.create();
 const cachedZeroMat4 = mat4.fromValues(
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 );
-const vertices = new Float32Array([
-  -1, -1, 0, 0,
-  1, -1, 1, 0,
-  1, 1, 1, 1,
-  -1, 1, 0, 1
-]);
-const indices = new Uint16Array([
-  0, 1, 2,
-  2, 3, 0
-]);
 let rttUidGenerator = 0;
 
 /**
@@ -26,78 +17,7 @@ let rttUidGenerator = 0;
  * pass.deserialize({ shader: 'pixelate.json', overrideUniforms: { uScale: [100, 100] } });
  * camera.registerPostprocessPass(pass);
  */
-export class PostprocessPass {
-
-  /** @type {string|null} */
-  get shader() {
-    return this._shader;
-  }
-
-  /** @type {string|null} */
-  set shader(value) {
-    if (!value) {
-      this._shader = null;
-      return;
-    }
-    if (typeof value !== 'string') {
-      throw new Error('`value` is not type of String!');
-    }
-
-    this._shader = value;
-  }
-
-  /** @type {*} */
-  get overrideUniforms() {
-    return this._overrideUniforms;
-  }
-
-  /** @type {*} */
-  get overrideSamplers() {
-    return this._overrideSamplers;
-  }
-
-  /**
-   * Constructor.
-   */
-  constructor() {
-    this._context = null;
-    this._vertexBuffer = null;
-    this._indexBuffer = null;
-    this._shader = null;
-    this._overrideUniforms = new Map();
-    this._overrideSamplers = new Map();
-    this._dirty = true;
-  }
-
-  /**
-   * Destructor (dispose internal resources).
-   *
-   * @example
-   * pass.dispose();
-   * pass = null;
-   */
-  dispose() {
-    const { _context, _vertexBuffer, _indexBuffer } = this;
-
-    if (!!_context) {
-      if (!!_vertexBuffer) {
-        _context.deleteBuffer(_vertexBuffer);
-      }
-      if (!!_indexBuffer) {
-        _context.deleteBuffer(_indexBuffer);
-      }
-    }
-
-    this._overrideUniforms.clear();
-    this._overrideSamplers.clear();
-
-    this._context = null;
-    this._vertexBuffer = null;
-    this._indexBuffer = null;
-    this._shader = null;
-    this._overrideUniforms = null;
-    this._overrideSamplers = null;
-  }
+export class PostprocessPass extends RenderFullscreenCommand {
 
   /**
    * Serialize pass state into JSON object.
@@ -163,75 +83,6 @@ export class PostprocessPass {
     }
   }
 
-  /**
-   * Called when camera need to postprocess it's rendered image.
-   *
-   * @param {WebGLRenderingContext}	gl - WebGL context.
-   * @param {RenderSystem}	renderer - Render system that is used to render.
-   * @param {number}	deltaTime - Delta time.
-   */
-  onRender(gl, renderer, deltaTime) {
-    const {
-      _shader,
-      _overrideUniforms,
-      _overrideSamplers
-    } = this;
-
-    if (!_shader) {
-      console.warn('Trying to render PostprocessPass without shader!');
-      return;
-    }
-
-    this._ensureState(gl);
-    gl.bindBuffer(gl.ARRAY_BUFFER, this._vertexBuffer);
-    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this._indexBuffer);
-
-    if (this._dirty) {
-      this._dirty = false;
-      gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
-      gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, indices, gl.STATIC_DRAW);
-    }
-
-    renderer.enableShader(_shader);
-
-    if (_overrideUniforms.size > 0) {
-      for (const [ name, value ] of _overrideUniforms) {
-        renderer.overrideShaderUniform(name, value);
-      }
-    }
-
-    if (_overrideSamplers.size > 0) {
-      for (const [ name, { texture, filtering } ] of _overrideSamplers) {
-        if (texture !== '') {
-          renderer.overrideShaderSampler(name, texture, filtering);
-        }
-      }
-    }
-
-    gl.drawElements(
-      gl.TRIANGLES,
-      indices.length,
-      gl.UNSIGNED_SHORT,
-      0
-    );
-
-    renderer.disableShader();
-  }
-
-  _ensureState(gl) {
-    this._context = gl;
-
-    if (!this._vertexBuffer) {
-      this._vertexBuffer = gl.createBuffer();
-      this._dirty = true;
-    }
-
-    if (!this._indexBuffer) {
-      this._indexBuffer = gl.createBuffer();
-      this._dirty = true;
-    }
-  }
-
 }
 
 /**
@@ -289,7 +140,6 @@ export default class Camera extends Component {
     }
 
     this._captureEntity = value;
-    this._dirty = true;
   }
 
   /** @type {string|null} */
@@ -412,14 +262,23 @@ export default class Camera extends Component {
     return this._inverseProjectionMatrix;
   }
 
-  /** @type {Command[]|null} */
-  get commands() {
-    return this._commands;
+  /** @type {Command|null} */
+  get command() {
+    return this._command;
   }
 
-  /** @type {Command[]|null} */
-  set commands(value) {
-    this._commands = value || null;
+  /** @type {Command|null} */
+  set command(value) {
+    if (!value) {
+      this._command = null;
+      return;
+    }
+
+    if (!(value instanceof Command)) {
+      throw new Error('`value` is not type of Command!');
+    }
+
+    this._command = value;
   }
 
   /**
@@ -448,7 +307,7 @@ export default class Camera extends Component {
     this._postprocessRtt = null;
     this._postprocessCachedWidth = 0;
     this._postprocessCachedHeight = 0;
-    this._commands = null;
+    this._command = null;
     this._dirty = true;
     this._onResize = this.onResize.bind(this);
   }
@@ -460,25 +319,32 @@ export default class Camera extends Component {
     super.dispose();
 
     this._postprocess = null;
-    this._commands = null;
     const {
       _context,
       _renderTargetIdUsed,
-      _postprocessRtt
+      _postprocessRtt,
+      _command
     } = this;
 
     if (!!_context) {
       if (!!_renderTargetIdUsed) {
         _context.unregisterRenderTarget(_renderTargetIdUsed);
-        this._renderTargetIdUsed = null;
       }
       if (!!_postprocessRtt) {
         _context.unregisterRenderTarget(_postprocessRtt[0]);
         _context.unregisterRenderTarget(_postprocessRtt[1]);
-        this._postprocessRtt = null;
       }
 
       this._context = null;
+    }
+
+    this._renderTargetId = null;
+    this._renderTargetIdUsed = null;
+    this._postprocessRtt = null;
+
+    if (!!_command) {
+      _command.dispose();
+      this._command = null;
     }
   }
 
@@ -535,6 +401,20 @@ export default class Camera extends Component {
         this._postprocessCachedHeight = 0;
       }
     }
+  }
+
+  /**
+   * Unregister all postprocess passes.
+   */
+  unregisterAllPostprocessPasses() {
+    const { _postprocess } = this;
+    if (!_postprocess) {
+      return;
+    }
+
+    this._postprocess = [];
+    this._postprocessCachedWidth = 0;
+    this._postprocessCachedHeight = 0;
   }
 
   /**
@@ -621,6 +501,9 @@ export default class Camera extends Component {
 
     if (this._renderTargetDirty) {
       if (!!this._renderTargetId) {
+        if (!!this._renderTargetIdUsed) {
+          renderer.unregisterRenderTarget(this._renderTargetIdUsed);
+        }
         this._renderTargetIdUsed = this._renderTargetId;
         renderer.registerRenderTarget(
           this._renderTargetIdUsed,
@@ -673,8 +556,8 @@ export default class Camera extends Component {
       if (!!this._renderTargetIdUsed) {
         renderer.enableRenderTarget(this._renderTargetIdUsed);
       }
-      if (!!this._commands) {
-        renderer.executeCommands(this._commands, deltaTime, this._layer);
+      if (!!this._command) {
+        renderer.executeCommand(this._command, deltaTime, this._layer);
       } else {
         if (!!this._layer) {
           target.performAction('render-layer', gl, renderer, deltaTime, this._layer);
@@ -693,10 +576,14 @@ export default class Camera extends Component {
         filtering: 'linear'
       });
       renderer.enableRenderTarget(id);
-      if (!!this._layer) {
-        target.performAction('render-layer', gl, renderer, deltaTime, this._layer);
+      if (!!this._command) {
+        renderer.executeCommand(this._command, deltaTime, this._layer);
       } else {
-        target.performAction('render', gl, renderer, deltaTime, null);
+        if (!!this._layer) {
+          target.performAction('render-layer', gl, renderer, deltaTime, this._layer);
+        } else {
+          target.performAction('render', gl, renderer, deltaTime, null);
+        }
       }
       if (!!this._renderTargetIdUsed) {
         renderer.enableRenderTarget(this._renderTargetIdUsed);
@@ -709,10 +596,14 @@ export default class Camera extends Component {
     } else {
       const id = this._postprocessRtt[0];
       renderer.enableRenderTarget(id);
-      if (!!this._layer) {
-        target.performAction('render-layer', gl, renderer, deltaTime, this._layer);
+      if (!!this._command) {
+        renderer.executeCommand(this._command, deltaTime, this._layer);
       } else {
-        target.performAction('render', gl, renderer, deltaTime, null);
+        if (!!this._layer) {
+          target.performAction('render-layer', gl, renderer, deltaTime, this._layer);
+        } else {
+          target.performAction('render', gl, renderer, deltaTime, null);
+        }
       }
       for (let i = 0, c = _postprocess.length; i < c; ++i) {
         const pass = _postprocess[i];
@@ -751,12 +642,15 @@ export default class Camera extends Component {
    * @param {number}	height - Height.
    */
   onResize(width, height) {
-    const { _renderTargetWidth, _renderTargetHeight } = this;
+    const { _renderTargetWidth, _renderTargetHeight, _command } = this;
     if (_renderTargetWidth <= 0 || _renderTargetHeight <= 0) {
       this._renderTargetDirty = true;
       this._postprocessCachedWidth = 0;
       this._postprocessCachedHeight = 0;
       this._dirty = true;
+    }
+    if (!!_command) {
+      _command.onResize(width, height);
     }
   }
 

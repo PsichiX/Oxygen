@@ -50,7 +50,7 @@ export default class Sprite extends RectangleRenderer {
       throw new Error('`value` is not type of String!');
     }
 
-    const sampler = overrideSamplers['sBase'];
+    const sampler = overrideSamplers.sBase;
 
     if (!sampler) {
       overrideSamplers.sBase = {

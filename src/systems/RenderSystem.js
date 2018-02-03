@@ -2,10 +2,30 @@ import System from './System';
 import Events from '../utils/Events';
 import { vec4, mat4 } from '../utils/gl-matrix';
 
+const vertices = new Float32Array([
+  -1, -1, 0, 0,
+  1, -1, 1, 0,
+  1, 1, 1, 1,
+  -1, 1, 0, 1
+]);
+const indices = new Uint16Array([
+  0, 1, 2,
+  2, 3, 0
+]);
+
 /**
  * Rendering command base class.
  */
 export class Command {
+
+  /**
+   * Dispose (release all internal resources).
+   *
+   * @example
+   * command.dispose();
+   * command = null;
+   */
+  dispose() {}
 
   /**
    * Called when command is executed.
@@ -18,6 +38,241 @@ export class Command {
    */
   onRender(gl, renderer, deltaTime, layer) {
     throw new Error('Not implemented!');
+  }
+
+  /**
+   * Called on view resize.
+   *
+   * @param {number}	width - Width.
+   * @param {number}	height - Height.
+   */
+  onResize(width, height) {}
+
+}
+
+/**
+ * Rendering pipeline base class.
+ * Pipeline is a set of commands to render at once.
+ */
+export class Pipeline extends Command {
+
+  get commands() {
+    return this._commands;
+  }
+
+  set commands(value) {
+    if (!value) {
+      this._commands = null;
+      return;
+    }
+
+    if (!Array.isArray(value)) {
+      throw new Error('`value` is not type of Array!');
+    }
+    for (const item of value) {
+      if (!(item instanceof Command)) {
+        throw new Error('One of `value` items is not type of Command!');
+      }
+    }
+
+    this._commands = value;
+  }
+
+  /**
+   * Constructor.
+   */
+  constructor(commands = null) {
+    super();
+
+    this.commands = commands;
+  }
+
+  /**
+   * @override
+   */
+  dispose() {
+    const { _commands } = this;
+    if (!!_commands) {
+      for (const command of _commands) {
+        command.dispose();
+      }
+
+      this._commands = null;
+    }
+  }
+
+  /**
+   * @override
+   */
+  onRender(gl, renderer, deltaTime, layer) {
+    const { _commands } = this;
+    if (!!_commands) {
+      for (const command of _commands) {
+        command.onRender(gl, renderer, deltaTime, layer);
+      }
+    }
+  }
+
+  /**
+   * @override
+   */
+  onResize(width, height) {
+    const { _commands } = this;
+    if (!!_commands) {
+      for (const command of _commands) {
+        command.onResize(width, height);
+      }
+    }
+  }
+
+}
+
+/**
+ * Command to render fullscreen image with given shader.
+ */
+export class RenderFullscreenCommand extends Command {
+
+  /** @type {string|null} */
+  get shader() {
+    return this._shader;
+  }
+
+  /** @type {string|null} */
+  set shader(value) {
+    if (!value) {
+      this._shader = null;
+      return;
+    }
+    if (typeof value !== 'string') {
+      throw new Error('`value` is not type of String!');
+    }
+
+    this._shader = value;
+  }
+
+  /** @type {*} */
+  get overrideUniforms() {
+    return this._overrideUniforms;
+  }
+
+  /** @type {*} */
+  get overrideSamplers() {
+    return this._overrideSamplers;
+  }
+
+  /**
+   * Constructor.
+   */
+  constructor() {
+    super();
+
+    this._context = null;
+    this._vertexBuffer = null;
+    this._indexBuffer = null;
+    this._shader = null;
+    this._overrideUniforms = new Map();
+    this._overrideSamplers = new Map();
+    this._dirty = true;
+  }
+
+  /**
+   * Destructor (dispose internal resources).
+   *
+   * @example
+   * command.dispose();
+   * pass = null;
+   */
+  dispose() {
+    const { _context, _vertexBuffer, _indexBuffer } = this;
+
+    if (!!_context) {
+      if (!!_vertexBuffer) {
+        _context.deleteBuffer(_vertexBuffer);
+      }
+      if (!!_indexBuffer) {
+        _context.deleteBuffer(_indexBuffer);
+      }
+    }
+
+    this._overrideUniforms.clear();
+    this._overrideSamplers.clear();
+
+    this._context = null;
+    this._vertexBuffer = null;
+    this._indexBuffer = null;
+    this._shader = null;
+    this._overrideUniforms = null;
+    this._overrideSamplers = null;
+  }
+
+  /**
+   * Called when camera need to postprocess it's rendered image.
+   *
+   * @param {WebGLRenderingContext}	gl - WebGL context.
+   * @param {RenderSystem}	renderer - Render system that is used to render.
+   * @param {number}	deltaTime - Delta time.
+   * @param {string|null}  layer - Layer ID.
+   */
+  onRender(gl, renderer, deltaTime, layer) {
+    const {
+      _shader,
+      _overrideUniforms,
+      _overrideSamplers
+    } = this;
+
+    if (!_shader) {
+      console.warn('Trying to render PostprocessPass without shader!');
+      return;
+    }
+
+    this._ensureState(gl);
+    gl.bindBuffer(gl.ARRAY_BUFFER, this._vertexBuffer);
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this._indexBuffer);
+
+    if (this._dirty) {
+      this._dirty = false;
+      gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+      gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, indices, gl.STATIC_DRAW);
+    }
+
+    renderer.enableShader(_shader);
+
+    if (_overrideUniforms.size > 0) {
+      for (const [ name, value ] of _overrideUniforms) {
+        renderer.overrideShaderUniform(name, value);
+      }
+    }
+
+    if (_overrideSamplers.size > 0) {
+      for (const [ name, { texture, filtering } ] of _overrideSamplers) {
+        if (texture !== '') {
+          renderer.overrideShaderSampler(name, texture, filtering);
+        }
+      }
+    }
+
+    gl.drawElements(
+      gl.TRIANGLES,
+      indices.length,
+      gl.UNSIGNED_SHORT,
+      0
+    );
+
+    renderer.disableShader();
+  }
+
+  _ensureState(gl) {
+    this._context = gl;
+
+    if (!this._vertexBuffer) {
+      this._vertexBuffer = gl.createBuffer();
+      this._dirty = true;
+    }
+
+    if (!this._indexBuffer) {
+      this._indexBuffer = gl.createBuffer();
+      this._dirty = true;
+    }
   }
 
 }
@@ -256,29 +511,21 @@ export default class RenderSystem extends System {
   }
 
   /**
-   * Execute rendering commands.
+   * Execute rendering command.
    *
-   * @param {Command[]}	commands - Array of commands to execute.
+   * @param {Command}	command - command to execute.
    * @param {number}	deltaTime - Delta time.
    * @param {string|null}	layer - Layer ID.
    */
-  executeCommands(commands, deltaTime, layer) {
-    if (!Array.isArray(commands)) {
-      throw new Error('`commands` is not type of Array!');
-    }
-    for (const command of commands) {
-      if (!(command instanceof Command)) {
-        throw new Error('One of `commands` items is not type of Command!');
-      }
+  executeCommand(command, deltaTime, layer) {
+    if (!(command instanceof Command)) {
+      throw new Error('`command` is not type of Command!');
     }
     if (typeof deltaTime !== 'number') {
       throw new Error('`deltaTime` is not type of Number!');
     }
 
-    const { _context } = this;
-    for (const command of commands) {
-      command.onRender(_context, this, deltaTime, layer);
-    }
+    command.onRender(this._context, this, deltaTime, layer);
   }
 
   /**
@@ -1120,7 +1367,7 @@ export default class RenderSystem extends System {
    * @return {boolean}
    */
   hasShader(id) {
-    return !!this._shaders.get(id);
+    return this._shaders.has(id);
   }
 
   /**
@@ -1131,7 +1378,7 @@ export default class RenderSystem extends System {
    * @return {boolean}
    */
   hasTexture(id) {
-    return !!this._textures.get(id);
+    return this._textures.has(id);
   }
 
   /**
@@ -1142,7 +1389,7 @@ export default class RenderSystem extends System {
    * @return {boolean}
    */
   hasRenderTarget(id) {
-    return !!this._renderTargets.get(id);
+    return this._renderTargets.has(id);
   }
 
   /**
