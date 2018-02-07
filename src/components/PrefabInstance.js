@@ -13,8 +13,8 @@ export default class PrefabInstance extends Component {
   static get propsTypes() {
     return {
       asset: 'string_null',
-      count: 'number',
-      components: 'any'
+      count: 'integer',
+      components: 'map(any)'
     };
   }
 
@@ -52,7 +52,7 @@ export default class PrefabInstance extends Component {
       throw new Error('`value` is not type of Number!');
     }
 
-    this._count = Math.max(1, value);
+    this._count = value | 0;
   }
 
   get components() {
@@ -78,7 +78,7 @@ export default class PrefabInstance extends Component {
   }
 
   onAttach() {
-    const { entity, _asset, _components } = this;
+    const { entity, _asset, _components, _count } = this;
     if (!_asset) {
       throw new Error('There is no source prefab asset provided!');
     }
@@ -88,34 +88,36 @@ export default class PrefabInstance extends Component {
       throw new Error('There is no registered AssetSystem!');
     }
 
-    const asset = AssetSystem.get(`scene://${_asset}`);
-    if (!asset) {
-      throw new Error(`There is no asset loaded: ${_asset}`);
-    }
+    if (_count > 0) {
+      const asset = AssetSystem.get(`scene://${_asset}`);
+      if (!asset) {
+        throw new Error(`There is no asset loaded: ${_asset}`);
+      }
 
-    const { name, tag, active, parent, position, scale } = entity;
-    const rotation = entity.getRotation();
-    for (let i = 0; i < this._count; ++i) {
-      const instance = entity.owner.buildEntity(asset.data);
+      const { name, tag, active, parent, position, scale } = entity;
+      const rotation = entity.getRotation();
+      for (let i = 0; i < _count; ++i) {
+        const instance = entity.owner.buildEntity(asset.data);
 
-      ++instancing;
-      instance.deserialize({
-        name: name || undefined,
-        tag: tag || undefined,
-        active: active || undefined,
-        transform: {
-          position: position,
-          rotation: rotation,
-          scale: scale
-        },
-        components: _components
-      });
+        ++instancing;
+        instance.deserialize({
+          name: name || undefined,
+          tag: tag || undefined,
+          active: active || undefined,
+          transform: {
+            position: position,
+            rotation: rotation,
+            scale: scale
+          },
+          components: _components
+        });
 
-      setTimeout(() => {
-        const index = entity.indexInParent;
-        instance.reparent(parent, index);
-        --instancing;
-      }, 0);
+        setTimeout(() => {
+          const index = entity.indexInParent;
+          instance.reparent(parent, index);
+          --instancing;
+        }, 0);
+      }
     }
 
     setTimeout(() => {

@@ -36,10 +36,16 @@ export class DeferredPipeline extends Command {
 
   set gBufferTargets(value) {
     if (typeof value !== 'number') {
-      throw new Error('`value` is not type of Number!');
+      this._gBufferTargets = { float: true, count: value | 0 };
+    } else if (!!value) {
+      this._gBufferTargets = {
+        float: 'float' in value ? !!value.float : true,
+        count: 'count' in value ? value.count | 0 : 2
+      };
+    } else {
+      throw new Error('`value` is not type of either Number or Object!');
     }
 
-    this._gBufferTargets = value | 0;
     this._dirty = true;
   }
 
@@ -49,10 +55,16 @@ export class DeferredPipeline extends Command {
 
   set lBufferTargets(value) {
     if (typeof value !== 'number') {
-      throw new Error('`value` is not type of Number!');
+      this._lBufferTargets = { float: true, count: value | 0 };
+    } else if (!!value) {
+      this._lBufferTargets = {
+        float: 'float' in value ? !!value.float : true,
+        count: 'count' in value ? value.count | 0 : 2
+      };
+    } else {
+      throw new Error('`value` is not type of either Number or Object!');
     }
 
-    this._lBufferTargets = value | 0;
     this._dirty = true;
   }
 
@@ -99,14 +111,14 @@ export class DeferredPipeline extends Command {
     this._renderer = null;
     this._gBuffer = null;
     this._lBuffer = null;
-    this._gBufferId = null;
-    this._lBufferId = null;
+    this._gBufferId = '#default-deferred-g-buffer';
+    this._lBufferId = '#default-deferred-l-buffer';
     this._gBufferIdUsed = null;
     this._lBufferIdUsed = null;
-    this._gBufferTargets = 3;
-    this._lBufferTargets = 2;
-    this._gBufferLayer = null;
-    this._lBufferLayer = null;
+    this._gBufferTargets = { float: true, count: 2 };
+    this._lBufferTargets = { float: true, count: 2 };
+    this._gBufferLayer = 'g-buffer';
+    this._lBufferLayer = 'l-buffer';
     this._fullscreen = new RenderFullscreenCommand();
     this._dirty = true;
   }
@@ -185,8 +197,8 @@ export class DeferredPipeline extends Command {
       this._gBufferIdUsed,
       renderer.canvas.width,
       renderer.canvas.height,
-      true,
-      this._gBufferTargets
+      this._gBufferTargets.float,
+      this._gBufferTargets.count
     );
 
     if (!!this._lBufferIdUsed) {
@@ -197,8 +209,8 @@ export class DeferredPipeline extends Command {
       this._lBufferIdUsed,
       renderer.canvas.width,
       renderer.canvas.height,
-      true,
-      this._lBufferTargets
+      this._lBufferTargets.float,
+      this._lBufferTargets.count
     );
 
     this._renderer = renderer;

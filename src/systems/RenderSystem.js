@@ -1469,7 +1469,34 @@ export default class RenderSystem extends System {
     gl.clearColor(0.0, 0.0, 0.0, 0.0);
     gl.clear(gl.COLOR_BUFFER_BIT);
 
-    this.registerTextureColor('', 1, 1, 255, 255, 255, 255);
+    this.registerTextureColor(
+      '',
+      1, 1,
+      255, 255, 255, 255
+    );
+    this.registerTextureColor(
+      '#default-albedo',
+      1, 1,
+      255, 255, 255, 255
+    );
+    this.registerTextureColor(
+      '#default-normal',
+      1, 1,
+      (255 * 0.5) | 0,
+      (255 * 0.5) | 0,
+      (255 * 0.5) | 0,
+      255
+    );
+    this.registerTextureColor(
+      '#default-metalness-smoothness-emission',
+      1, 1,
+      0, 0, 0, 255
+    );
+    this.registerTextureColor(
+      '#default-environment',
+      1, 1,
+      0, 0, 0, 255
+    );
 
     this._blendingConstants = {
       'zero': gl.ZERO,
