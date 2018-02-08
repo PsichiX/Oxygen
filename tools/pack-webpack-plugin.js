@@ -28,8 +28,10 @@ module.exports = class PackWebpackPlugin {
           output = 'assets.pack';
         }
 
-        const ipath = fp.join(inputPrefix, input);
-        const result = packToBuffer(ipath);
+        const ipaths = Array.isArray(input)
+          ? input.map(i => fp.join(inputPrefix, i))
+          : [ fp.join(inputPrefix, input) ];
+        const result = packToBuffer(ipaths);
         compilation.assets[output] = {
           source: () => result,
           size: () => result.byteLength
@@ -50,9 +52,13 @@ module.exports = class PackWebpackPlugin {
           );
         }
 
-        const ipath = fp.join(inputPrefix, input);
-        if (!deps.has(ipath)) {
-          compilation.contextDependencies.push(ipath);
+        const ipaths = Array.isArray(input)
+          ? input.map(i => fp.join(inputPrefix, i))
+          : [ fp.join(inputPrefix, input) ];
+        for (const i of ipaths) {
+          if (!deps.has(i)) {
+            compilation.contextDependencies.push(i);
+          }
         }
       }
 
