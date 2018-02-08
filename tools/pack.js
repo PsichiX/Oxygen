@@ -1,5 +1,6 @@
 import fs from 'fs';
 import fp from 'path';
+import process from 'process';
 import { WritableStreamBuffer } from 'stream-buffers';
 import { mkdirp } from './utils';
 
@@ -9,8 +10,32 @@ function toUnixPath(path, input) {
   return path.replace(/\\/g, '/');
 }
 
-function listDirectory(path, input, state = null) {
-  state = state || { offset: 0 };
+function merge(source, target) {
+  for (const s of source) {
+    const t = !!target ? target.find(i => i.name === s.name) : null;
+    if (!!t) {
+      if (!!t.file) {
+        t.content = s.content;
+        t.size = s.size;
+      } else if (!!t.dir) {
+        merge(s.content, t.content);
+      }
+    } else {
+      target.push(s);
+    }
+  }
+}
+
+function listDirectories(paths) {
+  const sources = paths.map(p => listDirectory(p, p));
+  const files = [];
+  for (const s of sources) {
+    merge(s, files);
+  }
+  return files;
+}
+
+function listDirectory(path, input) {
   const list = fs.readdirSync(path);
   if (!list) {
     throw new Error(`Cannot list path: ${path}`);
@@ -25,7 +50,7 @@ function listDirectory(path, input, state = null) {
         dir: true,
         name,
         path: fname,
-        content: listDirectory(fpath, input, state)
+        content: listDirectory(fpath, input)
       };
     } else {
       const content = fs.readFileSync(fpath);
@@ -33,26 +58,25 @@ function listDirectory(path, input, state = null) {
         throw new Error(`Cannot read file: ${fpath}`);
       }
 
-      const o = state.offset;
-      state.offset += content.byteLength;
-
       return {
         file: true,
         name,
         path: fname,
-        offset: o,
-        size: stat.size,
+        size: content.byteLength,
         content
       };
     }
   });
 }
 
-function toDescriptor(files) {
+function toDescriptor(files, state) {
+  state = state || { offset: 0 };
   return files.map(item => {
     const { file, dir } = item;
     if (!!file) {
-      const { name, path, offset, size } = item;
+      const { name, path, size } = item;
+      const offset = state.offset;
+      state.offset += item.size;
 
       return {
         file,
@@ -68,7 +92,7 @@ function toDescriptor(files) {
         dir,
         name,
         path,
-        content: toDescriptor(item.content)
+        content: toDescriptor(item.content, state)
       };
     }
   });
@@ -86,11 +110,16 @@ function writeFiles(stream, files) {
 }
 
 export function packToBuffer(input, options = {}) {
-  if (typeof input !== 'string') {
-    throw new Error('`input` is not type of String!');
+  if (!Array.isArray(input)) {
+    input = [ input ];
+  }
+  for (const i of input) {
+    if (typeof i !== 'string') {
+      throw new Error('One of `input` elements is not type of String!');
+    }
   }
 
-  const files = listDirectory(input, input);
+  const files = listDirectories(input);
   const descriptor = toDescriptor(files);
   const descriptorBinary = Buffer.from(JSON.stringify(descriptor));
   const headerBinary = Buffer.alloc(4);
@@ -109,15 +138,20 @@ export function packToBuffer(input, options = {}) {
 }
 
 export function pack(input, output, options = {}) {
-  if (typeof input !== 'string') {
-    throw new Error('`input` is not type of String!');
+  if (!Array.isArray(input)) {
+    input = [ input ];
+  }
+  for (const i of input) {
+    if (typeof i !== 'string') {
+      throw new Error('One of `input` elements is not type of String!');
+    }
   }
   if (typeof output !== 'string') {
     throw new Error('`output` is not type of String!');
   }
 
   const { silent } = options;
-  !silent && console.log(`Packing "${input}" into "${output}"...`);
+  !silent && console.log(`Packing "${input.join(';')}" into "${output}"...`);
   const result = packToBuffer(input);
   mkdirp(fp.dirname(output));
   fs.writeFileSync(output, result, { encoding: 'binary' });

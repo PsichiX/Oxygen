@@ -5,7 +5,7 @@ import { pack } from './pack';
 
 const args = process.argv;
 let argmode = null;
-let input = null;
+let input = [];
 let output = null;
 let silent = false;
 let verbose = false;
@@ -16,7 +16,7 @@ for (let i = 1, c = args.length; i < c; ++i) {
     if (arg === '-h' || arg === '--help') {
       console.log(
         'Usage: oxy-pack -i source/directory/path -o packed.pack\n' +
-        '  -i | --input   - Source files directory.\n' +
+        '  -i | --input   - Source files directory (can be used multiple times).\n' +
         '  -o | --output  - Result packed file.\n' +
         '  -s | --silent  - Absolutely no log.\n' +
         '  -v | --verbose - Absolutely every information logged.'
@@ -33,7 +33,7 @@ for (let i = 1, c = args.length; i < c; ++i) {
       verbose = true;
     }
   } else if (argmode === 'input') {
-    input = arg;
+    input.push(arg);
     argmode = null;
   } else if (argmode === 'output') {
     output = arg;
@@ -41,11 +41,11 @@ for (let i = 1, c = args.length; i < c; ++i) {
   }
 }
 
-if (!input) {
+if (input.length <= 0) {
   throw new Error('input is not provided!');
 }
 if (!output) {
-  throw new Error('input is not provided!');
+  throw new Error('output is not provided!');
 }
 
 pack(input, output, { silent, verbose });
