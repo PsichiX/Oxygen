@@ -569,12 +569,9 @@ export default class Camera extends Component {
         renderer.disableRenderTarget();
       }
     } else if (_postprocess.length === 1) {
-      const id = this._postprocessRtt[0];
       const pass = _postprocess[0];
-      pass.overrideSamplers.set('sBackBuffer', {
-        texture: id,
-        filtering: 'linear'
-      });
+      const passTarget = pass.renderTargetId;
+      const id = passTarget || this._postprocessRtt[0];
       renderer.enableRenderTarget(id);
       if (!!this._command) {
         renderer.executeCommand(this._command, deltaTime, this._layer);
@@ -585,6 +582,10 @@ export default class Camera extends Component {
           target.performAction('render', gl, renderer, deltaTime, null);
         }
       }
+      pass.overrideSamplers.set('sBackBuffer', {
+        texture: id,
+        filtering: 'linear'
+      });
       if (!!this._renderTargetIdUsed) {
         renderer.enableRenderTarget(this._renderTargetIdUsed);
         pass.onRender(gl, renderer, deltaTime);
@@ -594,7 +595,9 @@ export default class Camera extends Component {
         pass.onRender(gl, renderer, deltaTime);
       }
     } else {
-      const id = this._postprocessRtt[0];
+      const pass = _postprocess[0];
+      const passTarget = pass.renderTargetId;
+      const id = passTarget || this._postprocessRtt[0];
       renderer.enableRenderTarget(id);
       if (!!this._command) {
         renderer.executeCommand(this._command, deltaTime, this._layer);
@@ -605,25 +608,32 @@ export default class Camera extends Component {
           target.performAction('render', gl, renderer, deltaTime, null);
         }
       }
-      for (let i = 0, c = _postprocess.length; i < c; ++i) {
+      let lastTarget = id;
+      let lastPass = pass;
+      for (let i = 1, c = _postprocess.length; i < c; ++i) {
         const pass = _postprocess[i];
-        pass.overrideSamplers.set('sBackBuffer', {
-          texture: this._postprocessRtt[i % 2],
+        const passTarget = pass.renderTargetId;
+        const id = passTarget || this._postprocessRtt[i % 2];
+        lastPass.overrideSamplers.set('sBackBuffer', {
+          texture: lastTarget,
           filtering: 'linear'
         });
-        if (i < c - 1) {
-          renderer.enableRenderTarget(this._postprocessRtt[(i + 1) % 2]);
-          pass.onRender(gl, renderer, deltaTime);
-        } else {
-          if (!!this._renderTargetIdUsed) {
-            renderer.enableRenderTarget(this._renderTargetIdUsed);
-            pass.onRender(gl, renderer, deltaTime);
-            renderer.disableRenderTarget();
-          } else {
-            renderer.disableRenderTarget();
-            pass.onRender(gl, renderer, deltaTime);
-          }
-        }
+        renderer.enableRenderTarget(id);
+        lastPass.onRender(gl, renderer, deltaTime);
+        lastTarget = id;
+        lastPass = pass;
+      }
+      lastPass.overrideSamplers.set('sBackBuffer', {
+        texture: lastTarget,
+        filtering: 'linear'
+      });
+      if (!!this._renderTargetIdUsed) {
+        renderer.enableRenderTarget(this._renderTargetIdUsed);
+        lastPass.onRender(gl, renderer, deltaTime);
+        renderer.disableRenderTarget();
+      } else {
+        renderer.disableRenderTarget();
+        lastPass.onRender(gl, renderer, deltaTime);
       }
     }
 

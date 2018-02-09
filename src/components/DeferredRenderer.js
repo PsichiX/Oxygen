@@ -40,6 +40,7 @@ export class DeferredPipeline extends Command {
     } else if (!!value) {
       this._gBufferTargets = {
         float: 'float' in value ? !!value.float : true,
+        mipmap: 'mipmap' in value ? !!value.mipmap : false,
         count: 'count' in value ? value.count | 0 : 2
       };
     } else {
@@ -59,6 +60,7 @@ export class DeferredPipeline extends Command {
     } else if (!!value) {
       this._lBufferTargets = {
         float: 'float' in value ? !!value.float : true,
+        mipmap: 'mipmap' in value ? !!value.mipmap : false,
         count: 'count' in value ? value.count | 0 : 2
       };
     } else {
@@ -115,8 +117,8 @@ export class DeferredPipeline extends Command {
     this._lBufferId = '#default-deferred-l-buffer';
     this._gBufferIdUsed = null;
     this._lBufferIdUsed = null;
-    this._gBufferTargets = { float: true, count: 2 };
-    this._lBufferTargets = { float: true, count: 2 };
+    this._gBufferTargets = { float: true, mipmap: false, count: 2 };
+    this._lBufferTargets = { float: true, mipmap: false, count: 2 };
     this._gBufferLayer = 'g-buffer';
     this._lBufferLayer = 'l-buffer';
     this._fullscreen = new RenderFullscreenCommand();
@@ -157,6 +159,7 @@ export class DeferredPipeline extends Command {
     const target = !!captureEntity
       ? entity.findEntity(captureEntity)
       : entity;
+    const rtt = renderer.activeRenderTarget;
 
     if (!!_gBufferLayer) {
       renderer.enableRenderTarget(this._gBufferIdUsed);
@@ -170,6 +173,9 @@ export class DeferredPipeline extends Command {
       renderer.disableRenderTarget();
     }
 
+    if (!!rtt) {
+      renderer.enableRenderTarget(rtt);
+    }
     this._fullscreen.onRender(gl, renderer, deltaTime, layer);
   }
 
@@ -198,7 +204,8 @@ export class DeferredPipeline extends Command {
       renderer.canvas.width,
       renderer.canvas.height,
       this._gBufferTargets.float,
-      this._gBufferTargets.count
+      this._gBufferTargets.count,
+      this._gBufferTargets.mipmap
     );
 
     if (!!this._lBufferIdUsed) {
@@ -210,7 +217,8 @@ export class DeferredPipeline extends Command {
       renderer.canvas.width,
       renderer.canvas.height,
       this._lBufferTargets.float,
-      this._lBufferTargets.count
+      this._lBufferTargets.count,
+      this._lBufferTargets.mipmap
     );
 
     this._renderer = renderer;

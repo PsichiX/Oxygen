@@ -1,6 +1,6 @@
 import System from './System';
 import Events from '../utils/Events';
-import { vec4, mat4 } from '../utils/gl-matrix';
+import { vec2, vec4, mat4 } from '../utils/gl-matrix';
 
 const vertices = new Float32Array([
   -1, -1, 0, 0,
@@ -132,6 +132,22 @@ export class Pipeline extends Command {
  */
 export class RenderFullscreenCommand extends Command {
 
+  get renderTargetId() {
+    return this._renderTargetId;
+  }
+
+  set renderTargetId(value) {
+    if (!value) {
+      this._renderTargetId = null;
+      return;
+    }
+    if (typeof value !== 'string') {
+      throw new Error('`value` is not type of String!');
+    }
+
+    this._renderTargetId = value;
+  }
+
   /** @type {string|null} */
   get shader() {
     return this._shader;
@@ -169,6 +185,7 @@ export class RenderFullscreenCommand extends Command {
     this._context = null;
     this._vertexBuffer = null;
     this._indexBuffer = null;
+    this._renderTargetId = null;
     this._shader = null;
     this._overrideUniforms = new Map();
     this._overrideSamplers = new Map();
@@ -200,6 +217,7 @@ export class RenderFullscreenCommand extends Command {
     this._context = null;
     this._vertexBuffer = null;
     this._indexBuffer = null;
+    this._renderTargetId = null;
     this._shader = null;
     this._overrideUniforms = null;
     this._overrideSamplers = null;
@@ -388,6 +406,7 @@ export default class RenderSystem extends System {
     this._events = new Events();
     this._activeShader = null;
     this._activeRenderTarget = null;
+    this._activeViewportSize = vec2.create();
     this._clearColor = vec4.create();
     this._projectionMatrix = mat4.create();
     this._modelViewMatrix = mat4.create();
@@ -830,10 +849,10 @@ export default class RenderSystem extends System {
         gl.uniform1f(location, _passedTime * 0.001);
 
       } else if (mapping === 'viewport-size') {
-        gl.uniform2f(location, this._canvas.width, this._canvas.height);
+        gl.uniform2f(location, this._activeViewportSize[0], this._activeViewportSize[1]);
 
       } else if (mapping === 'inverse-viewport-size') {
-        const { width, height } = this._canvas;
+        const [ width, height ] = this._activeViewportSize;
 
         gl.uniform2f(
           location,
@@ -1161,6 +1180,18 @@ export default class RenderSystem extends System {
       : null;
   }
 
+  generateTextureMipmap(id) {
+    const { _textures } = this;
+    const gl = this._context;
+    const texture = _textures.get(id);
+
+    if (!!texture) {
+      gl.bindTexture(gl.TEXTURE_2D, texture.texture);
+      gl.generateMipmap(gl.TEXTURE_2D);
+      gl.bindTexture(gl.TEXTURE_2D, null);
+    }
+  }
+
   /**
    * Register new render target.
    *
@@ -1169,6 +1200,7 @@ export default class RenderSystem extends System {
    * @param {number}	height - Height.
    * @param {boolean}	floatPointData - Tells if render target will store floating point data.
    * @param {number}  multiTargetsCount - Number of target color attachments.
+   * @param {boolean}	generateMipmap - Tells if render target will generate mipmap after rendering.
    *
    * @example
    * system.registerRenderTarget('offscreen', 512, 512);
@@ -1178,7 +1210,8 @@ export default class RenderSystem extends System {
     width,
     height,
     floatPointData = false,
-    multiTargetsCount = 0
+    multiTargetsCount = 0,
+    generateMipmap = false
   ) {
     if (!!floatPointData && !this.requestExtensions(
       'OES_texture_float',
@@ -1230,7 +1263,9 @@ export default class RenderSystem extends System {
         target,
         width,
         height,
-        multiTargets: buffers
+        multiTargets: buffers,
+        textures,
+        mipmap: generateMipmap
       });
     } else {
       this.registerTextureEmpty(id, width, height, floatPointData);
@@ -1254,7 +1289,9 @@ export default class RenderSystem extends System {
         target,
         width,
         height,
-        multiTargets: null
+        multiTargets: null,
+        textures: [ texture ],
+        mipmap: generateMipmap
       });
     }
   }
@@ -1282,6 +1319,7 @@ export default class RenderSystem extends System {
       }
       gl.deleteFramebuffer(target.target);
       _renderTargets.delete(id);
+      target.textures = null;
     }
   }
 
@@ -1328,6 +1366,7 @@ export default class RenderSystem extends System {
     }
     gl.viewport(0, 0, target.width, target.height);
     gl.scissor(0, 0, target.width, target.height);
+    vec2.set(this._activeViewportSize, target.width, target.height);
     if (!!clearBuffer) {
       gl.clear(gl.COLOR_BUFFER_BIT);
     }
@@ -1356,6 +1395,14 @@ export default class RenderSystem extends System {
     _context.bindFramebuffer(_context.FRAMEBUFFER, null);
     _context.viewport(0, 0, _canvas.width, _canvas.height);
     _context.scissor(0, 0, _canvas.width, _canvas.height);
+    vec2.set(this._activeViewportSize, _canvas.width, _canvas.height);
+    if (!!target.mipmap) {
+      for (const t of target.textures) {
+        _context.bindTexture(gl.TEXTURE_2D, t.texture);
+        _context.generateMipmap(gl.TEXTURE_2D);
+      }
+      _context.bindTexture(gl.TEXTURE_2D, null);
+    }
     this._activeRenderTarget = null;
   }
 
@@ -1413,6 +1460,7 @@ export default class RenderSystem extends System {
       _canvas.height = clientHeight;
       _context.viewport(0, 0, clientWidth, clientHeight);
       _context.scissor(0, 0, clientWidth, clientHeight);
+      vec2.set(this._activeViewportSize, clientWidth, clientHeight);
       this._events.trigger('resize', clientWidth, clientHeight);
     }
   }
@@ -1466,6 +1514,7 @@ export default class RenderSystem extends System {
     gl.enable(gl.SCISSOR_TEST);
     gl.viewport(0, 0, canvas.width, canvas.height);
     gl.scissor(0, 0, canvas.width, canvas.height);
+    vec2.set(this._activeViewportSize, canvas.width, canvas.height);
     gl.clearColor(0.0, 0.0, 0.0, 0.0);
     gl.clear(gl.COLOR_BUFFER_BIT);
 
