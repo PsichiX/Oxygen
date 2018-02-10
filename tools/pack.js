@@ -26,8 +26,33 @@ function merge(source, target) {
   }
 }
 
+function listSubassets(path, result = []) {
+  path = path.replace(/<([\w-]+)>/g, (m, n) => `node_modules/${n}`);
+  const ppath = `${path}/package.json`;
+  if (fs.existsSync(ppath) && fs.statSync(ppath).isFile()) {
+    const content = fs.readFileSync(ppath);
+    const json = JSON.parse(content);
+    if ('oxygen' in json && 'subassets' in json.oxygen) {
+      for (const p of json.oxygen.subassets) {
+        listSubassets(
+          `${path}/${p.replace(/<([\w-]+)>/g, (m, n) => `node_modules/${n}`)}`,
+          result
+        );
+      }
+    }
+  } else {
+    result.push(path);
+  }
+  return result;
+}
+
 function listDirectories(paths) {
-  const sources = paths.map(p => listDirectory(p, p));
+  const sources = paths
+    .reduce((a, v) => listSubassets(v, a), [])
+    .map(p => {
+      p = p.replace(/<([\w-]+)>/g, (m, n) => `node_modules/${n}`);
+      return listDirectory(p, p);
+    });
   const files = [];
   for (const s of sources) {
     merge(s, files);
