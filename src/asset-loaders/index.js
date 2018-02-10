@@ -10,6 +10,7 @@ import MusicAsset from './MusicAsset';
 import ParticleSystemAsset from './ParticleSystemAsset';
 import PackAsset from './PackAsset';
 import SkeletonAsset from './SkeletonAsset';
+import SVGAsset from './SVGAsset';
 
 export default {
   JSONAsset,
@@ -23,7 +24,8 @@ export default {
   MusicAsset,
   ParticleSystemAsset,
   PackAsset,
-  SkeletonAsset
+  SkeletonAsset,
+  SVGAsset
 };
 
 export {
@@ -38,5 +40,6 @@ export {
   MusicAsset,
   ParticleSystemAsset,
   PackAsset,
-  SkeletonAsset
+  SkeletonAsset,
+  SVGAsset
 };

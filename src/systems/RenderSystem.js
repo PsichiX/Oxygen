@@ -1533,7 +1533,7 @@ export default class RenderSystem extends System {
       1, 1,
       (255 * 0.5) | 0,
       (255 * 0.5) | 0,
-      (255 * 0.5) | 0,
+      255,
       255
     );
     this.registerTextureColor(
