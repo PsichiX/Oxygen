@@ -11,6 +11,7 @@ import ParticleSystemAsset from './ParticleSystemAsset';
 import PackAsset from './PackAsset';
 import SkeletonAsset from './SkeletonAsset';
 import SVGAsset from './SVGAsset';
+import SetAsset from './SetAsset';
 
 export default {
   JSONAsset,
@@ -25,7 +26,8 @@ export default {
   ParticleSystemAsset,
   PackAsset,
   SkeletonAsset,
-  SVGAsset
+  SVGAsset,
+  SetAsset
 };
 
 export {
@@ -41,5 +43,6 @@ export {
   ParticleSystemAsset,
   PackAsset,
   SkeletonAsset,
-  SVGAsset
+  SVGAsset,
+  SetAsset
 };

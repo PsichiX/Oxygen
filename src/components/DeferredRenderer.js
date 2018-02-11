@@ -35,7 +35,7 @@ export class DeferredPipeline extends Command {
   }
 
   set gBufferTargets(value) {
-    if (typeof value !== 'number') {
+    if (typeof value === 'number') {
       this._gBufferTargets = { float: true, mipmap: false, count: value | 0 };
     } else if (!!value) {
       this._gBufferTargets = {
@@ -55,7 +55,7 @@ export class DeferredPipeline extends Command {
   }
 
   set lBufferTargets(value) {
-    if (typeof value !== 'number') {
+    if (typeof value === 'number') {
       this._lBufferTargets = { float: true, mipmap: false, count: value | 0 };
     } else if (!!value) {
       this._lBufferTargets = {
