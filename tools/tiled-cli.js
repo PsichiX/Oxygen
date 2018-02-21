@@ -9,6 +9,7 @@ let argmode = null;
 let json = null;
 let output = null;
 const ignore = [];
+let meta = false;
 
 for (let i = 1, c = args.length; i < c; ++i) {
   const arg = args[i];
@@ -18,7 +19,8 @@ for (let i = 1, c = args.length; i < c; ++i) {
         'Usage: oxy-tiled -j map.json -o destination/path/\n' +
         '  -j  | --json   - Tiled map file.\n' +
         '  -o  | --output - Destination directory for converted files.\n' +
-        '  -i  | --ignore - Ignored layer names.'
+        '  -i  | --ignore - Ignored layer names.\n' +
+        '  -m  | --meta   - Build meta map (map all meta information).'
       );
       process.exit(1);
     } else if (arg === '-j' || arg === '--json') {
@@ -27,6 +29,8 @@ for (let i = 1, c = args.length; i < c; ++i) {
       argmode = 'output';
     } else if (arg === '-i' || arg === '--ignore') {
       argmode = 'ignore';
+    } else if (arg === '-m' || arg === '--meta') {
+      meta = true;
     }
   } else if (argmode === 'json') {
     json = arg;
@@ -47,4 +51,4 @@ if (!output) {
   throw new Error('output is not provided!');
 }
 
-tiled(json, output, ignore);
+tiled(json, output, ignore, meta);

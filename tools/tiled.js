@@ -193,6 +193,45 @@ function mapLayersToEntities(layers, tilesetsData, ignore, tw, th) {
     : undefined;
 }
 
+function mapLayersToMeta(layers, ignore) {
+  return !!layers
+    ? layers.map(layer => {
+      if (ignore.indexOf(layer.name) >= 0) {
+        return;
+      }
+
+      const { type } = layer;
+      const result = {
+        name: layer.name,
+        type
+      };
+      if (type === 'group') {
+        result.layers = mapLayersToMeta(layer.layers, ignore);
+      } else if (type === 'imagelayer') {
+        result.x = layer.offsetx || 0;
+        result.y = layer.offsety || 0;
+      } else if (type === 'tilelayer') {
+        const chunks = !!layer.data ? [ layer ] : layer.chunks;
+        result.chunks = chunks.map(chunk => {
+          return {
+            x: chunk.x || 0,
+            y: chunk.y || 0,
+            cols: chunk.width | 0,
+            rows: chunk.height | 0,
+            data: chunk.data
+          };
+        });
+      } else if (type === 'objectgroup') {
+        result.objects = layer.objects || [];
+      } else {
+        console.warn(`Unsupported layer type: ${type}`);
+      }
+
+      return result;
+    }).filter(i => !!i)
+    : undefined;
+}
+
 function getImages(layers, ignore, target = null) {
   const result = target || [];
   for (const layer of layers) {
@@ -209,7 +248,7 @@ function getImages(layers, ignore, target = null) {
   return result;
 }
 
-export default function tiled(input, output, ignore = []) {
+export default function tiled(input, output, ignore = [], meta = false) {
   const data = readJson(input);
   const {
     infinite,
@@ -299,5 +338,22 @@ export default function tiled(input, output, ignore = []) {
         ),
         JSON.stringify(prefab, null, 2)
       );
+
+      if (!!meta) {
+        const info = {
+          name: '',
+          type: 'map',
+          tilewidth,
+          tileheight,
+          layers: mapLayersToMeta(layers, ignore)
+        };
+        fs.writeFileSync(
+          fp.join(
+            output,
+            fp.basename(input, fp.extname(input)) + '.meta.json'
+          ),
+          JSON.stringify(info, null, 2)
+        );
+      }
     });
 }
