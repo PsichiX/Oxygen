@@ -21,6 +21,11 @@ export default class Asset {
   }
 
   /** @type {*} */
+  get options() {
+    return this._options;
+  }
+
+  /** @type {*} */
   get data() {
     return this._data;
   }
@@ -36,8 +41,9 @@ export default class Asset {
    * @param {AssetSystem}	owner - Asset owner.
    * @param {string}	protocol - Used protocol name.
    * @param {string}	filename - File name path.
+   * @param {*} options - Options.
    */
-  constructor(owner, protocol, filename) {
+  constructor(owner, protocol, filename, options = null) {
     if (!(owner instanceof AssetSystem)) {
       throw new Error('`owner` is not type of AssetSystem!');
     }
@@ -51,6 +57,7 @@ export default class Asset {
     this._owner = owner;
     this._protocol = protocol;
     this._filename = filename;
+    this._options = options;
     this._data = null;
   }
 
@@ -63,6 +70,7 @@ export default class Asset {
    */
   dispose() {
     this._data = null;
+    this._options = null;
   }
 
   /**

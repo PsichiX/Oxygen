@@ -1,7 +1,7 @@
 import Asset from '../systems/AssetSystem/Asset';
 
 const viewBoxPattern =
-  /viewBox="(\d+(\.\d+)?)\s+(\d+(\.\d+)?)\s+(\d+(\.\d+)?)\s+(\d+(\.\d+)?)"/g;
+  /viewBox=\"(\d+(\.\d+)?)\s+(\d+(\.\d+)?)\s+(\d+(\.\d+)?)\s+(\d+(\.\d+)?)\"/;
 
 /**
  * SVG image asset loader.

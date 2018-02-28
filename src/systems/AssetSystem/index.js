@@ -1,6 +1,7 @@
 import System from '../System';
 import Asset from './Asset';
 import Events from '../../utils/Events';
+import parser from '../../utils/jsonParser';
 
 export { Asset };
 
@@ -385,6 +386,12 @@ export default class AssetSystem extends System {
     if (typeof path !== 'string') {
       throw new Error('`path` is not type of String!');
     }
+    let options = null;
+    const found = path.indexOf('?');
+    if (found >= 0) {
+      options = parser.parse(path.substr(found + 1));
+      path = path.substr(0, found);
+    }
     if (!key) {
       key = path;
     }
@@ -405,7 +412,7 @@ export default class AssetSystem extends System {
       return Promise.resolve(_assets.get(path));
     }
 
-    const asset = loader(this, protocol, filename);
+    const asset = loader(this, protocol, filename, options);
     if (!(asset instanceof Asset)) {
       throw new Error(
         `Cannot create asset for file: ${filename} of protocol: ${protocol}`

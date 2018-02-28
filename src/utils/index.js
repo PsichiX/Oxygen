@@ -33,7 +33,8 @@ export default {
   convertLocalPointToGlobalPoint,
   isGlobalPointInGlobalBoundingBox,
   isLocalPointInLocalBoundingBox,
-  bezierCubic
+  bezierCubic,
+  isPOT
 };
 
 export {
@@ -57,7 +58,8 @@ export {
   convertLocalPointToGlobalPoint,
   isGlobalPointInGlobalBoundingBox,
   isLocalPointInLocalBoundingBox,
-  bezierCubic
+  bezierCubic,
+  isPOT
 };
 
 const regexRGBA = /([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})/;
@@ -266,4 +268,22 @@ function bezierCubic(t, a, b, c, d) {
   t = Math.max(0, Math.min(1, t));
   const r = 1 - t;
   return a * r * r * r + 3 * b * t * r * r + 3 * c * t * t * r + d * t * t * t;
+}
+
+/**
+ * Checks if all arguments are power-of-two.
+ *
+ * @param {number[]}	args - values.
+ *
+ * @return {boolean} True if all arguments are power-of-two.
+ */
+function isPOT(...args) {
+  for (const arg of args) {
+    const v = arg | 0;
+    const pot = ((v !== 0) && ((v & (~v + 1)) === v));
+    if (!pot) {
+      return false;
+    }
+  }
+  return true;
 }

@@ -200,10 +200,147 @@ export {
   box2d
 };
 
+export class EventsController {
+
+  get transform() {
+    return this._transform;
+  }
+
+  set transform(value) {
+    if (typeof value !== 'boolean') {
+      throw new Error('`value` is not type of Boolean!');
+    }
+
+    this._transform = value;
+  }
+
+  get update() {
+    return this._update;
+  }
+
+  set update(value) {
+    if (typeof value !== 'boolean') {
+      throw new Error('`value` is not type of Boolean!');
+    }
+
+    this._update = value;
+  }
+
+  get view() {
+    return this._view;
+  }
+
+  set view(value) {
+    if (typeof value !== 'boolean') {
+      throw new Error('`value` is not type of Boolean!');
+    }
+
+    this._view = value;
+  }
+
+  get gamepads() {
+    return this._gamepads;
+  }
+
+  set gamepads(value) {
+    if (typeof value !== 'boolean') {
+      throw new Error('`value` is not type of Boolean!');
+    }
+
+    this._gamepads = value;
+  }
+
+  get leap() {
+    return this._leap;
+  }
+
+  set leap(value) {
+    if (typeof value !== 'boolean') {
+      throw new Error('`value` is not type of Boolean!');
+    }
+
+    this._leap = value;
+  }
+
+  get all() {
+    return this._transform
+      && this._update
+      && this._view
+      && this._gamepads
+      && this._leap;
+  }
+
+  set all(value) {
+    if (typeof value !== 'boolean') {
+      throw new Error('`value` is not type of Boolean!');
+    }
+
+    this._transform = this._update = this._view = this._gamepads = this._leap = value;
+  }
+
+  get none() {
+    return !this._transform
+      && !this._update
+      && !this._view
+      && !this._gamepads
+      && !this._leap;
+  }
+
+  set none(value) {
+    if (typeof value !== 'boolean') {
+      throw new Error('`value` is not type of Boolean!');
+    }
+
+    this._transform = this._update = this._view = this._gamepads = this._leap = !value;
+  }
+
+  get accepted() {
+    const result = [];
+    if (!!this._transform) {
+      result.push('transform');
+    }
+    if (!!this._update) {
+      result.push('update');
+    }
+    if (!!this._view) {
+      result.push('view');
+    }
+    if (!!this._gamepads) {
+      result.push('gamepads');
+    }
+    if (!!this._leap) {
+      result.push('leap');
+    }
+    return result;
+  }
+
+  set accepted(value) {
+    if (!Array.isArray(value)) {
+      throw new Error('`value` is not type of Array!');
+    }
+
+    this._transform = value.indexOf('transform') >= 0;
+    this._update = value.indexOf('update') >= 0;
+    this._view = value.indexOf('view') >= 0;
+    this._gamepads = value.indexOf('gamepads') >= 0;
+    this._leap = value.indexOf('leap') >= 0;
+  }
+
+  constructor() {
+    this._transform = true;
+    this._update = true;
+    this._view = true;
+    this._gamepads = true;
+    this._leap = true;
+  }
+
+}
+
 /**
  * Function used to initialize Oxygen Core engine without any effort.
  *
  * @param {*} config - engine configuration options.
+ * @return {EventsController} - instance used to dynamically control events processing.
  *
  * @example
  * lazyInitialization({
@@ -238,11 +375,12 @@ export function lazyInitialization({ entity, asset, render, input, store, events
     !!store ? store.id : 'oxygen-data'
   ));
   const audio = System.register('AudioSystem', new AudioSystem());
-  const eventTransform = !!events ? !!events.transform : true;
-  const eventUpdate = !!events ? !!events.update : true;
-  const eventView = !!events ? !!events.view : true;
-  const eventGamepads = !!events ? !!events.gamepads : true;
-  const eventLeap = !!events ? !!events.leap : true;
+  const controller = new EventsController();
+  controller.transform = !!events ? !!events.transform : true;
+  controller.update = !!events ? !!events.update : true;
+  controller.view = !!events ? !!events.view : true;
+  controller.gamepads = !!events ? !!events.gamepads : true;
+  controller.leap = !!events ? !!events.leap : true;
 
   entities.registerComponent('Camera2D', Camera2D.factory);
   entities.registerComponent('CameraDirector2D', CameraDirector2D.factory);
@@ -285,7 +423,11 @@ export function lazyInitialization({ entity, asset, render, input, store, events
     const { protocol, filename, data } = asset;
 
     if (protocol === 'image' || protocol === 'svg') {
-      renderer.registerTexture(filename, data);
+      renderer.registerTexture(
+        filename,
+        data,
+        !!asset.options && !!asset.options.mipmap
+      );
     } else if (protocol === 'shader') {
       renderer.registerShader(
         filename,
@@ -323,11 +465,11 @@ export function lazyInitialization({ entity, asset, render, input, store, events
   });
 
   renderer.events.on('render', (context, renderer, deltaTime) => {
-    eventTransform && entities.updateTransforms();
-    eventUpdate && entities.performAction('update', deltaTime);
-    eventView && entities.performAction('view', context, renderer, deltaTime);
-    eventGamepads && inputs.scanForGamepads();
-    eventLeap && inputs.leapProcessFrame();
+    !!controller.transform && entities.updateTransforms();
+    !!controller.update && entities.performAction('update', deltaTime);
+    !!controller.view && entities.performAction('view', context, renderer, deltaTime);
+    !!controller.gamepads && inputs.scanForGamepads();
+    !!controller.leap && inputs.leapProcessFrame();
   });
 
   System.events.on('change-scene', path => {
@@ -345,4 +487,6 @@ export function lazyInitialization({ entity, asset, render, input, store, events
   System.events.on('clear-scene', () => {
     entities.root = null;
   });
+
+  return controller;
 }

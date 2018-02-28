@@ -1,7 +1,13 @@
 import System from './System';
 import Events from '../utils/Events';
 import { vec2, vec4, mat4 } from '../utils/gl-matrix';
+import { isPOT } from '../utils';
 
+const versions = [
+  // TODO: change order to provide fallback to previous versions if requested is not supported.
+  [1, 'webgl'],
+  [2, 'webgl2'],
+];
 const vertices = new Float32Array([
   -1, -1, 0, 0,
   1, -1, 1, 0,
@@ -12,6 +18,147 @@ const indices = new Uint16Array([
   0, 1, 2,
   2, 3, 0
 ]);
+const extensions = {
+  instanced_arrays: [
+    1, 'ANGLE_instanced_arrays', null,
+    2, null, null
+  ],
+  blend_minmax: [
+    1, 'EXT_blend_minmax', null,
+    2, null, null
+  ],
+  color_buffer_float: [
+    1, 'WEBGL_color_buffer_float', null,
+    2, 'EXT_color_buffer_float', null
+  ],
+  color_buffer_half_float: [
+    1, 'WEBGL_color_buffer_half_float', null,
+    2, 'EXT_color_buffer_half_float', null
+  ],
+  disjoint_timer_query: [
+    1, 'EXT_disjoint_timer_query', null,
+    2, 'EXT_disjoint_timer_query_webgl2', null
+  ],
+  frag_depth: [
+    1, 'EXT_frag_depth', null,
+    2, null, null
+  ],
+  sRGB: [
+    1, 'EXT_sRGB', null,
+    2, null, null
+  ],
+  shader_texture_lod: [
+    1, 'EXT_shader_texture_lod', null,
+    2, null, null
+  ],
+  texture_filter_anisotropic: [
+    1, 'EXT_texture_filter_anisotropic', null,
+    2, 'EXT_texture_filter_anisotropic', null
+  ],
+  element_index_uint: [
+    1, 'OES_element_index_uint', null,
+    2, null, null
+  ],
+  standard_derivatives: [
+    1, 'OES_standard_derivatives', null,
+    2, null, null
+  ],
+  texture_float: [
+    1, 'OES_texture_float', null,
+    2, null, null
+  ],
+  texture_float_linear: [
+    1, 'OES_texture_float_linear', null,
+    2, 'OES_texture_float_linear', null
+  ],
+  texture_half_float: [
+    1, 'OES_texture_half_float', null,
+    2, null, null
+  ],
+  texture_half_float_linear: [
+    1, 'OES_texture_half_float_linear', null,
+    2, 'OES_texture_half_float_linear', null
+  ],
+  vertex_array_object: [
+    1, 'OES_vertex_array_object', null,
+    2, null, null
+  ],
+  compressed_texture_astc: [
+    1, 'WEBGL_compressed_texture_astc', null,
+    2, 'WEBGL_compressed_texture_astc', null
+  ],
+  compressed_texture_atc: [
+    1, 'WEBGL_compressed_texture_atc', null,
+    2, 'WEBGL_compressed_texture_atc', null
+  ],
+  compressed_texture_etc: [
+    1, 'WEBGL_compressed_texture_etc', null,
+    2, 'WEBGL_compressed_texture_etc', null
+  ],
+  compressed_texture_etc1: [
+    1, 'WEBGL_compressed_texture_etc1', null,
+    2, 'WEBGL_compressed_texture_etc1', null
+  ],
+  compressed_texture_pvrtc: [
+    1, 'WEBGL_compressed_texture_pvrtc', null,
+    2, 'WEBGL_compressed_texture_pvrtc', null
+  ],
+  compressed_texture_s3tc: [
+    1, 'WEBGL_compressed_texture_s3tc', null,
+    2, 'WEBGL_compressed_texture_s3tc', null
+  ],
+  compressed_texture_s3tc_srgb: [
+    1, 'WEBGL_compressed_texture_s3tc_srgb', null,
+    2, 'WEBGL_compressed_texture_s3tc_srgb', null
+  ],
+  debug_renderer_info: [
+    1, 'WEBGL_debug_renderer_info', null,
+    2, 'WEBGL_debug_renderer_info', null
+  ],
+  debug_shaders: [
+    1, 'WEBGL_debug_shaders', null,
+    2, 'WEBGL_debug_shaders', null
+  ],
+  depth_texture: [
+    1, 'WEBGL_depth_texture', null,
+    2, null, null
+  ],
+  draw_buffers: [
+    1, 'WEBGL_draw_buffers', [
+      'drawBuffersWEBGL', 'drawBuffers'
+    ],
+    2, null, null
+  ],
+  lose_context: [
+    1, 'WEBGL_lose_context', null,
+    2, 'WEBGL_lose_context', null
+  ]
+};
+
+function getExtensionByVersion(meta, context, version) {
+  for (var i = 0, c = meta.length; i < c; i += 3) {
+    if (meta[i] === version) {
+      const name = meta[i + 1];
+      if (!name) {
+        return context;
+      } else {
+        const ext = context.getExtension(name);
+        if (!ext) {
+          return null;
+        }
+
+        const mappings = meta[i + 2];
+        if (!!mappings) {
+          for (var j = 0, n = mappings.length; j < n; j += 2) {
+            context[mappings[j + 1]] = ext[mappings[j]].bind(ext);
+          }
+        }
+        return ext;
+      }
+    }
+  }
+  return null;
+}
 
 /**
  * Rendering command base class.
@@ -311,6 +458,11 @@ export default class RenderSystem extends System {
     };
   }
 
+  /** @type {number} */
+  get contextVersion() {
+    return this._contextVersion;
+  }
+
   /** @type {boolean} */
   get useDevicePixelRatio() {
     return this._useDevicePixelRatio;
@@ -461,7 +613,7 @@ export default class RenderSystem extends System {
    * @return {*|null} WebGL extension or null if not found.
    *
    * @example
-   * const extension = system.extension('OES_vertex_array_object');
+   * const extension = system.extension('vertex_array_object');
    * if (!!extension) {
    *   const vao = extension.createVertexArrayOES();
    *   extension.bindVertexArrayOES(vao);
@@ -479,14 +631,14 @@ export default class RenderSystem extends System {
    * @return {*|null} WebGL extension or null if not supported.
    *
    * @example
-   * const extension = system.requestExtension('OES_vertex_array_object');
+   * const extension = system.requestExtension('vertex_array_object');
    * if (!!extension) {
    *   const vao = extension.createVertexArrayOES();
    *   extension.bindVertexArrayOES(vao);
    * }
    */
   requestExtension(name) {
-    const { _context, _extensions } = this;
+    const { _context, _contextVersion, _extensions } = this;
     if (!_context) {
       throw new Error('WebGL context is not yet ready!');
     }
@@ -496,7 +648,12 @@ export default class RenderSystem extends System {
       return ext;
     }
 
-    ext = _context.getExtension(name);
+    const meta = extensions[name];
+    if (!meta) {
+      throw new Error(`Unsupported extension: ${name}`);
+    }
+    ext = getExtensionByVersion(meta, _context, _contextVersion);
+
     if (!!ext) {
       _extensions.set(name, ext);
     } else {
@@ -509,12 +666,12 @@ export default class RenderSystem extends System {
   /**
    * Load WebGL extensions by their names.
    *
-   * @param {string}	args - Extension names.
+   * @param {string[]}	args - Extension names.
    *
    * @return {boolean} True if all are supported and loaded, false otherwise.
    *
    * @example
-   * const supported = system.requestExtensions('OES_texture_float', 'OES_texture_float_linear');
+   * const supported = system.requestExtensions('texture_float', 'texture_float_linear');
    * if (!supported) {
    *   throw new Error('One of requested WebGL extensions is not supported!');
    * }
@@ -610,6 +767,15 @@ export default class RenderSystem extends System {
       gl.deleteProgram(shader);
     };
 
+    // TODO: fix problem with forced GLSL 3 in WebGL 2.
+    // const { _contextVersion } = this;
+    // if (_contextVersion > 1) {
+    //   vertex = `#version 300 es\n#define OXY_ctx_ver ${_contextVersion}\n${vertex}`;
+    //   fragment = `#version 300 es\n#define OXY_ctx_ver ${_contextVersion}\n${fragment}`;
+    // } else {
+    //   vertex = `#define OXY_ctx_ver ${_contextVersion}\n${vertex}`;
+    //   fragment = `#define OXY_ctx_ver ${_contextVersion}\n${fragment}`;
+    // }
     gl.shaderSource(vshader, vertex);
     gl.shaderSource(fshader, fragment);
     gl.compileShader(vshader);
@@ -894,14 +1060,21 @@ export default class RenderSystem extends System {
         continue;
       }
 
-      const mode = filtering === 'linear'
-        ? gl.LINEAR
-        : gl.NEAREST;
-
       gl.activeTexture(gl.TEXTURE0 + channel | 0);
       gl.bindTexture(gl.TEXTURE_2D, tex.texture);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, mode);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, mode);
+      if (filtering === 'trilinear') {
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+      } else if (filtering === 'bilinear') {
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST_MIPMAP_LINEAR);
+      } else if (filtering === 'linear') {
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+      } else {
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+      }
       gl.uniform1i(location, channel | 0);
     }
 
@@ -992,7 +1165,7 @@ export default class RenderSystem extends System {
    *
    * @param {string}	name - Sampler id.
    * @param {string|null}	texture - Texture id.
-   * @param {string|null}	filtering - Sampler filtering. Can be linear or nearest.
+   * @param {string|null}	filtering - Sampler filtering. Can be trilinear, bilinear, linear or nearest.
    *
    * @example
    * system.enableShader('sprite');
@@ -1024,14 +1197,21 @@ export default class RenderSystem extends System {
     }
 
     const { location, channel } = sampler;
-    const mode = filtering === 'linear'
-      ? gl.LINEAR
-      : gl.NEAREST;
-
     gl.activeTexture(gl.TEXTURE0 + channel | 0);
     gl.bindTexture(gl.TEXTURE_2D, tex.texture);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, mode);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, mode);
+    if (filtering === 'trilinear') {
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+    } else if (filtering === 'bilinear') {
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST_MIPMAP_LINEAR);
+    } else if (filtering === 'linear') {
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    } else {
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+    }
     gl.uniform1i(location, channel | 0);
   }
 
@@ -1040,13 +1220,14 @@ export default class RenderSystem extends System {
    *
    * @param {string}	id - Texture id.
    * @param {HTMLImageElement}	image - Image instance.
+   * @param {boolean} generateMipmap - Should generate mipmaps.
    *
    * @example
    * const image = new Image();
    * image.src = 'marsian.png';
    * system.registerTexture('marsian', image);
    */
-  registerTexture(id, image) {
+  registerTexture(id, image, generateMipmap = false) {
     this.unregisterTexture(id);
 
     const gl = this._context;
@@ -1065,6 +1246,10 @@ export default class RenderSystem extends System {
       width: image.width,
       height: image.height
     });
+
+    if (!!generateMipmap) {
+      this.generateTextureMipmap(id);
+    }
   }
 
   /**
@@ -1081,8 +1266,8 @@ export default class RenderSystem extends System {
    */
   registerTextureEmpty(id, width, height, floatPointData = false, pixelData = null) {
     if (!!floatPointData && !this.requestExtensions(
-      'OES_texture_float',
-      'OES_texture_float_linear'
+      'texture_float',
+      'texture_float_linear'
     )) {
       throw new Error('Float textures are not supported!');
     }
@@ -1186,6 +1371,13 @@ export default class RenderSystem extends System {
     const texture = _textures.get(id);
 
     if (!!texture) {
+      if ((!isPOT(texture.width, texture.height)) && this._contextVersion < 2) {
+        console.warn(
+          'Cannot generate mipmaps for non-POT texture within version < 2'
+        );
+        return;
+      }
+
       gl.bindTexture(gl.TEXTURE_2D, texture.texture);
       gl.generateMipmap(gl.TEXTURE_2D);
       gl.bindTexture(gl.TEXTURE_2D, null);
@@ -1214,14 +1406,12 @@ export default class RenderSystem extends System {
     generateMipmap = false
   ) {
     if (!!floatPointData && !this.requestExtensions(
-      'OES_texture_float',
-      'OES_texture_float_linear'
+      'texture_float',
+      'texture_float_linear'
     )) {
       throw new Error('Float textures are not supported!');
     }
-    if (!!multiTargetsCount > 0 && !this.requestExtensions(
-      'WEBGL_draw_buffers'
-    )) {
+    if (!!multiTargetsCount > 0 && !this.requestExtensions('draw_buffers')) {
       throw new Error('Draw buffers are not supported!');
     }
 
@@ -1232,7 +1422,7 @@ export default class RenderSystem extends System {
     height = Math.max(1, height);
 
     if (multiTargetsCount > 0) {
-      const ext = this.extension('WEBGL_draw_buffers');
+      const ext = this.extension('draw_buffers');
       const textures = [];
       const buffers = [];
       for (let i = 0; i < multiTargetsCount; ++i) {
@@ -1359,10 +1549,7 @@ export default class RenderSystem extends System {
 
     gl.bindFramebuffer(gl.FRAMEBUFFER, target.target);
     if (!!target.multiTargets) {
-      const ext = this.extension('WEBGL_draw_buffers');
-      if (!!ext) {
-        ext.drawBuffersWEBGL(target.multiTargets);
-      }
+      gl.drawBuffers(target.multiTargets);
     }
     gl.viewport(0, 0, target.width, target.height);
     gl.scissor(0, 0, target.width, target.height);
@@ -1387,10 +1574,7 @@ export default class RenderSystem extends System {
 
     const target = this._renderTargets.get(_activeRenderTarget);
     if (!!target.multiTargets) {
-      const ext = this.extension('WEBGL_draw_buffers');
-      if (!!ext) {
-        ext.drawBuffersWEBGL([]);
-      }
+      _context.drawBuffers([]);
     }
     _context.bindFramebuffer(_context.FRAMEBUFFER, null);
     _context.viewport(0, 0, _canvas.width, _canvas.height);
@@ -1486,7 +1670,7 @@ export default class RenderSystem extends System {
 
     canvas = this._canvas = document.getElementById(canvas);
 
-    const { _contextVersion } = this;
+    let { _contextVersion } = this;
     const options = {
       alpha: false,
       depth: false,
@@ -1496,16 +1680,22 @@ export default class RenderSystem extends System {
       preserveDrawingBuffer: false,
       failIfMajorPerformanceCaveat: false
     };
-    const contextName = _contextVersion === 1
-      ? 'webgl'
-      : `webgl${_contextVersion}`;
-    const gl = this._context =
-      canvas.getContext(contextName, options) ||
-      canvas.getContext(`experimental-${contextName}`, options);
-
-    if (!gl) {
-      throw new Error(`Cannot create WebGL context: ${contextName}`);
+    let version = versions.reduce((r, v) => {
+      if (!!r || v[0] > _contextVersion) {
+        return r;
+      }
+      const gl =
+        canvas.getContext(v[1], options) ||
+        canvas.getContext(`experimental-${v[1]}`, options);
+      return !!gl ? { context: gl, contextVersion: v[0] } : r;
+    }, null);
+    if (!version) {
+      throw new Error(
+        `Cannot create WebGL context for version: ${_contextVersion}`
+      );
     }
+    const gl = this._context = version.context;
+    this._contextVersion = version.contextVersion;
 
     for (const name of this._extensions.keys()) {
       this.requestExtension(name);

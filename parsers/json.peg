@@ -1,0 +1,70 @@
+Expression
+  = Value
+
+Identifier "identifier"
+  = _ [_a-zA-Z][_a-zA-Z0-9]* { return text(); }
+
+Value "value"
+  = Null / Boolean / Number / String / Array / EmptyArray / Map / EmptyMap
+
+EmptyMap "emptyMap"
+  = "{" _ "}" { return {}; }
+
+Map "map"
+  = "{" _ contents:MapContents _ "}" { return contents; }
+
+MapContents
+  = first:KeyValue rest:(_ "," _ KeyValue)* {
+    var result = {};
+    result[first[0]] = first[1];
+    for (const item of rest) {
+      const pair = item[3];
+      result[pair[0]] = pair[1]
+    }
+    return result;
+  }
+
+KeyValue
+  = identifier:Identifier _ ":" _ value:Value { return [identifier, value] }
+
+EmptyArray "emptyArray"
+  = "[" _ "]" { return []; }
+
+Array "array"
+  = _ "[" _ contents:ArrayContents _ "]" { return contents; }
+
+ArrayContents
+  = first:Value rest:(_ "," Value)* {
+    var result = [ first ];
+    for (const item of rest) {
+      result.push(item[2]);
+    }
+    return result;
+  }
+
+Boolean "boolean"
+  = True / False
+
+True "true"
+  = _ "true" { return true; }
+
+False "false"
+  = _ "false" { return false; }
+
+Null "null"
+  = _ "null" { return null; }
+
+Number "number"
+  = _ "-"?[0-9]+("."[0-9]+)? { return parseFloat(text()); }
+
+String "string"
+  = _ "'" contents:StringContents "'" { return contents; }
+
+StringContents
+  = ("\\". / [^"'"])* { return text(); }
+
+__ "whitespace"
+  = [ \t\n\r]+
+
+_ "whitespace_any"
+  = [ \t\n\r]*

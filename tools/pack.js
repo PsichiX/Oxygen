@@ -48,7 +48,8 @@ function listSubassets(path, result = []) {
 
 function listDirectories(paths) {
   const sources = paths
-    .reduce((a, v) => listSubassets(v, a), [])
+    // TODO: causes bug within nested modules.
+    // .reduce((a, v) => listSubassets(v, a), [])
     .map(p => {
       p = p.replace(/<([\w-]+)>/g, (m, n) => `node_modules/${n}`);
       return listDirectory(p, p);

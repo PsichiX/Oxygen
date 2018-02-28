@@ -166,7 +166,7 @@ export default class TextRenderer extends VerticesRenderer {
     this._text = null;
     this._font = null;
     this._color = vec4.fromValues(1, 1, 1, 1);
-    this._colorOutline = vec4.fromValues(1, 1, 1, 1);
+    this._colorOutline = vec4.fromValues(0, 0, 0, 1);
     this._halign = 'left';
     this._valign = 'top';
     this._filtering = 'linear';
