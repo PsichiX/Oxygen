@@ -42,8 +42,6 @@ module.exports = class PackWebpackPlugin {
     });
 
     compiler.plugin('after-emit', (compilation, callback) => {
-      const deps = new Set(compilation.contextDependencies);
-
       for (const item of _patterns) {
         let { input, output } = item;
         if (!input) {
@@ -56,8 +54,8 @@ module.exports = class PackWebpackPlugin {
           ? input.map(i => fp.join(inputPrefix, i))
           : [ fp.join(inputPrefix, input) ];
         for (const i of ipaths) {
-          if (!deps.has(i)) {
-            compilation.contextDependencies.push(i);
+          if (!compilation.contextDependencies.has(i)) {
+            compilation.contextDependencies.add(i);
           }
         }
       }
