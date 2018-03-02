@@ -454,7 +454,8 @@ export default class RenderSystem extends System {
   static get propsTypes() {
     return {
       useDevicePixelRatio: 'boolean',
-      timeScale: 'number'
+      timeScale: 'number',
+      collectStats: 'boolean'
     };
   }
 
@@ -485,6 +486,20 @@ export default class RenderSystem extends System {
     }
 
     this._timeScale = value;
+  }
+
+  /** @type {boolean} */
+  get collectStats() {
+    return this._collectStats;
+  }
+
+  /** @type {boolean} */
+  set collectStats(value) {
+    if (typeof value !== 'boolean') {
+      throw new Error('`value` is not type of Boolean!');
+    }
+
+    this._collectStats = value;
   }
 
   /** @type {number} */
@@ -532,6 +547,27 @@ export default class RenderSystem extends System {
     return this._stats;
   }
 
+  /** @type {string} */
+  get statsText() {
+    if (!this._collectStats) {
+      return '';
+    }
+
+    const { _stats } = this;
+    const deltaTime = _stats.get('delta-time');
+    const passedTime = _stats.get('passed-time');
+    const fps = `FPS: ${(1000 / deltaTime) | 0} (${1000 / deltaTime})`;
+    const dt = `Delta time: ${deltaTime | 0} ms (${deltaTime})`;
+    const pt = `Passed time: ${passedTime | 0} ms (${passedTime})`;
+    const sc = `Shader changes: ${_stats.get('shader-changes')}`;
+    const f = `Frames: ${_stats.get('frames')}`;
+    const s = `Shaders: ${_stats.get('shaders')}`;
+    const t = `Textures: ${_stats.get('textures')}`;
+    const rt = `Render targets: ${_stats.get('renderTargets')}`;
+    const e = `Extensions:${_stats.get('extensions').map(e => `\n - ${e}`).join()}`;
+    return `${fps}\n${dt}\n${pt}\n${sc}\n${f}\n${s}\n${t}\n${rt}\n${e}`;
+  }
+
   /**
    * Constructor.
    * Automaticaly binds into specified canvas.
@@ -548,6 +584,7 @@ export default class RenderSystem extends System {
     this._contextVersion = contextVersion | 0;
     this._useDevicePixelRatio = false;
     this._timeScale = 1;
+    this._collectStats = false;
     this._animationFrame = 0;
     this._lastTimestamp = null;
     this._canvas = null;
@@ -1793,14 +1830,16 @@ export default class RenderSystem extends System {
     gl.clear(gl.COLOR_BUFFER_BIT);
     this.events.trigger('render', gl, this, deltaTime);
 
-    _stats.set('delta-time', deltaTime);
-    _stats.set('passed-time', this._passedTime);
-    _stats.set('shader-changes', _counterShaderChanges);
-    _stats.set('frames', ++this._counterFrames);
-    _stats.set('shaders', this._shaders.size);
-    _stats.set('textures', this._textures.size);
-    _stats.set('renderTargets', this._renderTargets.size);
-    _stats.set('extensions', this._extensions.keys());
+    if (!!this._collectStats) {
+      _stats.set('delta-time', deltaTime);
+      _stats.set('passed-time', this._passedTime);
+      _stats.set('shader-changes', _counterShaderChanges);
+      _stats.set('frames', ++this._counterFrames);
+      _stats.set('shaders', this._shaders.size);
+      _stats.set('textures', this._textures.size);
+      _stats.set('renderTargets', this._renderTargets.size);
+      _stats.set('extensions', [...this._extensions.keys()]);
+    }
 
     this._requestFrame();
   }
