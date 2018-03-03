@@ -113,8 +113,8 @@ export class DeferredPipeline extends Command {
     this._renderer = null;
     this._gBuffer = null;
     this._lBuffer = null;
-    this._gBufferId = '#default-deferred-g-buffer';
-    this._lBufferId = '#default-deferred-l-buffer';
+    this._gBufferId = '#deferred-g-buffer';
+    this._lBufferId = '#deferred-l-buffer';
     this._gBufferIdUsed = null;
     this._lBufferIdUsed = null;
     this._gBufferTargets = { float: true, mipmap: false, count: 2 };
