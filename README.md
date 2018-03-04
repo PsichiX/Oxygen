@@ -27,9 +27,9 @@ oxy-gen project-name
 ```
 
 ## Live Playground Tutorials
-1. [Hello, Playground!](http://oxygen.experiments.psichix.io/BkbVmOdNz)
-1. [Simple entity movement](http://oxygen.experiments.psichix.io/rkP6JOK4M)
-1. [Advaned yet easy to use input handling with `InputHandler` component](http://oxygen.experiments.psichix.io/r15hPq9EG)
+1. [Hello, Playground!](http://labs.oxygencore.io/BkbVmOdNz)
+1. [Simple entity movement](http://labs.oxygencore.io/rkP6JOK4M)
+1. [Advaned yet easy to use input handling with `InputHandler` component](http://labs.oxygencore.io/r15hPq9EG)
 
 ## Imagination is your ONLY limit
 Check **[Operation: SoulHunter](http://soulhunter.psichix.io)** game to see what you can do.
