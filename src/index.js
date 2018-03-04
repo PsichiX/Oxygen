@@ -365,7 +365,8 @@ export function lazyInitialization({ entity, asset, render, input, store, events
     !!render ? render.screen : null,
     !!render ? render.optimize : true,
     !!render ? render.extensions : null,
-    !!render ? render.version : 1
+    !!render ? render.version : 1,
+    !!render ? render.manualMode : false
   ));
   const inputs = System.register('InputSystem', new InputSystem(
     renderer.canvas,

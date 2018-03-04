@@ -576,10 +576,12 @@ export default class RenderSystem extends System {
    * @param {boolean}	optimize - Optimize rendering pipeline.
    * @param {Array.<string>}	extensions - array with WebGL extensions list.
    * @param {number}	contextVersion - WebGL context version number.
+   * @param {boolean}	manualMode - Manually trigger rendering next frames.
    */
-  constructor(canvas, optimize = true, extensions = null, contextVersion = 1) {
+  constructor(canvas, optimize = true, extensions = null, contextVersion = 1, manualMode = false) {
     super();
 
+    this._manualMode = !!manualMode;
     this._extensions = new Map();
     this._contextVersion = contextVersion | 0;
     this._useDevicePixelRatio = false;
@@ -1686,6 +1688,15 @@ export default class RenderSystem extends System {
     }
   }
 
+  renderFrame() {
+    if (!this._manualMode) {
+      console.warn('Trying to manually render frame without manual render mode!');
+      return;
+    }
+
+    this._onFrame(this._lastTimestamp);
+  }
+
   /**
    * @override
    */
@@ -1808,6 +1819,10 @@ export default class RenderSystem extends System {
   }
 
   _requestFrame() {
+    if (!!this._manualMode) {
+      return;
+    }
+
     this._animationFrame = requestAnimationFrame(
       timestamp => this._onFrame(timestamp)
     );
