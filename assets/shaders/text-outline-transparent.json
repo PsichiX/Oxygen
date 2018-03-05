@@ -1,0 +1,54 @@
+{
+  "vertex": "shaders/text.vert",
+  "fragment": "shaders/text-outline.frag",
+  "layout": {
+    "aPosition": {
+      "size": 2,
+      "stride": 5,
+      "offset": 0
+    },
+    "aTexCoord": {
+      "size": 2,
+      "stride": 5,
+      "offset": 2
+    },
+    "aPage": {
+      "size": 1,
+      "stride": 5,
+      "offset": 4
+    }
+  },
+  "uniforms": {
+    "uModel": "model-matrix",
+    "uView": "view-matrix",
+    "uProjection": "projection-matrix",
+    "uColor": [1, 1, 1, 1],
+    "uColorOutline": [0, 0, 0, 1]
+  },
+  "samplers": {
+    "sPage0": {
+      "channel": 0,
+      "texture": "",
+      "filtering": "linear"
+    },
+    "sPage1": {
+      "channel": 1,
+      "texture": "",
+      "filtering": "linear"
+    },
+    "sPage2": {
+      "channel": 2,
+      "texture": "",
+      "filtering": "linear"
+    },
+    "sPage3": {
+      "channel": 3,
+      "texture": "",
+      "filtering": "linear"
+    }
+  },
+  "blending": {
+    "source": "src-alpha",
+    "destination": "one-minus-src-alpha"
+  }
+}

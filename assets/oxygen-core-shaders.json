@@ -1,0 +1,9 @@
+{
+  "assets": [
+    "shader://shaders/sprite-transparent.json",
+    "shader://shaders/sprite.json",
+    "shader://shaders/color-transparent.json",
+    "shader://shaders/color.json",
+    "shader://shaders/text-outline-transparent.json"
+  ]
+}

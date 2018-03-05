@@ -1,0 +1,7 @@
+{
+  "assets": [
+    "set://oxygen-core-images.json",
+    "set://oxygen-core-shaders.json",
+    "set://oxygen-core-fonts.json"
+  ]
+}

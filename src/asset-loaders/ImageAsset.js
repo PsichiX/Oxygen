@@ -31,7 +31,7 @@ export default class ImageAsset extends Asset {
   }
 
   /**
-   * @override 
+   * @override
    */
   load() {
     const { filename, owner } = this;
@@ -45,6 +45,13 @@ export default class ImageAsset extends Asset {
         const image = new Image();
 
         image.onload = () => {
+          const { options } = this;
+          if (!!options) {
+            if ('scale' in options && typeof options.scale === 'number') {
+              image.width *= options.scale;
+              image.height *= options.scale;
+            }
+          }
           this.data = image;
 
           resolve(this);

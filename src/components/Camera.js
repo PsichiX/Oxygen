@@ -487,7 +487,7 @@ export default class Camera extends Component {
       mat4.copy(_projectionMatrix, cachedZeroMat4);
       mat4.copy(_inverseProjectionMatrix, cachedZeroMat4);
       mat4.copy(renderer.projectionMatrix, cachedZeroMat4);
-      mat4.copy(renderer.inverseProjectionMatrix, cachedZeroMat4);
+      mat4.copy(renderer.viewMatrix, cachedZeroMat4);
 
       if (this._dirty) {
         this._dirty = false;
@@ -523,15 +523,10 @@ export default class Camera extends Component {
       ? entity.findEntity(_captureEntity)
       : entity;
 
-    if (!!_captureEntity) {
-      this.buildCameraMatrix(cachedTempMat4, width, height);
-      mat4.multiply(_projectionMatrix, cachedTempMat4, entity.inverseTransform);
-    } else {
-      this.buildCameraMatrix(_projectionMatrix, width, height);
-    }
-
-    mat4.copy(renderer.projectionMatrix, _projectionMatrix);
+    this.buildCameraMatrix(_projectionMatrix, width, height);
     mat4.invert(_inverseProjectionMatrix, _projectionMatrix);
+    mat4.copy(renderer.projectionMatrix, _projectionMatrix);
+    mat4.copy(renderer.viewMatrix, entity.inverseTransform);
 
     if (this._postprocessCachedWidth !== width ||
         this._postprocessCachedHeight !== height

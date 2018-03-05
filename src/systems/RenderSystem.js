@@ -538,8 +538,13 @@ export default class RenderSystem extends System {
   }
 
   /** @type {mat4} */
-  get modelViewMatrix() {
-    return this._modelViewMatrix;
+  get viewMatrix() {
+    return this._viewMatrix;
+  }
+
+  /** @type {mat4} */
+  get modelMatrix() {
+    return this._modelMatrix;
   }
 
   /** @type {Map} */
@@ -600,7 +605,8 @@ export default class RenderSystem extends System {
     this._activeViewportSize = vec2.create();
     this._clearColor = vec4.create();
     this._projectionMatrix = mat4.create();
-    this._modelViewMatrix = mat4.create();
+    this._viewMatrix = mat4.create();
+    this._modelMatrix = mat4.create();
     this._blendingConstants = {};
     this._stats = new Map();
     this._counterShaderChanges = 0;
@@ -904,7 +910,8 @@ export default class RenderSystem extends System {
 
         const forcedUpdate =
           mapping === 'projection-matrix' ||
-          mapping === 'model-view-matrix' ||
+          mapping === 'view-matrix' ||
+          mapping === 'model-matrix' ||
           mapping === 'time' ||
           mapping === 'viewport-size' ||
           mapping === 'inverse-viewport-size';
@@ -1005,7 +1012,8 @@ export default class RenderSystem extends System {
       _textures,
       _activeShader,
       _projectionMatrix,
-      _modelViewMatrix,
+      _viewMatrix,
+      _modelMatrix,
       _optimize,
       _passedTime
     } = this;
@@ -1047,8 +1055,11 @@ export default class RenderSystem extends System {
       } else if (mapping === 'projection-matrix') {
         gl.uniformMatrix4fv(location, false, _projectionMatrix);
 
-      } else if (mapping === 'model-view-matrix') {
-        gl.uniformMatrix4fv(location, false, _modelViewMatrix);
+      } else if (mapping === 'view-matrix') {
+        gl.uniformMatrix4fv(location, false, _viewMatrix);
+
+      } else if (mapping === 'model-matrix') {
+        gl.uniformMatrix4fv(location, false, _modelMatrix);
 
       } else if (mapping === 'time') {
         gl.uniform1f(location, _passedTime * 0.001);

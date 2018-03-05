@@ -56,6 +56,13 @@ export default class SVGAsset extends Asset {
         image.height = parseFloat(viewBox[7]) - parseFloat(viewBox[3]);
 
         image.onload = () => {
+          const { options } = this;
+          if (!!options) {
+            if ('scale' in options && typeof options.scale === 'number') {
+              image.width *= options.scale;
+              image.height *= options.scale;
+            }
+          }
           this.data = image;
 
           resolve(this);

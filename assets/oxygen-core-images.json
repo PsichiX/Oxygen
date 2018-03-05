@@ -1,0 +1,8 @@
+{
+  "assets": [
+    "svg://images/oxygen-core-dark.svg",
+    "svg://images/oxygen-core-dark-2.svg",
+    "svg://images/oxygen-core-light.svg",
+    "svg://images/oxygen-core-light-2.svg"
+  ]
+}

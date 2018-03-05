@@ -404,7 +404,7 @@ export default class VerticesRenderer extends Component {
     }
 
     this._ensureState(gl);
-    mat4.copy(renderer.modelViewMatrix, this.entity.transform);
+    mat4.copy(renderer.modelMatrix, this.entity.transform);
 
     gl.bindBuffer(gl.ARRAY_BUFFER, this._vertexBuffer);
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this._indexBuffer);
