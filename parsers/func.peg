@@ -1,0 +1,35 @@
+Expression
+  = "@" _ value:Value { return 'mat4.identity(out);' + value + ';gl.uniformMatrix4fv(location,out);'; }
+
+Identifier "identifier"
+  = _ [_a-zA-Z][_a-zA-Z0-9-_]* { return text(); }
+
+Value "value"
+  = Call / NamedValue
+
+NamedValue
+  = ident:Identifier { return 'getValue("' + ident + '")'; }
+
+Call "call"
+  = ident:Identifier _ params:(Params / EmptyParams) { return 'mat4.' + ident + params; }
+
+EmptyParams "emptyParams"
+  = "(" _ ")" { return '(out)'; }
+
+Params "params"
+  = _ "(" _ contents:ParamsContents _ ")" { return '(' + contents + ')'; }
+
+ParamsContents
+  = first:Value rest:(_ "," Value)* {
+    var result = [ first ];
+    for (const item of rest) {
+      result.push(item[2]);
+    }
+    return 'out,' + result.join(',');
+  }
+
+__ "whitespace"
+  = [ \t\n\r]+
+
+_ "whitespace_any"
+  = [ \t\n\r]*

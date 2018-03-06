@@ -1,7 +1,8 @@
 import System from './System';
 import Events from '../utils/Events';
-import { vec2, vec4, mat4 } from '../utils/gl-matrix';
+import { vec2, vec3, vec4, mat2, mat3, mat4 } from '../utils/gl-matrix';
 import { isPOT } from '../utils';
+import funcParser from '../utils/funcParser';
 
 const versions = [
   // TODO: change order to provide fallback to previous versions if requested is not supported.
@@ -134,6 +135,7 @@ const extensions = {
     2, 'WEBGL_lose_context', null
   ]
 };
+const functions = new Map();
 
 function getExtensionByVersion(meta, context, version) {
   for (var i = 0, c = meta.length; i < c; i += 3) {
@@ -158,6 +160,11 @@ function getExtensionByVersion(meta, context, version) {
     }
   }
   return null;
+}
+
+function makeApplierFunction(code) {
+  code = funcParser.parse(code);
+  return new Function('location', 'gl', 'out', 'getValue', 'mat4', code);
 }
 
 /**
@@ -613,6 +620,18 @@ export default class RenderSystem extends System {
     this._counterFrames = 0;
     this._optimize = !!optimize;
     this._passedTime = 0;
+    this._shaderApplierOut = mat4.create();
+    this._shaderApplierGetValue = name => {
+      if (name === 'model-matrix') {
+        return this._modelMatrix;
+      } else if (name === 'view-matrix') {
+        return this._viewMatrix;
+      } else if (name === 'projection-matrix') {
+        return this._projectionMatrix;
+      } else {
+        throw new Error(`Unknown matrix: ${name}`);
+      }
+    };
 
     if (!!extensions) {
       for (const name of extensions) {
@@ -648,6 +667,8 @@ export default class RenderSystem extends System {
     _events.dispose();
     this._stats.clear();
     this._extensions = null;
+    this._shaderApplierOut = null;
+    this._shaderApplierGetValue = null;
   }
 
   /**
@@ -900,6 +921,14 @@ export default class RenderSystem extends System {
           );
         }
 
+        let func = null;
+        if (typeof mapping === 'string' && mapping.startsWith('@')) {
+          func = functions[mapping];
+          if (!func) {
+            func = functions[mapping] = makeApplierFunction(mapping);
+          }
+        }
+
         const location = gl.getUniformLocation(shader, name);
         if (!location) {
           deleteAll();
@@ -909,6 +938,7 @@ export default class RenderSystem extends System {
         }
 
         const forcedUpdate =
+          !!func ||
           mapping === 'projection-matrix' ||
           mapping === 'view-matrix' ||
           mapping === 'model-matrix' ||
@@ -918,7 +948,7 @@ export default class RenderSystem extends System {
 
         uniforms.set(name, {
           location,
-          mapping,
+          mapping: !func ? mapping : func,
           forcedUpdate
         });
       }
@@ -1093,6 +1123,15 @@ export default class RenderSystem extends System {
 
       } else if (length === 16) {
         gl.uniformMatrix4fv(location, false, mapping);
+
+      } else if (mapping instanceof Function) {
+        mapping(
+          location,
+          gl,
+          this._shaderApplierOut,
+          this._shaderApplierGetValue,
+          mat4
+        );
 
       } else {
         console.warn(`Trying to set non-proper uniform: ${name} (${id})`);
