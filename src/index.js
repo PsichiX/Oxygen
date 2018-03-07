@@ -32,7 +32,7 @@ import UiSprite from './components/UiSprite';
 import UiLayout from './components/UiLayout';
 import Skeleton from './components/Skeleton';
 import SortedActions from './components/SortedActions';
-import Postprocess from './components/Postprocess';
+import Postprocess, { PostprocessBase } from './components/Postprocess';
 import DeferredRenderer, { DeferredPipeline } from './components/DeferredRenderer';
 import System from './systems/System';
 import EntitySystem from './systems/EntitySystem';
@@ -103,6 +103,7 @@ export default {
   Skeleton,
   SortedActions,
   Postprocess,
+  PostprocessBase,
   DeferredRenderer,
   DeferredPipeline,
   System,
@@ -172,6 +173,7 @@ export {
   Skeleton,
   SortedActions,
   Postprocess,
+  PostprocessBase,
   DeferredRenderer,
   DeferredPipeline,
   System,

@@ -1,6 +1,69 @@
 import Component from '../systems/EntitySystem/Component';
 import Camera, { PostprocessPass } from './Camera';
 
+export class PostprocessBase extends Component {
+
+  static factory() {
+    throw new Error('Cannot instantiate PostprocessBase abstract component!');
+  }
+
+  get camera() {
+    return this._camera;
+  }
+
+  constructor() {
+    super();
+
+    this._camera = null;
+  }
+
+  dispose() {
+    super.dispose();
+
+    this._camera = null;
+  }
+
+  registerPostprocessPass(pass) {
+    const { _camera } = this;
+    if (!!_camera) {
+      _camera.registerPostprocessPass(pass);
+    }
+  }
+
+  unregisterPostprocessPass(pass) {
+    const { _camera } = this;
+    if (!!_camera) {
+      _camera.unregisterPostprocessPass(pass);
+    }
+  }
+
+  unregisterAllPostprocessPasses() {
+    const { _camera } = this;
+    if (!!_camera) {
+      _camera.unregisterAllPostprocessPasses();
+    }
+  }
+
+  onAttach() {
+    const camera = this._camera = this.entity.getComponent(Camera);
+    if (!camera) {
+      throw new Error('There is no Camera component in entity!');
+    }
+
+    this.onRegister();
+  }
+
+  onDetach() {
+    this.onUnregister();
+    this._camera = null;
+  }
+
+  onRegister() {}
+
+  onUnregister() {}
+
+}
+
 /**
  * Multipass camera postprocess controller.
  *
@@ -8,7 +71,7 @@ import Camera, { PostprocessPass } from './Camera';
  * const effect = new Postprocess();
  * effect.deserialize({ passes: [ { shader: 'pixelate.json' }, { shader: 'yellowish.json' } ] });
  */
-export default class Postprocess extends Component {
+export default class Postprocess extends PostprocessBase {
 
   /** @type {*} */
   static get propsTypes() {
@@ -26,12 +89,12 @@ export default class Postprocess extends Component {
     return new Postprocess();
   }
 
-  /** @type {*} */
+  /** @type {[*]} */
   get passes() {
     return this._passes;
   }
 
-  /** @type {*} */
+  /** @type {[*]} */
   set passes(value) {
     if (!value) {
       this._unregister();
@@ -48,13 +111,17 @@ export default class Postprocess extends Component {
     }
   }
 
+  /** @type {[PostprocessPass]} */
+  get passesInstances() {
+    return this._passInstances;
+  }
+
   /**
    * Constructor.
    */
   constructor() {
     super();
 
-    this._camera = null;
     this._passes = null;
     this._passInstances = null;
   }
@@ -69,7 +136,6 @@ export default class Postprocess extends Component {
   dispose() {
     super.dispose();
 
-    this._camera = null;
     this._passes = null;
     this._passInstances = null;
   }
@@ -77,14 +143,14 @@ export default class Postprocess extends Component {
   /**
    * @override
    */
-  onAttach() {
+  onRegister() {
     this._register();
   }
 
   /**
    * @override
    */
-  onDetach() {
+  onUnregister() {
     this._unregister();
   }
 
@@ -105,11 +171,6 @@ export default class Postprocess extends Component {
   _register() {
     this._unregister();
 
-    const camera = this._camera = this.entity.getComponent(Camera);
-    if (!camera) {
-      throw new Error('There is no component of Camera type!');
-    }
-
     const { _passes } = this;
     if (!_passes || _passes.length <= 0) {
       return;
@@ -118,29 +179,23 @@ export default class Postprocess extends Component {
     this._passInstances = this._passes.map(data => {
       const pass = new PostprocessPass();
       pass.deserialize(data);
-      camera.registerPostprocessPass(pass);
+      this.registerPostprocessPass(pass);
       return pass;
     });
   }
 
   _unregister() {
-    const { _camera } = this;
-    if (!_camera) {
-      return;
-    }
-
     const { _passInstances } = this;
 
     if (!!_passInstances && _passInstances.length > 0) {
       this._passes = _passInstances.map(pass => {
         const data = pass.serialize();
-        _camera.unregisterPostprocessPass(pass);
+        this.unregisterPostprocessPass(pass);
         pass.dispose();
         return data;
       });
       this._passInstances = null;
     }
-    this._camera = null;
   }
 
 }

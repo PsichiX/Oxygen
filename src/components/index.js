@@ -17,7 +17,7 @@ import UiSprite from './UiSprite';
 import UiLayout from './UiLayout';
 import Skeleton from './Skeleton';
 import SortedActions from './SortedActions';
-import Postprocess from './Postprocess';
+import Postprocess, { PostprocessBase } from './Postprocess';
 import DeferredRenderer, { DeferredPipeline } from './DeferredRenderer';
 
 export default {
@@ -42,6 +42,7 @@ export default {
   Skeleton,
   SortedActions,
   Postprocess,
+  PostprocessBase,
   DeferredRenderer,
   DeferredPipeline
 };
@@ -68,6 +69,7 @@ export {
   Skeleton,
   SortedActions,
   Postprocess,
+  PostprocessBase,
   DeferredRenderer,
   DeferredPipeline
 };

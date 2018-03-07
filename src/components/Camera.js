@@ -9,79 +9,123 @@ const cachedZeroMat4 = mat4.fromValues(
 );
 let rttUidGenerator = 0;
 
-/**
- * Postprocess pass processed by camera to modify it's output image.
- *
- * @example
- * const pass = new PostprocessPass();
- * pass.deserialize({ shader: 'pixelate.json', overrideUniforms: { uScale: [100, 100] } });
- * camera.registerPostprocessPass(pass);
- */
-export class PostprocessPass extends RenderFullscreenCommand {
+export class PostprocessPass {
 
-  /**
-   * Serialize pass state into JSON object.
-   *
-   * @return {*} Serialized JSON object.
-   *
-   * @example
-   * const data = { shader: 'pixelate.json' };
-   * const pass = new PostprocessPass();
-   * pass.deserialize(data);
-   * pass.serialize().shader === data.shader
-   */
-  serialize() {
-    const result = {
-      shader: this._shader
-    };
-
-    if (this._overrideUniforms.size > 0) {
-      result.overrideUniforms = {};
-      for (const [key, value] of this._overrideUniforms.entries()) {
-        result.overrideUniforms[key] = value;
-      }
-    }
-
-    if (this._overrideSamplers.size > 0) {
-      result.overrideSamplers = {};
-      for (const [key, value] of this._overrideSamplers.entries()) {
-        result.overrideSamplers[key] = value;
-      }
-    }
-
-    return result;
+  get shader() {
+    return this._shader;
   }
 
-  /**
-   * Deserialize JSON data into pass state.
-   *
-   * @param {*}	data - JSON object with pass state.
-   *
-   * @example
-   * const data = { shader: 'pixelate.json' };
-   * const pass = new PostprocessPass();
-   * pass.deserialize(data);
-   * pass.serialize().shader === data.shader
-   */
+  set shader(value) {
+    if (!value) {
+      this._shader = null;
+      return;
+    }
+    if (typeof value !== 'string') {
+      throw new Error('`value` is not type of String!');
+    }
+
+    this._shader = value;
+  }
+
+  get overrideUniforms() {
+    return this._overrideUniforms;
+  }
+
+  set overrideUniforms(value) {
+    this._overrideUniforms = value;
+  }
+
+  get overrideSamplers() {
+    return this._overrideSamplers;
+  }
+
+  set overrideSamplers(value) {
+    this._overrideSamplers = value;
+  }
+
+  constructor() {
+    this._shader = null;
+    this._overrideUniforms = null;
+    this._overrideSamplers = null;
+    this._command = new RenderFullscreenCommand();
+  }
+
+  dispose() {
+    this._command.dispose();
+
+    this._shader = null;
+    this._overrideUniforms = null;
+    this._overrideSamplers = null;
+    this._command = null;
+  }
+
+  apply(
+    gl,
+    renderer,
+    textureSource,
+    renderTarget,
+    shader,
+    overrideUniforms = null,
+    overrideSamplers = null
+  ) {
+    const { _command } = this;
+
+    _command.shader = shader;
+    _command.overrideUniforms.clear();
+    _command.overrideSamplers.clear();
+    _command.overrideSamplers.set('sBackBuffer', { texture: textureSource });
+
+    if (!!overrideUniforms) {
+      for (const key in overrideUniforms) {
+        _command.overrideUniforms.set(key, overrideUniforms[key]);
+      }
+    }
+
+    if (!!overrideSamplers) {
+      for (const key in overrideSamplers) {
+        _command.overrideSamplers.set(key, overrideSamplers[key]);
+      }
+    }
+
+    if (!renderTarget) {
+      renderer.disableRenderTarget();
+    } else {
+      renderer.enableRenderTarget(renderTarget);
+    }
+    _command.onRender(gl, renderer, 0, null);
+  }
+
+  serialize() {
+    return {
+      shader: this._shader,
+      overrideUniforms: this._overrideUniforms,
+      overrideSamplers: this._overrideSamplers
+    };
+  }
+
   deserialize(data) {
     if (!data) {
       return;
     }
 
     this.shader = data.shader || null;
-
-    if ('overrideUniforms' in data) {
-      for (const key in data.overrideUniforms) {
-        this._overrideUniforms.set(key, data.overrideUniforms[key]);
-      }
-    }
-
-    if ('overrideSamplers' in data) {
-      for (const key in data.overrideSamplers) {
-        this._overrideSamplers.set(key, data.overrideSamplers[key]);
-      }
-    }
+    this.overrideUniforms = data.overrideUniforms || null;
+    this.overrideSamplers = data.overrideSamplers || null;
   }
+
+  onApply(gl, renderer, textureSource, renderTarget) {
+    this.apply(
+      gl,
+      renderer,
+      textureSource,
+      renderTarget,
+      this._shader,
+      this._overrideUniforms,
+      this._overrideSamplers
+    );
+  }
+
+  onResize(width, height) {}
 
 }
 
@@ -547,7 +591,7 @@ export default class Camera extends Component {
       }
     }
 
-    if (_postprocess.length === 0) {
+    if (_postprocess.length <= 0) {
       if (!!this._renderTargetIdUsed) {
         renderer.enableRenderTarget(this._renderTargetIdUsed);
       }
@@ -555,81 +599,48 @@ export default class Camera extends Component {
         renderer.executeCommand(this._command, deltaTime, this._layer);
       } else {
         if (!!this._layer) {
-          target.performAction('render-layer', gl, renderer, deltaTime, this._layer);
+          target.performAction(
+            'render-layer',
+            gl,
+            renderer,
+            deltaTime,
+            this._layer
+          );
         } else {
           target.performAction('render', gl, renderer, deltaTime, null);
         }
       }
       if (!!this._renderTargetIdUsed) {
         renderer.disableRenderTarget();
-      }
-    } else if (_postprocess.length === 1) {
-      const pass = _postprocess[0];
-      const passTarget = pass.renderTargetId;
-      const id = passTarget || this._postprocessRtt[0];
-      renderer.enableRenderTarget(id);
-      if (!!this._command) {
-        renderer.executeCommand(this._command, deltaTime, this._layer);
-      } else {
-        if (!!this._layer) {
-          target.performAction('render-layer', gl, renderer, deltaTime, this._layer);
-        } else {
-          target.performAction('render', gl, renderer, deltaTime, null);
-        }
-      }
-      pass.overrideSamplers.set('sBackBuffer', {
-        texture: id,
-        filtering: 'linear'
-      });
-      if (!!this._renderTargetIdUsed) {
-        renderer.enableRenderTarget(this._renderTargetIdUsed);
-        pass.onRender(gl, renderer, deltaTime);
-        renderer.disableRenderTarget();
-      } else {
-        renderer.disableRenderTarget();
-        pass.onRender(gl, renderer, deltaTime);
       }
     } else {
-      const pass = _postprocess[0];
-      const passTarget = pass.renderTargetId;
-      const id = passTarget || this._postprocessRtt[0];
+      const { _postprocessRtt } = this;
+      let id = _postprocessRtt[0];
       renderer.enableRenderTarget(id);
       if (!!this._command) {
         renderer.executeCommand(this._command, deltaTime, this._layer);
       } else {
         if (!!this._layer) {
-          target.performAction('render-layer', gl, renderer, deltaTime, this._layer);
+          target.performAction(
+            'render-layer',
+            gl,
+            renderer,
+            deltaTime,
+            this._layer
+          );
         } else {
           target.performAction('render', gl, renderer, deltaTime, null);
         }
       }
-      let lastTarget = id;
-      let lastPass = pass;
-      for (let i = 1, c = _postprocess.length; i < c; ++i) {
+      for (let i = 0, c = _postprocess.length; i < c; ++i) {
         const pass = _postprocess[i];
-        const passTarget = pass.renderTargetId;
-        const id = passTarget || this._postprocessRtt[i % 2];
-        lastPass.overrideSamplers.set('sBackBuffer', {
-          texture: lastTarget,
-          filtering: 'linear'
-        });
-        renderer.enableRenderTarget(id);
-        lastPass.onRender(gl, renderer, deltaTime);
-        lastTarget = id;
-        lastPass = pass;
+        const rtt = i < c - 1
+          ? _postprocessRtt[(i + 1) % 2]
+          : this._renderTargetIdUsed;
+        pass.onApply(gl, renderer, id, rtt);
+        id = rtt;
       }
-      lastPass.overrideSamplers.set('sBackBuffer', {
-        texture: lastTarget,
-        filtering: 'linear'
-      });
-      if (!!this._renderTargetIdUsed) {
-        renderer.enableRenderTarget(this._renderTargetIdUsed);
-        lastPass.onRender(gl, renderer, deltaTime);
-        renderer.disableRenderTarget();
-      } else {
-        renderer.disableRenderTarget();
-        lastPass.onRender(gl, renderer, deltaTime);
-      }
+      renderer.disableRenderTarget();
     }
 
     if (this._dirty) {
@@ -647,7 +658,12 @@ export default class Camera extends Component {
    * @param {number}	height - Height.
    */
   onResize(width, height) {
-    const { _renderTargetWidth, _renderTargetHeight, _command } = this;
+    const {
+      _renderTargetWidth,
+      _renderTargetHeight,
+      _command,
+      _postprocess
+    } = this;
     if (_renderTargetWidth <= 0 || _renderTargetHeight <= 0) {
       this._renderTargetDirty = true;
       this._postprocessCachedWidth = 0;
@@ -656,6 +672,11 @@ export default class Camera extends Component {
     }
     if (!!_command) {
       _command.onResize(width, height);
+    }
+    if (!!_postprocess) {
+      for (let i = 0, c = _postprocess.length; i < c; ++i) {
+        _postprocess[i].onResize(width, height);
+      }
     }
   }
 

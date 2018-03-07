@@ -286,22 +286,6 @@ export class Pipeline extends Command {
  */
 export class RenderFullscreenCommand extends Command {
 
-  get renderTargetId() {
-    return this._renderTargetId;
-  }
-
-  set renderTargetId(value) {
-    if (!value) {
-      this._renderTargetId = null;
-      return;
-    }
-    if (typeof value !== 'string') {
-      throw new Error('`value` is not type of String!');
-    }
-
-    this._renderTargetId = value;
-  }
-
   /** @type {string|null} */
   get shader() {
     return this._shader;
@@ -339,7 +323,6 @@ export class RenderFullscreenCommand extends Command {
     this._context = null;
     this._vertexBuffer = null;
     this._indexBuffer = null;
-    this._renderTargetId = null;
     this._shader = null;
     this._overrideUniforms = new Map();
     this._overrideSamplers = new Map();
@@ -371,7 +354,6 @@ export class RenderFullscreenCommand extends Command {
     this._context = null;
     this._vertexBuffer = null;
     this._indexBuffer = null;
-    this._renderTargetId = null;
     this._shader = null;
     this._overrideUniforms = null;
     this._overrideSamplers = null;
@@ -397,7 +379,7 @@ export class RenderFullscreenCommand extends Command {
       return;
     }
 
-    this._ensureState(gl);
+    this._ensureState(gl, renderer);
     gl.bindBuffer(gl.ARRAY_BUFFER, this._vertexBuffer);
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this._indexBuffer);
 
@@ -433,7 +415,7 @@ export class RenderFullscreenCommand extends Command {
     renderer.disableShader();
   }
 
-  _ensureState(gl) {
+  _ensureState(gl, renderer) {
     this._context = gl;
 
     if (!this._vertexBuffer) {
