@@ -1058,7 +1058,7 @@ export default class RenderSystem extends System {
       gl.enableVertexAttribArray(location);
     }
 
-    for (const { location, mapping, forcedUpdate } of uniforms.values()) {
+    for (const [name, { location, mapping, forcedUpdate }] of uniforms.entries()) {
       const { length } = mapping;
 
       if (mapping === '' || (!changeShader && !forcedUpdate)) {
@@ -1077,7 +1077,11 @@ export default class RenderSystem extends System {
         gl.uniform1f(location, _passedTime * 0.001);
 
       } else if (mapping === 'viewport-size') {
-        gl.uniform2f(location, this._activeViewportSize[0], this._activeViewportSize[1]);
+        gl.uniform2f(
+          location,
+          this._activeViewportSize[0],
+          this._activeViewportSize[1]
+        );
 
       } else if (mapping === 'inverse-viewport-size') {
         const [ width, height ] = this._activeViewportSize;

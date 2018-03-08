@@ -3,8 +3,34 @@ import Camera, { PostprocessPass } from './Camera';
 
 export class PostprocessBase extends Component {
 
+  static get propsTypes() {
+    return {
+      active: 'boolean'
+    };
+  }
+
   static factory() {
     throw new Error('Cannot instantiate PostprocessBase abstract component!');
+  }
+
+  get active() {
+    return this._active;
+  }
+
+  set active(value) {
+    if (typeof value !== 'boolean') {
+      throw new Error('`value` is not type of Boolean!');
+    }
+
+    const { _active } = this;
+    this._active = value;
+    if (!!this._camera && value !== _active) {
+      if (!!value) {
+        this.onRegister();
+      } else {
+        this.onUnregister();
+      }
+    }
   }
 
   get camera() {
@@ -14,6 +40,7 @@ export class PostprocessBase extends Component {
   constructor() {
     super();
 
+    this._active = true;
     this._camera = null;
   }
 
@@ -25,7 +52,7 @@ export class PostprocessBase extends Component {
 
   registerPostprocessPass(pass) {
     const { _camera } = this;
-    if (!!_camera) {
+    if (!!_camera && this._active) {
       _camera.registerPostprocessPass(pass);
     }
   }
