@@ -277,8 +277,8 @@ export default class Entity {
     const name = this._name || '';
     const tag = this._tag || '';
     const active = this._active;
-    const position = [ ...this._position ].slice(0, 2);
-    const scale = [ ...this._scale ].slice(0, 2);
+    const position = [ ...this._position ];
+    const scale = [ ...this._scale ];
     const rotation = this.getRotation() * 180 / Math.PI;
     const result = {
       name,

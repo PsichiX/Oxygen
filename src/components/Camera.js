@@ -306,6 +306,16 @@ export default class Camera extends Component {
     return this._inverseProjectionMatrix;
   }
 
+  /** @type {mat4} */
+  get viewMatrix() {
+    return this.entity.transform;
+  }
+
+  /** @type {mat4} */
+  get inverseViewMatrix() {
+    return this.entity.inverseTransform;
+  }
+
   /** @type {Command|null} */
   get command() {
     return this._command;

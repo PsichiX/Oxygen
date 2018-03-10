@@ -169,7 +169,6 @@ export default class UiLayout extends Component {
         ph = Math.abs(cachedTemp3[1] - cachedTemp2[1]);
       }
     }
-
     entity.setPosition(pw * _xAnchor + _xOffset, ph * _yAnchor + _yOffset);
     if (!!triggerAction) {
       this._triggeringAction = true;

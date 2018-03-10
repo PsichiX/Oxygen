@@ -481,7 +481,6 @@ export default class UiSprite extends VerticesRenderer {
           cachedTemp1,
           _cameraComponent.inverseProjectionMatrix
         );
-
         pw = Math.abs(cachedTemp3[0] - cachedTemp2[0]);
         ph = Math.abs(cachedTemp3[1] - cachedTemp2[1]);
       }
