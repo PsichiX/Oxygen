@@ -64,6 +64,26 @@ export default class AssetSystem extends System {
     }
   }
 
+  /**
+   * Web fetch mechanism generator that loads data from specified address.
+   *
+   * @param {string}	address - Assets hosting address.
+   * @param {Function}	fallbackEngine - Fallback fetch engine.
+   *
+   * @return {Function} Function that fetches file from web.
+   */
+  static makeFetchEngineWeb(address, fallbackEngine = AssetSystem.fetch) {
+    if (typeof address !== 'string') {
+      throw new Error('`address` is not type of String!');
+    }
+
+    return (path, options) => AssetSystem.fetch(
+      `${address}/${path}`,
+      options,
+      fallbackEngine
+    );
+  }
+
   /** @type {string} */
   get pathPrefix() {
     return this._pathPrefix;
@@ -313,6 +333,65 @@ export default class AssetSystem extends System {
       this._events.trigger('progress', this._loaded, this._toLoad);
       throw error;
     });
+  }
+
+  /**
+   * Load asset from given path with specified fetch engine.
+   *
+   * @param {string}	path - Asset path (with protocol).
+   * @param {Function} fetchEngine - Fetch engine used to fetch asset.
+   *
+   * @return {Promise} Promise of fetch engine loader.
+   *
+   * @example
+   * system.loadWithFetchEngine('json://config.json', AssetSystem.fetch).then(asset => console.log(asset.data));
+   */
+  async loadWithFetchEngine(path, fetchEngine) {
+    const fe = this.fetchEngine;
+    this.fetchEngine = fetchEngine;
+    const result = await this.load(path);
+    this.fetchEngine = fe;
+    return result;
+  }
+
+  /**
+   * Load list of assets in sequence (one by one) with specified fetch engine.
+   *
+   * @param {Array.<string>}	paths - Array of assets paths.
+   * @param {Function} fetchEngine - Fetch engine used to fetch assets.
+   *
+   * @return {Promise} Promise of fetch engine loader.
+   *
+   * @example
+   * const list = [ 'json://config.json', 'text://hello.txt' ];
+   * system.loadSequenceWithFetchEngine(list, AssetSystem.fetch).then(assets => console.log(assets.map(a => a.data)));
+   */
+  async loadSequenceWithFetchEngine(paths, fetchEngine) {
+    const fe = this.fetchEngine;
+    this.fetchEngine = fetchEngine;
+    const result = await this.loadSequence(paths);
+    this.fetchEngine = fe;
+    return result;
+  }
+
+  /**
+   * Load list of assets possibly all at the same time (asynchronously) with specified fetch engine.
+   *
+   * @param {Array.<string>}	paths - Array of assets paths.
+   * @param {Function} fetchEngine - Fetch engine used to fetch assets.
+   *
+   * @return {Promise} Promise of fetch engine loader.
+   *
+   * @example
+   * const list = [ 'json://config.json', 'text://hello.txt' ];
+   * system.loadAllWithFetchEngine(list, AssetSystem.fetch).then(assets => console.log(assets.map(a => a.data)));
+   */
+  async loadAllWithFetchEngine(paths, fetchEngine) {
+    const fe = this.fetchEngine;
+    this.fetchEngine = fetchEngine;
+    const result = await this.loadAll(paths);
+    this.fetchEngine = fe;
+    return result;
   }
 
   /**
