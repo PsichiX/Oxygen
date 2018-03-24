@@ -1,7 +1,8 @@
 ![logo](https://raw.githubusercontent.com/PsichiX/Oxygen/master/assets/images/oxygen-core-dark.svg?sanitize=true)
 
 # Oxygen Core
-## Professional HTML5 game engine - One of the best Xenon Core engines family.
+## v1.4.9
+### Professional HTML5 game engine - One of the best Xenon Core engines family.
 
 ![Travis CI](https://travis-ci.org/PsichiX/Oxygen.svg?branch=master)
 ![ESDoc Coverage](http://oxygen.docs.psichix.io/badge.svg?sanitize=true)
