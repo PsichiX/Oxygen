@@ -1748,11 +1748,14 @@ export default class RenderSystem extends System {
   }
 
   _setup(canvas) {
-    if (typeof canvas !== 'string') {
-      throw new Error('`canvas` is not type of String!');
+    if (typeof canvas === 'string') {
+      canvas = document.getElementById(canvas);
+    }
+    if (typeof canvas !== HTMLCanvasElement) {
+      throw new Error('`canvas` is not type of either HTMLCanvasElement or String!');
     }
 
-    canvas = this._canvas = document.getElementById(canvas);
+    this._canvas = canvas;
 
     let { _contextVersion } = this;
     const options = {
