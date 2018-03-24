@@ -1751,7 +1751,7 @@ export default class RenderSystem extends System {
     if (typeof canvas === 'string') {
       canvas = document.getElementById(canvas);
     }
-    if (typeof canvas !== HTMLCanvasElement) {
+    if (!(canvas instanceof HTMLCanvasElement)) {
       throw new Error('`canvas` is not type of either HTMLCanvasElement or String!');
     }
 
