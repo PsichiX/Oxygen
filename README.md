@@ -31,6 +31,7 @@ oxy-gen project-name
 1. [Hello, Playground!](http://labs.oxygencore.io/BJi1KjNFM)
 1. [Simple entity movement](http://labs.oxygencore.io/rJhJTi4KM )
 1. [Advaned yet easy to use input handling with `InputHandler` component](http://labs.oxygencore.io/ry24CjEKM)
+1. [Camera effects with easy to use `PostprocessRack` component](http://labs.oxygencore.io/BybMizh9z)
 
 ## Imagination is your ONLY limit
 Check **[Operation: SoulHunter](http://soulhunter.psichix.io)** game to see what you can do.
