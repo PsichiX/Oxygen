@@ -336,7 +336,12 @@ export default class PostprocessRack extends Component {
   }
 
   _register() {
-    const camera = this.entity.getComponent(Camera);
+    const { entity } = this;
+    if (!entity) {
+      return;
+    }
+
+    const camera = entity.getComponent(Camera);
     if (!camera) {
       throw new Error('There is no Camera component in entity!');
     }
@@ -345,7 +350,12 @@ export default class PostprocessRack extends Component {
   }
 
   _unregister() {
-    const camera = this.entity.getComponent(Camera);
+    const { entity } = this;
+    if (!entity) {
+      return;
+    }
+
+    const camera = entity.getComponent(Camera);
     if (!camera) {
       throw new Error('There is no Camera component in entity!');
     }
