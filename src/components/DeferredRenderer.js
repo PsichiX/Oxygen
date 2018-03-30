@@ -36,15 +36,11 @@ export class DeferredPipeline extends Command {
 
   set gBufferTargets(value) {
     if (typeof value === 'number') {
-      this._gBufferTargets = { float: true, mipmap: false, count: value | 0 };
-    } else if (!!value) {
-      this._gBufferTargets = {
-        float: 'float' in value ? !!value.float : true,
-        mipmap: 'mipmap' in value ? !!value.mipmap : false,
-        count: 'count' in value ? value.count | 0 : 2
-      };
+      this._gBufferTargets = value | 0;
+    } else if (Array.isArray(value)) {
+      this._gBufferTargets = value;
     } else {
-      throw new Error('`value` is not type of either Number or Object!');
+      throw new Error('`value` is not type of either Number or Array!');
     }
 
     this._dirty = true;
@@ -56,15 +52,11 @@ export class DeferredPipeline extends Command {
 
   set lBufferTargets(value) {
     if (typeof value === 'number') {
-      this._lBufferTargets = { float: true, mipmap: false, count: value | 0 };
-    } else if (!!value) {
-      this._lBufferTargets = {
-        float: 'float' in value ? !!value.float : true,
-        mipmap: 'mipmap' in value ? !!value.mipmap : false,
-        count: 'count' in value ? value.count | 0 : 2
-      };
+      this._lBufferTargets = value | 0;
+    } else if (Array.isArray(value)) {
+      this._lBufferTargets = value;
     } else {
-      throw new Error('`value` is not type of either Number or Object!');
+      throw new Error('`value` is not type of either Number or Array!');
     }
 
     this._dirty = true;
@@ -117,8 +109,8 @@ export class DeferredPipeline extends Command {
     this._lBufferId = '#deferred-l-buffer';
     this._gBufferIdUsed = null;
     this._lBufferIdUsed = null;
-    this._gBufferTargets = { float: true, mipmap: false, count: 2 };
-    this._lBufferTargets = { float: true, mipmap: false, count: 2 };
+    this._gBufferTargets = 2;
+    this._lBufferTargets = 2;
     this._gBufferLayer = 'g-buffer';
     this._lBufferLayer = 'l-buffer';
     this._fullscreen = new RenderFullscreenCommand();
@@ -199,13 +191,11 @@ export class DeferredPipeline extends Command {
       renderer.unregisterRenderTarget(this._gBufferIdUsed);
     }
     this._gBufferIdUsed = this._gBufferId;
-    renderer.registerRenderTarget(
+    renderer.registerRenderTargetMulti(
       this._gBufferIdUsed,
       renderer.canvas.width,
       renderer.canvas.height,
-      this._gBufferTargets.float,
-      this._gBufferTargets.count,
-      this._gBufferTargets.mipmap
+      this._gBufferTargets
     );
 
     if (!!this._lBufferIdUsed) {
@@ -216,9 +206,7 @@ export class DeferredPipeline extends Command {
       this._lBufferIdUsed,
       renderer.canvas.width,
       renderer.canvas.height,
-      this._lBufferTargets.float,
-      this._lBufferTargets.count,
-      this._lBufferTargets.mipmap
+      this._lBufferTargets
     );
 
     this._renderer = renderer;
@@ -239,8 +227,8 @@ export default class DeferredRenderer extends Component {
       overrideSamplers: 'map(any)',
       gBufferId: 'string',
       lBufferid: 'string',
-      gBufferTargets: 'number',
-      lBufferTargets: 'number',
+      gBufferTargets: 'number|array(any)',
+      lBufferTargets: 'number|array(any)',
       gBufferLayer: 'string_null',
       lBufferLayer: 'string_null'
     };

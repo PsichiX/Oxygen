@@ -34,7 +34,9 @@ export default {
   isGlobalPointInGlobalBoundingBox,
   isLocalPointInLocalBoundingBox,
   bezierCubic,
-  isPOT
+  isPOT,
+  getPOT,
+  getMipmapScale
 };
 
 export {
@@ -59,7 +61,9 @@ export {
   isGlobalPointInGlobalBoundingBox,
   isLocalPointInLocalBoundingBox,
   bezierCubic,
-  isPOT
+  isPOT,
+  getPOT,
+  getMipmapScale
 };
 
 const regexRGBA = /([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})/;
@@ -257,10 +261,10 @@ function isLocalPointInLocalBoundingBox(localVec, w, h, ox, oy) {
  * Calculate cubic bezier curve value at given time with four curve parameters.
  *
  * @param {number}	t - Time.
- * @param {number}	a - First curve parameter.
- * @param {number}	b - Second curve parameter.
- * @param {number}	c - Third curve parameter.
- * @param {number}	d - Last curve parameter.
+ * @param {number}	a - First curve position.
+ * @param {number}	b - First curve controller.
+ * @param {number}	c - Second curve controller.
+ * @param {number}	d - Second curve controller.
  *
  * @return {number} Calculated curve value.
  */
@@ -273,17 +277,45 @@ function bezierCubic(t, a, b, c, d) {
 /**
  * Checks if all arguments are power-of-two.
  *
- * @param {number[]}	args - values.
+ * @param {number[]}	args - Values.
  *
  * @return {boolean} True if all arguments are power-of-two.
  */
 function isPOT(...args) {
   for (const arg of args) {
     const v = arg | 0;
-    const pot = ((v !== 0) && ((v & (~v + 1)) === v));
+    const pot = (v !== 0) && ((v & (~v + 1)) === v);
     if (!pot) {
       return false;
     }
   }
   return true;
+}
+
+/**
+ * Calculate nearest power-of-two.
+ *
+ * @param {number}	v - Value.
+ * @param {boolean} upper - calculate upper POT value.
+ *
+ * @return {number} Nearest power-of-two value.
+ */
+function getPOT(v, upper = false) {
+  let result = 1;
+  while (result < v) {
+    result = result << 1;
+  }
+  return upper ? result : result >> 1;
+}
+
+/**
+ * Calculate mipmap scale at given level.
+ *
+ * @param {number} level - Level value (0 means base level, full scale).
+ *
+ * @return {number} Mipmap scale for given level.
+ */
+function getMipmapScale(level) {
+  level = level | 0;
+  return 1 / Math.max(1, Math.pow(2, Math.max(0, level)));
 }

@@ -1440,6 +1440,11 @@ export default class RenderSystem extends System {
       : null;
   }
 
+  /**
+   * Try to generate mipmaps for given texture.
+   *
+   * @param {string}	id - Texture id.
+   */
   generateTextureMipmap(id) {
     const { _textures } = this;
     const gl = this._context;
@@ -1466,8 +1471,6 @@ export default class RenderSystem extends System {
    * @param {number}	width - Width.
    * @param {number}	height - Height.
    * @param {boolean}	floatPointData - Tells if render target will store floating point data.
-   * @param {number}  multiTargetsCount - Number of target color attachments.
-   * @param {boolean}	generateMipmap - Tells if render target will generate mipmap after rendering.
    *
    * @example
    * system.registerRenderTarget('offscreen', 512, 512);
@@ -1476,9 +1479,7 @@ export default class RenderSystem extends System {
     id,
     width,
     height,
-    floatPointData = false,
-    multiTargetsCount = 0,
-    generateMipmap = false
+    floatPointData = false
   ) {
     if (!!floatPointData && !this.requestExtensions(
       'texture_float',
@@ -1486,7 +1487,52 @@ export default class RenderSystem extends System {
     )) {
       throw new Error('Float textures are not supported!');
     }
-    if (!!multiTargetsCount > 0 && !this.requestExtensions('draw_buffers')) {
+
+    this.unregisterRenderTarget(id);
+
+    const gl = this._context;
+    width = Math.max(1, width);
+    height = Math.max(1, height);
+
+    this.registerTextureEmpty(id, width, height, floatPointData);
+    const texture = this._textures.get(id);
+    if (!texture) {
+      return;
+    }
+
+    const target = gl.createFramebuffer();
+    gl.bindFramebuffer(gl.FRAMEBUFFER, target);
+    gl.framebufferTexture2D(
+      gl.FRAMEBUFFER,
+      gl.COLOR_ATTACHMENT0,
+      gl.TEXTURE_2D,
+      texture.texture,
+      0
+    );
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+
+    this._renderTargets.set(id, {
+      target,
+      width,
+      height,
+      multiTargets: null,
+      textures: [ texture ]
+    });
+  }
+
+  /**
+   * Register new multiple render target.
+   *
+   * @param {string}	id - Render target id.
+   * @param {number}	width - Width.
+   * @param {number}	height - Height.
+   * @param {number|*[]}	targets - Number of render targets or array with target descriptors.
+   *
+   * @example
+   * system.registerRenderTargetMulti('offscreen', 512, 512, 2);
+   */
+  registerRenderTargetMulti(id, width, height, targets) {
+    if (!this.requestExtensions('draw_buffers')) {
       throw new Error('Draw buffers are not supported!');
     }
 
@@ -1496,13 +1542,18 @@ export default class RenderSystem extends System {
     width = Math.max(1, width);
     height = Math.max(1, height);
 
-    if (multiTargetsCount > 0) {
-      const ext = this.extension('draw_buffers');
-      const textures = [];
-      const buffers = [];
-      for (let i = 0; i < multiTargetsCount; ++i) {
+    const isArray = Array.isArray(targets);
+    const c = isArray ? targets.length : (targets | 0);
+    const ext = this.extension('draw_buffers');
+    const textures = [];
+    const buffers = [];
+    if (isArray) {
+      for (let i = 0; i < c; ++i) {
+        const target = targets[i];
         const tid = `${id}-${i}`;
-        this.registerTextureEmpty(tid, width, height, floatPointData);
+        const w = 'width' in target ? Math.max(1, target.width | 0) : width;
+        const h = 'height' in target ? Math.max(1, target.height | 0) : height;
+        this.registerTextureEmpty(tid, w, h, !!target.floatPointData);
         const texture = this._textures.get(tid);
         if (!texture) {
           return;
@@ -1510,55 +1561,39 @@ export default class RenderSystem extends System {
         textures.push(texture);
         buffers.push(ext.COLOR_ATTACHMENT0_WEBGL + i);
       }
-
-      const target = gl.createFramebuffer();
-      gl.bindFramebuffer(gl.FRAMEBUFFER, target);
-      for (let i = 0; i < multiTargetsCount; ++i) {
-        gl.framebufferTexture2D(
-          gl.FRAMEBUFFER,
-          buffers[i],
-          gl.TEXTURE_2D,
-          textures[i].texture,
-          0
-        );
-      }
-      gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-
-      this._renderTargets.set(id, {
-        target,
-        width,
-        height,
-        multiTargets: buffers,
-        textures,
-        mipmap: generateMipmap
-      });
     } else {
-      this.registerTextureEmpty(id, width, height, floatPointData);
-      const texture = this._textures.get(id);
-      if (!texture) {
-        return;
+      for (let i = 0; i < c; ++i) {
+        const tid = `${id}-${i}`;
+        this.registerTextureEmpty(tid, width, height, false);
+        const texture = this._textures.get(tid);
+        if (!texture) {
+          return;
+        }
+        textures.push(texture);
+        buffers.push(ext.COLOR_ATTACHMENT0_WEBGL + i);
       }
+    }
 
-      const target = gl.createFramebuffer();
-      gl.bindFramebuffer(gl.FRAMEBUFFER, target);
+    const target = gl.createFramebuffer();
+    gl.bindFramebuffer(gl.FRAMEBUFFER, target);
+    for (let i = 0; i < c; ++i) {
       gl.framebufferTexture2D(
         gl.FRAMEBUFFER,
-        gl.COLOR_ATTACHMENT0,
+        buffers[i],
         gl.TEXTURE_2D,
-        texture.texture,
+        textures[i].texture,
         0
       );
-      gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-
-      this._renderTargets.set(id, {
-        target,
-        width,
-        height,
-        multiTargets: null,
-        textures: [ texture ],
-        mipmap: generateMipmap
-      });
     }
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+
+    this._renderTargets.set(id, {
+      target,
+      width,
+      height,
+      multiTargets: buffers,
+      textures
+    });
   }
 
   /**
@@ -1585,6 +1620,7 @@ export default class RenderSystem extends System {
       gl.deleteFramebuffer(target.target);
       _renderTargets.delete(id);
       target.textures = null;
+      target.multiTargets = null;
     }
   }
 
@@ -1600,7 +1636,11 @@ export default class RenderSystem extends System {
     const target = _renderTargets.get(id);
 
     return !!target
-      ? { width: target.width, height: target.height }
+      ? {
+        width: target.width,
+        height: target.height,
+        targets: !!target.multiTargets ? target.multiTargets.length : 0
+      }
       : null;
   }
 
@@ -1648,20 +1688,14 @@ export default class RenderSystem extends System {
     }
 
     const target = this._renderTargets.get(_activeRenderTarget);
+    const { width, height } = _canvas;
     if (!!target.multiTargets) {
       _context.drawBuffers([]);
     }
     _context.bindFramebuffer(_context.FRAMEBUFFER, null);
-    _context.viewport(0, 0, _canvas.width, _canvas.height);
-    _context.scissor(0, 0, _canvas.width, _canvas.height);
-    vec2.set(this._activeViewportSize, _canvas.width, _canvas.height);
-    if (!!target.mipmap) {
-      for (const t of target.textures) {
-        _context.bindTexture(gl.TEXTURE_2D, t.texture);
-        _context.generateMipmap(gl.TEXTURE_2D);
-      }
-      _context.bindTexture(gl.TEXTURE_2D, null);
-    }
+    _context.viewport(0, 0, width, height);
+    _context.scissor(0, 0, width, height);
+    vec2.set(this._activeViewportSize, width, height);
     this._activeRenderTarget = null;
   }
 

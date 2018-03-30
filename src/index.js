@@ -32,15 +32,22 @@ import UiSprite from './components/UiSprite';
 import UiLayout from './components/UiLayout';
 import Skeleton from './components/Skeleton';
 import SortedActions from './components/SortedActions';
-import Postprocess, { PostprocessBase } from './components/Postprocess';
 import DeferredRenderer, { DeferredPipeline } from './components/DeferredRenderer';
+import PostprocessRack, {
+  PostprocessRackPass,
+  PostprocessRackRawEffectPass
+} from './components/PostprocessRack';
 import System from './systems/System';
 import EntitySystem from './systems/EntitySystem';
 import Component from './systems/EntitySystem/Component';
 import Entity from './systems/EntitySystem/Entity';
 import AssetSystem from './systems/AssetSystem';
 import Asset from './systems/AssetSystem/Asset';
-import RenderSystem, { Command, Pipeline, RenderFullscreenCommand } from './systems/RenderSystem';
+import RenderSystem, {
+  Command,
+  Pipeline,
+  RenderFullscreenCommand
+} from './systems/RenderSystem';
 import InputSystem from './systems/InputSystem';
 import StorageSystem from './systems/StorageSystem';
 import AudioSystem from './systems/AudioSystem';
@@ -102,10 +109,11 @@ export default {
   UiLayout,
   Skeleton,
   SortedActions,
-  Postprocess,
-  PostprocessBase,
   DeferredRenderer,
   DeferredPipeline,
+  PostprocessRack,
+  PostprocessRackPass,
+  PostprocessRackRawEffectPass,
   System,
   EntitySystem,
   Component,
@@ -172,10 +180,11 @@ export {
   UiLayout,
   Skeleton,
   SortedActions,
-  Postprocess,
-  PostprocessBase,
   DeferredRenderer,
   DeferredPipeline,
+  PostprocessRack,
+  PostprocessRackPass,
+  PostprocessRackRawEffectPass,
   System,
   EntitySystem,
   Component,
@@ -403,8 +412,8 @@ export function lazyInitialization({ entity, asset, render, input, store, events
   entities.registerComponent('UiLayout', UiLayout.factory);
   entities.registerComponent('Skeleton', Skeleton.factory);
   entities.registerComponent('SortedActions', SortedActions.factory);
-  entities.registerComponent('Postprocess', Postprocess.factory);
   entities.registerComponent('DeferredRenderer', DeferredRenderer.factory);
+  entities.registerComponent('PostprocessRack', PostprocessRack.factory);
 
   assets.registerProtocol('json', JSONAsset.factory);
   assets.registerProtocol('text', TextAsset.factory);

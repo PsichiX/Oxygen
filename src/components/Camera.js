@@ -1,7 +1,8 @@
 import Component from '../systems/EntitySystem/Component';
-import { Command, RenderFullscreenCommand } from '../systems/RenderSystem';
+import RenderSystem, { Command, RenderFullscreenCommand } from '../systems/RenderSystem';
 import System from '../systems/System';
 import { mat4 } from '../utils/gl-matrix';
+import { getPOT, getMipmapScale } from '../utils';
 
 const cachedTempMat4 = mat4.create();
 const cachedZeroMat4 = mat4.fromValues(
@@ -11,52 +12,20 @@ let rttUidGenerator = 0;
 
 export class PostprocessPass {
 
-  get shader() {
-    return this._shader;
-  }
-
-  set shader(value) {
-    if (!value) {
-      this._shader = null;
-      return;
-    }
-    if (typeof value !== 'string') {
-      throw new Error('`value` is not type of String!');
-    }
-
-    this._shader = value;
-  }
-
-  get overrideUniforms() {
-    return this._overrideUniforms;
-  }
-
-  set overrideUniforms(value) {
-    this._overrideUniforms = value;
-  }
-
-  get overrideSamplers() {
-    return this._overrideSamplers;
-  }
-
-  set overrideSamplers(value) {
-    this._overrideSamplers = value;
-  }
-
   constructor() {
-    this._shader = null;
-    this._overrideUniforms = null;
-    this._overrideSamplers = null;
     this._command = new RenderFullscreenCommand();
+    this._targets = new Map();
+    this._renderer = null;
   }
 
   dispose() {
     this._command.dispose();
 
-    this._shader = null;
-    this._overrideUniforms = null;
-    this._overrideSamplers = null;
+    this.destroyAllTargets();
+
     this._command = null;
+    this._targets = null;
+    this._renderer = null;
   }
 
   apply(
@@ -95,37 +64,106 @@ export class PostprocessPass {
     _command.onRender(gl, renderer, 0, null);
   }
 
-  serialize() {
-    return {
-      shader: this._shader,
-      overrideUniforms: this._overrideUniforms,
-      overrideSamplers: this._overrideSamplers
-    };
-  }
-
-  deserialize(data) {
-    if (!data) {
-      return;
+  createTarget(id, level = 0, floatPointData = false, potMode = null) {
+    if (typeof id !== 'string') {
+      throw new Error('`id` is not type of String!');
+    }
+    if (typeof level !== 'number') {
+      throw new Error('`level` is not type of Number!');
+    }
+    if (typeof floatPointData !== 'boolean') {
+      throw new Error('`floatPointData` is not type of Boolean!');
+    }
+    if (!!potMode && typeof potMode !== 'string') {
+      throw new Error('`potMode` is not type of String!');
     }
 
-    this.shader = data.shader || null;
-    this.overrideUniforms = data.overrideUniforms || null;
-    this.overrideSamplers = data.overrideSamplers || null;
+    level = level | 0;
+    const { _targets } = this;
+    if (_targets.has(id)) {
+      const target = _targets.get(id);
+      target.level = level;
+      target.floatPointData = floatPointData;
+      target.potMode = potMode;
+      target.dirty = true;
+      return target.target;
+    } else {
+      const target = `#Camera-PostprocessPass-${++rttUidGenerator}`;
+      _targets.set(id, {
+        target,
+        level,
+        floatPointData,
+        potMode,
+        dirty: true
+      });
+      return target;
+    }
+  }
+
+  destroyTarget(id) {
+    if (typeof id !== 'string') {
+      throw new Error('`id` is not type of String!');
+    }
+
+    const { _targets, _renderer } = this;
+    if (_targets.has(id)) {
+      const target = _targets.get(id);
+      if (!!_renderer) {
+        _renderer.unregisterRenderTarget(target.target);
+      }
+      _targets.delete(id);
+    }
+  }
+
+  destroyAllTargets() {
+    const { _targets, _renderer } = this;
+    if (!!_renderer) {
+      for (const target of _targets.values()) {
+        _renderer.unregisterRenderTarget(target.target);
+      }
+    }
+    _targets.clear();
+  }
+
+  getTargetId(id) {
+    if (typeof id !== 'string') {
+      throw new Error('`id` is not type of String!');
+    }
+
+    return this._targets.get(id).target || null;
   }
 
   onApply(gl, renderer, textureSource, renderTarget) {
-    this.apply(
-      gl,
-      renderer,
-      textureSource,
-      renderTarget,
-      this._shader,
-      this._overrideUniforms,
-      this._overrideSamplers
-    );
+    this._renderer = renderer;
+
+    const { _targets } = this;
+    for (const target of _targets.values()) {
+      if (!!target.dirty) {
+        target.dirty = false;
+        const { width, height } = renderer.canvas;
+        const w = !target.potMode
+          ? width
+          : getPOT(width, target.potMode === 'upper');
+        const h = !target.potMode
+          ? height
+          : getPOT(height, target.potMode === 'upper');
+        const s = getMipmapScale(target.level);
+        renderer.registerRenderTarget(
+          target.target,
+          w * s,
+          h * s,
+          target.floatPointData
+        );
+      }
+    }
   }
 
-  onResize(width, height) {}
+  onResize(width, height) {
+    const { _targets } = this;
+    for (const target of _targets.values()) {
+      target.dirty = true;
+    }
+  }
 
 }
 
@@ -144,7 +182,7 @@ export default class Camera extends Component {
       renderTargetHeight: 'integer',
       renderTargetScale: 'number',
       renderTargetFloat: 'boolean',
-      renderTargetMultiCount: 'integer',
+      renderTargetMulti: 'array(any)',
       layer: 'string_null'
     };
   }
@@ -266,18 +304,14 @@ export default class Camera extends Component {
     this._dirty = true;
   }
 
-  /** @type {number} */
-  get renderTargetMultiCount() {
-    return this._renderTargetMultiCount;
+  /** @type {*[]} */
+  get renderTargetMulti() {
+    return this._renderTargetMulti;
   }
 
-  /** @type {number} */
-  set renderTargetMultiCount(value) {
-    if (typeof value !== 'number') {
-      throw new Error('`value` is not type of Number');
-    }
-
-    this._renderTargetMultiCount = value;
+  /** @type {*[]} */
+  set renderTargetMulti(value) {
+    this._renderTargetMulti = value;
     this._renderTargetDirty = true;
     this._dirty = true;
   }
@@ -354,10 +388,10 @@ export default class Camera extends Component {
     this._renderTargetHeight = 0;
     this._renderTargetScale = 1;
     this._renderTargetFloat = false;
-    this._renderTargetMultiCount = 0;
+    this._renderTargetMulti = null;
     this._renderTargetDirty = false;
     this._layer = null;
-    this._postprocess = [];
+    this._postprocess = null;
     this._postprocessRtt = null;
     this._postprocessCachedWidth = 0;
     this._postprocessCachedHeight = 0;
@@ -385,8 +419,7 @@ export default class Camera extends Component {
         _context.unregisterRenderTarget(_renderTargetIdUsed);
       }
       if (!!_postprocessRtt) {
-        _context.unregisterRenderTarget(_postprocessRtt[0]);
-        _context.unregisterRenderTarget(_postprocessRtt[1]);
+        _context.unregisterRenderTarget(_postprocessRtt);
       }
 
       this._context = null;
@@ -415,58 +448,37 @@ export default class Camera extends Component {
   }
 
   /**
-   * Register postprocess pass.
+   * Register postprocess.
    *
-   * @param {PostprocessPass}	pass - Postprocess pass.
+   * @param {PostprocessPass}	postprocess - Postprocess pass.
+   * @param {boolean}	floatPointData - Tells if stores floating point texture data.
    */
-  registerPostprocessPass(pass) {
-    if (!(pass instanceof PostprocessPass)) {
-      throw new Error('`pass` is not type of PostprocessPass!');
+  registerPostprocess(postprocess, floatPointData = false) {
+    if (!(postprocess instanceof PostprocessPass)) {
+      throw new Error('`postprocess` is not type of PostprocessPass!');
     }
 
     const { _postprocess } = this;
-    if (_postprocess.length <= 0) {
+    if (!_postprocess) {
       this._postprocessCachedWidth = 0;
       this._postprocessCachedHeight = 0;
     }
-    _postprocess.push(pass);
+    this._postprocess = {
+      postprocess,
+      floatPointData
+    };
   }
 
   /**
-   * Unregister postprocess pass.
-   *
-   * @param {PostprocessPass}	pass - Postprocess pass.
+   * Unregister postprocess.
    */
-  unregisterPostprocessPass(pass) {
-    if (!(pass instanceof PostprocessPass)) {
-      throw new Error('`pass` is not type of PostprocessPass!');
-    }
-
+  unregisterPostprocess() {
     const { _postprocess } = this;
     if (!_postprocess) {
       return;
     }
 
-    const found = _postprocess.indexOf(pass);
-    if (found >= 0) {
-      _postprocess.splice(found, 1);
-      if (_postprocess.length <= 0) {
-        this._postprocessCachedWidth = 0;
-        this._postprocessCachedHeight = 0;
-      }
-    }
-  }
-
-  /**
-   * Unregister all postprocess passes.
-   */
-  unregisterAllPostprocessPasses() {
-    const { _postprocess } = this;
-    if (!_postprocess) {
-      return;
-    }
-
-    this._postprocess = [];
+    this._postprocess = null;
     this._postprocessCachedWidth = 0;
     this._postprocessCachedHeight = 0;
   }
@@ -559,13 +571,21 @@ export default class Camera extends Component {
           renderer.unregisterRenderTarget(this._renderTargetIdUsed);
         }
         this._renderTargetIdUsed = this._renderTargetId;
-        renderer.registerRenderTarget(
-          this._renderTargetIdUsed,
-          width * _renderTargetScale,
-          height * _renderTargetScale,
-          this._renderTargetFloat,
-          this._renderTargetMultiCount
-        );
+        if (!!this._renderTargetMulti) {
+          renderer.registerRenderTargetMulti(
+            this._renderTargetIdUsed,
+            width * _renderTargetScale,
+            height * _renderTargetScale,
+            this._renderTargetMulti
+          );
+        } else {
+          renderer.registerRenderTarget(
+            this._renderTargetIdUsed,
+            width * _renderTargetScale,
+            height * _renderTargetScale,
+            this._renderTargetFloat
+          );
+        }
       } else {
         renderer.unregisterRenderTarget(this._renderTargetIdUsed);
         this._renderTargetIdUsed = null;
@@ -588,20 +608,22 @@ export default class Camera extends Component {
       this._postprocessCachedWidth = width;
       this._postprocessCachedHeight = height;
       if (!!this._postprocessRtt) {
-        renderer.unregisterRenderTarget(this._postprocessRtt[0]);
-        renderer.unregisterRenderTarget(this._postprocessRtt[1]);
+        renderer.unregisterRenderTarget(this._postprocessRtt);
         this._postprocessRtt = null;
       }
-      if (_postprocess.length > 0) {
-        const a = `#Camera-PostprocessPass-${++rttUidGenerator}`;
-        const b = `#Camera-PostprocessPass-${++rttUidGenerator}`;
-        renderer.registerRenderTarget(a, width, height, false);
-        renderer.registerRenderTarget(b, width, height, false);
-        this._postprocessRtt = [a, b];
+      if (!!_postprocess) {
+        const rtt = `#Camera-PostprocessPass-${++rttUidGenerator}`;
+        renderer.registerRenderTarget(
+          rtt,
+          width,
+          height,
+          _postprocess.floatPointData
+        );
+        this._postprocessRtt = rtt;
       }
     }
 
-    if (_postprocess.length <= 0) {
+    if (!_postprocess) {
       if (!!this._renderTargetIdUsed) {
         renderer.enableRenderTarget(this._renderTargetIdUsed);
       }
@@ -625,8 +647,7 @@ export default class Camera extends Component {
       }
     } else {
       const { _postprocessRtt } = this;
-      let id = _postprocessRtt[0];
-      renderer.enableRenderTarget(id);
+      renderer.enableRenderTarget(_postprocessRtt);
       if (!!this._command) {
         renderer.executeCommand(this._command, deltaTime, this._layer);
       } else {
@@ -642,14 +663,13 @@ export default class Camera extends Component {
           target.performAction('render', gl, renderer, deltaTime, null);
         }
       }
-      for (let i = 0, c = _postprocess.length; i < c; ++i) {
-        const pass = _postprocess[i];
-        const rtt = i < c - 1
-          ? _postprocessRtt[(i + 1) % 2]
-          : this._renderTargetIdUsed;
-        pass.onApply(gl, renderer, id, rtt);
-        id = rtt;
-      }
+
+      _postprocess.postprocess.onApply(
+        gl,
+        renderer,
+        _postprocessRtt,
+        this._renderTargetIdUsed || null
+      );
       renderer.disableRenderTarget();
     }
 
@@ -684,9 +704,7 @@ export default class Camera extends Component {
       _command.onResize(width, height);
     }
     if (!!_postprocess) {
-      for (let i = 0, c = _postprocess.length; i < c; ++i) {
-        _postprocess[i].onResize(width, height);
-      }
+      _postprocess.postprocess.onResize(width, height);
     }
   }
 

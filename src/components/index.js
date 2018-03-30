@@ -17,8 +17,8 @@ import UiSprite from './UiSprite';
 import UiLayout from './UiLayout';
 import Skeleton from './Skeleton';
 import SortedActions from './SortedActions';
-import Postprocess, { PostprocessBase } from './Postprocess';
 import DeferredRenderer, { DeferredPipeline } from './DeferredRenderer';
+import PostprocessRack, { PostprocessRackPass, PostprocessRackRawEffectPass } from './PostprocessRack';
 
 export default {
   Camera,
@@ -41,10 +41,11 @@ export default {
   UiLayout,
   Skeleton,
   SortedActions,
-  Postprocess,
-  PostprocessBase,
   DeferredRenderer,
-  DeferredPipeline
+  DeferredPipeline,
+  PostprocessRack,
+  PostprocessRackPass,
+  PostprocessRackRawEffectPass
 };
 
 export {
@@ -68,8 +69,9 @@ export {
   UiLayout,
   Skeleton,
   SortedActions,
-  Postprocess,
-  PostprocessBase,
   DeferredRenderer,
-  DeferredPipeline
+  DeferredPipeline,
+  PostprocessRack,
+  PostprocessRackPass,
+  PostprocessRackRawEffectPass
 };
