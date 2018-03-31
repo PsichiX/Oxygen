@@ -1294,13 +1294,13 @@ export default class RenderSystem extends System {
    * Register new texture.
    *
    * @param {string}	id - Texture id.
-   * @param {HTMLImageElement}	image - Image instance.
+   * @param {HTMLImageElement|HTMLCanvasElement|HTMLVideoElement}	image - Image, canvas or video instance.
    * @param {boolean} generateMipmap - Should generate mipmaps.
    *
    * @example
    * const image = new Image();
-   * image.src = 'marsian.png';
-   * system.registerTexture('marsian', image);
+   * image.src = 'martian.png';
+   * system.registerTexture('martian', image);
    */
   registerTexture(id, image, generateMipmap = false) {
     this.unregisterTexture(id);
