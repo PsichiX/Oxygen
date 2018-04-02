@@ -19,7 +19,7 @@ npm install --save oxygen-core
 
 ## Simple project generator
 To automatically generate base project structure and install dependencies, install:
-https://www.npmjs.com/package/@oxygen/project-generator
+https://www.npmjs.com/package/oxygen-project-generator
 
 Then:
 ```bash
