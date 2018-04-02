@@ -1,7 +1,7 @@
 ![logo](https://raw.githubusercontent.com/PsichiX/Oxygen/master/assets/images/oxygen-core-dark.svg?sanitize=true)
 
 # Oxygen Core
-## v1.4.15
+## v1.4.16
 ### Professional HTML5 game engine - One of the best Xenon Core engines family.
 
 ![Travis CI](https://travis-ci.org/PsichiX/Oxygen.svg?branch=master)
@@ -14,12 +14,12 @@
 
 ## Installation
 ```bash
-npm install oxygen-core
+npm install --save @oxygen/core
 ```
 
 ## Simple project generator
 To automatically generate base project structure and install dependencies, install:
-https://www.npmjs.com/package/oxygen-project-generator
+https://www.npmjs.com/package/@oxygen/project-generator
 
 Then:
 ```bash
