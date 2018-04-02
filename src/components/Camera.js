@@ -549,6 +549,10 @@ export default class Camera extends Component {
       height = _renderTargetHeight;
     }
 
+    const target = !!_captureEntity
+      ? entity.findEntity(_captureEntity)
+      : entity;
+
     if ((width | 0) === 0 || (height | 0) === 0) {
       mat4.copy(_projectionMatrix, cachedZeroMat4);
       mat4.copy(_inverseProjectionMatrix, cachedZeroMat4);
@@ -592,10 +596,6 @@ export default class Camera extends Component {
       }
       this._renderTargetDirty = false;
     }
-
-    const target = !!_captureEntity
-      ? entity.findEntity(_captureEntity)
-      : entity;
 
     this.buildCameraMatrix(_projectionMatrix, width, height);
     mat4.invert(_inverseProjectionMatrix, _projectionMatrix);
