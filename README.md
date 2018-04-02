@@ -14,7 +14,7 @@
 
 ## Installation
 ```bash
-npm install --save @oxygen/core
+npm install --save oxygen-core
 ```
 
 ## Simple project generator
