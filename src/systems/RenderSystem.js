@@ -1,7 +1,7 @@
 import System from './System';
 import Events from '../utils/Events';
 import { vec2, vec3, vec4, mat2, mat3, mat4 } from '../utils/gl-matrix';
-import { isPOT } from '../utils';
+import { isPOT, getPOT, getMipmapScale } from '../utils';
 import funcParser from '../utils/funcParser';
 
 const versions = [
@@ -165,6 +165,203 @@ function getExtensionByVersion(meta, context, version) {
 function makeApplierFunction(code) {
   code = funcParser.parse(code);
   return new Function('location', 'gl', 'out', 'getValue', 'mat4', code);
+}
+
+export class RenderTargetWrapper {
+
+  get id() {
+    return this._id;
+  }
+
+  set id(value) {
+    if (typeof value !== 'string') {
+      throw new Error('`value` is not type of String!');
+    }
+
+    this._id = value;
+    this._dirty = true;
+  }
+
+  get width() {
+    return this._width;
+  }
+
+  set width(value) {
+    if (typeof value !== 'number') {
+      throw new Error('`value` is not type of Number!');
+    }
+
+    this._width = value;
+    this._dirty = true;
+  }
+
+  get height() {
+    return this._height;
+  }
+
+  set height(value) {
+    if (typeof value !== 'number') {
+      throw new Error('`value` is not type of Number!');
+    }
+
+    this._height = value;
+    this._dirty = true;
+  }
+
+  get level() {
+    return this._level;
+  }
+
+  set level(value) {
+    if (typeof value !== 'number') {
+      throw new Error('`value` is not type of Number!');
+    }
+
+    this._level = Math.max(0, value | 0);
+    this._dirty = true;
+  }
+
+  get potMode() {
+    return this._potMode;
+  }
+
+  set potMode(value) {
+    if (!value) {
+      this._potMode = null;
+      return;
+    }
+
+    if (typeof value !== 'string') {
+      throw new Error('`value` is not type of String!');
+    }
+
+    this._potMode = value;
+    this._dirty = true;
+  }
+
+  get floatPointData() {
+    return this._floatPointData;
+  }
+
+  set floatPointData(value) {
+    if (typeof value !== 'boolean') {
+      throw new Error('`value` is not type of Boolean!');
+    }
+
+    this._floatPointData = value;
+    this._dirty = true;
+  }
+
+  get targets() {
+    return this._targets;
+  }
+
+  set targets(value) {
+    if (!value) {
+      this._targets = null;
+      return;
+    }
+
+    if (!Array.isArray(value)) {
+      throw new Error('`value` is not type of Array!');
+    }
+
+    this._targets = value;
+    this._dirty = true;
+  }
+
+  constructor() {
+    this._renderer = null;
+    this._id = null;
+    this._idUsed = null;
+    this._width = -1;
+    this._height = -1;
+    this._level = 0;
+    this._potMode = null;
+    this._floatPointData = false;
+    this._targets = null;
+    this._dirty = true;
+  }
+
+  dispose() {
+    const { _renderer, _idUsed } = this;
+    if (!!_renderer) {
+      if (!!_idUsed) {
+        _renderer.unregisterRenderTarget(_idUsed);
+      }
+    }
+
+    this._renderer = null;
+    this._id = null;
+    this._idUsed = null;
+    this._potMode = null;
+    this._targets = null;
+  }
+
+  enable(renderer) {
+    this._ensureState(renderer);
+
+    const { _idUsed } = this;
+    if (!!_idUsed) {
+      renderer.enableRenderTarget(_idUsed);
+    }
+  }
+
+  disable() {
+    const { _renderer } = this;
+    if (!!_renderer) {
+      _renderer.disableRenderTarget();
+    }
+  }
+
+  rebuild() {
+    this._dirty = true;
+  }
+
+  _ensureState(renderer) {
+    if (!this._dirty) {
+      return;
+    }
+    const { _id } = this;
+    if (!_id) {
+      throw new Error('`id` cannot be null!');
+    }
+
+    if (!!this._idUsed) {
+      renderer.unregisterRenderTarget(this._idUsed);
+    }
+    const { _potMode, _level, _width, _height } = this;
+    const width = _width < 0 ? renderer.canvas.width : _width;
+    const height = _height < 0 ? renderer.canvas.height : _height;
+    const w = !_potMode
+      ? width
+      : getPOT(width, _potMode === 'upper');
+    const h = !_potMode
+      ? height
+      : getPOT(height, _potMode === 'upper');
+    const s = getMipmapScale(_level);
+
+    this._idUsed = this._id;
+    if (targets === undefined || targets === null) {
+      renderer.registerRenderTarget(
+        this._idUsed,
+        (w * s) | 0,
+        (h * s) | 0,
+        this._floatPointData
+      );
+    } else {
+      renderer.registerRenderTargetMulti(
+        this._idUsed,
+        (w * s) | 0,
+        (h * s) | 0,
+        this._targets
+      );
+    }
+
+    this._renderer = renderer;
+    this._dirty = false;
+  }
+
 }
 
 /**

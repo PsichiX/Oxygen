@@ -44,6 +44,7 @@ import Entity from './systems/EntitySystem/Entity';
 import AssetSystem from './systems/AssetSystem';
 import Asset from './systems/AssetSystem/Asset';
 import RenderSystem, {
+  RenderTargetWrapper,
   Command,
   Pipeline,
   RenderFullscreenCommand
@@ -119,6 +120,7 @@ export default {
   Component,
   Entity,
   RenderSystem,
+  RenderTargetWrapper,
   Command,
   Pipeline,
   RenderFullscreenCommand,
@@ -190,6 +192,7 @@ export {
   Component,
   Entity,
   RenderSystem,
+  RenderTargetWrapper,
   Command,
   Pipeline,
   RenderFullscreenCommand,

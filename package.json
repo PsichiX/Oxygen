@@ -1,6 +1,6 @@
 {
   "name": "oxygen-core",
-  "version": "1.4.16",
+  "version": "1.4.17",
   "description": "Oxygen game engine (Xenon Core for browsers)",
   "main": "bin/index.js",
   "scripts": {
@@ -52,11 +52,11 @@
   },
   "homepage": "https://github.com/PsichiX/Oxygen#readme",
   "dependencies": {
-    "@babel/cli": "^7.0.0-beta.42",
-    "@babel/core": "^7.0.0-beta.42",
-    "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.42",
-    "@babel/polyfill": "^7.0.0-beta.42",
-    "@babel/preset-env": "^7.0.0-beta.42",
+    "@babel/cli": "^7.0.0-beta.44",
+    "@babel/core": "^7.0.0-beta.44",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.44",
+    "@babel/polyfill": "^7.0.0-beta.44",
+    "@babel/preset-env": "^7.0.0-beta.44",
     "babel-plugin-conditional-compile": "0.0.5",
     "babel-preset-minify": "^0.2.0",
     "bezier-easing": "^2.0.3",
