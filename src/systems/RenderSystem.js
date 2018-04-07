@@ -4,6 +4,8 @@ import { vec2, vec3, vec4, mat2, mat3, mat4 } from '../utils/gl-matrix';
 import { isPOT, getPOT, getMipmapScale } from '../utils';
 import funcParser from '../utils/funcParser';
 
+let rtwUidGenerator = 0;
+
 const versions = [
   // TODO: change order to provide fallback to previous versions if requested is not supported.
   [1, 'webgl'],
@@ -174,6 +176,11 @@ export class RenderTargetWrapper {
   }
 
   set id(value) {
+    if (!value) {
+      this._id = `#RenderTargetWrapper-rt-${++rtwUidGenerator}`;
+      this._dirty = true;
+      return;
+    }
     if (typeof value !== 'string') {
       throw new Error('`value` is not type of String!');
     }
@@ -252,6 +259,18 @@ export class RenderTargetWrapper {
     this._dirty = true;
   }
 
+  get pushPopMode() {
+    return this._pushPopMode;
+  }
+
+  set pushPopMode(value) {
+    if (typeof value !== 'boolean') {
+      throw new Error('`value` is not type of Boolean!');
+    }
+
+    this._pushPopMode = value;
+  }
+
   get targets() {
     return this._targets;
   }
@@ -272,13 +291,14 @@ export class RenderTargetWrapper {
 
   constructor() {
     this._renderer = null;
-    this._id = null;
+    this._id = `#RenderTargetWrapper-rt-${++rtwUidGenerator}`;
     this._idUsed = null;
     this._width = -1;
     this._height = -1;
     this._level = 0;
     this._potMode = null;
     this._floatPointData = false;
+    this._pushPopMode = false;
     this._targets = null;
     this._dirty = true;
   }
@@ -303,14 +323,22 @@ export class RenderTargetWrapper {
 
     const { _idUsed } = this;
     if (!!_idUsed) {
-      renderer.enableRenderTarget(_idUsed);
+      if (this._pushPopMode) {
+        renderer.pushRenderTarget(_idUsed);
+      } else {
+        renderer.enableRenderTarget(_idUsed);
+      }
     }
   }
 
   disable() {
     const { _renderer } = this;
     if (!!_renderer) {
-      _renderer.disableRenderTarget();
+      if (this._pushPopMode) {
+        _renderer.popRenderTarget();
+      } else {
+        _renderer.disableRenderTarget();
+      }
     }
   }
 
@@ -867,6 +895,7 @@ export default class RenderSystem extends System {
     this._stats = null;
     this._shaderApplierOut = null;
     this._shaderApplierGetValue = null;
+    this.__onFrame = null;
   }
 
   /**
@@ -2173,6 +2202,9 @@ export default class RenderSystem extends System {
     }
 
     if (this._renderTargetsStack.length > 0) {
+      console.warn(
+        `There are ${this._renderTargetsStack.length} render targets on stack after frame!`
+      );
       this._renderTargetsStack = [];
       this.disableRenderTarget();
     }
