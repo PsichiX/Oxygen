@@ -19,6 +19,9 @@ import Skeleton from './Skeleton';
 import SortedActions from './SortedActions';
 import DeferredRenderer, { DeferredPipeline } from './DeferredRenderer';
 import PostprocessRack, { PostprocessRackPass, PostprocessRackRawEffectPass } from './PostprocessRack';
+import Shape from './Shape';
+import PolygonShape from './PolygonShape';
+import CircleShape from './CircleShape';
 
 export default {
   Camera,
@@ -45,7 +48,10 @@ export default {
   DeferredPipeline,
   PostprocessRack,
   PostprocessRackPass,
-  PostprocessRackRawEffectPass
+  PostprocessRackRawEffectPass,
+  Shape,
+  PolygonShape,
+  CircleShape
 };
 
 export {
@@ -73,5 +79,8 @@ export {
   DeferredPipeline,
   PostprocessRack,
   PostprocessRackPass,
-  PostprocessRackRawEffectPass
+  PostprocessRackRawEffectPass,
+  Shape,
+  PolygonShape,
+  CircleShape
 };

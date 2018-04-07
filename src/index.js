@@ -37,6 +37,9 @@ import PostprocessRack, {
   PostprocessRackPass,
   PostprocessRackRawEffectPass
 } from './components/PostprocessRack';
+import Shape from './components/Shape';
+import PolygonShape from './components/PolygonShape';
+import CircleShape from './components/CircleShape';
 import System from './systems/System';
 import EntitySystem from './systems/EntitySystem';
 import Component from './systems/EntitySystem/Component';
@@ -115,6 +118,9 @@ export default {
   PostprocessRack,
   PostprocessRackPass,
   PostprocessRackRawEffectPass,
+  Shape,
+  PolygonShape,
+  CircleShape,
   System,
   EntitySystem,
   Component,
@@ -187,6 +193,9 @@ export {
   PostprocessRack,
   PostprocessRackPass,
   PostprocessRackRawEffectPass,
+  Shape,
+  PolygonShape,
+  CircleShape,
   System,
   EntitySystem,
   Component,
@@ -417,6 +426,8 @@ export function lazyInitialization({ entity, asset, render, input, store, events
   entities.registerComponent('SortedActions', SortedActions.factory);
   entities.registerComponent('DeferredRenderer', DeferredRenderer.factory);
   entities.registerComponent('PostprocessRack', PostprocessRack.factory);
+  entities.registerComponent('PolygonShape', PolygonShape.factory);
+  entities.registerComponent('CircleShape', CircleShape.factory);
 
   assets.registerProtocol('json', JSONAsset.factory);
   assets.registerProtocol('text', TextAsset.factory);
