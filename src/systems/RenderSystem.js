@@ -785,6 +785,7 @@ export default class RenderSystem extends System {
     this._shaders = new Map();
     this._textures = new Map();
     this._renderTargets = new Map();
+    this._renderTargetsStack = [];
     this._events = new Events();
     this._activeShader = null;
     this._activeRenderTarget = null;
@@ -811,6 +812,7 @@ export default class RenderSystem extends System {
         throw new Error(`Unknown matrix: ${name}`);
       }
     };
+    this.__onFrame = this._onFrame.bind(this);
 
     if (!!extensions) {
       for (const name of extensions) {
@@ -844,8 +846,25 @@ export default class RenderSystem extends System {
     }
 
     _events.dispose();
-    this._stats.clear();
+
     this._extensions = null;
+    this._lastTimestamp = null;
+    this._canvas = null;
+    this._context = null;
+    this._shaders = null;
+    this._textures = null;
+    this._renderTargets = null;
+    this._renderTargetsStack = null;
+    this._events = null;
+    this._activeShader = null;
+    this._activeRenderTarget = null;
+    this._activeViewportSize = null;
+    this._clearColor = null;
+    this._projectionMatrix = null;
+    this._viewMatrix = null;
+    this._modelMatrix = null;
+    this._blendingConstants = null;
+    this._stats = null;
     this._shaderApplierOut = null;
     this._shaderApplierGetValue = null;
   }
@@ -1897,6 +1916,35 @@ export default class RenderSystem extends System {
   }
 
   /**
+   * Push current render target on stack and make given render target active for further rendering.
+   *
+   * @param {string}	id - Render target id
+   * @param {bool} clearBuffer - clear buffer.
+   *
+   * @example
+   * system.pushRenderTarget('offscreen');
+   */
+  pushRenderTarget(id, clearBuffer) {
+    this._renderTargetsStack.push(this._activeRenderTarget);
+    this.enableRenderTarget(id, clearBuffer);
+  }
+
+  /**
+   * Enable last render target stored on stack (or disable if stack is empty).
+   *
+   * @example
+   * system.popRenderTarget();
+   */
+  popRenderTarget() {
+    const last = this._renderTargetsStack.pop();
+    if (!last) {
+      this.disableRenderTarget();
+    } else {
+      this.enableRenderTarget(last, false);
+    }
+  }
+
+  /**
    * Tells if there is registered given shader.
    *
    * @param {string}	id - Shader id.
@@ -2093,9 +2141,7 @@ export default class RenderSystem extends System {
       return;
     }
 
-    this._animationFrame = requestAnimationFrame(
-      timestamp => this._onFrame(timestamp)
-    );
+    this._animationFrame = requestAnimationFrame(this.__onFrame);
   }
 
   _onFrame(timestamp) {
@@ -2124,6 +2170,11 @@ export default class RenderSystem extends System {
       _stats.set('textures', this._textures.size);
       _stats.set('renderTargets', this._renderTargets.size);
       _stats.set('extensions', [...this._extensions.keys()]);
+    }
+
+    if (this._renderTargetsStack.length > 0) {
+      this._renderTargetsStack = [];
+      this.disableRenderTarget();
     }
 
     this._requestFrame();
