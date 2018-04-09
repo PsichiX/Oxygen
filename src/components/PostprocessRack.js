@@ -69,6 +69,14 @@ export class PostprocessRackPass extends PostprocessPass {
     this._passes.clear();
   }
 
+  getPass(id) {
+    if (typeof id !== 'string') {
+      throw new Error('`id` is not type of String!');
+    }
+
+    return this._passes.get(id) || null;
+  }
+
   onApply(gl, renderer, textureSource, renderTarget) {
     super.onApply(gl, renderer, textureSource, renderTarget);
 
@@ -325,6 +333,10 @@ export default class PostprocessRack extends Component {
 
   unregisterAllPasses() {
     this._mainPass.unregisterAllPasses();
+  }
+
+  getPass(id) {
+    return this._mainPass.getPass(id);
   }
 
   onAttach() {

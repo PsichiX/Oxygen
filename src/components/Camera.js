@@ -1,7 +1,7 @@
 import Component from '../systems/EntitySystem/Component';
 import RenderSystem, { Command, RenderFullscreenCommand } from '../systems/RenderSystem';
 import System from '../systems/System';
-import { mat4 } from '../utils/gl-matrix';
+import { mat4, vec2 } from '../utils/gl-matrix';
 import { getPOT, getMipmapScale } from '../utils';
 
 const cachedTempMat4 = mat4.create();
@@ -350,6 +350,16 @@ export default class Camera extends Component {
     return this.entity.inverseTransform;
   }
 
+  /** @type {mat4} */
+  get viewProjectionMatrix() {
+    return this.entity.transform;
+  }
+
+  /** @type {mat4} */
+  get inverseViewProjectionMatrix() {
+    return this.entity.inverseTransform;
+  }
+
   /** @type {Command|null} */
   get command() {
     return this._command;
@@ -379,8 +389,12 @@ export default class Camera extends Component {
     this._captureEntity = null;
     this._projectionMatrix = mat4.create();
     this._inverseProjectionMatrix = mat4.create();
+    this._viewProjectionMatrix = mat4.create();
+    this._inverseViewProjectionMatrix = mat4.create();
     mat4.copy(this._projectionMatrix, cachedZeroMat4);
     mat4.copy(this._inverseProjectionMatrix, cachedZeroMat4);
+    mat4.copy(this._viewProjectionMatrix, cachedZeroMat4);
+    mat4.copy(this._inverseViewProjectionMatrix, cachedZeroMat4);
     this._context = null;
     this._renderTargetId = null;
     this._renderTargetIdUsed = null;
@@ -406,7 +420,6 @@ export default class Camera extends Component {
   dispose() {
     super.dispose();
 
-    this._postprocess = null;
     const {
       _context,
       _renderTargetIdUsed,
@@ -425,14 +438,25 @@ export default class Camera extends Component {
       this._context = null;
     }
 
-    this._renderTargetId = null;
-    this._renderTargetIdUsed = null;
-    this._postprocessRtt = null;
-
     if (!!_command) {
       _command.dispose();
-      this._command = null;
     }
+
+    this._captureEntity = null;
+    this._projectionMatrix = null;
+    this._inverseProjectionMatrix = null;
+    this._viewProjectionMatrix = null;
+    this._inverseViewProjectionMatrix = null;
+    this._postprocess = null;
+    this._renderTargetId = null;
+    this._renderTargetIdUsed = null;
+    this._renderTargetMulti = null;
+    this._postprocessRtt = null;
+    this._layer = null;
+    this._postprocess = null;
+    this._postprocessRtt = null;
+    this._command = null;
+    this._onResize = null;
   }
 
   /**
@@ -481,6 +505,20 @@ export default class Camera extends Component {
     this._postprocess = null;
     this._postprocessCachedWidth = 0;
     this._postprocessCachedHeight = 0;
+  }
+
+  /**
+   * Convert screen space unit ([-1; 1]) vec2 point to global vec2 point.
+   *
+   * @param {vec2} target - Result vec2 point.
+   * @param {vec2} unitVec - Input screen space unit vec2 point.
+   */
+  convertUnitPointToGlobalPoint(target, unitVec) {
+    vec2.transformMat4(
+      target,
+      unitVec,
+      this._inverseViewProjectionMatrix
+    );
   }
 
   /**
@@ -536,6 +574,8 @@ export default class Camera extends Component {
       _captureEntity,
       _projectionMatrix,
       _inverseProjectionMatrix,
+      _viewProjectionMatrix,
+      _inverseViewProjectionMatrix,
       _renderTargetWidth,
       _renderTargetHeight,
       _renderTargetScale,
@@ -558,6 +598,8 @@ export default class Camera extends Component {
       mat4.copy(_inverseProjectionMatrix, cachedZeroMat4);
       mat4.copy(renderer.projectionMatrix, cachedZeroMat4);
       mat4.copy(renderer.viewMatrix, cachedZeroMat4);
+      mat4.copy(_viewProjectionMatrix, cachedZeroMat4);
+      mat4.copy(_inverseViewProjectionMatrix, cachedZeroMat4);
 
       if (this._dirty) {
         this._dirty = false;
@@ -601,6 +643,12 @@ export default class Camera extends Component {
     mat4.invert(_inverseProjectionMatrix, _projectionMatrix);
     mat4.copy(renderer.projectionMatrix, _projectionMatrix);
     mat4.copy(renderer.viewMatrix, entity.inverseTransform);
+    mat4.multiply(
+      _viewProjectionMatrix,
+      _projectionMatrix,
+      entity.inverseTransform
+    );
+    mat4.invert(_inverseViewProjectionMatrix, _viewProjectionMatrix);
 
     if (this._postprocessCachedWidth !== width ||
         this._postprocessCachedHeight !== height
