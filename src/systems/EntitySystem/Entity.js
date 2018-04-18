@@ -924,9 +924,24 @@ export default class Entity {
     _children.sort(_childrenSorting);
   }
 
+  /**
+   * Transform coordinate from this entity local space into other entity local space.
+   *
+   * @param {vec3} target - Result vec3 value.
+   * @param {vec3} coord - Input vec3 value.
+   * @param {Entity} entity - Other entity.
+   */
+  transformCoord(target, coord, entity) {
+    if (!(entity instanceof Entity)) {
+      throw new Error('`entity` is not type of Entity!');
+    }
+
+    vec3.transformMat4(cachedTempVec3, coord, this.entity.transform);
+    vec3.transformMat4(cachedTempVec3, cachedTempVec3, entity.inverseTransform);
+  }
+
   _setOwner(owner) {
     const { _owner, _components, _children } = this;
-
     if (!!owner === !!_owner) {
       return;
     }
