@@ -10,6 +10,7 @@ import RenderSystem, {
 import InputSystem from './InputSystem';
 import StorageSystem from './StorageSystem';
 import AudioSystem from './AudioSystem';
+import AssemblySystem from './AssemblySystem';
 
 export default {
   System,
@@ -22,7 +23,8 @@ export default {
   RenderFullscreenCommand,
   InputSystem,
   StorageSystem,
-  AudioSystem
+  AudioSystem,
+  AssetSystem
 };
 
 export {
@@ -36,5 +38,6 @@ export {
   RenderFullscreenCommand,
   InputSystem,
   StorageSystem,
-  AudioSystem
+  AudioSystem,
+  AssemblySystem
 };

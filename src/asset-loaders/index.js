@@ -12,6 +12,7 @@ import PackAsset from './PackAsset';
 import SkeletonAsset from './SkeletonAsset';
 import SVGAsset from './SVGAsset';
 import SetAsset from './SetAsset';
+import AssemblyAsset from './AssemblyAsset';
 
 export default {
   JSONAsset,
@@ -27,7 +28,8 @@ export default {
   PackAsset,
   SkeletonAsset,
   SVGAsset,
-  SetAsset
+  SetAsset,
+  AssemblyAsset
 };
 
 export {
@@ -44,5 +46,6 @@ export {
   PackAsset,
   SkeletonAsset,
   SVGAsset,
-  SetAsset
+  SetAsset,
+  AssemblyAsset
 };

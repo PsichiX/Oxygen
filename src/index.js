@@ -13,6 +13,7 @@ import PackAsset from './asset-loaders/PackAsset';
 import SkeletonAsset from './asset-loaders/SkeletonAsset';
 import SVGAsset from './asset-loaders/SVGAsset';
 import SetAsset from './asset-loaders/SetAsset';
+import AssemblyAsset from './asset-loaders/AssemblyAsset';
 import Camera, { PostprocessPass } from './components/Camera';
 import Camera2D from './components/Camera2D';
 import CameraDirector2D from './components/CameraDirector2D';
@@ -55,6 +56,7 @@ import RenderSystem, {
 import InputSystem from './systems/InputSystem';
 import StorageSystem from './systems/StorageSystem';
 import AudioSystem from './systems/AudioSystem';
+import AssemblySystem from './systems/AssemblySystem';
 import Events from './utils/Events';
 import {
   glMatrix,
@@ -93,6 +95,7 @@ export default {
   SkeletonAsset,
   SVGAsset,
   SetAsset,
+  AssemblyAsset,
   Camera,
   PostprocessPass,
   Camera2D,
@@ -135,6 +138,7 @@ export default {
   AssetSystem,
   Asset,
   AudioSystem,
+  AssemblySystem,
   Events,
   glMatrix,
   mat2,
@@ -168,6 +172,7 @@ export {
   SkeletonAsset,
   SVGAsset,
   SetAsset,
+  AssemblyAsset,
   Camera,
   PostprocessPass,
   Camera2D,
@@ -210,6 +215,7 @@ export {
   AssetSystem,
   Asset,
   AudioSystem,
+  AssemblySystem,
   Events,
   glMatrix,
   mat2,
@@ -399,6 +405,7 @@ export function lazyInitialization({ entity, asset, render, input, store, events
     !!store ? store.id : 'oxygen-data'
   ));
   const audio = System.register('AudioSystem', new AudioSystem());
+  const assembly = System.register('AssemblySystem', new AssemblySystem());
   const controller = new EventsController();
   controller.transform = !!events ? !!events.transform : true;
   controller.update = !!events ? !!events.update : true;
@@ -444,6 +451,7 @@ export function lazyInitialization({ entity, asset, render, input, store, events
   assets.registerProtocol('skeleton', SkeletonAsset.factory);
   assets.registerProtocol('svg', SVGAsset.factory);
   assets.registerProtocol('set', SetAsset.factory);
+  assets.registerProtocol('wasm', AssemblyAsset.factory);
 
   assets.events.on('load', asset => {
     const { protocol, filename, data } = asset;
@@ -471,6 +479,14 @@ export function lazyInitialization({ entity, asset, render, input, store, events
       audio.registerMusic(filename, data);
     } else if (protocol === 'particles') {
       Particles.registerProcessor(filename, data);
+    } else if (protocol === 'wasm') {
+      assembly.registerAssembly(
+        filename,
+        data,
+        !!asset.options && !!asset.options.imports
+          ? (assembly.getImports(asset.options.imports) || {})
+          : null
+      );
     }
   });
 
@@ -487,6 +503,8 @@ export function lazyInitialization({ entity, asset, render, input, store, events
       audio.unregisterMusic(filename);
     } else if (protocol === 'particles') {
       Particles.unregisterProcessor(filename);
+    } else if (protocol === 'wasm') {
+      assembly.unregisterAssembly(filename);
     }
   });
 
