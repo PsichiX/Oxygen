@@ -7,6 +7,7 @@ export default class AssemblySystem extends System {
 
     this._assemblies = new Map();
     this._imports = new Map();
+    this._imports.set('', {});
   }
 
   dispose() {
@@ -67,9 +68,13 @@ export default class AssemblySystem extends System {
     if (!(wasmModule instanceof WebAssembly.Module)) {
       throw new Error('`wasmModule` is not type of WebAssembly.Module!');
     }
+    if (typeof imports === 'string') {
+      imports = this._imports.get(imports);
+    }
 
     const instance = new WebAssembly.Instance(wasmModule, imports || {});
     this._assemblies.set(id, instance);
+    this._imports.get('')[id] = instance.exports;
     return instance;
   }
 
@@ -78,10 +83,12 @@ export default class AssemblySystem extends System {
       throw new Error('`id` is not type of String!');
     }
 
+    delete this._imports.get('')[id];
     return this._assemblies.delete(id);
   }
 
   unregisterAllAssemblies() {
+    this._imports.set('', {});
     this._assemblies.clear();
   }
 
