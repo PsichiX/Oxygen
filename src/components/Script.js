@@ -23,7 +23,11 @@ const EventFlags = {
   CONTACT_BEGIN: 1 << 11,
   CONTACT_END: 1 << 12,
   CONTACT: 0x1800,
-  ALL: 0x1FFF
+  TOUCH_DOWN: 1 << 13,
+  TOUCH_UP: 1 << 14,
+  TOUCH_MOVE: 1 << 15,
+  TOUCH: 0xE000,
+  ALL: 0xFFFF
 };
 
 export default class Script extends Component {
@@ -164,6 +168,30 @@ export default class Script extends Component {
         input.events.off('contact-end', this._onContactEnd);
       }
     }
+
+    if (change & EventFlags.TOUCH_DOWN) {
+      if (listenTo & EventFlags.TOUCH_DOWN) {
+        input.events.on('touch-down', this._onTouchDown);
+      } else {
+        input.events.off('touch-down', this._onTouchDown);
+      }
+    }
+
+    if (change & EventFlags.TOUCH_UP) {
+      if (listenTo & EventFlags.TOUCH_UP) {
+        input.events.on('touch-up', this._onTouchUp);
+      } else {
+        input.events.off('touch-up', this._onTouchUp);
+      }
+    }
+
+    if (change & EventFlags.TOUCH_MOVE) {
+      if (listenTo & EventFlags.TOUCH_MOVE) {
+        input.events.on('touch-move', this._onTouchMove);
+      } else {
+        input.events.off('touch-move', this._onTouchMove);
+      }
+    }
   }
 
   constructor() {
@@ -183,6 +211,9 @@ export default class Script extends Component {
     this._onLeapProcess = this.onLeapProcess.bind(this);
     this._onContactBegin = this.onContactBegin.bind(this);
     this._onContactEnd = this.onContactEnd.bind(this);
+    this._onTouchDown = this.onTouchDown.bind(this);
+    this._onTouchUp = this.onTouchUp.bind(this);
+    this._onTouchMove = this.onTouchMove.bind(this);
   }
 
   dispose() {
@@ -290,6 +321,14 @@ export default class Script extends Component {
           flags |= EventFlags.CONTACT_END;
         } else if (flag === 'contact') {
           flags |= EventFlags.CONTACT;
+        } else if (flag === 'touch-down') {
+          flags |= EventFlags.TOUCH_DOWN;
+        } else if (flag === 'touch-up') {
+          flags |= EventFlags.TOUCH_UP;
+        } else if (flag === 'touch-move') {
+          flags |= EventFlags.TOUCH_MOVE;
+        } else if (flag === 'touch') {
+          flags |= EventFlags.TOUCH;
         } else if (flag === 'all') {
           flags |= EventFlags.ALL;
         }
@@ -348,6 +387,15 @@ export default class Script extends Component {
       if ((value & EventFlags.CONTACT_END) !== 0) {
         result.push('contact-end');
       }
+      if ((value & EventFlags.TOUCH_DOWN) !== 0) {
+        result.push('touch-down');
+      }
+      if ((value & EventFlags.TOUCH_UP) !== 0) {
+        result.push('touch-up');
+      }
+      if ((value & EventFlags.TOUCH_MOVE) !== 0) {
+        result.push('touch-move');
+      }
       return result;
     } else {
       return super.onPropertySerialize(name, value);
@@ -391,5 +439,11 @@ export default class Script extends Component {
   onContactBegin(body, contact) {}
 
   onContactEnd(body, contact) {}
+
+  onTouchDown(unitVec, screenVec, identifier) {}
+
+  onTouchUp(unitVec, screenVec, identifier) {}
+
+  onTouchMove(unitVec, screenVec, identifier) {}
 
 }

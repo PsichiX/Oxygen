@@ -18,7 +18,7 @@ import Camera, { PostprocessPass } from './components/Camera';
 import Camera2D from './components/Camera2D';
 import CameraDirector2D from './components/CameraDirector2D';
 import InputHandler from './components/InputHandler';
-import InputListener from './components/InputListener';
+import GestureListener from './components/GestureListener';
 import Particles from './components/Particles';
 import PhysicsBody from './components/PhysicsBody';
 import PhysicsWorld from './components/PhysicsWorld';
@@ -102,7 +102,7 @@ export default {
   Camera2D,
   CameraDirector2D,
   InputHandler,
-  InputListener,
+  GestureListener,
   Particles,
   PhysicsBody,
   PhysicsWorld,
@@ -180,7 +180,7 @@ export {
   Camera2D,
   CameraDirector2D,
   InputHandler,
-  InputListener,
+  GestureListener,
   Particles,
   PhysicsBody,
   PhysicsWorld,
@@ -419,7 +419,7 @@ export function lazyInitialization({ entity, asset, render, input, store, events
   entities.registerComponent('Camera2D', Camera2D.factory);
   entities.registerComponent('CameraDirector2D', CameraDirector2D.factory);
   entities.registerComponent('InputHandler', InputHandler.factory);
-  entities.registerComponent('InputListener', InputListener.factory);
+  entities.registerComponent('GestureListener', GestureListener.factory);
   entities.registerComponent('Particles', Particles.factory);
   entities.registerComponent('PhysicsBody', PhysicsBody.factory);
   entities.registerComponent('PhysicsWorld', PhysicsWorld.factory);

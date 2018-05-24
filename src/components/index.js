@@ -2,7 +2,7 @@ import Camera, { PostprocessPass } from './Camera';
 import Camera2D from './Camera2D';
 import CameraDirector2D from './CameraDirector2D';
 import InputHandler from './InputHandler';
-import InputListener from './InputListener';
+import GestureListener from './GestureListener';
 import PhysicsBody from './PhysicsBody';
 import Particles from './Particles';
 import PhysicsWorld from './PhysicsWorld';
@@ -30,7 +30,7 @@ export default {
   Camera2D,
   CameraDirector2D,
   InputHandler,
-  InputListener,
+  GestureListener,
   Particles,
   PhysicsBody,
   PhysicsWorld,
@@ -62,7 +62,7 @@ export {
   Camera2D,
   CameraDirector2D,
   InputHandler,
-  InputListener,
+  GestureListener,
   Particles,
   PhysicsBody,
   PhysicsWorld,
