@@ -22,6 +22,7 @@ import PostprocessRack, { PostprocessRackPass, PostprocessRackRawEffectPass } fr
 import Shape from './Shape';
 import PolygonShape from './PolygonShape';
 import CircleShape from './CircleShape';
+import RectangleShape from './RectangleShape';
 
 export default {
   Camera,
@@ -51,7 +52,8 @@ export default {
   PostprocessRackRawEffectPass,
   Shape,
   PolygonShape,
-  CircleShape
+  CircleShape,
+  RectangleShape
 };
 
 export {
@@ -82,5 +84,6 @@ export {
   PostprocessRackRawEffectPass,
   Shape,
   PolygonShape,
-  CircleShape
+  CircleShape,
+  RectangleShape
 };
