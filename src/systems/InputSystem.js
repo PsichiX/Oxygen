@@ -60,8 +60,31 @@ export default class InputSystem extends System {
     this._onMouseDown = this.onMouseDown.bind(this);
     this._onMouseUp = this.onMouseUp.bind(this);
     this._onMouseMove = this.onMouseMove.bind(this);
+    this._onTouchDown = this.onTouchDown.bind(this);
+    this._onTouchUp = this.onTouchUp.bind(this);
+    this._onTouchMove = this.onTouchMove.bind(this);
     this._onKeyDown = this.onKeyDown.bind(this);
     this._onKeyUp = this.onKeyUp.bind(this);
+  }
+
+  dispose() {
+    super.dispose();
+    if (!!this._events) {
+      this._events.dispose();
+    }
+
+    this._canvas = null;
+    this._events = null;
+    this._gamepads = null;
+    this._leap = null;
+    this._onMouseDown = null;
+    this._onMouseUp = null;
+    this._onMouseMove = null;
+    this._onTouchDown = null;
+    this._onTouchUp = null;
+    this._onTouchMove = null;
+    this._onKeyDown = null;
+    this._onKeyUp = null;
   }
 
   /**
@@ -71,6 +94,10 @@ export default class InputSystem extends System {
     this._canvas.addEventListener('mousedown', this._onMouseDown);
     document.addEventListener('mouseup', this._onMouseUp);
     document.addEventListener('mousemove', this._onMouseMove);
+    this._canvas.addEventListener('touchstart', this._onTouchDown);
+    this._canvas.addEventListener('touchend', this._onTouchUp);
+    this._canvas.addEventListener('touchcancel', this._onTouchUp);
+    this._canvas.addEventListener('touchmove', this._onTouchMove);
     document.addEventListener('keydown', this._onKeyDown);
     document.addEventListener('keyup', this._onKeyUp);
     this._leap.connect();
@@ -83,6 +110,10 @@ export default class InputSystem extends System {
     this._canvas.removeEventListener('mousedown', this._onMouseDown);
     document.removeEventListener('mouseup', this._onMouseUp);
     document.removeEventListener('mousemove', this._onMouseMove);
+    this._canvas.removeEventListener('touchstart', this._onTouchDown);
+    this._canvas.removeEventListener('touchend', this._onTouchUp);
+    this._canvas.removeEventListener('touchcancel', this._onTouchUp);
+    this._canvas.removeEventListener('touchmove', this._onTouchMove);
     document.removeEventListener('keydown', this._onKeyDown);
     document.removeEventListener('keyup', this._onKeyUp);
     this._leap.disconnect();
@@ -118,17 +149,69 @@ export default class InputSystem extends System {
     );
   }
 
-  onMouseMove(...args) {
+  onMouseMove(event, target) {
     this._canvasToUnitCoords(
       cachedUnitsVector,
       cachedScreenVector,
-      ...args
+      event,
+      target
     );
     !!this._triggerEvents && this._events.trigger(
       'mouse-move',
       cachedUnitsVector,
       cachedScreenVector
     );
+  }
+
+  onTouchDown(event, target) {
+    for (const touch of event.changedTouches) {
+      this._canvasToUnitCoords(
+        cachedUnitsVector,
+        cachedScreenVector,
+        touch,
+        target
+      );
+      !!this._triggerEvents && this._events.trigger(
+        'touch-down',
+        cachedUnitsVector,
+        cachedScreenVector,
+        touch.identifier
+      );
+    }
+  }
+
+  onTouchUp(event, target) {
+    for (const touch of event.changedTouches) {
+      this._canvasToUnitCoords(
+        cachedUnitsVector,
+        cachedScreenVector,
+        touch,
+        target
+      );
+      !!this._triggerEvents && this._events.trigger(
+        'touch-up',
+        cachedUnitsVector,
+        cachedScreenVector,
+        touch.identifier
+      );
+    }
+  }
+
+  onTouchMove(event, target) {
+    for (const touch of event.changedTouches) {
+      this._canvasToUnitCoords(
+        cachedUnitsVector,
+        cachedScreenVector,
+        touch,
+        target
+      );
+      !!this._triggerEvents && this._events.trigger(
+        'touch-move',
+        cachedUnitsVector,
+        cachedScreenVector,
+        touch.identifier
+      );
+    }
   }
 
   onKeyDown(event) {
