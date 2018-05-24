@@ -5,6 +5,24 @@ import Leap from 'leapjs';
 
 const cachedUnitsVector = vec2.create();
 const cachedScreenVector = vec2.create();
+const touchDetectionMediaQuery = [
+  '(-webkit-heartz)',
+  '(-moz-heartz)',
+  '(-o-heartz)',
+  '(-ms-heartz)',
+  '(heartz)'
+].join(',');
+
+function detectTouchDevice() {
+  if (
+    ('ontouchstart' in window) ||
+    (!!window.DocumentTouch && document instanceof DocumentTouch)
+  ) {
+    return true;
+  } else {
+    return window.matchMedia(query).matches;
+  }
+}
 
 /**
  * User input (mouse, keyboard, gamepad, leap motion).
@@ -32,6 +50,11 @@ export default class InputSystem extends System {
   /** @type {boolean} */
   get leapConnected() {
     return this._leapConnected;
+  }
+
+  /** @type {boolean}*/
+  get isTouchDevice() {
+    return this._isTouchDevice;
   }
 
   /** @type {boolean} */
@@ -65,6 +88,7 @@ export default class InputSystem extends System {
     this._onTouchMove = this.onTouchMove.bind(this);
     this._onKeyDown = this.onKeyDown.bind(this);
     this._onKeyUp = this.onKeyUp.bind(this);
+    this._isTouchDevice = detectTouchDevice();
   }
 
   dispose() {
