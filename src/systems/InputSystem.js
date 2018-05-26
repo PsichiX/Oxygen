@@ -20,7 +20,7 @@ function detectTouchDevice() {
   ) {
     return true;
   } else {
-    return window.matchMedia(query).matches;
+    return window.matchMedia(touchDetectionMediaQuery).matches;
   }
 }
 
