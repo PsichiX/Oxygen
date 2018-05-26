@@ -31,7 +31,7 @@
     ".babelrc",
     "esdoc.json",
     "versionize.js",
-    "bin/version.json"
+    "bin/version.json",
     "bin/oxygen-core.js",
     "bin/oxygen-core.min.js"
   ],
