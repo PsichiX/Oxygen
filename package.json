@@ -1,20 +1,16 @@
 {
   "name": "oxygen-core",
-  "version": "1.4.28",
+  "version": "1.4.29",
   "description": "Oxygen game engine (Xenon Core for browsers)",
   "main": "bin/index.js",
   "scripts": {
     "clean": "rm -rf bin bin-tools docs",
     "build": "./node_modules/.bin/babel src -d bin && node ./versionize.js",
     "build-tools": "./node_modules/.bin/babel tools -d bin-tools",
-    "build-browserify": "./node_modules/.bin/browserify bin/index.js -o bin/oxygen-core.js -s Oxygen",
-    "build-browserify-uglify": "./node_modules/.bin/browserify bin/index.js -o bin/oxygen-core.min.js -s Oxygen -t uglifyify",
-    "build-web": "npm run build-browserify && npm run build-browserify-uglify",
+    "build-standalone": "./node_modules/.bin/webpack -p",
     "docs": "esdoc -c esdoc.json",
-    "make": "npm run clean && npm run build && npm run build-web && npm run build-tools && npm run docs",
-    "postinstall": "npm run make",
-    "oxygen-pack": "node ./bin-tools/pack-cli.js",
-    "oxygen-spine": "node ./bin-tools/spine-cli.js"
+    "make": "npm run clean && npm run build && npm run build-standalone && npm run build-tools && npm run docs",
+    "postinstall": "npm run make"
   },
   "bin": {
     "oxy-pack": "./cli/pack.js",
@@ -33,7 +29,7 @@
     "versionize.js",
     "bin/version.json",
     "bin/oxygen-core.js",
-    "bin/oxygen-core.min.js"
+    "bin/oxygen-core.js.map"
   ],
   "repository": {
     "type": "git",
@@ -58,18 +54,17 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.49",
     "@babel/polyfill": "^7.0.0-beta.49",
     "@babel/preset-env": "^7.0.0-beta.49",
-    "babel-plugin-conditional-compile": "0.0.5",
-    "babel-preset-minify": "^0.2.0",
+    "babel-loader": "^8.0.0-beta.3",
     "bezier-easing": "^2.0.3",
     "box2dweb-commonjs": "^2.1.0",
-    "browserify": "^15.2.0",
     "esdoc": "^1.1.0",
     "esdoc-ecmascript-proposal-plugin": "^1.0.0",
     "esdoc-importpath-plugin": "^1.0.2",
     "esdoc-standard-plugin": "^1.0.0",
     "leapjs": "^0.6.4",
     "stream-buffers": "^3.0.2",
-    "uglifyify": "^5.0.0",
+    "webpack": "^4.9.1",
+    "webpack-cli": "^2.1.4",
     "xml2js": "^0.4.19"
   }
 }
