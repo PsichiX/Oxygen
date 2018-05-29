@@ -150,7 +150,7 @@ export default class InputSystem extends System {
       event,
       target
     );
-    !!this._triggerEvents && this._events.trigger(
+    !!this._triggerEvents && !!this._events && this._events.trigger(
       'mouse-down',
       cachedUnitsVector,
       cachedScreenVector,
@@ -165,7 +165,7 @@ export default class InputSystem extends System {
       event,
       target
     );
-    !!this._triggerEvents && this._events.trigger(
+    !!this._triggerEvents && !!this._events && this._events.trigger(
       'mouse-up',
       cachedUnitsVector,
       cachedScreenVector,
@@ -180,7 +180,7 @@ export default class InputSystem extends System {
       event,
       target
     );
-    !!this._triggerEvents && this._events.trigger(
+    !!this._triggerEvents && !!this._events && this._events.trigger(
       'mouse-move',
       cachedUnitsVector,
       cachedScreenVector
@@ -195,7 +195,7 @@ export default class InputSystem extends System {
         touch,
         target
       );
-      !!this._triggerEvents && this._events.trigger(
+      !!this._triggerEvents && !!this._events && this._events.trigger(
         'touch-down',
         cachedUnitsVector,
         cachedScreenVector,
@@ -212,7 +212,7 @@ export default class InputSystem extends System {
         touch,
         target
       );
-      !!this._triggerEvents && this._events.trigger(
+      !!this._triggerEvents && !!this._events && this._events.trigger(
         'touch-up',
         cachedUnitsVector,
         cachedScreenVector,
@@ -229,7 +229,7 @@ export default class InputSystem extends System {
         touch,
         target
       );
-      !!this._triggerEvents && this._events.trigger(
+      !!this._triggerEvents && !!this._events && this._events.trigger(
         'touch-move',
         cachedUnitsVector,
         cachedScreenVector,
@@ -239,14 +239,14 @@ export default class InputSystem extends System {
   }
 
   onKeyDown(event) {
-    !!this._triggerEvents && this._events.trigger(
+    !!this._triggerEvents && !!this._events && this._events.trigger(
       'key-down',
       event.which || event.keyCode
     );
   }
 
   onKeyUp(event) {
-    !!this._triggerEvents && this._events.trigger(
+    !!this._triggerEvents && !!this._events && this._events.trigger(
       'key-up',
       event.which || event.keyCode
     );
@@ -277,16 +277,16 @@ export default class InputSystem extends System {
 
       if (!_gamepads.has(id)) {
         _gamepads.set(id, gamepad);
-        !!_triggerEvents && _events.trigger('gamepad-connected', gamepad);
+        !!_triggerEvents && !!_events && _events.trigger('gamepad-connected', gamepad);
       }
     }
 
     for (const gamepad of _gamepads.values()) {
       if (!gamepad.connected || gamepads.indexOf(gamepad) < 0) {
         _gamepads.delete(gamepad.id);
-        !!_triggerEvents && _events.trigger('gamepad-disconnected', gamepad);
+        !!_triggerEvents && !!_events && _events.trigger('gamepad-disconnected', gamepad);
       } else {
-        !!_triggerEvents && _events.trigger('gamepad-process', gamepad);
+        !!_triggerEvents && !!_events && _events.trigger('gamepad-process', gamepad);
       }
     }
   }
@@ -301,12 +301,12 @@ export default class InputSystem extends System {
       if (!!frame && frame.valid) {
         if (!this._leapConnected) {
           this._leapConnected = true;
-          !!_triggerEvents && _events.trigger('leap-connected', _leap);
+          !!_triggerEvents && !!_events && _events.trigger('leap-connected', _leap);
         }
-        !!_triggerEvents && _events.trigger('leap-process', frame, _leap);
+        !!_triggerEvents && !!_events && _events.trigger('leap-process', frame, _leap);
       } else if (this._leapConnected) {
         this._leapConnected = false;
-        !!_triggerEvents && _events.trigger('leap-disconnected', _leap);
+        !!_triggerEvents && !!_events && _events.trigger('leap-disconnected', _leap);
       }
     }
   }
