@@ -936,7 +936,7 @@ export default class Entity {
       throw new Error('`entity` is not type of Entity!');
     }
 
-    vec3.transformMat4(cachedTempVec3, coord, this.entity.transform);
+    vec3.transformMat4(cachedTempVec3, coord, this.transform);
     vec3.transformMat4(cachedTempVec3, cachedTempVec3, entity.inverseTransform);
   }
 

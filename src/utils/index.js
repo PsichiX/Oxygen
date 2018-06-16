@@ -172,38 +172,38 @@ function angleDifference(a, b) {
 }
 
 /**
- * Converts global vec2 coordinate into local vec2 coordinate.
+ * Converts global vec3 coordinate into local vec2 coordinate.
  *
- * @param {vec2}	target - Result vec2 value.
- * @param {vec2}	globalVec - Global vec2 value.
+ * @param {vec3}	target - Result vec3 value.
+ * @param {vec3}	globalVec - Global vec3 value.
  * @param {mat4}	globalTransform - Object mat4 transform.
  *
  * @example
- * const result = vec2.create();
- * const pos = vec2.fromValues(1, 1);
+ * const result = vec3.create();
+ * const pos = vec3.fromValues(1, 1, 0);
  * const transform = mat4.identity();
  * convertGlobalPointToLocalPoint(result, pos, transform);
  */
 function convertGlobalPointToLocalPoint(target, globalVec, globalTransform) {
   mat4.invert(cachedInverseMatrix, globalTransform);
-  vec2.transformMat4(target, globalVec, cachedInverseMatrix);
+  vec3.transformMat4(target, globalVec, cachedInverseMatrix);
 }
 
 /**
- * Converts local vec2 coordinate into global vec2 coordinate.
+ * Converts local vec3 coordinate into global vec2 coordinate.
  *
- * @param {vec2}	target - Result vec2 value.
- * @param {vec2}	localVec - Local vec2 value.
+ * @param {vec3}	target - Result vec3 value.
+ * @param {vec3}	localVec - Local vec3 value.
  * @param {mat4}	globalTransform - Object mat4 transform.
  *
  * @example
- * const result = vec2.create();
- * const pos = vec2.fromValues(1, 1);
+ * const result = vec3.create();
+ * const pos = vec3.fromValues(1, 1, 0);
  * const transform = mat4.identity();
  * convertLocalPointToGlobalPoint(result, pos, transform);
  */
 function convertLocalPointToGlobalPoint(target, localVec, globalTransform) {
-  vec2.transformMat4(target, localVec, globalTransform);
+  vec3.transformMat4(target, localVec, globalTransform);
 }
 
 /**
