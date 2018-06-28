@@ -62,7 +62,7 @@ export default class Shape extends Component {
   containsPointInChildren(globalPoint, layer = null) {
     let result = false;
     this.entity.performOnComponents(null, c => {
-      if (c instanceof Shape && c.containsPoint(globalPoint, layer)) {
+      if (!result && c instanceof Shape && c.containsPoint(globalPoint, layer)) {
         result = true;
       }
     });

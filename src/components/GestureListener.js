@@ -198,7 +198,7 @@ export default class GestureListener extends Script {
       vec2.transformMat4(
         out,
         unitVec,
-        _cameraComponent.inverseProjectionMatrix
+        _cameraComponent.inverseProjectionMatrix,
       );
     }
   }
