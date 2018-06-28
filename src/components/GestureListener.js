@@ -11,6 +11,7 @@ const ActionFlags = {
   CLICK: 1 << 0,
   CLICK_RELEASE: 1 << 1,
   MOUSE_ENTER_LEAVE: 1 << 2,
+  DRAG_DROP: 1 << 3,
   ALL: 0xF,
 };
 
@@ -127,6 +128,7 @@ export default class GestureListener extends Script {
     this._actions = ActionFlags.NONE;
     this._lastOver = false;
     this._shape = null;
+    this._dragging = false;
   }
 
   dispose() {
@@ -172,6 +174,8 @@ export default class GestureListener extends Script {
           flags |= ActionFlags.CLICK_RELEASE;
         } else if (flag === 'mouse-enter-leave') {
           flags |= ActionFlags.MOUSE_ENTER_LEAVE;
+        } else if (flag === 'drag-drop') {
+          flags |= ActionFlags.DRAG_DROP;
         } else if (flag === 'all') {
           flags |= ActionFlags.ALL;
         }
@@ -202,6 +206,9 @@ export default class GestureListener extends Script {
       if ((value & ActionFlags.MOUSE_ENTER_LEAVE) !== 0) {
         result.push('mouse-enter-leave');
       }
+      if ((value & ActionFlags.DRAG_DROP) !== 0) {
+        result.push('drag-drop');
+      }
       return result;
     } else {
       return super.onPropertySerialize(name, value);
@@ -212,13 +219,21 @@ export default class GestureListener extends Script {
    * @override
    */
   onMouseDown(unitVec, screenVec) {
-    if ((this._actions & ActionFlags.CLICK) === 0) {
+    if ((this._actions & ActionFlags.CLICK) === 0 &&
+      (this._actions & ActionFlags.DRAG_DROP) === 0
+    ) {
       return;
     }
     this._convertUnitToGlobalCoords(cachedGlobalVec, unitVec);
 
     if (this._containsPoint(cachedGlobalVec)) {
-      this.entity.performAction('click', cachedGlobalVec);
+      if ((this._actions & ActionFlags.CLICK) !== 0) {
+        this.entity.performAction('click', cachedGlobalVec);
+      }
+      if (!this._dragging && (this._actions & ActionFlags.DRAG_DROP) !== 0) {
+        this._dragging = true;
+        this.entity.performAction('drag', cachedGlobalVec);
+      }
     }
   }
 
@@ -226,13 +241,21 @@ export default class GestureListener extends Script {
    * @override
    */
   onMouseUp(unitVec, screenVec) {
-    if ((this._actions & ActionFlags.CLICK_RELEASE) === 0) {
+    if ((this._actions & ActionFlags.CLICK_RELEASE) === 0 &&
+      (this._actions & ActionFlags.DRAG_DROP) === 0
+    ) {
       return;
     }
     this._convertUnitToGlobalCoords(cachedGlobalVec, unitVec);
 
     if (this._containsPoint(cachedGlobalVec)) {
-      this.entity.performAction('click-release', cachedGlobalVec);
+      if ((this._actions & ActionFlags.CLICK_RELEASE) !== 0) {
+        this.entity.performAction('click-release', cachedGlobalVec);
+      }
+      if (!!this._dragging && (this._actions & ActionFlags.DRAG_DROP) !== 0) {
+        this.entity.performAction('drop', cachedGlobalVec);
+        this._dragging = false;
+      }
     }
   }
 
@@ -240,32 +263,47 @@ export default class GestureListener extends Script {
    * @override
    */
   onMouseMove(unitVec, screenVec) {
-    if ((this._actions & ActionFlags.MOUSE_ENTER_LEAVE) === 0) {
+    if ((this._actions & ActionFlags.MOUSE_ENTER_LEAVE) === 0 &&
+      (this._actions & ActionFlags.DRAG_DROP) === 0
+    ) {
       return;
     }
     const { _lastOver } = this;
     this._convertUnitToGlobalCoords(cachedGlobalVec, unitVec);
 
-    const over = this._containsPoint(cachedGlobalVec);
-    if (over && !_lastOver) {
-      this.entity.performAction('mouse-enter', cachedGlobalVec);
-    } else if (!over && _lastOver) {
-      this.entity.performAction('mouse-leave', cachedGlobalVec);
+    if ((this._actions & ActionFlags.MOUSE_ENTER_LEAVE) !== 0) {
+      const over = this._containsPoint(cachedGlobalVec);
+      if (over && !_lastOver) {
+        this.entity.performAction('mouse-enter', cachedGlobalVec);
+      } else if (!over && _lastOver) {
+        this.entity.performAction('mouse-leave', cachedGlobalVec);
+      }
+      this._lastOver = over;
     }
-    this._lastOver = over;
+    if (!!this._dragging && (this._actions & ActionFlags.DRAG_DROP) !== 0) {
+      this.entity.performAction('drag-move', cachedGlobalVec);
+    }
   }
 
   /**
    * @override
    */
   onTouchDown(unitVec, screenVec) {
-    if ((this._actions & ActionFlags.CLICK) === 0) {
+    if ((this._actions & ActionFlags.CLICK) === 0 &&
+      (this._actions & ActionFlags.DRAG_DROP) === 0
+    ) {
       return;
     }
     this._convertUnitToGlobalCoords(cachedGlobalVec, unitVec);
 
     if (this._containsPoint(cachedGlobalVec)) {
-      this.entity.performAction('click', cachedGlobalVec);
+      if ((this._actions & ActionFlags.CLICK) !== 0) {
+        this.entity.performAction('click', cachedGlobalVec);
+      }
+      if (!this._dragging && (this._actions & ActionFlags.DRAG_DROP) !== 0) {
+        this._dragging = true;
+        this.entity.performAction('drag', cachedGlobalVec);
+      }
     }
   }
 
@@ -273,13 +311,35 @@ export default class GestureListener extends Script {
    * @override
    */
   onTouchUp(unitVec, screenVec) {
-    if ((this._actions & ActionFlags.CLICK_RELEASE) === 0) {
+    if ((this._actions & ActionFlags.CLICK_RELEASE) === 0 &&
+      (this._actions & ActionFlags.DRAG_DROP) === 0
+    ) {
       return;
     }
     this._convertUnitToGlobalCoords(cachedGlobalVec, unitVec);
 
     if (this._containsPoint(cachedGlobalVec)) {
-      this.entity.performAction('click-release', cachedGlobalVec);
+      if ((this._actions & ActionFlags.CLICK_RELEASE) !== 0) {
+        this.entity.performAction('click-release', cachedGlobalVec);
+      }
+      if (!!this._dragging && (this._actions & ActionFlags.DRAG_DROP) !== 0) {
+        this.entity.performAction('drop', cachedGlobalVec);
+        this._dragging = false;
+      }
+    }
+  }
+
+  /**
+   * @override
+   */
+  onTouchMove(unitVec, screenVec) {
+    if ((this._actions & ActionFlags.DRAG_DROP) === 0 || !this._dragging) {
+      return;
+    }
+    this._convertUnitToGlobalCoords(cachedGlobalVec, unitVec);
+
+    if (this._containsPoint(cachedGlobalVec)) {
+      this.entity.performAction('drag-move', cachedGlobalVec);
     }
   }
 
