@@ -2,8 +2,17 @@ import Script from './Script';
 import Camera2D from './Camera2D';
 import Shape from './Shape';
 import { vec2 } from '../utils/gl-matrix';
+import { propsEnumStringify } from '../utils';
 
 const cachedGlobalVec = vec2.create();
+
+const ActionFlags = {
+  NONE: 0,
+  CLICK: 1 << 0,
+  CLICK_RELEASE: 1 << 1,
+  MOUSE_ENTER_LEAVE: 1 << 2,
+  ALL: 0xF,
+};
 
 /**
  * Entity listener for mouse input (good for buttons logic).
@@ -28,8 +37,13 @@ export default class GestureListener extends Script {
     return {
       ...Script.propsTypes,
       camera: 'string_null',
-      layer: 'string_null'
+      layer: 'string_null',
+      actions: `flags(${propsEnumStringify(ActionFlags)})`,
     };
+  }
+
+  static get ActionFlags() {
+    return ActionFlags;
   }
 
   /** @type {string|null} */
@@ -88,6 +102,18 @@ export default class GestureListener extends Script {
     this._layer = value;
   }
 
+  get actions() {
+    return this._actions;
+  }
+
+  set actions(value) {
+    if (typeof value !== 'number') {
+      throw new Error('`value` is not type of Number!');
+    }
+
+    this._actions = value | 0;
+  }
+
   /**
    * Constructor.
    */
@@ -98,6 +124,7 @@ export default class GestureListener extends Script {
     this._cameraEntity = null;
     this._cameraComponent = null;
     this._layer = null;
+    this._actions = ActionFlags.NONE;
     this._lastOver = false;
     this._shape = null;
   }
@@ -130,7 +157,64 @@ export default class GestureListener extends Script {
   /**
    * @override
    */
+  onPropertySetup(name, value) {
+    if (name === 'actions') {
+      if (!(value instanceof Array)) {
+        throw new Error('`value` is not type of Array!');
+      }
+
+      let flags = ActionFlags.NONE;
+      for (let i = 0, c = value.length; i < c; ++i) {
+        const flag = value[i];
+        if (flag === 'click') {
+          flags |= ActionFlags.CLICK;
+        } else if (flag === 'click-release') {
+          flags |= ActionFlags.CLICK_RELEASE;
+        } else if (flag === 'mouse-enter-leave') {
+          flags |= ActionFlags.MOUSE_ENTER_LEAVE;
+        } else if (flag === 'all') {
+          flags |= ActionFlags.ALL;
+        }
+      }
+
+      this._actions = flags;
+    } else {
+      super.onPropertySetup(name, value);
+    }
+  }
+
+  /**
+   * @override
+   */
+  onPropertySerialize(name, value) {
+    if (name === 'actions') {
+      if ((value & ActionFlags.ALL) === ActionFlags.ALL) {
+        return [ 'all' ];
+      }
+
+      const result = [];
+      if ((value & ActionFlags.CLICK) !== 0) {
+        result.push('click');
+      }
+      if ((value & ActionFlags.CLICK_RELEASE) !== 0) {
+        result.push('click-release');
+      }
+      if ((value & ActionFlags.MOUSE_ENTER_LEAVE) !== 0) {
+        result.push('mouse-enter-leave');
+      }
+      return result;
+    } else {
+      return super.onPropertySerialize(name, value);
+    }
+  }
+
+  /**
+   * @override
+   */
   onMouseDown(unitVec, screenVec) {
+    if ((this._actions & ActionFlags.CLICK) === 0) {
+      return;
+    }
     this._convertUnitToGlobalCoords(cachedGlobalVec, unitVec);
 
     if (this._containsPoint(cachedGlobalVec)) {
@@ -142,6 +226,9 @@ export default class GestureListener extends Script {
    * @override
    */
   onMouseUp(unitVec, screenVec) {
+    if ((this._actions & ActionFlags.CLICK_RELEASE) === 0) {
+      return;
+    }
     this._convertUnitToGlobalCoords(cachedGlobalVec, unitVec);
 
     if (this._containsPoint(cachedGlobalVec)) {
@@ -153,6 +240,9 @@ export default class GestureListener extends Script {
    * @override
    */
   onMouseMove(unitVec, screenVec) {
+    if ((this._actions & ActionFlags.MOUSE_ENTER_LEAVE) === 0) {
+      return;
+    }
     const { _lastOver } = this;
     this._convertUnitToGlobalCoords(cachedGlobalVec, unitVec);
 
@@ -169,6 +259,9 @@ export default class GestureListener extends Script {
    * @override
    */
   onTouchDown(unitVec, screenVec) {
+    if ((this._actions & ActionFlags.CLICK) === 0) {
+      return;
+    }
     this._convertUnitToGlobalCoords(cachedGlobalVec, unitVec);
 
     if (this._containsPoint(cachedGlobalVec)) {
@@ -180,6 +273,9 @@ export default class GestureListener extends Script {
    * @override
    */
   onTouchUp(unitVec, screenVec) {
+    if ((this._actions & ActionFlags.CLICK_RELEASE) === 0) {
+      return;
+    }
     this._convertUnitToGlobalCoords(cachedGlobalVec, unitVec);
 
     if (this._containsPoint(cachedGlobalVec)) {

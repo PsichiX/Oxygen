@@ -27,7 +27,7 @@ const EventFlags = {
   TOUCH_UP: 1 << 14,
   TOUCH_MOVE: 1 << 15,
   TOUCH: 0xE000,
-  ALL: 0xFFFF
+  ALL: 0xFFFF,
 };
 
 export default class Script extends Component {
@@ -227,7 +227,6 @@ export default class Script extends Component {
     }
 
     const input = System.get('InputSystem');
-
     if (!input) {
       throw new Error('There is no registered InputSystem!');
     }
@@ -243,7 +242,6 @@ export default class Script extends Component {
     }
 
     const input = System.get('InputSystem');
-
     if (!input) {
       throw new Error('There is no registered InputSystem!');
     }
@@ -282,7 +280,6 @@ export default class Script extends Component {
       let flags = EventFlags.NONE;
       for (let i = 0, c = value.length; i < c; ++i) {
         const flag = value[i];
-
         if (flag === 'mouse-down') {
           flags |= EventFlags.MOUSE_DOWN;
         } else if (flag === 'mouse-up') {
@@ -347,7 +344,6 @@ export default class Script extends Component {
       }
 
       const result = [];
-
       if ((value & EventFlags.MOUSE_DOWN) !== 0) {
         result.push('mouse-down');
       }
