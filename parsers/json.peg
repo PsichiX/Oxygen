@@ -5,13 +5,19 @@ Identifier "identifier"
   = _ [_a-zA-Z][_a-zA-Z0-9]* { return text(); }
 
 Value "value"
-  = Null / Boolean / Number / String / Array / EmptyArray / Map / EmptyMap
+  = Null / Boolean / Number / String / Immediate / Array / EmptyArray / Map / EmptyMap
+
+Immediate "immediate"
+  = _ "{{" contents:ImmediateContents "}}" { return contents; }
+
+ImmediateContents
+  = ("\\". / [^"}}"])* { return new Function('funcs', `return (${text()})`)(options.funcs); }
 
 EmptyMap "emptyMap"
-  = "{" _ "}" { return {}; }
+  = _ "{" _ "}" { return {}; }
 
 Map "map"
-  = "{" _ contents:MapContents _ "}" { return contents; }
+  = _ "{" _ contents:MapContents _ "}" { return contents; }
 
 MapContents
   = first:KeyValue rest:(_ "," _ KeyValue)* {
@@ -28,16 +34,16 @@ KeyValue
   = identifier:Identifier _ ":" _ value:Value { return [identifier, value] }
 
 EmptyArray "emptyArray"
-  = "[" _ "]" { return []; }
+  = _ "[" _ "]" { return []; }
 
 Array "array"
   = _ "[" _ contents:ArrayContents _ "]" { return contents; }
 
 ArrayContents
-  = first:Value rest:(_ "," Value)* {
+  = first:Value rest:(_ "," _ Value)* {
     var result = [ first ];
     for (const item of rest) {
-      result.push(item[2]);
+      result.push(item[3]);
     }
     return result;
   }
