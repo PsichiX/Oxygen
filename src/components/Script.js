@@ -7,28 +7,24 @@ const EventFlags = {
   MOUSE_DOWN: 1 << 0,
   MOUSE_UP: 1 << 1,
   MOUSE_MOVE: 1 << 2,
-  MOUSE: 0x7,
   KEY_DOWN: 1 << 3,
   KEY_UP: 1 << 4,
-  KEY: 0x18,
   GAMEPAD_CONNECTED: 1 << 5,
   GAMEPAD_DISCONNECTED: 1 << 6,
   GAMEPAD_PROCESS: 1 << 7,
-  GAMEPAD: 0xE0,
-  LEAP_CONNECTED: 1 << 8,
-  LEAP_DISCONNECTED: 1 << 9,
-  LEAP_PROCESS: 1 << 10,
-  LEAP: 0x700,
-  INPUT: 0x7FF,
-  CONTACT_BEGIN: 1 << 11,
-  CONTACT_END: 1 << 12,
-  CONTACT: 0x1800,
-  TOUCH_DOWN: 1 << 13,
-  TOUCH_UP: 1 << 14,
-  TOUCH_MOVE: 1 << 15,
-  TOUCH: 0xE000,
-  ALL: 0xFFFF,
+  CONTACT_BEGIN: 1 << 8,
+  CONTACT_END: 1 << 9,
+  TOUCH_DOWN: 1 << 10,
+  TOUCH_UP: 1 << 11,
+  TOUCH_MOVE: 1 << 12,
 };
+EventFlags.MOUSE = EventFlags.MOUSE_DOWN | EventFlags.MOUSE_UP | EventFlags.MOUSE_MOVE;
+EventFlags.KEY = EventFlags.KEY_DOWN | EventFlags.KEY_UP;
+EventFlags.GAMEPAD = EventFlags.GAMEPAD_CONNECTED | EventFlags.GAMEPAD_DISCONNECTED | EventFlags.GAMEPAD_PROCESS;
+EventFlags.INPUT = EventFlags.MOUSE | EventFlags.KEY | EventFlags.GAMEPAD;
+EventFlags.CONTACT = EventFlags.CONTACT_BEGIN | EventFlags.CONTACT_END;
+EventFlags.TOUCH = EventFlags.TOUCH_DOWN | EventFlags.TOUCH_UP | EventFlags.TOUCH_MOVE;
+EventFlags.ALL = EventFlags.INPUT | EventFlags.CONTACT | EventFlags.TOUCH;
 
 export default class Script extends Component {
 
@@ -129,30 +125,6 @@ export default class Script extends Component {
       }
     }
 
-    if (change & EventFlags.LEAP_CONNECTED) {
-      if (listenTo & EventFlags.LEAP_CONNECTED) {
-        input.events.on('leap-connected', this._onLeapConnected);
-      } else {
-        input.events.off('leap-connected', this._onLeapConnected);
-      }
-    }
-
-    if (change & EventFlags.LEAP_DISCONNECTED) {
-      if (listenTo & EventFlags.LEAP_DISCONNECTED) {
-        input.events.on('leap-disconnected', this._onLeapDisconnected);
-      } else {
-        input.events.off('leap-disconnected', this._onLeapDisconnected);
-      }
-    }
-
-    if (change & EventFlags.LEAP_PROCESS) {
-      if (listenTo & EventFlags.LEAP_PROCESS) {
-        input.events.on('leap-process', this._onLeapProcess);
-      } else {
-        input.events.off('leap-process', this._onLeapProcess);
-      }
-    }
-
     if (change & EventFlags.CONTACT_BEGIN) {
       if (listenTo & EventFlags.CONTACT_BEGIN) {
         input.events.on('contact-begin', this._onContactBegin);
@@ -206,9 +178,6 @@ export default class Script extends Component {
     this._onGamepadConnected = this.onGamepadConnected.bind(this);
     this._onGamepadDisconnected = this.onGamepadDisconnected.bind(this);
     this._onGamepadProcess = this.onGamepadProcess.bind(this);
-    this._onLeapConnected = this.onLeapConnected.bind(this);
-    this._onLeapDisconnected = this.onLeapDisconnected.bind(this);
-    this._onLeapProcess = this.onLeapProcess.bind(this);
     this._onContactBegin = this.onContactBegin.bind(this);
     this._onContactEnd = this.onContactEnd.bind(this);
     this._onTouchDown = this.onTouchDown.bind(this);
@@ -302,14 +271,6 @@ export default class Script extends Component {
           flags |= EventFlags.GAMEPAD_PROCESS;
         } else if (flag === 'gamepad') {
           flags |= EventFlags.GAMEPAD;
-        } else if (flag === 'leap-connected') {
-          flags |= EventFlags.LEAP_CONNECTED;
-        } else if (flag === 'leap-disconnected') {
-          flags |= EventFlags.LEAP_DISCONNECTED;
-        } else if (flag === 'leap-process') {
-          flags |= EventFlags.LEAP_PROCESS;
-        } else if (flag === 'leap') {
-          flags |= EventFlags.LEAP;
         } else if (flag === 'input') {
           flags |= EventFlags.INPUT;
         } else if (flag === 'contact-begin') {
@@ -368,15 +329,6 @@ export default class Script extends Component {
       if ((value & EventFlags.GAMEPAD_PROCESS) !== 0) {
         result.push('gamepad-process');
       }
-      if ((value & EventFlags.LEAP_CONNECTED) !== 0) {
-        result.push('leap-connected');
-      }
-      if ((value & EventFlags.LEAP_DISCONNECTED) !== 0) {
-        result.push('leap-disconnected');
-      }
-      if ((value & EventFlags.LEAP_PROCESS) !== 0) {
-        result.push('leap-process');
-      }
       if ((value & EventFlags.CONTACT_BEGIN) !== 0) {
         result.push('contact-begin');
       }
@@ -425,12 +377,6 @@ export default class Script extends Component {
   onGamepadDisconnected(gamepad) {}
 
   onGamepadProcess(gamepad) {}
-
-  onLeapConnected(leap) {}
-
-  onLeapDisconnected(leap) {}
-
-  onLeapProcess(frame, leap) {}
 
   onContactBegin(body, contact) {}
 

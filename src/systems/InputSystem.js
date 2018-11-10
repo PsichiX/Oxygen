@@ -1,7 +1,6 @@
 import System from './System';
 import Events from '../utils/Events';
 import { vec2 } from '../utils/gl-matrix';
-import Leap from 'leapjs';
 
 const cachedUnitsVector = vec2.create();
 const cachedScreenVector = vec2.create();
@@ -25,7 +24,7 @@ function detectTouchDevice() {
 }
 
 /**
- * User input (mouse, keyboard, gamepad, leap motion).
+ * User input (mouse, keyboard, gamepad).
  *
  * @example
  * const system = new InputSystem(document.getElementById('screen-0'));
@@ -40,16 +39,6 @@ export default class InputSystem extends System {
   /** @type {Map} */
   get gamepads() {
     return this._gamepads;
-  }
-
-  /** @type {Leap.Controller} */
-  get leap() {
-    return this._leap;
-  }
-
-  /** @type {boolean} */
-  get leapConnected() {
-    return this._leapConnected;
   }
 
   /** @type {boolean}*/
@@ -74,11 +63,6 @@ export default class InputSystem extends System {
     this._canvas = canvas;
     this._events = new Events();
     this._gamepads = new Map();
-    this._leap = new Leap.Controller({
-      background: true,
-      enableGestures: true
-    });
-    this._leapConnected = false;
     this._triggerEvents = !!triggerEvents;
     this._onMouseDown = this.onMouseDown.bind(this);
     this._onMouseUp = this.onMouseUp.bind(this);
@@ -100,7 +84,6 @@ export default class InputSystem extends System {
     this._canvas = null;
     this._events = null;
     this._gamepads = null;
-    this._leap = null;
     this._onMouseDown = null;
     this._onMouseUp = null;
     this._onMouseMove = null;
@@ -124,7 +107,6 @@ export default class InputSystem extends System {
     this._canvas.addEventListener('touchmove', this._onTouchMove);
     document.addEventListener('keydown', this._onKeyDown);
     document.addEventListener('keyup', this._onKeyUp);
-    this._leap.connect();
   }
 
   /**
@@ -140,7 +122,6 @@ export default class InputSystem extends System {
     this._canvas.removeEventListener('touchmove', this._onTouchMove);
     document.removeEventListener('keydown', this._onKeyDown);
     document.removeEventListener('keyup', this._onKeyUp);
-    this._leap.disconnect();
   }
 
   onMouseDown(event, target) {
@@ -287,26 +268,6 @@ export default class InputSystem extends System {
         !!_triggerEvents && !!_events && _events.trigger('gamepad-disconnected', gamepad);
       } else {
         !!_triggerEvents && !!_events && _events.trigger('gamepad-process', gamepad);
-      }
-    }
-  }
-
-  /**
-   * Process leap motion data frame.
-   */
-  leapProcessFrame() {
-    const { _leap, _events, _triggerEvents } = this;
-    if (!!_leap) {
-      const frame = _leap.frame();
-      if (!!frame && frame.valid) {
-        if (!this._leapConnected) {
-          this._leapConnected = true;
-          !!_triggerEvents && !!_events && _events.trigger('leap-connected', _leap);
-        }
-        !!_triggerEvents && !!_events && _events.trigger('leap-process', frame, _leap);
-      } else if (this._leapConnected) {
-        this._leapConnected = false;
-        !!_triggerEvents && !!_events && _events.trigger('leap-disconnected', _leap);
       }
     }
   }

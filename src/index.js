@@ -282,24 +282,11 @@ export class EventsController {
     this._gamepads = value;
   }
 
-  get leap() {
-    return this._leap;
-  }
-
-  set leap(value) {
-    if (typeof value !== 'boolean') {
-      throw new Error('`value` is not type of Boolean!');
-    }
-
-    this._leap = value;
-  }
-
   get all() {
     return this._transform
       && this._update
       && this._view
-      && this._gamepads
-      && this._leap;
+      && this._gamepads;
   }
 
   set all(value) {
@@ -307,15 +294,14 @@ export class EventsController {
       throw new Error('`value` is not type of Boolean!');
     }
 
-    this._transform = this._update = this._view = this._gamepads = this._leap = value;
+    this._transform = this._update = this._view = this._gamepads = value;
   }
 
   get none() {
     return !this._transform
       && !this._update
       && !this._view
-      && !this._gamepads
-      && !this._leap;
+      && !this._gamepads;
   }
 
   set none(value) {
@@ -323,7 +309,7 @@ export class EventsController {
       throw new Error('`value` is not type of Boolean!');
     }
 
-    this._transform = this._update = this._view = this._gamepads = this._leap = !value;
+    this._transform = this._update = this._view = this._gamepads = !value;
   }
 
   get accepted() {
@@ -340,9 +326,6 @@ export class EventsController {
     if (!!this._gamepads) {
       result.push('gamepads');
     }
-    if (!!this._leap) {
-      result.push('leap');
-    }
     return result;
   }
 
@@ -355,7 +338,6 @@ export class EventsController {
     this._update = value.indexOf('update') >= 0;
     this._view = value.indexOf('view') >= 0;
     this._gamepads = value.indexOf('gamepads') >= 0;
-    this._leap = value.indexOf('leap') >= 0;
   }
 
   constructor() {
@@ -363,7 +345,6 @@ export class EventsController {
     this._update = true;
     this._view = true;
     this._gamepads = true;
-    this._leap = true;
   }
 
 }
@@ -381,7 +362,7 @@ export class EventsController {
  *   render: { screen: 'screen-0' },
  *   input: { triggerEvents: true },
  *   store: { id: 'my-game-id' },
- *   events: { transform: true, update: true, view: true, gamepads: true, leap: true }
+ *   events: { transform: true, update: true, view: true, gamepads: true }
  * });
  */
 export function lazyInitialization({ entity, asset, render, input, store, events }) {
@@ -414,7 +395,6 @@ export function lazyInitialization({ entity, asset, render, input, store, events
   controller.update = !!events ? !!events.update : true;
   controller.view = !!events ? !!events.view : true;
   controller.gamepads = !!events ? !!events.gamepads : true;
-  controller.leap = !!events ? !!events.leap : true;
 
   entities.registerComponent('Camera2D', Camera2D.factory);
   entities.registerComponent('CameraDirector2D', CameraDirector2D.factory);
@@ -517,7 +497,6 @@ export function lazyInitialization({ entity, asset, render, input, store, events
     !!controller.update && entities.performAction('update', deltaTime);
     !!controller.view && entities.performAction('view', context, renderer, deltaTime);
     !!controller.gamepads && inputs.scanForGamepads();
-    !!controller.leap && inputs.leapProcessFrame();
   });
 
   System.events.on('change-scene', path => {

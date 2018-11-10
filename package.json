@@ -1,6 +1,6 @@
 {
   "name": "oxygen-core",
-  "version": "1.4.38",
+  "version": "1.4.39",
   "description": "Oxygen game engine (Xenon Core for browsers)",
   "main": "bin/index.js",
   "scripts": {
@@ -61,7 +61,6 @@
     "esdoc-ecmascript-proposal-plugin": "^1.0.0",
     "esdoc-importpath-plugin": "^1.0.2",
     "esdoc-standard-plugin": "^1.0.0",
-    "leapjs": "^0.6.4",
     "stream-buffers": "^3.0.2",
     "webpack": "^4.25.1",
     "webpack-cli": "^3.1.2",

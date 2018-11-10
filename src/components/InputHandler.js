@@ -5,21 +5,6 @@ const ControlDevice = {
   NONE: 'none',
   MOUSE_KEYBOARD: 'mouse-keyboard',
   GAMEPAD: 'gamepad',
-  LEAP: 'leap'
-};
-const regexLeapItem = /^(\w+)(-(\w+)(-(\w+))?)?$/;
-const fingerTypes = {
-  thumb: 0,
-  index: 1,
-  middle: 2,
-  ring: 3,
-  pinky: 4
-};
-const boneTypes = {
-  metacarpal: 0,
-  proximal: 1,
-  intermediate: 2,
-  distal: 3
 };
 
 function getGamepadAxisById(axes, id) {
@@ -52,91 +37,6 @@ function getGamepadAxisById(axes, id) {
   }
 }
 
-function getLeapItemById(frame, id) {
-  const matches = regexLeapItem.exec(id);
-  const hand_type = matches[1];
-  const hand = frame.hands.find(h => h.type === hand_type) || null;
-  if (!hand) {
-    return null;
-  }
-
-  hand.isHand = true;
-  const finger_type = matches[3];
-  const finger = hand.fingers.find(f => f.type === fingerTypes[finger_type]);
-  if (!finger) {
-    return hand;
-  }
-
-  finger.isFinger = true;
-  const bone_type = matches[5];
-  const bone = finger.bones.find(b => b.type === boneTypes[bone_type]);
-  if (!bone) {
-    return finger;
-  }
-
-  bone.isBone = true;
-  return bone;
-}
-
-function getLeapAxisById(frame, id) {
-  if (id.startsWith('pos-')) {
-    const item = getLeapItemById(frame, id.substr(6));
-    if (!item) {
-      return 0;
-    }
-
-    let pos = !!item.isHand ? item.palmPosition : item.tipPosition;
-    if (!pos) {
-      return 0;
-    }
-    pos = frame.interactionBox.normalizePoint(pos);
-    if (id.startsWith('pos-x-')) {
-      return pos[0] * 2 - 1;
-    } else if (id.startsWith('pos-y-')) {
-      return pos[1] * 2 - 1;
-    } else if (id.startsWith('pos-z-')) {
-      return pos[2] * 2 - 1;
-    }
-  } else if (id.startsWith('dir-')) {
-    const item = getLeapItemById(frame, id.substr(6));
-    if (!item) {
-      return 0;
-    }
-
-    const dir = item.direction;
-    if (!dir) {
-      return 0;
-    }
-    if (id.startsWith('dir-x-')) {
-      return dir[0];
-    } else if (id.startsWith('dir-y-')) {
-      return dir[1];
-    } else if (id.startsWith('dir-z-')) {
-      return dir[2];
-    }
-  } else if (id === 'pinch-left') {
-    const hand = frame.hands.find(h => h.type === 'left');
-    return !!hand ? hand.pinchStrength : 0;
-  } else if (id === 'pinch-right') {
-    const hand = frame.hands.find(h => h.type === 'right');
-    return !!hand ? hand.pinchStrength : 0;
-  } else if (id === 'grab-left') {
-    const hand = frame.hands.find(h => h.type === 'left');
-    return !!hand ? hand.grabStrength : 0;
-  } else if (id === 'grab-right') {
-    const hand = frame.hands.find(h => h.type === 'right');
-    return !!hand ? hand.grabStrength : 0;
-  } else if (id === 'confidence-left') {
-    const hand = frame.hands.find(h => h.type === 'left');
-    return !!hand ? hand.confidence : 0;
-  } else if (id === 'confidence-right') {
-    const hand = frame.hands.find(h => h.type === 'right');
-    return !!hand ? hand.confidence : 0;
-  }
-
-  return 0;
-}
-
 /**
  * Simple yet powerful input handler.
  *
@@ -163,7 +63,6 @@ export default class InputHandler extends Script {
       acceptMouse: 'boolean',
       acceptKeyboard: 'boolean',
       acceptGamepad: 'boolean',
-      acceptLeap: 'boolean',
       controlDeviceChangeTreshold: 'number',
       repeatingTriggersDelay: 'number',
       firstTriggersDelay: 'number',
@@ -230,20 +129,6 @@ export default class InputHandler extends Script {
     }
 
     this._acceptGamepad = value;
-  }
-
-  /** @type {boolean} */
-  get acceptLeap() {
-    return this._acceptLeap;
-  }
-
-  /** @type {boolean} */
-  set acceptLeap(value) {
-    if (typeof value !== 'boolean') {
-      throw new Error('`value` is not type of Boolean!');
-    }
-
-    this._acceptLeap = value;
   }
 
   /** @type {number} */
@@ -349,7 +234,6 @@ export default class InputHandler extends Script {
     this._acceptMouse = true;
     this._acceptKeyboard = true;
     this._acceptGamepad = true;
-    this._acceptLeap = true;
     this._controlDeviceChangeTreshold = 0.1;
     this._repeatingTriggersDelay = -1;
     this._firstTriggersDelay = -1;
@@ -358,12 +242,10 @@ export default class InputHandler extends Script {
     this._configAxesKey = new Map();
     this._configAxesGamepad = new Map();
     this._configAxesGamepadAxis = new Map();
-    this._configAxesLeap = new Map();
     this._configTriggersMouse = new Map();
     this._configTriggersKey = new Map();
     this._configTriggersGamepad = new Map();
     this._configTriggersGamepadAxis = new Map();
-    this._configTriggersLeap = new Map();
     this._axes = new Map();
     this._axesPrev = new Map();
     this._axesNext = new Map();
@@ -399,12 +281,10 @@ export default class InputHandler extends Script {
     this._configAxesKey.clear();
     this._configAxesGamepad.clear();
     this._configAxesGamepadAxis.clear();
-    this._configAxesLeap.clear();
     this._configTriggersMouse.clear();
     this._configTriggersKey.clear();
     this._configTriggersGamepad.clear();
     this._configTriggersGamepadAxis.clear();
-    this._configTriggersLeap.clear();
     this._axes.clear();
     this._axesPrev.clear();
     this._axesNext.clear();
@@ -443,7 +323,6 @@ export default class InputHandler extends Script {
           keys,
           gamepad,
           gamepadAxis,
-          leap
         } = axis;
         if (typeof mouse === 'string') {
           this._configAxesMouse.set(name, mouse);
@@ -466,10 +345,6 @@ export default class InputHandler extends Script {
         if (typeof gamepadAxis === 'string') {
           this._configAxesGamepadAxis.set(name, gamepadAxis);
         }
-
-        if (typeof leap === 'string') {
-          this._configAxesLeap.set(name, leap);
-        }
       }
     }
 
@@ -485,7 +360,6 @@ export default class InputHandler extends Script {
           key,
           gamepad,
           gamepadAxis,
-          leap
         } = trigger;
         if (typeof mouse === 'number') {
           this._configTriggersMouse.set(name, mouse);
@@ -511,10 +385,6 @@ export default class InputHandler extends Script {
 
         if (typeof gamepadAxis === 'string') {
           this._configTriggersGamepadAxis.set(name, gamepadAxis)
-        }
-
-        if (typeof leap === 'string') {
-          this._configTriggersLeap.set(name, leap);
         }
       }
     }
@@ -1136,27 +1006,6 @@ export default class InputHandler extends Script {
           this._applyControlDevice(ControlDevice.GAMEPAD);
         }
       }
-    }
-  }
-
-  /**
-   * @override
-   */
-  onLeapProcess(frame, leap) {
-    if (!this._acceptLeap) {
-      return;
-    }
-
-    this._applyControlDevice(ControlDevice.LEAP);
-
-    for (const [key, value] of this._configAxesLeap.entries()) {
-      const axis = getLeapAxisById(frame, value);
-      this._axesNext.set(key, axis || 0);
-    }
-
-    for (const [key, value] of this._configTriggersLeap.entries()) {
-      const axis = getLeapAxisById(frame, value);
-      this._triggersNext.set(key, axis || 0);
     }
   }
 
