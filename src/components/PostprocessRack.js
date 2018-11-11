@@ -1,3 +1,4 @@
+import System from '../systems/System';
 import Component from '../systems/EntitySystem/Component';
 import Camera, { PostprocessPass } from './Camera';
 
@@ -191,7 +192,8 @@ export default class PostprocessRack extends Component {
       connections: 'array(array(any))',
       targets: 'array(any)',
       sourceFloatPointData: 'boolean',
-      effects: 'map(any)'
+      effects: 'map(any)',
+      composites: 'map(any)'
     };
   }
 
@@ -273,6 +275,16 @@ export default class PostprocessRack extends Component {
     this._registerEffects();
   }
 
+  get composites() {
+    return this._composites;
+  }
+
+  set composites(value) {
+    this._unregisterComposites();
+    this._composites = value;
+    this._registerComposites();
+  }
+
   /**
    * Constructor.
    */
@@ -284,6 +296,9 @@ export default class PostprocessRack extends Component {
     this._targets = null;
     this._effects = null;
     this._effectsPasses = null;
+    this._composites = null;
+    this._compositesPasses = null;
+    this._compositesEffectsPasses = null;
   }
 
   /**
@@ -301,6 +316,9 @@ export default class PostprocessRack extends Component {
     this._targets = null;
     this._effects = null;
     this._effectsPasses = null;
+    this._composites = null;
+    this._compositesPasses = null;
+    this._compositesEffectsPasses = null;
   }
 
   getTargetId(id) {
@@ -404,6 +422,68 @@ export default class PostprocessRack extends Component {
       this.unregisterPass(id);
     }
     this._effectsPasses = null;
+  }
+
+  _registerComposites() {
+    const { _composites } = this;
+    if (!_composites) {
+      return;
+    }
+
+    const { AssetSystem } = System.systems;
+    if (!AssetSystem) {
+      throw new Error('There is no registered AssetSystem!');
+    }
+
+    this._compositesPasses = new Map();
+    this._compositesEffectsPasses = new Map();
+    for (const id in _composites) {
+      const assetPath = _composites[id];
+      if (!assetPath) {
+        throw new Error('There is no postprocess rack effect asset provided!');
+      }
+
+      const asset = AssetSystem.get(`postprocess://${assetPath}`);
+      if (!asset) {
+        throw new Error(`There is no loaded postprocess rack effect asset: ${assetPath}`);
+      }
+
+      this._compositesEffectsPasses[id] = new Map();
+      const { targets, connections, effects } = asset;
+      const mainPass = new PostprocessRackPass();
+      for (const effect in effects) {
+        const { shader, overrideUniforms, overrideSamplers } = effects[effect];
+        const pass = new PostprocessRackRawEffectPass();
+        pass.shader = shader;
+        pass.overrideUniforms = overrideUniforms;
+        pass.overrideSamplers = overrideSamplers;
+        this._compositesEffectsPasses[id][effect] = pass;
+        mainPass.registerPass(effect, pass);
+      }
+      for (const target in targets) {
+        const { level, floatPointData, potMode } = targets[target];
+        mainPass.createTarget(target, level, floatPointData, potMode);
+      }
+      mainPass.connections = connections;
+      this.registerPass(id, mainPass);
+    }
+  }
+
+  _unregisterComposites() {
+    const { _compositesPasses, _compositesEffectsPasses } = this;
+    if (!_compositesPasses) {
+      return;
+    }
+
+    for (const [id, pass] of _compositesPasses.entries()) {
+      pass.dispose();
+      this.unregisterPass(id);
+    }
+    for (const [, pass] of _compositesEffectsPasses.entries()) {
+      pass.dispose();
+    }
+    this._compositesPasses = null;
+    this._compositesEffectsPasses = null;
   }
 
 }

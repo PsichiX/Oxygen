@@ -13,6 +13,7 @@ import SkeletonAsset from './SkeletonAsset';
 import SVGAsset from './SVGAsset';
 import SetAsset from './SetAsset';
 import AssemblyAsset from './AssemblyAsset';
+import PostprocessRackEffectAsset from './PostprocessRackEffectAsset';
 
 export default {
   JSONAsset,
@@ -29,7 +30,8 @@ export default {
   SkeletonAsset,
   SVGAsset,
   SetAsset,
-  AssemblyAsset
+  AssemblyAsset,
+  PostprocessRackEffectAsset
 };
 
 export {
@@ -47,5 +49,6 @@ export {
   SkeletonAsset,
   SVGAsset,
   SetAsset,
-  AssemblyAsset
+  AssemblyAsset,
+  PostprocessRackEffectAsset
 };

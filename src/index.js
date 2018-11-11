@@ -14,6 +14,7 @@ import SkeletonAsset from './asset-loaders/SkeletonAsset';
 import SVGAsset from './asset-loaders/SVGAsset';
 import SetAsset from './asset-loaders/SetAsset';
 import AssemblyAsset from './asset-loaders/AssemblyAsset';
+import PostprocessRackEffectAsset from './asset-loaders/PostprocessRackEffectAsset';
 import Camera, { PostprocessPass } from './components/Camera';
 import Camera2D from './components/Camera2D';
 import CameraDirector2D from './components/CameraDirector2D';
@@ -97,6 +98,7 @@ export default {
   SVGAsset,
   SetAsset,
   AssemblyAsset,
+  PostprocessRackEffectAsset,
   Camera,
   PostprocessPass,
   Camera2D,
@@ -175,6 +177,7 @@ export {
   SVGAsset,
   SetAsset,
   AssemblyAsset,
+  PostprocessRackEffectAsset,
   Camera,
   PostprocessPass,
   Camera2D,
@@ -436,6 +439,7 @@ export function lazyInitialization({ entity, asset, render, input, store, events
   assets.registerProtocol('svg', SVGAsset.factory);
   assets.registerProtocol('set', SetAsset.factory);
   assets.registerProtocol('wasm', AssemblyAsset.factory);
+  assets.registerProtocol('postprocess', PostprocessRackEffectAsset.factory);
 
   assets.events.on('load', asset => {
     const { protocol, filename, data } = asset;
