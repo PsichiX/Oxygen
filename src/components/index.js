@@ -18,6 +18,7 @@ import UiLayout from './UiLayout';
 import Skeleton from './Skeleton';
 import SortedActions from './SortedActions';
 import DeferredRenderer, { DeferredPipeline } from './DeferredRenderer';
+import MultipassRenderer, { MultipassPipeline } from './MultipassRenderer';
 import PostprocessRack, { PostprocessRackPass, PostprocessRackRawEffectPass } from './PostprocessRack';
 import Shape from './Shape';
 import PolygonShape from './PolygonShape';
@@ -47,6 +48,8 @@ export default {
   SortedActions,
   DeferredRenderer,
   DeferredPipeline,
+  MultipassRenderer,
+  MultipassPipeline,
   PostprocessRack,
   PostprocessRackPass,
   PostprocessRackRawEffectPass,
@@ -79,6 +82,8 @@ export {
   SortedActions,
   DeferredRenderer,
   DeferredPipeline,
+  MultipassRenderer,
+  MultipassPipeline,
   PostprocessRack,
   PostprocessRackPass,
   PostprocessRackRawEffectPass,

@@ -35,6 +35,7 @@ import UiLayout from './components/UiLayout';
 import Skeleton from './components/Skeleton';
 import SortedActions from './components/SortedActions';
 import DeferredRenderer, { DeferredPipeline } from './components/DeferredRenderer';
+import MultipassRenderer, { MultipassPipeline } from './components/MultipassRenderer';
 import PostprocessRack, {
   PostprocessRackPass,
   PostprocessRackRawEffectPass
@@ -121,6 +122,8 @@ export default {
   SortedActions,
   DeferredRenderer,
   DeferredPipeline,
+  MultipassRenderer,
+  MultipassPipeline,
   PostprocessRack,
   PostprocessRackPass,
   PostprocessRackRawEffectPass,
@@ -200,6 +203,8 @@ export {
   SortedActions,
   DeferredRenderer,
   DeferredPipeline,
+  MultipassRenderer,
+  MultipassPipeline,
   PostprocessRack,
   PostprocessRackPass,
   PostprocessRackRawEffectPass,
@@ -418,6 +423,7 @@ export function lazyInitialization({ entity, asset, render, input, store, events
   entities.registerComponent('Skeleton', Skeleton.factory);
   entities.registerComponent('SortedActions', SortedActions.factory);
   entities.registerComponent('DeferredRenderer', DeferredRenderer.factory);
+  entities.registerComponent('MultipassRenderer', MultipassRenderer.factory);
   entities.registerComponent('PostprocessRack', PostprocessRack.factory);
   entities.registerComponent('PolygonShape', PolygonShape.factory);
   entities.registerComponent('CircleShape', CircleShape.factory);
