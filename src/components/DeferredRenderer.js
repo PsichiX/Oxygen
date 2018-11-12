@@ -166,7 +166,7 @@ export class DeferredPipeline extends Command {
     }
 
     if (!!rtt) {
-      renderer.enableRenderTarget(rtt);
+      renderer.enableRenderTarget(rtt, false);
     }
     this._fullscreen.onRender(gl, renderer, deltaTime, layer);
   }

@@ -50,7 +50,7 @@ export class MultipassPipeline extends Command {
     this._passesTargets = null;
   }
 
-  onRender(gl, renderer, deltaTime, layer) {
+  onRender(gl, renderer, deltaTime, mainLayer) {
     this._ensureState(renderer);
 
     const { _owner, _passes, _passesTargets } = this;
@@ -60,6 +60,7 @@ export class MultipassPipeline extends Command {
       const {
         layer,
         buffer,
+        persistentBuffer,
         captureEntity,
         shader,
         overrideUniforms,
@@ -81,26 +82,34 @@ export class MultipassPipeline extends Command {
             samplers.set(name, overrideSamplers[name]);
           }
         }
-        this._fullscreen.onRender(gl, renderer, deltaTime, layer);
+        if (!!rtt) {
+          renderer.enableRenderTarget(rtt, false);
+        } else {
+          renderer.disableRenderTarget();
+        }
+        this._fullscreen.onRender(gl, renderer, deltaTime, mainLayer);
       } else {
         const target = !!captureEntity
-        ? entity.findEntity(captureEntity)
-        : entity;
+          ? entity.findEntity(captureEntity)
+          : entity;
         if (!!buffer) {
-          renderer.enableRenderTarget(buffer);
+          renderer.enableRenderTarget(buffer, !persistentBuffer);
+        } else if (!!rtt) {
+          renderer.enableRenderTarget(rtt, false);
+        } else {
+          renderer.disableRenderTarget();
         }
         if (!!layer) {
           target.performAction('render-layer', gl, renderer, deltaTime, layer);
         } else {
-          target.performAction('render', gl, renderer, deltaTime);
-        }
-        if (!!buffer) {
-          renderer.disableRenderTarget();
+          target.performAction('render', gl, renderer, deltaTime, null);
         }
       }
     }
     if (!!rtt) {
-      renderer.enableRenderTarget(rtt);
+      renderer.enableRenderTarget(rtt, false);
+    } else {
+      renderer.disableRenderTarget();
     }
   }
 
