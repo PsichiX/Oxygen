@@ -19,7 +19,7 @@ var config = {
     path: BUILD_DIR,
     filename: 'oxygen-core.js',
     library: 'OxygenCore',
-    libraryTarget: 'umd',
+    libraryTarget: 'var',
   },
   devtool: 'source-map',
 };
