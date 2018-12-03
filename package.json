@@ -1,10 +1,10 @@
 {
   "name": "oxygen-core",
-  "version": "1.4.43",
+  "version": "1.4.44",
   "description": "Oxygen game engine (Xenon Core for browsers)",
   "main": "bin/index.js",
   "scripts": {
-    "clean": "rm -rf bin bin-tools docs",
+    "clean": "node ./scripts/cleanup.js",
     "build": "babel src -d bin && node ./versionize.js",
     "build-tools": "babel tools -d bin-tools",
     "build-standalone": "webpack -p",
@@ -24,6 +24,7 @@
     "src/",
     "tools/",
     "docs/",
+    "scripts/",
     ".babelrc",
     "esdoc.json",
     "versionize.js",
