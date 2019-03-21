@@ -1,14 +1,14 @@
 {
   "name": "oxygen-core",
-  "version": "1.4.44",
+  "version": "1.4.45",
   "description": "Oxygen game engine (Xenon Core for browsers)",
   "main": "bin/index.js",
   "scripts": {
     "clean": "node ./scripts/cleanup.js",
-    "build": "babel src -d bin && node ./versionize.js",
-    "build-tools": "babel tools -d bin-tools",
-    "build-standalone": "webpack -p",
-    "docs": "esdoc -c esdoc.json",
+    "build": "./node_modules/.bin/babel src -d bin && node ./versionize.js",
+    "build-tools": "./node_modules/.bin/babel tools -d bin-tools",
+    "build-standalone": "./node_modules/.bin/webpack -p --config ./webpack.config.js",
+    "docs": "./node_modules/.bin/esdoc -c esdoc.json",
     "make": "npm run clean && npm run build && npm run build-standalone && npm run build-tools && npm run docs",
     "postinstall": "npm run make"
   },
